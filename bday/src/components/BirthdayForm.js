@@ -3,18 +3,25 @@ import React from "react"
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+
 
 
 class BirthdayForm extends React.Component{
     state = { name: "", reminder: false, desc:"", daysOfNotice: "" }
 
 
-
+    onFormSubmit = (event) => {
+        event.preventDefault();
+        // this.props.onSubmit(this.state.name);
+        console.log(event);
+    }
 
     render (){
         return(
             <div className="container">
-                <Form>
+                <h1>Birthday add form!</h1>
+                <Form onSubmit = { this.onFormSubmit }>
                     <Row className="g-2">
                         <Col md>
 
@@ -37,8 +44,7 @@ class BirthdayForm extends React.Component{
                     </Row>
                     
                     <div key={`default-checkbox`} className="mb-3">
-                        <Form.Check
-                            required 
+                        <Form.Check 
                             type='checkbox'
                             id={`default-checkbox`}
                             label='Do you want reminders?'
@@ -52,8 +58,9 @@ class BirthdayForm extends React.Component{
                         </Form.Text>
                     </Form.Group>
 
-
-
+                    <Button type="submit" className="mb-2">
+                        Submit
+                    </Button>
 
 
   

@@ -10,8 +10,7 @@ const App = () => {
 
   return (
       <div className="container">
-          <p>App</p>
-          <button class="btn btn-primary"> test button </button>
+          <p>In App container</p>
           <BirthdayForm />
       </div>
   )
