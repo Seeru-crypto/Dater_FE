@@ -6,7 +6,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 import BirthdayForm from "./BirthdayForm";
 import Dashboard from './Dashboard';
-import Navbar from "./Navbar"
+import ReactNavbar from "./ReactNavbar"
 
 const App = () => {
 
@@ -17,7 +17,7 @@ const App = () => {
   <Router>
 
       <div className="App">
-      {/* <Navbar /> */}
+      <ReactNavbar />
 
         <div className="container">
 
