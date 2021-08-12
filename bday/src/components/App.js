@@ -4,24 +4,31 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 // npm install react-router-dom
 
 
-import Testing from "./Testing"; 
 import BirthdayForm from "./BirthdayForm";
 import Dashboard from './Dashboard';
+import Navbar from "./Navbar"
 
 const App = () => {
 
   console.log("test");
 
-  return (
-      <div className="container">
-        <Router>
+  return (        
+    
+  <Router>
+
+      <div className="App">
+      {/* <Navbar /> */}
+
+        <div className="container">
+
           <Switch>
-          <Route exact path="/create" component={ Dashboard } />
-          <Route exact path="/" component={ BirthdayForm } />
+          <Route exact path="/" component={ Dashboard } />
+          <Route exact path="/d" component={ BirthdayForm } />
           </Switch>
+                </div>
+          </div>          
           </Router>
 
-      </div>
   )
 }
 export default App;
