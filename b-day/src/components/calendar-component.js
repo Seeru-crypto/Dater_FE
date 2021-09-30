@@ -16,7 +16,7 @@ const CalendarComponent = ({dateHandler}) => {
 
   return(
     <div>
-      <Calendar id="navigatorstemplate" value={date16} onChange={(e) => dateHandler(e.value)} monthNavigator yearNavigator yearRange="1950:2030"
+      <Calendar required='true' placeholder="Add date" id="navigatorstemplate" value={date16} onChange={(e) => dateHandler(e.value)} monthNavigator yearNavigator yearRange="1950:2030"
               monthNavigatorTemplate={monthNavigatorTemplate} yearNavigatorTemplate={yearNavigatorTemplate} />
 
     </div>

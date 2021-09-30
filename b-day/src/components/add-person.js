@@ -20,42 +20,69 @@ const AddPerson = () => {
     setDate(date);
   }
 
+  const submitForm = () => {
+    //TODO
+    //add reference to axios helper function
+
+  }
+
   useEffect(() => {
     // console.log(reminder);
     // console.log(date);
-
+    // console.log(reminderInDays);
+    // console.log(name);
   })
 
   return (
-    <div className="p-grid">
-      <div className="p-col" style={{padding: '10px'}}>
-        <p>Add Date</p>
+    <div>
+    <div className="p-fluid p-formgrid p-grid">
+      <div className="p-field p-col-12 p-md-6" style={{padding: '10px'}}>
         <CalendarComponent dateHandler={dateHandler} />
         </div>
 
-      <div className="p-col" style={{padding: '10px'}}>
-      <p>Add name</p>
-      <InputText value={name} onChange={(e) => setName(e.target.value)} />
+      <div className="p-field p-col-12 p-md-6" style={{padding: '10px'}}>
+      <InputText required='true' placeholder="name" value={name} onChange={(e) => setName(e.target.value)} />
       </div>
 
-      <div className="p-col">
-      <div className="p-field-checkbox">
-        <label style={{padding: '10px'}}>Do you want date reminder?</label>
+      <div className="p-field p-grid p-col-12 p-md-3">
+      <div className="checkbox p-col">
+
+        <label className="p-col-fixed" style={{width:'100px'}} style={{paddingRight:"10px"}} >Do you want date reminder?</label>
         <Checkbox inputId="binary" checked={reminder} onChange={e => setReminder(e.checked)} />
       </div>
       </div>
 
-      <div className="p-col">{
+
+        {
         reminder && (
-          <div>
-            <label style={{padding: '10px'}} htmlFor="integeronly">How may days before?</label>
+          <div className="p-field p-grid">
+            <label className="p-col-fixed" style={{width:'100px'}} htmlFor="integeronly">How many days notice?</label>
+            <div className="p-col p-md-3">
             <InputNumber inputId="integeronly" min={1} max={31} value={reminderInDays} onValueChange={(e) => setReminderInDays(e.value)} />
           </div>
+          </div>
+
         )
       }
-      </div>
+
 
     </div>
+
+  {/*<div className="p-field p-grid">*/}
+  {/*  <label htmlFor="firstname3" className="p-col-fixed" style={{width:'100px'}}>Firstname</label>*/}
+  {/*  <div className="p-col">*/}
+  {/*    <InputText id="firstname3" type="text"/>*/}
+  {/*  </div>*/}
+  {/*</div>*/}
+  {/*<div className="p-field p-grid">*/}
+  {/*  <label htmlFor="lastname3" className="p-col-fixed" style={{width:'100px'}}>Lastname</label>*/}
+  {/*  <div className="p-col">*/}
+  {/*    <InputText id="lastname3" type="text"/>*/}
+  {/*  </div>*/}
+  {/*</div>*/}
+
+    </div>
+
   )
 }
 export default AddPerson;
