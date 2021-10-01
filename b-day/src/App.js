@@ -12,6 +12,7 @@ import 'primeflex/primeflex.css'
 import Navigationbar from './components/navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AddPerson from './components/add-person';
+import ViewPeople from './components/view-people';
 import {
   BrowserRouter as Router,
   Switch,
@@ -29,6 +30,7 @@ function App() {
             <Switch>
           <Route exact path="/" component={Main} />
           <Route exact path="/add" component={AddPerson} />
+          <Route exact path="/peopleList" component={ViewPeople} />
 
               <Route exact path="/nf" component={NotFound} />
 
