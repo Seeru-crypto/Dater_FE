@@ -1,10 +1,23 @@
+[
+    {
+      "id": 1,
+    "name": "Mike",
+    "birth_day": "24/07/1992",
+    "reminder": true,
+    "reminder_days": 10
+  },
 {
-  "posts": [
-    { "id": 1, "title": "json-server", "author": "typicode" }
-  ],
-  "comments": [
-    { "id": 1, "body": "some comment", "postId": 1 }
-  ],
-  "profile": { "name": "typicode" }
-
+  "id": 2,
+  "name": "Alice",
+  "birth_day": "10/10/1998",
+  "reminder": false,
+  "reminder_days": 0
+},
+{
+  "id": 3,
+  "name": "Jason",
+"birth_day": "10/10/1998",
+"reminder": true,
+"reminder_days": 31
 }
+]

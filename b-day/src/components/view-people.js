@@ -1,14 +1,14 @@
 import React from 'react';
 import data from "../static/data.json"
 
-import DataTableFilterDemo from './filter-table';
+import FilterTable from './filter-table';
 
 const ViewPeople = () => {
   const people = data[0].users;
-  console.log(people);
+  // console.log(people);
   return(
     <div>
-      <DataTableFilterDemo />
+      <FilterTable />
     </div>
   )
 }

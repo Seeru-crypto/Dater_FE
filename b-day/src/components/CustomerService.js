@@ -15,6 +15,11 @@ export class CustomerService {
       .then(d => d.data);
   }
 
+  getUserData() {
+    return fetch('db.json').then(res => res.json())
+      .then(d => d);
+  }
+
   getCustomersXLarge() {
     return fetch('data/customers-xlarge.json').then(res => res.json())
       .then(d => d.data);
