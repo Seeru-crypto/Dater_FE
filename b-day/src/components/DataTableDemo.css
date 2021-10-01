@@ -3,12 +3,12 @@
 }
 
 .datatable-filter-demo .p-progressbar {
-    height: .5rem;
-    background-color: #D8DADC;
+    height: 0.5rem;
+    background-color: #d8dadc;
 }
 
 .datatable-filter-demo .p-progressbar .p-progressbar-value {
-    background-color: #607D8B;
+    background-color: #607d8b;
 }
 
 .datatable-filter-demo .table-header {
@@ -34,33 +34,63 @@
     padding: 1rem;
 }
 
-.datatable-filter-demo .p-datatable.p-datatable-customers .p-datatable-thead > tr > th {
+.datatable-filter-demo
+    .p-datatable.p-datatable-customers
+    .p-datatable-thead
+    > tr
+    > th {
     text-align: left;
 }
 
-.datatable-filter-demo .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td {
+.datatable-filter-demo
+    .p-datatable.p-datatable-customers
+    .p-datatable-tbody
+    > tr
+    > td {
     cursor: auto;
 }
 
-.datatable-filter-demo .p-datatable.p-datatable-customers .p-dropdown-label:not(.p-placeholder) {
+.datatable-filter-demo
+    .p-datatable.p-datatable-customers
+    .p-dropdown-label:not(.p-placeholder) {
     text-transform: uppercase;
 }
 
-.datatable-filter-demo .p-datatable-customers .p-datatable-tbody > tr > td .p-column-title {
+.datatable-filter-demo
+    .p-datatable-customers
+    .p-datatable-tbody
+    > tr
+    > td
+    .p-column-title {
     display: none;
 }
 
 @media screen and (max-width: 960px) {
-    .datatable-filter-demo .p-datatable.p-datatable-customers .p-datatable-thead > tr > th,
-    .datatable-filter-demo .p-datatable.p-datatable-customers .p-datatable-tfoot > tr > td {
+    .datatable-filter-demo
+        .p-datatable.p-datatable-customers
+        .p-datatable-thead
+        > tr
+        > th,
+    .datatable-filter-demo
+        .p-datatable.p-datatable-customers
+        .p-datatable-tfoot
+        > tr
+        > td {
         display: none !important;
     }
 
-    .datatable-filter-demo .p-datatable.p-datatable-customers .p-datatable-tbody > tr {
+    .datatable-filter-demo
+        .p-datatable.p-datatable-customers
+        .p-datatable-tbody
+        > tr {
         border-bottom: 1px solid var(--layer-2);
     }
 
-    .datatable-filter-demo .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td {
+    .datatable-filter-demo
+        .p-datatable.p-datatable-customers
+        .p-datatable-tbody
+        > tr
+        > td {
         text-align: left;
         display: block;
         border: 0 none !important;
@@ -70,15 +100,25 @@
         border: 0 none;
     }
 
-    .datatable-filter-demo .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td .p-column-title {
-        padding: .4rem;
+    .datatable-filter-demo
+        .p-datatable.p-datatable-customers
+        .p-datatable-tbody
+        > tr
+        > td
+        .p-column-title {
+        padding: 0.4rem;
         min-width: 30%;
         display: inline-block;
-        margin: -.4rem 1rem -.4rem -.4rem;
+        margin: -0.4rem 1rem -0.4rem -0.4rem;
         font-weight: bold;
     }
 
-    .datatable-filter-demo .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td .p-progressbar {
-        margin-top: .5rem;
+    .datatable-filter-demo
+        .p-datatable.p-datatable-customers
+        .p-datatable-tbody
+        > tr
+        > td
+        .p-progressbar {
+        margin-top: 0.5rem;
     }
 }
