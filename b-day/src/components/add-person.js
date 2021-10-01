@@ -3,7 +3,7 @@ import CalendarComponent from './calendar-component'
 import { InputText } from 'primereact/inputtext';
 import {Checkbox} from 'primereact/checkbox';
 import { InputNumber } from 'primereact/inputnumber';
-import { PushNewPerson } from '../API/push-new-person';
+//import { PushNewPerson } from '../API/push-new-person';
 
 const AddPerson = () => {
 
@@ -66,8 +66,8 @@ const AddPerson = () => {
         )
       }
 
-      <button onClick={PushNewPerson}>test Funct!</button>
-
+      {/*<button onClick={PushNewPerson}>test Funct!</button>
+      */}
 
     </div>
 
