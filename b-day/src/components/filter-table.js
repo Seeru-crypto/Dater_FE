@@ -81,6 +81,7 @@ const DataTableFilterDemo = () => {
 
   useEffect(() => {
     customerService.getCustomersLarge().then(data => setCustomers(data));
+    console.log("customer data is ", customers);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const filterDate = (value, filter) => {
@@ -144,15 +145,15 @@ const DataTableFilterDemo = () => {
     );
   }
 
-  const representativeBodyTemplate = (rowData) => {
-    return (
-      <React.Fragment>
-        <span className="p-column-title">Representative</span>
-        <img alt={rowData.representative.name} src={`showcase/demo/images/avatar/${rowData.representative.image}`} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} width={32} style={{verticalAlign: 'middle'}} />
-        <span className="image-text">{rowData.representative.name}</span>
-      </React.Fragment>
-    );
-  }
+  // const representativeBodyTemplate = (rowData) => {
+  //   return (
+  //     <React.Fragment>
+  //       <span className="p-column-title">Representative</span>
+  //       <img alt={rowData.representative.name} src={`showcase/demo/images/avatar/${rowData.representative.image}`} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} width={32} style={{verticalAlign: 'middle'}} />
+  //       <span className="image-text">{rowData.representative.name}</span>
+  //     </React.Fragment>
+  //   );
+  // }
 
   const dateBodyTemplate = (rowData) => {
     return (
@@ -181,14 +182,14 @@ const DataTableFilterDemo = () => {
     );
   }
 
-  const representativesItemTemplate = (option) => {
-    return (
-      <div className="p-multiselect-representative-option">
-        <img alt={option.name} src={`showcase/demo/images/avatar/${option.image}`} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} width={32} style={{verticalAlign: 'middle'}} />
-        <span className="image-text">{option.name}</span>
-      </div>
-    );
-  }
+  // const representativesItemTemplate = (option) => {
+  //   return (
+  //     <div className="p-multiselect-representative-option">
+  //       <img alt={option.name} src={`showcase/demo/images/avatar/${option.image}`} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} width={32} style={{verticalAlign: 'middle'}} />
+  //       <span className="image-text">{option.name}</span>
+  //     </div>
+  //   );
+  // }
 
   const statusItemTemplate = (option) => {
     return <span className={`customer-badge status-${option}`}>{option}</span>;
@@ -212,7 +213,7 @@ const DataTableFilterDemo = () => {
     </div>
   );
 
-  const representativeFilter = <MultiSelect value={selectedRepresentative} options={representatives} itemTemplate={representativesItemTemplate} onChange={onRepresentativesChange} optionLabel="name" optionValue="name" placeholder="All" className="p-column-filter" />;
+  // const representativeFilter = <MultiSelect value={selectedRepresentative} options={representatives} itemTemplate={representativesItemTemplate} onChange={onRepresentativesChange} optionLabel="name" optionValue="name" placeholder="All" className="p-column-filter" />;
   const dateFilter = <Calendar value={selectedDate} onChange={onDateChange} dateFormat="yy-mm-dd" className="p-column-filter" placeholder="Registration Date"/>;
   const statusFilter = <Dropdown value={selectedStatus} options={statuses} onChange={onStatusChange} itemTemplate={statusItemTemplate} placeholder="Select a Status" className="p-column-filter" showClear />;
 
@@ -224,7 +225,7 @@ const DataTableFilterDemo = () => {
                    globalFilter={globalFilter} emptyMessage="No customers found.">
           <Column field="name" header="Name" body={nameBodyTemplate} filter filterPlaceholder="Search by name" />
           <Column field="country" filterField="country.name" header="Country" body={countryBodyTemplate} filter filterPlaceholder="Search by country" filterMatchMode="contains" />
-          <Column field="representative.name" header="Representative" body={representativeBodyTemplate} filter filterElement={representativeFilter} />
+          {/*<Column field="representative.name" header="Representative" body={representativeBodyTemplate} filter filterElement={representativeFilter} />*/}
           <Column field="date" header="Date" body={dateBodyTemplate} filter filterElement={dateFilter} filterFunction={filterDate} />
           <Column field="status" header="Status" body={statusBodyTemplate} filter filterElement={statusFilter}/>
           <Column field="activity" header="Activity" body={activityBodyTemplate} filter filterPlaceholder="Minimum" filterMatchMode="gte" />
