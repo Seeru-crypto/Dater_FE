@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 //import { getUsers } from '../service';
 import useGetData from './API/get-data';
-import { usePostData } from './API/post-data';
+//import { usePostData } from './API/post-data';
 
 const Main = () => {
     const [test, setTest] = useState('');
@@ -20,7 +20,7 @@ const Main = () => {
     return (
         <div>
             {data && data.data.map((entry) => <p>{entry.name}</p>)}
-            <button onClick={usePostData}> Click me!</button>
+            <button> Click me!</button>
         </div>
     );
 };
