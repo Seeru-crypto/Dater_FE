@@ -13,3 +13,9 @@
      - if needed restart docker container
 
 2. Start React server, run "npm start" at root level
+
+   - docker run -it --name jsonserver-container -p 5432:8080 json-server
+
+     VS
+
+   - docker run -it --name jsonserver-container -d -p 5432:8080 json-server
