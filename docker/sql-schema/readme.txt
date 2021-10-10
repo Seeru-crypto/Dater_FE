@@ -2,7 +2,3 @@ https://automateinfra.com/2021/04/11/how-to-create-dockerfile-step-by-step-and-t
 
 
 https://www.youtube.com/watch?v=LQjaJINkQXY
-
-
-https://github.com/clue/docker-json-server
-

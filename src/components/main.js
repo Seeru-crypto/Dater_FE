@@ -8,7 +8,9 @@ const Main = () => {
       <div style={{ padding: "2rem" }}>
         <h3>ToDo:</h3>
         <ul>
-          <li>JSON server conteiner korda</li>
+          <li style={{ textDecoration: "line-through" }}>
+            JSON server conteiner korda
+          </li>
           <li>Form tööle koos post päringutega</li>
           <li>Lisa kustutamis võimalus tabelisse</li>
         </ul>
