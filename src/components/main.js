@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from "react";
-//import { getUsers } from '../service';
-//import { usePostData } from './API/post-data';
+import React from "react";
 
 const Main = () => {
-  //const service = new Service();
-
-  useEffect(() => {
-    //setTest(getUsers('http://localhost:3000/users'));
-  }, []);
-
   return (
     <div>
-      <button> Click me!</button>
+      <h1>Tere Tulemast!</h1>
+      <ul>
+        <li>JSON server conteiner korda</li>
+        <li>Form tööle koos post päringutega</li>
+      </ul>
+
+      <ul>
+        <label> Nice to have</label>
+        <li> form filrid</li>
+        <li> tabelisse otsimise ja filtreerimise valikud</li>
+      </ul>
     </div>
   );
 };
