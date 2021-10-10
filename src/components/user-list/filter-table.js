@@ -3,19 +3,30 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { CustomerService } from "./CustomerService";
+import { DeleteData, GetData } from "../API/delete-data";
 import useGetData from "../API/get-data";
 // Hea tabeli näidis https://www.primefaces.org/primereact/showcase/#/datatable/crud
 const FilterTable = () => {
   const getUserPath = "http://localhost:5432/users";
-  const customerService = new CustomerService();
+  const [data, setData] = useState([]);
 
   //useEffect(() => {
   //  customerService.getUserData().then((data) => setProducts(data));
   // console.log(products);
   //}, []);
 
-  const { data, isPending, error } = useGetData(getUserPath);
-  console.log(data);
+  // let { data, isPending, error } = useGetData(getUserPath);
+  //  console.log(data);
+
+  useEffect(() => {
+    const getData = async () => {
+      const test = await GetData(getUserPath);
+      console.log("test is ", test);
+      setData(test.data);
+    };
+
+    getData();
+  }, []);
 
   const renderBooleanValues = (rowData, item) => {
     if (typeof rowData[item.field] === "boolean") {
@@ -35,8 +46,10 @@ const FilterTable = () => {
     );
   };
 
-  const confirmDeleteProduct = (product) => {
-    console.log("this product was deleted ", product);
+  const confirmDeleteProduct = async (product) => {
+    //DeleteData(getUserPath, product.id);
+    const test = await GetData(getUserPath);
+    setData(test.data);
   };
 
   // This is a prime react table!

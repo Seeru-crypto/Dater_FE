@@ -16,8 +16,8 @@ const AddPerson = () => {
     let day = data.getDate();
     let month = data.getMonth() + 1;
     let year = data.getFullYear();
-    const date = `${day}/${month}/${year}`;
-    setDate(date);
+    const date2 = `${day}/${month}/${year}`;
+    setDate(date2);
   };
 
   const submitForm = () => {
@@ -28,10 +28,10 @@ const AddPerson = () => {
 
   useEffect(() => {
     // console.log(reminder);
-    // console.log(date);
+    console.log(date);
     // console.log(reminderInDays);
     // console.log(name);
-  });
+  }, [date]);
 
   return (
     <div>
