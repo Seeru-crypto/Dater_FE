@@ -17,7 +17,7 @@ const FilterTable = () => {
   const { data, isPending, error } = useGetData(getUserPath);
   console.log(data);
 
-  const booleanChecker = (rowData, item) => {
+  const renderBooleanValues = (rowData, item) => {
     if (typeof rowData[item.field] === "boolean") {
       return rowData[item.field] ? "True" : "False";
     } else {
@@ -25,7 +25,7 @@ const FilterTable = () => {
     }
   };
 
-  const actionBodyTemplate = (rowData) => {
+  const renderDeleteButton = (rowData) => {
     return (
       <Button
         icon="pi pi-trash"
@@ -49,13 +49,13 @@ const FilterTable = () => {
             <Column field="birth-day" header="birth-day"></Column>
             <Column
               field="reminder"
-              body={booleanChecker}
+              body={renderBooleanValues}
               header="reminder"
             ></Column>
             {/*<Column field={products.reminder ? '✓' : ''} header="reminder"></Column>*/}
             <Column field="reminder-days" header="reminder-days"></Column>
             <Column
-              body={actionBodyTemplate}
+              body={renderDeleteButton}
               header="delete"
               headerStyle={{ width: "8em", textAlign: "center" }}
               bodyStyle={{ textAlign: "center", overflow: "visible" }}
