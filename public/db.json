@@ -1,0 +1,23 @@
+[
+    {
+      "id": 1,
+    "name": "Mike",
+    "birth_day": "24/07/1992",
+    "reminder": true,
+    "reminder_days": 10
+  },
+{
+  "id": 2,
+  "name": "Alice",
+  "birth_day": "10/10/1998",
+  "reminder": false,
+  "reminder_days": 0
+},
+{
+  "id": 3,
+  "name": "Jason",
+"birth_day": "10/10/1998",
+"reminder": true,
+"reminder_days": 31
+}
+]
