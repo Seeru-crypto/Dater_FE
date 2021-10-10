@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { Button } from "primereact/button";
 import { CustomerService } from "./CustomerService";
 import useGetData from "../API/get-data";
+// Hea tabeli näidis https://www.primefaces.org/primereact/showcase/#/datatable/crud
 const FilterTable = () => {
-  //let data;
-  const [products, setProducts] = useState([]);
+  const getUserPath = "http://localhost:5432/users";
   const customerService = new CustomerService();
 
   //useEffect(() => {
@@ -13,7 +14,7 @@ const FilterTable = () => {
   // console.log(products);
   //}, []);
 
-  const { data, isPending, error } = useGetData(`http://localhost:3000/users`);
+  const { data, isPending, error } = useGetData(getUserPath);
   console.log(data);
 
   const booleanChecker = (rowData, item) => {
@@ -24,9 +25,18 @@ const FilterTable = () => {
     }
   };
 
-  const reminderBodyTemplate = (rowData) => {
-    console.log(rowData.reminder);
-    return <span>{rowData.reminder}</span>;
+  const actionBodyTemplate = (rowData) => {
+    return (
+      <Button
+        icon="pi pi-trash"
+        className="p-button-rounded p-button-warning"
+        onClick={() => confirmDeleteProduct(rowData)}
+      />
+    );
+  };
+
+  const confirmDeleteProduct = (product) => {
+    console.log("this product was deleted ", product);
   };
 
   // This is a prime react table!
@@ -44,6 +54,12 @@ const FilterTable = () => {
             ></Column>
             {/*<Column field={products.reminder ? '✓' : ''} header="reminder"></Column>*/}
             <Column field="reminder-days" header="reminder-days"></Column>
+            <Column
+              body={actionBodyTemplate}
+              header="delete"
+              headerStyle={{ width: "8em", textAlign: "center" }}
+              bodyStyle={{ textAlign: "center", overflow: "visible" }}
+            />
           </DataTable>
         </div>
       )}
