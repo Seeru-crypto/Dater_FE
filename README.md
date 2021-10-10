@@ -8,3 +8,11 @@ line 4 will start the JSON server, which will mock a Backend server.
 
 npm install -g json-server
 npm install axios
+
+docker -t name-of-image .
+
+docker run -d -p 8000:80 name-of-image
+
+docker run -d -p 5432:80 -v C:/Users/Green/Documents/Repo/bDay_front-end/db.json:/data/db.json json-server
+
+http://localhost:5432/users
