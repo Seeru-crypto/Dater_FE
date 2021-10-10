@@ -30,6 +30,9 @@ const Main = () => {
             JSON server/ container: Port 5432{": "}
             <a href="http://localhost:5432/users">link</a>
           </li>
+          <li>
+            <a href="https://github.com/Seeru-crypto/bDay_front-end"> Github</a>
+          </li>
         </ul>
       </div>
     </div>
