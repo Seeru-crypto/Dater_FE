@@ -1,16 +1,15 @@
 #set up
 
-npm start
-json-server --watch db.json --- json-server -p 5432 db.json
+0. run "npm i" at root lever
 
-line 3 will start the react server
-line 4 will start the JSON server, which will mock a Backend server.
+1. Start JSON Server via docker
 
-npm install -g json-server
-npm install axios
+   - Navigate to the docker folder
 
-docker -t name-of-image .
+   - run:
+     - docker build -t json-server .
+     - docker run -it --name json-server-container -d -p 5432:8080 json-server
+     - docker cp .\db.json json-server-container:/tmp/test.json
+     - if needed restart docker container
 
-docker run -d -p 8000:80 name-of-image
-
-docker run -d -p 5432:80 -v C:/Users/Green/Documents/Repo/bDay_front-end/db.json:/data/db.json json-server
+2. Start React server, run "npm start" at root level
