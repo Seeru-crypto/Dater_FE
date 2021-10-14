@@ -1,4 +1,8 @@
-# set up
+# Dater
+An application for creating reminders and getting email notifications for impending dates. 
+
+
+## set up
 
 0. run "npm i" at root lever
 
@@ -33,7 +37,7 @@
     - [ ] UI is created
     - [ ] UI uses GET & POST requests
     - [ ] field validation
-- [ ] **Table to display current entry´s**
+- [ ] ***Table to display current entry´s***
     - [x] Table UI is created
     - [x] table gets data from GET request
     - [ ] table can be filtered
@@ -52,7 +56,12 @@
 - [ ] During start-up server creates a custom schema to DB
 - [ ] Server can implement CRUD functionality to DB
 - [ ] Server Check the dates in DB once every 24h
+   - [ ] Server just sends the e-mail at a specified date. 
+   - [ ] Server checks the dates and takes into account the days before variable, before sending the email. 
 - [ ] function that sends e-mail to designated aadress
+   - [ ] a function that sends a email
+   - [ ] Design a unfiform template for the email, which uses given variables (name of event, date)
+   - [ ] a function that that sends the email, using a given template
 - [ ] Create server Dockerfile
 
 
