@@ -22,14 +22,17 @@
 - [ ] Entry form
   - [x] Form UI is created
   - [ ] uses POST request
+  - [ ] field validation
   - [ ] User can implement C function
 - [ ] Change Entry Data
     - [ ] Form UI is created
     - [ ] uses GET & POST requests
+    - [ ] field validation
     - [ ] User can implement U & D functions
 - [ ] config tools to change email aadress, port and reminder email template
     - [ ] UI is created
     - [ ] UI uses GET & POST requests
+    - [ ] field validation
 - [ ] Table to display current entry´s 
     - [x] Table UI is created
     - [x] table gets data from GET request
