@@ -37,7 +37,7 @@ An application for creating reminders and getting email notifications for impend
     - [ ] UI is created
     - [ ] UI uses GET & POST requests
     - [ ] field validation
-- [ ] ***Table to display current entry´s***
+- [ ] <ins>Table to display current entry´s</ins>
     - [x] Table UI is created
     - [x] table gets data from GET request
     - [ ] table can be filtered
