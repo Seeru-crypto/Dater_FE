@@ -24,9 +24,11 @@
   - [ ] User can implement C function
 - [ ] Change Entry Data
     - [ ] Form UI is created
-    - [ ] uses GET & API request
+    - [ ] uses GET & POST requests
     - [ ] User can implement U & D functions
-- [ ] config tools to change email aadress/ port
+- [ ] config tools to change email aadress, port and reminder email template
+    - [ ] UI is created
+    - [ ] UI uses GET & POST requests
 - [ ] Table to display current entry´s 
     - [x] Table UI is created
     - [x] table gets data from GET request
@@ -38,6 +40,8 @@
 ### Back-End
 - uses port 5000
 
+- [ ] Server servers API endpoints
+   - [ ] uses Swagger automated API documentation
 - [ ] During start-up server creates a custom schema to DB
 - [ ] Server can implement CRUD functionality to DB
 - [ ] Server Check the dates in DB once every 24h
