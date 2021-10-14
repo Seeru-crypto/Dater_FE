@@ -17,6 +17,7 @@
 
 ## ToDo:
 ### Front-end
+- uses React framework, react prime components and axios. 
 - uses port 4000 
 - [ ] Entry form
   - [x] Form UI is created
@@ -39,7 +40,7 @@
 
 ### Back-End
 - uses port 5000
-
+- uses ...
 - [ ] Server servers API endpoints
    - [ ] uses Swagger automated API documentation
 - [ ] During start-up server creates a custom schema to DB
