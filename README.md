@@ -38,9 +38,9 @@
     - [x] table gets data from GET request
     - [ ] table can be filtered
     - [ ] User can click on the table field and be redirected to update view
-- [x] Mock-data with JSON data
-   - [x] Create local JSON-Server, to serve API requests. for in-depth front-end development.
-   - [x] Dockerize JSON-Server
+- [x] Mock-data with JSON
+   - [x] Create local json-server, to serve API requests, for in-depth FE development.
+   - [x] Dockerize json-server.
 - [ ] Create react-app Dockerfile
 
 
