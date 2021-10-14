@@ -33,7 +33,7 @@
     - [ ] UI is created
     - [ ] UI uses GET & POST requests
     - [ ] field validation
-- [ ] Table to display current entry´s 
+- [ ] **Table to display current entry´s**
     - [x] Table UI is created
     - [x] table gets data from GET request
     - [ ] table can be filtered
