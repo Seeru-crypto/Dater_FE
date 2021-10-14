@@ -53,6 +53,11 @@ An application for creating reminders and getting email notifications for impend
 - uses ...
 - [ ] Server servers API endpoints
    - [ ] uses Swagger automated API documentation
+   - [ ] GET events
+      - [ ] with specific ID
+   - [ ] POST Events
+   - [ ] DELETE Event
+   - [ ] UPDATE Event
 - [ ] During start-up server creates a custom schema to DB
 - [ ] Server can implement CRUD functionality to DB
 - [ ] Server Check the dates in DB once every 24h
