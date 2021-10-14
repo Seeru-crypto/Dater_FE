@@ -1,4 +1,4 @@
-#set up
+# set up
 
 0. run "npm i" at root lever
 
@@ -15,8 +15,8 @@
 2. Start React server, run "npm start" at root level
 
 
-##ToDo:
-###Front-end
+## ToDo:
+### Front-end
 - uses port 4000 
 - [ ] Entry form
   - [x] Form UI is created
@@ -35,7 +35,7 @@
 - [ ] Create react-app Dockerfile
 
 
-###Back-End
+### Back-End
 - uses port 5000
 
 - [ ] During start-up server creates a custom schema to DB
