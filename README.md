@@ -9,21 +9,32 @@ An application for creating reminders and getting email notifications for impend
 1. Start JSON Server via docker
 
    - Navigate to the docker folder
-
    - run:
      - docker build -t json-server .
      - docker run -it --name json-server-container -d -p 5432:8080 json-server
      - docker cp .\db.json json-server-container:/tmp/test.json
      - if needed restart docker container
 
-2. Start React server, run "npm start" at root level
+2. Start React server
 
-## ToDo:
+- Navigate to root level
+- For dev run:
+  - npm start
+- For production run:
+  - docker build -t dater-react-app .
+  - docker run -it --name dater-react-app --rm -d -v %cd%:/app -v /app/node_modules -p 4000:3000 -e CHOKIDAR_USEPOLLING=true dater-react-app
 
-### Front-end
+## Front-end
+
+### Technical info
 
 - uses React framework, react prime components and axios.
-- uses port 4000
+- Ports:
+  - prod uses: 4000
+  - dev uses: 4001
+
+### ToDo:
+
 - [ ] Entry form
   - [x] Form UI is created
   - [ ] uses POST request
@@ -46,12 +57,21 @@ An application for creating reminders and getting email notifications for impend
 - [x] Mock-data with JSON
   - [x] Create local json-server, to serve API requests, for in-depth FE development.
   - [x] Dockerize json-server.
-- [ ] Create react-app Dockerfile
+- [x] Dockerize react app
+- [ ] misc tasks
+  - [ ] Convert all dockerfiles to docker-compose format
 
-### Back-End
+## Back-End
 
-- uses port 5000
+### Technical info
+
+- Ports:
+  - prod uses: 5000
+  - dev uses: 5001
 - uses ...
+
+### ToDo:
+
 - [ ] Server servers API endpoints
   - [ ] uses Swagger automated API documentation
   - [ ] GET events
