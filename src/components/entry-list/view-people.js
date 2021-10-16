@@ -6,7 +6,6 @@ import FilterTable from "./filter-table";
 const ViewPeople = () => {
   const [viewReminder, setViewReminder] = useState(true);
   const options = ["Off", "On"];
-  const options1 = [true, false];
 
   useEffect(() => {
     console.log(viewReminder);

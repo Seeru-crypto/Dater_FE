@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
-import { CustomerService } from "./CustomerService";
 import { DeleteData, GetData } from "../API/delete-data";
-import useGetData from "../API/get-data";
+import { useHistory } from "react-router-dom";
+
 // Hea tabeli näidis https://www.primefaces.org/primereact/showcase/#/datatable/crud
+
 const FilterTable = () => {
   const getUserPath = "http://localhost:5432/users";
   const [data, setData] = useState([]);
@@ -36,17 +37,30 @@ const FilterTable = () => {
     }
   };
 
-  const renderDeleteButton = (rowData) => {
+  const rowActions = (rowData) => {
     return (
-      <Button
-        icon="pi pi-trash"
-        className="p-button-rounded p-button-warning"
-        onClick={() => confirmDeleteProduct(rowData)}
-      />
+      <React.Fragment>
+        <Button
+          icon="pi pi-pencil"
+          className="p-button-rounded p-button-success p-mr-2"
+          onClick={() => editProduct(rowData)}
+        />
+        <Button
+          icon="pi pi-trash"
+          className="p-button-rounded p-button-warning"
+          onClick={() => confirmDeleteProduct(rowData)}
+        />
+      </React.Fragment>
     );
   };
 
+  const editProduct = (product) => {
+    console.log("edit product ", product.id);
+    //routeChange();
+  };
+
   const confirmDeleteProduct = async (product) => {
+    console.log("Delte entry ", product);
     //DeleteData(getUserPath, product.id);
     const test = await GetData(getUserPath);
     setData(test.data);
@@ -58,17 +72,21 @@ const FilterTable = () => {
       {data && (
         <div className="card">
           <DataTable value={data}>
-            <Column field="name" header="Name"></Column>
-            <Column field="birth-day" header="birth-day"></Column>
+            <Column field="name" sortable header="Name"></Column>
+            <Column field="birth-day" sortable header="birth-day"></Column>
             <Column
+              sortable
               field="reminder"
               body={renderBooleanValues}
               header="reminder"
             ></Column>
-            {/*<Column field={products.reminder ? '✓' : ''} header="reminder"></Column>*/}
-            <Column field="reminder-days" header="reminder-days"></Column>
             <Column
-              body={renderDeleteButton}
+              field="reminder-days"
+              sortable
+              header="reminder-days"
+            ></Column>
+            <Column
+              body={rowActions}
               header="delete"
               headerStyle={{ width: "8em", textAlign: "center" }}
               bodyStyle={{ textAlign: "center", overflow: "visible" }}
