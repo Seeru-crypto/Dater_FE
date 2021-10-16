@@ -1,39 +1,28 @@
 {
   "users": [
     {
-      "name": "Mike",
-      "birth-day": "24/07/1992",
+      "entry-name": "Mike",
+      "date": "24/07/1992",
       "reminder": true,
       "reminder-days": 10,
-      "id": 1
+      "id": 1,
+      "description": "Desc text"
     },
     {
-      "name": "Alice",
-      "birth-day": "10/10/1998",
+      "entry-name": "Alice",
+      "date": "10/10/1998",
       "reminder": false,
       "reminder-days": 0,
-      "id": 2
+      "id": 2,
+      "description": "Desc text"
     },
     {
-      "name": "Jason",
-      "birth-day": "10/10/1998",
+      "entry-name": "Jason",
+      "date": "10/10/1998",
       "reminder": true,
       "reminder-days": 31,
-      "id": 3
-    },
-    {
-      "name": "test",
-      "birth_day": "01/01/2000",
-      "reminder": false,
-      "reminder_days": 0,
-      "id": 12
-    },
-    {
-      "name": "Post",
-      "birth-day": "24/07/1992",
-      "reminder": false,
-      "reminder-days": 0,
-      "id": 987
+      "id": 3,
+      "description": "Desc text"
     }
   ]
 }

@@ -59,6 +59,7 @@ An application for creating reminders and getting email notifications for impend
   - [x] Dockerize json-server.
 - [x] Dockerize react app
 - [ ] misc tasks
+  - [x] Define SQL schema datafields
   - [ ] Convert all dockerfiles to docker-compose format
 
 ## Back-End
