@@ -1,44 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Button } from 'primereact/button';
-import { Dialog } from 'primereact/dialog';
-import { DeleteData, GetData } from '../API/delete-data';
-import { useHistory } from 'react-router-dom';
-import EntryDetails from '../entry-details';
+import React, { useState, useEffect } from 'react'
+import { DataTable } from 'primereact/datatable'
+import { Column } from 'primereact/column'
+import { Button } from 'primereact/button'
+import { Dialog } from 'primereact/dialog'
+import { DeleteData, GetData } from '../API/delete-data'
+import config from '../../config.json'
 
 // Hea tabeli näidis https://www.primefaces.org/primereact/showcase/#/datatable/crud
 
 const FilterTable = () => {
-    const [selectedEntry, setSelectedEntry] = useState(null);
-    const [submitted, setSubmitted] = useState(false);
+    const [selectedEntry, setSelectedEntry] = useState(null)
+    const [submitted, setSubmitted] = useState(false)
 
-    const getUserPath = 'http://localhost:5432/users';
-    const [data, setData] = useState([]);
-    const [productDialog, setProductDialog] = useState(false);
+    const apiPath = config.apiPath
+    console.log(apiPath)
+    const [data, setData] = useState([])
+    const [productDialog, setProductDialog] = useState(false)
 
     useEffect(() => {
         const getData = async () => {
-            const test = await GetData(getUserPath);
-            console.log('test is ', test);
-            setData(test.data);
-        };
+            const test = await GetData(apiPath)
+            console.log('test is ', test)
+            setData(test.data)
+        }
 
-        getData();
-    }, []);
+        getData()
+    }, [])
 
     const hideDialog = () => {
-        setSubmitted(false);
-        setProductDialog(false);
-    };
+        setSubmitted(false)
+        setProductDialog(false)
+    }
 
     const renderBooleanValues = (rowData, item) => {
         if (typeof rowData[item.field] === 'boolean') {
-            return rowData[item.field] ? 'True' : 'False';
+            return rowData[item.field] ? 'True' : 'False'
         } else {
-            return rowData[item.field];
+            return rowData[item.field]
         }
-    };
+    }
 
     const rowActions = (rowData) => {
         return (
@@ -54,8 +54,8 @@ const FilterTable = () => {
           onClick={() => confirmDeleteProduct(rowData)}
         /> */}
             </React.Fragment>
-        );
-    };
+        )
+    }
     const productDialogFooter = (
         <React.Fragment>
             <Button
@@ -63,7 +63,7 @@ const FilterTable = () => {
                 icon="pi pi-check"
                 className="p-button-text"
                 onClick={() => {
-                    DeleteData(getUserPath, selectedEntry.id);
+                    DeleteData(apiPath, selectedEntry.id)
                 }}
             />
 
@@ -80,24 +80,24 @@ const FilterTable = () => {
                     icon="pi pi-check"
                     className="p-button-text"
                     onClick={() => {
-                        console.log('entry was saved!');
+                        console.log('entry was saved!')
                     }}
                 />
             )}
         </React.Fragment>
-    );
+    )
     const editProduct = (product) => {
-        setSelectedEntry(product);
-        setProductDialog(true);
+        setSelectedEntry(product)
+        setProductDialog(true)
         /*     return <EntryDetails props={product} />;
     //routeChange();
  */
-    };
+    }
 
     /*   const confirmDeleteProduct = async (product) => {
     console.log("Delte entry ", product);
-    //DeleteData(getUserPath, product.id);
-    const test = await GetData(getUserPath);
+    //DeleteData(apiPath, product.id);
+    const test = await GetData(apiPath);
     setData(test.data);
   }; */
 
@@ -155,6 +155,6 @@ const FilterTable = () => {
                 </Dialog>
             )}
         </div>
-    );
-};
-export default FilterTable;
+    )
+}
+export default FilterTable

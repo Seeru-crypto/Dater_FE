@@ -1,29 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import CalendarComponent from './calendar-component';
-import { InputText } from 'primereact/inputtext';
-import { Button } from 'primereact/button';
-import { Checkbox } from 'primereact/checkbox';
-import { InputTextarea } from 'primereact/inputtextarea';
+import React, { useState, useEffect } from 'react'
+import CalendarComponent from './calendar-component'
+import { InputText } from 'primereact/inputtext'
+import { Button } from 'primereact/button'
+import { Checkbox } from 'primereact/checkbox'
+import { InputTextarea } from 'primereact/inputtextarea'
 
-import { InputNumber } from 'primereact/inputnumber';
-import { PostData } from '../API/delete-data';
-//import { PushNewPerson } from '../API/push-new-person';
-
+import { InputNumber } from 'primereact/inputnumber'
+import { PostData } from '../API/delete-data'
+import config from '../../config.json'
 const AddPerson = () => {
-    const postPath = 'http://localhost:5432/users';
-    const [name, setName] = useState('');
-    const [date, setDate] = useState('');
-    const [reminder, setReminder] = useState(false);
-    const [description, setDescription] = useState('');
-    const [reminderInDays, setReminderInDays] = useState(0);
+    const apiPath = config.apiPath
+    const [name, setName] = useState('')
+    const [date, setDate] = useState('')
+    const [reminder, setReminder] = useState(false)
+    const [description, setDescription] = useState('')
+    const [reminderInDays, setReminderInDays] = useState(0)
 
     const dateHandler = (data) => {
-        let day = data.getDate();
-        let month = data.getMonth() + 1;
-        let year = data.getFullYear();
-        const date2 = `${day}/${month}/${year}`;
-        setDate(date2);
-    };
+        let day = data.getDate()
+        let month = data.getMonth() + 1
+        let year = data.getFullYear()
+        const date2 = `${day}/${month}/${year}`
+        setDate(date2)
+    }
 
     const submitForm = () => {
         const data = {
@@ -32,9 +31,9 @@ const AddPerson = () => {
             reminder: true,
             'reminder-days': reminderInDays,
             description: description,
-        };
+        }
 
-        PostData(postPath, data);
+        PostData(apiPath, data)
         /* 
     console.log('Form submitted!');
     console.log(reminder);
@@ -45,14 +44,14 @@ const AddPerson = () => {
 
         //TODO
         //add reference to axios helper function
-    };
+    }
 
     useEffect(() => {
         // console.log(reminder);
         //console.log(date);
         // console.log(reminderInDays);
         // console.log(name);
-    }, [date]);
+    }, [date])
 
     return (
         <div>
@@ -135,6 +134,6 @@ const AddPerson = () => {
                 onClick={submitForm}
             />
         </div>
-    );
-};
-export default AddPerson;
+    )
+}
+export default AddPerson
