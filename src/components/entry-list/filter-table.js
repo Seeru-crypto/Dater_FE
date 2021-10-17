@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
+import { Dialog } from "primereact/dialog";
 import { DeleteData, GetData } from "../API/delete-data";
 import { useHistory } from "react-router-dom";
 import EntryDetails from "../entry-details";
@@ -10,9 +11,11 @@ import EntryDetails from "../entry-details";
 
 const FilterTable = () => {
   const [selectedEntry, setSelectedEntry] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
 
   const getUserPath = "http://localhost:5432/users";
   const [data, setData] = useState([]);
+  const [productDialog, setProductDialog] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -23,6 +26,11 @@ const FilterTable = () => {
 
     getData();
   }, []);
+
+  const hideDialog = () => {
+    setSubmitted(false);
+    setProductDialog(false);
+  };
 
   const renderBooleanValues = (rowData, item) => {
     if (typeof rowData[item.field] === "boolean") {
@@ -48,9 +56,34 @@ const FilterTable = () => {
       </React.Fragment>
     );
   };
+  const productDialogFooter = (
+    <React.Fragment>
+      <Button
+        label="Delete"
+        icon="pi pi-check"
+        className="p-button-text"
+        onClick={() => {
+          console.log("prodcut was deleted!");
+        }}
+      />
 
+      <Button
+        label="Cancel"
+        icon="pi pi-times"
+        className="p-button-text"
+        onClick={hideDialog}
+      />
+      <Button
+        label="Save"
+        icon="pi pi-check"
+        className="p-button-text"
+        onClick={() => {}}
+      />
+    </React.Fragment>
+  );
   const editProduct = (product) => {
     setSelectedEntry(product);
+    setProductDialog(true);
     /*     return <EntryDetails props={product} />;
     //routeChange();
  */
@@ -85,14 +118,22 @@ const FilterTable = () => {
             <Column field="description" sortable header="description"></Column>
             <Column
               body={rowActions}
-              header="delete"
+              header="Edit"
               headerStyle={{ width: "8em", textAlign: "center" }}
               bodyStyle={{ textAlign: "center", overflow: "visible" }}
             />
           </DataTable>
         </div>
       )}
-      {selectedEntry && <div>Entry was selected!</div>}
+      <Dialog
+        visible={productDialog}
+        style={{ width: "450px" }}
+        header="Product Details"
+        modal
+        className="p-fluid"
+        footer={productDialogFooter}
+        onHide={hideDialog}
+      ></Dialog>
     </div>
   );
 };
