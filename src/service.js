@@ -1,4 +1,4 @@
-import axios from 'axios';
+/* import axios from 'axios';
 
 export const getUsers = (REST_API_URL) => {
     const data = axios.get(REST_API_URL);
@@ -52,3 +52,4 @@ export const PUT = (URL, id, data) => {
         window.location.reload();
     });
 };
+ */

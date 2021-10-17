@@ -6,7 +6,7 @@ import { Checkbox } from 'primereact/checkbox'
 import { InputTextarea } from 'primereact/inputtextarea'
 
 import { InputNumber } from 'primereact/inputnumber'
-import { PostData } from '../API/delete-data'
+import { PostData } from '../API/api-requests'
 import config from '../../config.json'
 const AddPerson = () => {
     const apiPath = config.apiPath
@@ -34,16 +34,7 @@ const AddPerson = () => {
         }
 
         PostData(apiPath, data)
-        /* 
-    console.log('Form submitted!');
-    console.log(reminder);
-    console.log(date);
-    console.log(reminderInDays);
-    console.log(name);
-    console.log(description); */
-
-        //TODO
-        //add reference to axios helper function
+        alert('Item added!')
     }
 
     useEffect(() => {
@@ -71,7 +62,7 @@ const AddPerson = () => {
                     className="p-field p-col-12 p-md-6"
                     style={{ padding: '10px' }}
                 >
-                    <CalendarComponent dateHandler={dateHandler} />
+                    <CalendarComponent required dateHandler={dateHandler} />
                 </div>
 
                 <div className="p-field p-grid">

@@ -3,32 +3,27 @@ import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
-import { DeleteData, GetData } from '../API/delete-data'
+import { DeleteData, GetData } from '../API/api-requests'
 import config from '../../config.json'
 
 // Hea tabeli näidis https://www.primefaces.org/primereact/showcase/#/datatable/crud
 
 const FilterTable = () => {
     const [selectedEntry, setSelectedEntry] = useState(null)
-    const [submitted, setSubmitted] = useState(false)
-
     const apiPath = config.apiPath
-    console.log(apiPath)
     const [data, setData] = useState([])
     const [productDialog, setProductDialog] = useState(false)
+    const [itemIsDeleted, setItemIsDeleted] = useState(false)
 
     useEffect(() => {
         const getData = async () => {
-            const test = await GetData(apiPath)
-            console.log('test is ', test)
-            setData(test.data)
+            const data = await GetData(apiPath)
+            setData(data.data)
         }
-
         getData()
-    }, [])
+    }, [itemIsDeleted])
 
     const hideDialog = () => {
-        setSubmitted(false)
         setProductDialog(false)
     }
 
@@ -48,11 +43,6 @@ const FilterTable = () => {
                     className="p-button-rounded p-button-success p-mr-2"
                     onClick={() => editProduct(rowData)}
                 />
-                {/* <Button
-          icon="pi pi-trash"
-          className="p-button-rounded p-button-warning"
-          onClick={() => confirmDeleteProduct(rowData)}
-        /> */}
             </React.Fragment>
         )
     }
@@ -64,6 +54,8 @@ const FilterTable = () => {
                 className="p-button-text"
                 onClick={() => {
                     DeleteData(apiPath, selectedEntry.id)
+                    setItemIsDeleted(true)
+                    hideDialog()
                 }}
             />
 

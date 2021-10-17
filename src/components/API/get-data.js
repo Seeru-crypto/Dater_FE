@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+/* import { useEffect, useState } from "react";
 import axios from "axios";
 
 const useGetData = (url) => {
@@ -30,3 +30,4 @@ const useGetData = (url) => {
   return { data, isPending, error };
 };
 export default useGetData;
+ */
