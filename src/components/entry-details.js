@@ -1,12 +1,8 @@
 import React, { useEffect } from "react";
 
 import { Dialog } from "primereact/dialog";
-import { InputText } from "primereact/inputtext";
-import { InputTextarea } from "primereact/inputtextarea";
-import { InputSwitch, RadioButton } from "primereact/inputswitch";
+import { InputSwitch } from "primereact/inputswitch";
 import { InputNumber } from "primereact/inputnumber";
-
-import { calendar } from "../components/create-user/calendar-component";
 
 const EntryDetails = (props) => {
   let { entryName } = props;
@@ -19,8 +15,6 @@ const EntryDetails = (props) => {
     console.log(date);
     console.log(reminderInDays);
     console.log(reminder);
-
-    return () => {};
   });
 
   return (

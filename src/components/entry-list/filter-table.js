@@ -4,20 +4,15 @@ import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { DeleteData, GetData } from "../API/delete-data";
 import { useHistory } from "react-router-dom";
+import EntryDetails from "../entry-details";
 
 // Hea tabeli näidis https://www.primefaces.org/primereact/showcase/#/datatable/crud
 
 const FilterTable = () => {
+  const [selectedEntry, setSelectedEntry] = useState(null);
+
   const getUserPath = "http://localhost:5432/users";
   const [data, setData] = useState([]);
-
-  //useEffect(() => {
-  //  customerService.getUserData().then((data) => setProducts(data));
-  // console.log(products);
-  //}, []);
-
-  // let { data, isPending, error } = useGetData(getUserPath);
-  //  console.log(data);
 
   useEffect(() => {
     const getData = async () => {
@@ -45,26 +40,28 @@ const FilterTable = () => {
           className="p-button-rounded p-button-success p-mr-2"
           onClick={() => editProduct(rowData)}
         />
-        <Button
+        {/* <Button
           icon="pi pi-trash"
           className="p-button-rounded p-button-warning"
           onClick={() => confirmDeleteProduct(rowData)}
-        />
+        /> */}
       </React.Fragment>
     );
   };
 
   const editProduct = (product) => {
-    console.log("edit product ", product.id);
+    setSelectedEntry(product);
+    /*     return <EntryDetails props={product} />;
     //routeChange();
+ */
   };
 
-  const confirmDeleteProduct = async (product) => {
+  /*   const confirmDeleteProduct = async (product) => {
     console.log("Delte entry ", product);
     //DeleteData(getUserPath, product.id);
     const test = await GetData(getUserPath);
     setData(test.data);
-  };
+  }; */
 
   // This is a prime react table!
   return (
@@ -72,8 +69,8 @@ const FilterTable = () => {
       {data && (
         <div className="card">
           <DataTable value={data}>
-            <Column field="name" sortable header="Name"></Column>
-            <Column field="birth-day" sortable header="birth-day"></Column>
+            <Column field="entry-name" sortable header="entry-name"></Column>
+            <Column field="date" sortable header="date"></Column>
             <Column
               sortable
               field="reminder"
@@ -85,6 +82,7 @@ const FilterTable = () => {
               sortable
               header="reminder-days"
             ></Column>
+            <Column field="description" sortable header="description"></Column>
             <Column
               body={rowActions}
               header="delete"
@@ -94,6 +92,7 @@ const FilterTable = () => {
           </DataTable>
         </div>
       )}
+      {selectedEntry && <div>Entry was selected!</div>}
     </div>
   );
 };
