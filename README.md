@@ -42,8 +42,8 @@ An application for creating reminders and getting email notifications for impend
     -   [ ] User can implement C function
 -   [ ] Change Entry Data
     -   [x] Form UI is created
-    -   [ ] uses GET requests for pulling
-    -   [ ] add Delete functionality
+    -   [x] uses GET requests for pulling
+    -   [x] add Delete functionality
     -   [ ] add PUT functionality
     -   [ ] field validation
     -   [ ] User can implement U & D functions

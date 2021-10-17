@@ -3,6 +3,10 @@ import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
+import { Checkbox } from 'primereact/checkbox'
+import { InputText } from 'primereact/inputtext'
+import CalendarComponent from '../create-user/calendar-component'
+
 import { DeleteData, GetData } from '../API/api-requests'
 import config from '../../config.json'
 
@@ -11,6 +15,8 @@ import config from '../../config.json'
 const FilterTable = () => {
     const [selectedEntry, setSelectedEntry] = useState(null)
     const apiPath = config.apiPath
+    const [date, setDate] = useState('')
+
     const [data, setData] = useState([])
     const [productDialog, setProductDialog] = useState(false)
     const [itemIsDeleted, setItemIsDeleted] = useState(false)
@@ -22,6 +28,14 @@ const FilterTable = () => {
         }
         getData()
     }, [itemIsDeleted])
+
+    const dateHandler = (data) => {
+        let day = data.getDate()
+        let month = data.getMonth() + 1
+        let year = data.getFullYear()
+        const date2 = `${day}/${month}/${year}`
+        setDate(date2)
+    }
 
     const hideDialog = () => {
         setProductDialog(false)
@@ -143,6 +157,27 @@ const FilterTable = () => {
                     footer={productDialogFooter}
                     onHide={hideDialog}
                 >
+                    <h5>Vertical</h5>
+                    <div className="p-fluid">
+                        <div className="p-field">
+                            <label htmlFor="required">
+                                send e-mail notification?
+                            </label>
+                            <Checkbox
+                                checked={selectedEntry.reminder}
+                            ></Checkbox>
+                        </div>
+                        <div className="p-field">
+                            <label htmlFor="description">description</label>
+                            <InputText
+                                value={selectedEntry.description}
+                                id="description"
+                                type="text"
+                            />
+                        </div>
+                        <CalendarComponent required dateHandler={dateHandler} />
+                    </div>
+
                     <div>product ID is {selectedEntry.id}</div>
                 </Dialog>
             )}
