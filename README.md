@@ -4,7 +4,7 @@ An application for creating reminders and getting email notifications for impend
 
 ## set up
 
-0. run "npm i" at root lever
+0. run "npm i" at root level
 
 1. Start JSON Server via docker
 
