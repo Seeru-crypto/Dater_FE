@@ -29,14 +29,14 @@ const FilterTable = () => {
         getData()
     }, [itemIsDeleted])
 
-    const dateHandler = (data) => {
+    /*     const dateHandler = (data) => {
         let day = data.getDate()
         let month = data.getMonth() + 1
         let year = data.getFullYear()
         const date2 = `${day}/${month}/${year}`
         setDate(date2)
     }
-
+ */
     const hideDialog = () => {
         setProductDialog(false)
     }
@@ -60,7 +60,7 @@ const FilterTable = () => {
             </React.Fragment>
         )
     }
-    const productDialogFooter = (
+    /*    const productDialogFooter = (
         <React.Fragment>
             <Button
                 label="Delete"
@@ -91,23 +91,13 @@ const FilterTable = () => {
                 />
             )}
         </React.Fragment>
-    )
+    ) */
     const editProduct = (product) => {
         setSelectedEntry(product)
+        console.log('product is ', product)
         setProductDialog(true)
-        /*     return <EntryDetails props={product} />;
-    //routeChange();
- */
     }
 
-    /*   const confirmDeleteProduct = async (product) => {
-    console.log("Delte entry ", product);
-    //DeleteData(apiPath, product.id);
-    const test = await GetData(apiPath);
-    setData(test.data);
-  }; */
-
-    // This is a prime react table!
     return (
         <div>
             {data && (
@@ -147,8 +137,9 @@ const FilterTable = () => {
                     </DataTable>
                 </div>
             )}
-            {selectedEntry && (
-                <Dialog
+            {
+                selectedEntry && <div> tere </div>
+                /*   <Dialog
                     visible={productDialog}
                     style={{ width: '450px' }}
                     header="Product Details"
@@ -179,8 +170,8 @@ const FilterTable = () => {
                     </div>
 
                     <div>product ID is {selectedEntry.id}</div>
-                </Dialog>
-            )}
+                </Dialog> */
+            }
         </div>
     )
 }
