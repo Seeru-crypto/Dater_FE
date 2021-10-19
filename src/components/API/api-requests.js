@@ -11,7 +11,14 @@ export const DeleteData = async (url, id) => {
 export const GetData = async (url) => {
     const axios = require('axios').default
     const res = await axios.get(url)
-    console.log('new final res ', res)
+    return res
+}
+
+export const GetDataById = async (url, id) => {
+    const path = (url, '/' + id)
+    console.log(path)
+    const axios = require('axios').default
+    const res = await axios.get(path)
     return res
 }
 
