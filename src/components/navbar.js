@@ -13,9 +13,7 @@ const Navigationbar = () => {
                     <Nav className="me-auto">
                         <Nav.Link href="/add">Add person</Nav.Link>
                         <Nav.Link href="/peopleList">View list</Nav.Link>
-                        <Nav.Link disabled href="/admin">
-                            Admin tools
-                        </Nav.Link>
+                        <Nav.Link href="/admin">Admin tools</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
