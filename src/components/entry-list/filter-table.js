@@ -6,7 +6,7 @@ import { Dialog } from 'primereact/dialog'
 import { Checkbox } from 'primereact/checkbox'
 import { InputText } from 'primereact/inputtext'
 import CalendarComponent from '../create-user/calendar-component'
-
+import { EntryDetails } from './entry-details'
 import { DeleteData, GetData } from '../API/api-requests'
 import config from '../../config.json'
 
@@ -19,6 +19,8 @@ const FilterTable = () => {
 
     const [data, setData] = useState([])
     const [productDialog, setProductDialog] = useState(false)
+    const [showModal, setShowModal] = useState(false)
+
     const [itemIsDeleted, setItemIsDeleted] = useState(false)
 
     useEffect(() => {
@@ -37,8 +39,14 @@ const FilterTable = () => {
         setDate(date2)
     }
  */
-    const hideDialog = () => {
+    const hideModal = () => {
         setProductDialog(false)
+        setShowModal(false)
+    }
+
+    const viewModal = () => {
+        setShowModal(true)
+        setProductDialog(true)
     }
 
     const renderBooleanValues = (rowData, item) => {
@@ -69,7 +77,7 @@ const FilterTable = () => {
                 onClick={() => {
                     DeleteData(apiPath, selectedEntry.id)
                     setItemIsDeleted(true)
-                    hideDialog()
+                    hideModal()
                 }}
             />
 
@@ -77,7 +85,7 @@ const FilterTable = () => {
                 label="Cancel"
                 icon="pi pi-times"
                 className="p-button-text"
-                onClick={hideDialog}
+                onClick={hideModal}
             />
 
             {selectedEntry && (
@@ -94,8 +102,8 @@ const FilterTable = () => {
     ) */
     const editProduct = (product) => {
         setSelectedEntry(product)
-        console.log('product is ', product)
         setProductDialog(true)
+        setShowModal(true)
     }
 
     return (
@@ -138,7 +146,18 @@ const FilterTable = () => {
                 </div>
             )}
             {
-                selectedEntry && <div> tere </div>
+                selectedEntry && (
+                    <div>
+                        {' '}
+                        tere
+                        <EntryDetails
+                            selectedEntry={selectedEntry}
+                            viewModal={viewModal}
+                            hideModal={hideModal}
+                            modalState={showModal}
+                        />
+                    </div>
+                )
                 /*   <Dialog
                     visible={productDialog}
                     style={{ width: '450px' }}
@@ -146,7 +165,7 @@ const FilterTable = () => {
                     modal
                     className="p-fluid"
                     footer={productDialogFooter}
-                    onHide={hideDialog}
+                    onHide={hideModal}
                 >
                     <h5>Vertical</h5>
                     <div className="p-fluid">

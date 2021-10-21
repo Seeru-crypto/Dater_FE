@@ -1,14 +1,32 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { Dialog } from 'primereact/dialog'
 import { Checkbox } from 'primereact/checkbox'
 import { InputText } from 'primereact/inputtext'
+import { Button } from 'primereact/button'
 import CalendarComponent from '../create-user/calendar-component'
 import { DeleteData, GetData } from '../API/api-requests'
+import config from '../../config.json'
 
-export const EntryDetails = (props) => {
-    const selectedEntry = props
-    console.log(selectedEntry)
+export const EntryDetails = ({
+    selectedEntry,
+    viewModal,
+    hideModal,
+    modalState,
+}) => {
+    console.log('viewModal is ', viewModal)
+    console.log('hideModal is ', hideModal)
+    console.log('modalState is ', modalState)
+
+    const showHideModal = modalState ? true : false
+
+    console.log('selectedEntry is ', selectedEntry)
+    const apiPath = config.apiPath
+
+    //const [productDialog, setProductDialog] = useState(true)
+    const [date, setDate] = useState('')
+    const [itemIsDeleted, setItemIsDeleted] = useState(false)
+    const [productDialog, setProductDialog] = useState(true)
 
     const dateHandler = (data) => {
         let day = data.getDate()
@@ -25,9 +43,9 @@ export const EntryDetails = (props) => {
                 icon="pi pi-check"
                 className="p-button-text"
                 onClick={() => {
-                    DeleteData(apiPath, selectedEntry.id)
+                    //DeleteData(apiPath, selectedEntry.id)
                     setItemIsDeleted(true)
-                    hideDialog()
+                    // hideDialog()
                 }}
             />
 
@@ -35,7 +53,7 @@ export const EntryDetails = (props) => {
                 label="Cancel"
                 icon="pi pi-times"
                 className="p-button-text"
-                onClick={hideDialog}
+                onClick={hideModal}
             />
 
             {selectedEntry && (
@@ -53,13 +71,13 @@ export const EntryDetails = (props) => {
 
     return (
         <Dialog
-            visible={productDialog}
+            visible={showHideModal}
             style={{ width: '450px' }}
             header="Product Details"
             modal
             className="p-fluid"
             footer={productDialogFooter}
-            onHide={hideDialog}
+            onHide={hideModal}
         >
             <h5>Vertical</h5>
             <div className="p-fluid">
