@@ -95,7 +95,12 @@ An application for creating reminders and getting email notifications for impend
     -   [ ] a function that that sends the email, using a given template
 -   [ ] Create server Dockerfile
 
-### PostGRE Database
+### Elasticsearch Database
 
 -   uses port 5432
 -   [ ] Create DB Dockerfile, with default settings
+-   [ ] create neccesary indexes indexes:
+        - Events (Name, createdTimestamp, Date, Reminder, Reminder days, ?reminder interval, description, userId (Elasticsearch ID), Event ID (Elasticsearch ID)) 
+        - Users (email aadress, username, userId (Elasticsearch ID), password, Event limit (1-100), User Group (admin, demo, user))
+        - logs (user, activity, timestamp)
+-   [ ] Integrate automatic test data generation into the docker file
