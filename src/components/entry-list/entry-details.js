@@ -1,22 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { Dialog } from 'primereact/dialog'
 import { Checkbox } from 'primereact/checkbox'
 import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
 import CalendarComponent from '../create-user/calendar-component'
-import { DeleteData } from '../API/api-requests'
+import { DeleteData, UpdateData } from '../API/api-requests'
+
 import config from '../../config.json'
 
 export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
+    console.log(selectedEntry)
+    const [description, setDescription] = useState(selectedEntry.description)
+    const [entryName, setEntryName] = useState(selectedEntry.entryName)
+    const [date, setDate] = useState(selectedEntry.date)
+    const [reminder, setReminder] = useState(selectedEntry.reminder)
+    const [reminderDays, setReminderDays] = useState(selectedEntry.reminderDays)
     const apiPath = config.apiPath
 
-    const showHideModal = modalState ? true : false
+    let showHideModal = modalState ? true : false
 
-    console.log('selectedEntry is ', selectedEntry)
+    //const [itemIsDeleted, setItemIsDeleted] = useState(false)
 
-    const [date, setDate] = useState('')
-    const [itemIsDeleted, setItemIsDeleted] = useState(false)
+    useEffect(() => {
+        setDescription(selectedEntry.description)
+        setEntryName(selectedEntry.entryName)
+        setDate(selectedEntry.date)
+        setReminder(selectedEntry.reminder)
+        setReminderDays(selectedEntry.reminderDays)
+    }, [selectedEntry])
 
     const dateHandler = (data) => {
         let day = data.getDate()
@@ -26,17 +38,32 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
         setDate(date2)
     }
 
+    const deleteEntry = () => {
+        //ToDo
+        //  Ask for user confirmation, before deleting!
+        DeleteData(apiPath, selectedEntry.id)
+        alert('Entry deleted')
+    }
+
+    const updateEntry = () => {
+        const data = {
+            description,
+            entryName,
+            date,
+            reminder,
+            reminderDays,
+        }
+        UpdateData(`${apiPath}/${selectedEntry.id}`, data)
+        alert('Data has been updated!')
+    }
+
     const productDialogFooter = (
         <React.Fragment>
             <Button
                 label="Delete"
                 icon="pi pi-check"
                 className="p-button-text"
-                onClick={() => {
-                    DeleteData(apiPath, selectedEntry.id)
-                    setItemIsDeleted(true)
-                    // hideDialog()
-                }}
+                onClick={() => deleteEntry()}
             />
 
             <Button
@@ -46,16 +73,12 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
                 onClick={hideModal}
             />
 
-            {selectedEntry && (
-                <Button
-                    label="Save"
-                    icon="pi pi-check"
-                    className="p-button-text"
-                    onClick={() => {
-                        console.log('entry was saved!')
-                    }}
-                />
-            )}
+            <Button
+                label="Save"
+                icon="pi pi-check"
+                className="p-button-text"
+                onClick={() => updateEntry()}
+            />
         </React.Fragment>
     )
 
@@ -63,27 +86,41 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
         <Dialog
             visible={showHideModal}
             style={{ width: '450px' }}
-            header="Product Details"
+            header="Entry Details"
             modal
             className="p-fluid"
             footer={productDialogFooter}
             onHide={hideModal}
         >
-            <h5>Vertical</h5>
+            <h5>{entryName}</h5>
             <div className="p-fluid">
-                <div className="p-field">
-                    <label htmlFor="required">send e-mail notification?</label>
-                    <Checkbox checked={selectedEntry.reminder}></Checkbox>
+                <div
+                    style={{
+                        alignItems: 'center',
+                        display: 'flex',
+                        //justifyContent: 'center',
+                    }}
+                    className="p-field"
+                >
+                    <label>send e-mail notification?</label>
+                    <Checkbox
+                        style={{ paddingLeft: '1rem' }}
+                        checked={reminder}
+                        onChange={(e) => setReminder(!reminder)}
+                    ></Checkbox>
                 </div>
                 <div className="p-field">
                     <label htmlFor="description">description</label>
                     <InputText
-                        value={selectedEntry.description}
+                        value={description}
                         id="description"
                         type="text"
+                        onInput={(e) => {
+                            setDescription(e.target.value)
+                        }}
                     />
                 </div>
-                <CalendarComponent required dateHandler={dateHandler} />
+                <CalendarComponent dateHandler={dateHandler} />
             </div>
 
             <div>product ID is {selectedEntry.id}</div>

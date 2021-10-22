@@ -40,18 +40,19 @@ An application for creating reminders and getting email notifications for impend
     -   [x] uses POST request
     -   [ ] field validation;
     -   [ ] User can implement C function
--   [ ] Change Entry Data
+-   [ ] <ins>Change Entry Data</ins>
     -   [x] Form UI is created
     -   [x] uses GET requests for pulling
     -   [x] add Delete functionality
-    -   [ ] add PUT functionality
+    -   [ ] add proper form fields with css
+    -   [x] add PUT functionality
     -   [ ] field validation
     -   [ ] User can implement U & D functions
 -   [ ] config tools to change email aadress, port and reminder email template
     -   [ ] UI is created
     -   [ ] UI uses GET & POST requests
     -   [ ] field validation
--   [x] <ins>Table to display current entry´s</ins>
+-   [x] Table to display current entry´s
     -   [x] Table UI is created
     -   [x] table gets data from GET request
     -   [x] table is sortable

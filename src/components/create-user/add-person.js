@@ -26,10 +26,10 @@ const AddPerson = () => {
 
     const submitForm = () => {
         const data = {
-            'entry-name': name,
+            entryName: name,
             date: date,
             reminder: true,
-            'reminder-days': reminderInDays,
+            reminderDays: reminderInDays,
             description: description,
         }
 
@@ -52,7 +52,6 @@ const AddPerson = () => {
                     style={{ padding: '10px' }}
                 >
                     <InputText
-                        required="true"
                         placeholder="name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -62,7 +61,7 @@ const AddPerson = () => {
                     className="p-field p-col-12 p-md-6"
                     style={{ padding: '10px' }}
                 >
-                    <CalendarComponent required dateHandler={dateHandler} />
+                    <CalendarComponent dateHandler={dateHandler} />
                 </div>
 
                 <div className="p-field p-grid">

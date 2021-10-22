@@ -34,7 +34,7 @@ const CalendarComponent = ({ dateHandler }) => {
     return (
         <div>
             <Calendar
-                required="true"
+                required
                 placeholder="Add date"
                 id="navigatorstemplate"
                 value={date16}

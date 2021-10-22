@@ -58,9 +58,9 @@ const FilterTable = () => {
                 <div className="card">
                     <DataTable value={data}>
                         <Column
-                            field="entry-name"
+                            field="entryName"
                             sortable
-                            header="entry-name"
+                            header="entryName"
                         ></Column>
                         <Column field="date" sortable header="date"></Column>
                         <Column
@@ -70,9 +70,9 @@ const FilterTable = () => {
                             header="reminder"
                         ></Column>
                         <Column
-                            field="reminder-days"
+                            field="reminderDays"
                             sortable
-                            header="reminder-days"
+                            header="reminderDays"
                         ></Column>
                         <Column
                             field="description"

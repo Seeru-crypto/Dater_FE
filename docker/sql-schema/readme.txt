@@ -1,8 +1,8 @@
 {
-    entry-name, VARCHAR
+    entryName, VARCHAR
     date, DATE
     reminder, BOOLEAN
-    reminder-days, INTEGER
+    reminderDays, INTEGER
     id, INTEGER
     description, VARCHAR
 }

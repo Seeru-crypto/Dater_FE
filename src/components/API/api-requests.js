@@ -2,9 +2,7 @@ import axios from 'axios'
 
 export const DeleteData = async (url, id) => {
     const path = url + '/' + id
-    console.log('Delete data', path)
     const res = await axios.delete(path)
-    console.log('Delete result', res.status)
     return res.status
 }
 
@@ -16,15 +14,19 @@ export const GetData = async (url) => {
 
 export const GetDataById = async (url, id) => {
     const path = (url, '/' + id)
-    console.log(path)
     const axios = require('axios').default
     const res = await axios.get(path)
     return res
 }
 
 export const PostData = async (url, data) => {
-    console.log('in posted!')
     const axios = require('axios').default
     const res = axios.post(url, data)
-    console.log('POST res is ', res)
+}
+
+export const UpdateData = async (url, data) => {
+    console.log('in update!')
+    const axios = require('axios').default
+    const res = axios.put(url, data)
+    console.log('Update res is ', res)
 }

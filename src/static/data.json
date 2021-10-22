@@ -1,27 +1,25 @@
 [
-  {
-    "users": [
-      {
-        "name": "Mike",
-        "birth-day": "24/07/1992",
-        "reminder": true,
-        "reminder-days": 10
-      },
-      {
-        "name": "Alice",
-        "birth-day": "10/10/1998",
-        "reminder": false,
-        "reminder-days": 0
-      },
-      {
-        "name": "Jason",
-        "birth-day": "10/10/1998",
-        "reminder": true,
-        "reminder-days": 31
-      }
-
-    ],
-    "other": [
-    ]
-  }
+    {
+        "users": [
+            {
+                "name": "Mike",
+                "birth-day": "24/07/1992",
+                "reminder": true,
+                "reminderDays": 10
+            },
+            {
+                "name": "Alice",
+                "birth-day": "10/10/1998",
+                "reminder": false,
+                "reminderDays": 0
+            },
+            {
+                "name": "Jason",
+                "birth-day": "10/10/1998",
+                "reminder": true,
+                "reminderDays": 31
+            }
+        ],
+        "other": []
+    }
 ]
