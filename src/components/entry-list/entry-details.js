@@ -42,7 +42,7 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
         //ToDo
         //  Ask for user confirmation, before deleting!
         DeleteData(apiPath, selectedEntry.id)
-        alert('Entry deleted')
+        window.location.reload()
     }
 
     const updateEntry = () => {
@@ -54,7 +54,7 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
             reminderDays,
         }
         UpdateData(`${apiPath}/${selectedEntry.id}`, data)
-        alert('Data has been updated!')
+        window.location.reload()
     }
 
     const productDialogFooter = (

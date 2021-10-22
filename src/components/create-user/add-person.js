@@ -37,12 +37,7 @@ const AddPerson = () => {
         alert('Item added!')
     }
 
-    useEffect(() => {
-        // console.log(reminder);
-        //console.log(date);
-        // console.log(reminderInDays);
-        // console.log(name);
-    }, [date])
+    useEffect(() => {}, [])
 
     return (
         <div>
@@ -53,6 +48,7 @@ const AddPerson = () => {
                 >
                     <InputText
                         placeholder="name"
+                        required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
