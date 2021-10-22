@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Calendar } from 'primereact/calendar';
-import { Dropdown } from 'primereact/dropdown';
+import React, { useState } from 'react'
+import { Calendar } from 'primereact/calendar'
+import { Dropdown } from 'primereact/dropdown'
 
 const CalendarComponent = ({ dateHandler }) => {
-    const [date16, setDate16] = useState(null);
+    const [date16, setDate16] = useState(null)
 
     const yearNavigatorTemplate = (e) => {
         return (
@@ -16,8 +16,8 @@ const CalendarComponent = ({ dateHandler }) => {
                 className="p-ml-2"
                 style={{ lineHeight: 1 }}
             />
-        );
-    };
+        )
+    }
     const monthNavigatorTemplate = (e) => {
         return (
             <Dropdown
@@ -28,13 +28,13 @@ const CalendarComponent = ({ dateHandler }) => {
                 }
                 style={{ lineHeight: 1 }}
             />
-        );
-    };
+        )
+    }
 
     return (
         <div>
             <Calendar
-                required="true"
+                required
                 placeholder="Add date"
                 id="navigatorstemplate"
                 value={date16}
@@ -46,6 +46,6 @@ const CalendarComponent = ({ dateHandler }) => {
                 yearNavigatorTemplate={yearNavigatorTemplate}
             />
         </div>
-    );
-};
-export default CalendarComponent;
+    )
+}
+export default CalendarComponent
