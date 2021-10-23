@@ -70,37 +70,13 @@ An application for creating reminders and getting email notifications for impend
 
 ### Technical info
 
+- [link](https://github.com/Seeru-crypto/Dater_BE) to Git repo
 -   Ports:
     -   prod uses: 5000
     -   dev uses: 5001
--   uses ...
+-   uses Spring
+## Database
+### Technical info
 
-### ToDo:
-
--   [ ] Server servers API endpoints
-    -   [ ] uses Swagger automated API documentation
-    -   [ ] GET events
-        -   [ ] with specific ID
-    -   [ ] POST Events
-    -   [ ] DELETE Event
-    -   [ ] UPDATE Event
--   [ ] During start-up server creates a custom schema to DB
--   [ ] Server can implement CRUD functionality to DB
--   [ ] Server Check the dates in DB once every 24h
-    -   [ ] Server just sends the e-mail at a specified date.
-    -   [ ] Server checks the dates and takes into account the days before variable, before sending the email.
--   [ ] function that sends e-mail to designated aadress
-    -   [ ] a function that sends a email
-    -   [ ] Design a unfiform template for the email, which uses given variables (name of event, date)
-    -   [ ] a function that that sends the email, using a given template
--   [ ] Create server Dockerfile
-
-### Elasticsearch Database
-
--   uses port 5432
--   [ ] Create DB Dockerfile, with default settings
--   [ ] create neccesary indexes indexes:
-        - Events (Name, createdTimestamp, Date, Reminder, Reminder days, ?reminder interval, description, userId (Elasticsearch ID), Event ID (Elasticsearch ID)) 
-        - Users (email aadress, username, userId (Elasticsearch ID), password, Event limit (1-100), User Group (admin, demo, user))
-        - logs (user, activity, timestamp)
--   [ ] Integrate automatic test data generation into the docker file
+- uses Elasticsearch
+- uses port 5432
