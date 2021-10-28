@@ -6,6 +6,8 @@ import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
 import CalendarComponent from '../create-user/calendar-component'
 import { DeleteData, UpdateData } from '../API/api-requests'
+import { InputTextarea } from 'primereact/inputtextarea'
+import { InputNumber } from 'primereact/inputnumber'
 
 import config from '../../config.json'
 
@@ -35,6 +37,7 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
         let month = data.getMonth() + 1
         let year = data.getFullYear()
         const date2 = `${day}/${month}/${year}`
+        console.log('date2 is ', date2)
         setDate(date2)
     }
 
@@ -94,6 +97,39 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
         >
             <h5>{entryName}</h5>
             <div className="p-fluid">
+                <div className="p-field">
+                    <label htmlFor="entryName">Entry name:</label>
+                    <InputText
+                        value={entryName}
+                        id="entryName"
+                        type="text"
+                        onInput={(e) => {
+                            setEntryName(e.target.value)
+                        }}
+                        onValueChange={(e) => {
+                            setEntryName(e.target.value)
+                        }}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="selectedDate">Date:</label>
+                    <CalendarComponent dateHandler={dateHandler} />
+                </div>
+                <div className="p-field">
+                    <label htmlFor="description">description</label>
+                    <InputTextarea
+                        value={description}
+                        id="description"
+                        autoResize
+                        type="text"
+                        onInput={(e) => {
+                            setDescription(e.target.value)
+                        }}
+                        onValueChange={(e) => {
+                            setDescription(e.target.value)
+                        }}
+                    />
+                </div>
                 <div
                     style={{
                         alignItems: 'center',
@@ -102,28 +138,38 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
                     }}
                     className="p-field"
                 >
-                    <label>send e-mail notification?</label>
+                    <label style={{ paddingRight: '1rem' }}>
+                        send e-mail notification?
+                    </label>
                     <Checkbox
-                        style={{ paddingLeft: '1rem' }}
+                        //style={{ paddingLeft: '1rem' }}
                         checked={reminder}
-                        onChange={(e) => setReminder(!reminder)}
+                        onChange={(e) => {
+                            setReminder(!reminder)
+                            if (!reminder) setReminderDays(0)
+                        }}
                     ></Checkbox>
                 </div>
-                <div className="p-field">
-                    <label htmlFor="description">description</label>
-                    <InputText
-                        value={description}
-                        id="description"
-                        type="text"
-                        onInput={(e) => {
-                            setDescription(e.target.value)
-                        }}
-                    />
-                </div>
-                <CalendarComponent dateHandler={dateHandler} />
+                {reminder && (
+                    <div className="p-field">
+                        <label htmlFor="reminderDays">Reminder in days</label>
+                        <InputNumber
+                            value={reminderDays}
+                            inputId="integeronly"
+                            min={0}
+                            max={31}
+                            id="reminderDays"
+                            type="text"
+                            onInput={(e) => {
+                                setReminderDays(e.target.value)
+                            }}
+                            onValueChange={(e) => {
+                                setReminderDays(e.target.value)
+                            }}
+                        />
+                    </div>
+                )}
             </div>
-
-            <div>product ID is {selectedEntry.id}</div>
         </Dialog>
     )
 }

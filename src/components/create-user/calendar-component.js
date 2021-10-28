@@ -3,7 +3,7 @@ import { Calendar } from 'primereact/calendar'
 import { Dropdown } from 'primereact/dropdown'
 
 const CalendarComponent = ({ dateHandler }) => {
-    const [date16, setDate16] = useState(null)
+    const [selectedDate, setSelectedDate] = useState(null)
 
     const yearNavigatorTemplate = (e) => {
         return (
@@ -37,8 +37,14 @@ const CalendarComponent = ({ dateHandler }) => {
                 required
                 placeholder="Add date"
                 id="navigatorstemplate"
-                value={date16}
-                onChange={(e) => dateHandler(e.value)}
+                value={selectedDate}
+                onChange={(e) => {
+                    console.log(
+                        'changed date is ',
+                        e.target.value.toISOString()
+                    )
+                    dateHandler(e.value)
+                }}
                 monthNavigator
                 yearNavigator
                 yearRange="1950:2030"

@@ -103,7 +103,7 @@ const AddPerson = () => {
                         <div className="p-col p-md-3">
                             <InputNumber
                                 inputId="integeronly"
-                                min={1}
+                                min={0}
                                 max={31}
                                 value={reminderInDays}
                                 onValueChange={(e) =>
