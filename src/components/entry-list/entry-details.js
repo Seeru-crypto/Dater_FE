@@ -49,6 +49,7 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
     }
 
     const updateEntry = () => {
+        console.log(reminderDays)
         const data = {
             description,
             entryName,
@@ -57,7 +58,7 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
             reminderDays,
         }
         UpdateData(`${apiPath}/${selectedEntry.id}`, data)
-        window.location.reload()
+        //window.location.reload()
     }
 
     const productDialogFooter = (
@@ -102,6 +103,7 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
                     <InputText
                         value={entryName}
                         id="entryName"
+                        maxLength="20"
                         type="text"
                         onInput={(e) => {
                             setEntryName(e.target.value)
@@ -120,6 +122,7 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
                     <InputTextarea
                         value={description}
                         id="description"
+                        maxLength="120"
                         autoResize
                         type="text"
                         onInput={(e) => {
@@ -142,11 +145,10 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
                         send e-mail notification?
                     </label>
                     <Checkbox
-                        //style={{ paddingLeft: '1rem' }}
                         checked={reminder}
                         onChange={(e) => {
                             setReminder(!reminder)
-                            if (!reminder) setReminderDays(0)
+                            if (reminder) setReminderDays(0)
                         }}
                     ></Checkbox>
                 </div>
@@ -159,7 +161,6 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
                             min={0}
                             max={31}
                             id="reminderDays"
-                            type="text"
                             onInput={(e) => {
                                 setReminderDays(e.target.value)
                             }}

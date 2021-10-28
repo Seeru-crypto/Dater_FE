@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import { Calendar } from 'primereact/calendar'
 import { Dropdown } from 'primereact/dropdown'
 
-const CalendarComponent = ({ dateHandler }) => {
-    const [selectedDate, setSelectedDate] = useState(null)
-
+const CalendarComponent = ({ dateHandler, selectedDate }) => {
     const yearNavigatorTemplate = (e) => {
         return (
             <Dropdown
@@ -36,13 +34,10 @@ const CalendarComponent = ({ dateHandler }) => {
             <Calendar
                 required
                 placeholder="Add date"
+                dateFormat="dd-mm-yy"
                 id="navigatorstemplate"
                 value={selectedDate}
                 onChange={(e) => {
-                    console.log(
-                        'changed date is ',
-                        e.target.value.toISOString()
-                    )
                     dateHandler(e.value)
                 }}
                 monthNavigator

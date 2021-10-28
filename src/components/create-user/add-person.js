@@ -11,17 +11,14 @@ import config from '../../config.json'
 const AddPerson = () => {
     const apiPath = config.apiPath
     const [name, setName] = useState('')
+    const [selectedDate, setSelectedDate] = useState('')
     const [date, setDate] = useState('')
     const [reminder, setReminder] = useState(false)
     const [description, setDescription] = useState('')
     const [reminderInDays, setReminderInDays] = useState(0)
 
     const dateHandler = (data) => {
-        let day = data.getDate()
-        let month = data.getMonth() + 1
-        let year = data.getFullYear()
-        const date2 = `${day}/${month}/${year}`
-        setDate(date2)
+        setDate(data.toISOString())
     }
 
     const submitForm = () => {
@@ -47,6 +44,7 @@ const AddPerson = () => {
                     style={{ padding: '10px' }}
                 >
                     <InputText
+                        maxLength="20"
                         placeholder="name"
                         required
                         value={name}
@@ -57,12 +55,16 @@ const AddPerson = () => {
                     className="p-field p-col-12 p-md-6"
                     style={{ padding: '10px' }}
                 >
-                    <CalendarComponent dateHandler={dateHandler} />
+                    <CalendarComponent
+                        dateHandler={dateHandler}
+                        selectedEntry={date}
+                    />
                 </div>
 
                 <div className="p-field p-grid">
                     <div className="p-col">
                         <InputTextarea
+                            maxLength="120"
                             style={{ width: '15rem', height: '8rem' }}
                             value={description}
                             placeholder="Description"

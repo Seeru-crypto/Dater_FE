@@ -52,6 +52,14 @@ const FilterTable = () => {
         setShowModal(true)
     }
 
+    const renderDateValues = (rowData, item) => {
+        const data = new Date(rowData.date)
+        let day = data.getDate()
+        let month = data.getMonth() + 1
+        let year = data.getFullYear()
+        return `${day}-${month}-${year}`
+    }
+
     return (
         <div>
             {data && (
@@ -62,7 +70,12 @@ const FilterTable = () => {
                             sortable
                             header="entryName"
                         ></Column>
-                        <Column field="date" sortable header="date"></Column>
+                        <Column
+                            field="date"
+                            sortable
+                            header="date"
+                            body={renderDateValues}
+                        ></Column>
                         <Column
                             sortable
                             field="reminder"
