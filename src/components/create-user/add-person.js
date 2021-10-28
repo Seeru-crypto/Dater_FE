@@ -11,7 +11,6 @@ import config from '../../config.json'
 const AddPerson = () => {
     const apiPath = config.apiPath
     const [name, setName] = useState('')
-    const [selectedDate, setSelectedDate] = useState('')
     const [date, setDate] = useState('')
     const [reminder, setReminder] = useState(false)
     const [description, setDescription] = useState('')
@@ -37,90 +36,94 @@ const AddPerson = () => {
     useEffect(() => {}, [])
 
     return (
-        <div>
-            <div className="p-fluid p-formgrid p-grid">
-                <div
-                    className="p-field p-col-12 p-md-6"
-                    style={{ padding: '10px' }}
-                >
-                    <InputText
-                        maxLength="20"
-                        placeholder="name"
-                        required
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                </div>
-                <div
-                    className="p-field p-col-12 p-md-6"
-                    style={{ padding: '10px' }}
-                >
-                    <CalendarComponent
-                        dateHandler={dateHandler}
-                        selectedEntry={date}
-                    />
-                </div>
-
-                <div className="p-field p-grid">
-                    <div className="p-col">
-                        <InputTextarea
-                            maxLength="120"
-                            style={{ width: '15rem', height: '8rem' }}
-                            value={description}
-                            placeholder="Description"
-                            onChange={(e) => setDescription(e.target.value)}
+        <div className="container">
+            <div className="row">
+                <div className="col">
+                    <div style={{ padding: '10px' }}>
+                        <InputText
+                            maxLength="20"
+                            placeholder="name"
+                            required
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                         />
                     </div>
                 </div>
-
-                <div className="p-field p-grid">
-                    <div className="checkbox p-col">
-                        <label
-                            className="p-col-fixed"
-                            style={{
-                                width: '250px',
-                                paddingRight: '10px',
-                                paddingLeft: '10px',
-                            }}
-                        >
-                            Do you want date reminder?
-                        </label>
-                        <Checkbox
-                            inputId="binary"
-                            checked={reminder}
-                            onChange={(e) => setReminder(e.checked)}
+                <div className="col">
+                    <div style={{ padding: '10px' }}>
+                        <CalendarComponent
+                            dateHandler={dateHandler}
+                            selectedEntry={date}
                         />
                     </div>
+                </div>
+            </div>
+
+            <div className="row">
+                <div className="col">
+                    <InputTextarea
+                        maxLength="120"
+                        style={{ width: '15rem', height: '8rem' }}
+                        value={description}
+                        placeholder="Description"
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                </div>
+
+                <div className="col">
+                    <label
+                        className="p-col-fixed"
+                        style={{
+                            width: '250px',
+                            paddingRight: '10px',
+                            paddingLeft: '10px',
+                        }}
+                    >
+                        Do you want date reminder?
+                    </label>
+                    <Checkbox
+                        inputId="binary"
+                        checked={reminder}
+                        onChange={(e) => setReminder(e.checked)}
+                    />
                 </div>
 
                 {reminder && (
-                    <div className="p-field p-grid">
-                        <label
-                            className="p-col-fixed"
-                            style={{ width: '300px', paddingLeft: '10px' }}
-                            htmlFor="integeronly"
-                        >
-                            How many days notice?
-                        </label>
-                        <div className="p-col p-md-3">
-                            <InputNumber
-                                inputId="integeronly"
-                                min={0}
-                                max={31}
-                                value={reminderInDays}
-                                onValueChange={(e) =>
-                                    setReminderInDays(e.value)
-                                }
-                            />
+                    <div style={{ paddingLeft: '2rem' }} className="col">
+                        <div className="row">
+                            <div>
+                                <label
+                                    style={{
+                                        width: '300px',
+                                        paddingLeft: '10px',
+                                    }}
+                                    htmlFor="integeronly"
+                                >
+                                    How many days notice?
+                                </label>
+                                <div className="col">
+                                    <InputNumber
+                                        inputId="integeronly"
+                                        min={0}
+                                        max={31}
+                                        value={reminderInDays}
+                                        onValueChange={(e) =>
+                                            setReminderInDays(e.value)
+                                        }
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 )}
             </div>
-            <Button
-                style={{ width: '150px' }}
-                label="Submit"
-                onClick={submitForm}
-            />
+            <div className="row">
+                <Button
+                    style={{ width: '150px' }}
+                    label="Submit"
+                    onClick={submitForm}
+                />
+            </div>
         </div>
     )
 }
