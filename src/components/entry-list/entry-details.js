@@ -25,8 +25,6 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
 
     let showHideModal = modalState ? true : false
 
-    //const [itemIsDeleted, setItemIsDeleted] = useState(false)
-
     useEffect(() => {
         setDescription(selectedEntry.description)
         setEntryName(selectedEntry.entryName)

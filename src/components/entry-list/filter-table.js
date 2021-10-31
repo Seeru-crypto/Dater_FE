@@ -13,15 +13,13 @@ const FilterTable = () => {
     const [data, setData] = useState([])
     const [showModal, setShowModal] = useState(false)
 
-    const [itemIsDeleted, setItemIsDeleted] = useState(false)
-
     useEffect(() => {
         const getData = async () => {
             const data = await GetData(apiPath)
             setData(data.data)
         }
         getData()
-    }, [itemIsDeleted, apiPath])
+    }, [apiPath])
 
     const hideModal = () => {
         setShowModal(false)
