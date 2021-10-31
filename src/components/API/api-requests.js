@@ -22,11 +22,11 @@ export const GetDataById = async (url, id) => {
 export const PostData = async (url, data) => {
     const axios = require('axios').default
     const res = axios.post(url, data)
+    return res
 }
 
 export const UpdateData = async (url, data) => {
-    console.log('in update!')
     const axios = require('axios').default
     const res = axios.put(url, data)
-    console.log('Update res is ', res)
+    return res
 }

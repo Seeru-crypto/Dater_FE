@@ -4,13 +4,6 @@ import { Dropdown } from 'primereact/dropdown'
 
 const CalendarComponent = ({ dateHandler, selectedDate }) => {
     const [date, setDate] = useState(selectedDate ? selectedDate : null)
-
-    /*     useEffect(() => {
-        setDate(selectedDate)
-    }, [])
- */ console.log('calendar selecteddate is ', selectedDate)
-    console.log('calendar date is ', date)
-
     const yearNavigatorTemplate = (e) => {
         return (
             <Dropdown

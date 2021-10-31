@@ -12,12 +12,15 @@ import { InputNumber } from 'primereact/inputnumber'
 import config from '../../config.json'
 
 export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
-    console.log(selectedEntry)
     const [description, setDescription] = useState(selectedEntry.description)
     const [entryName, setEntryName] = useState(selectedEntry.entryName)
     const [date, setDate] = useState(selectedEntry.date)
     const [reminder, setReminder] = useState(selectedEntry.reminder)
     const [reminderDays, setReminderDays] = useState(selectedEntry.reminderDays)
+    const [isoDate, setIsoDate] = useState(
+        selectedEntry.date ? selectedEntry.date : null
+    )
+
     const apiPath = config.apiPath
 
     let showHideModal = modalState ? true : false
@@ -33,6 +36,7 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
     }, [selectedEntry])
 
     const dateHandler = (data) => {
+        setIsoDate(data.toISOString())
         let day = data.getDate()
         let month = data.getMonth() + 1
         let year = data.getFullYear()
@@ -48,16 +52,15 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
     }
 
     const updateEntry = () => {
-        console.log(reminderDays)
         const data = {
-            description,
             entryName,
-            date,
+            date: isoDate,
             reminder,
             reminderDays,
+            description,
         }
         UpdateData(`${apiPath}/${selectedEntry.id}`, data)
-        //window.location.reload()
+        window.location.reload()
     }
 
     const productDialogFooter = (
