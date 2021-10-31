@@ -28,7 +28,6 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
         setDescription(selectedEntry.description)
         setEntryName(selectedEntry.entryName)
         setDate(selectedEntry.date)
-        console.log('date is ', date)
         setReminder(selectedEntry.reminder)
         setReminderDays(selectedEntry.reminderDays)
     }, [selectedEntry])
