@@ -44,7 +44,7 @@ An application for creating reminders and getting email notifications for impend
     -   [x] Form UI is created
     -   [x] uses GET requests for pulling
     -   [x] add Delete functionality
-    -   [ ] add proper form fields with css
+    -   [x] add proper form fields with css
     -   [x] add PUT functionality
     -   [ ] field validation
     -   [ ] User can implement U & D functions
