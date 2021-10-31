@@ -11,7 +11,7 @@ import 'primeflex/primeflex.css'
 
 import Navigationbar from './components/navbar'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import AddPerson from './components//create-user/add-person'
+import AddPerson from './components//create-entry/add-entry'
 import ViewPeople from './components/entry-list/view-people'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import NotFound from './components/not-found'

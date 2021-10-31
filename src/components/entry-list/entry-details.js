@@ -4,7 +4,7 @@ import { Dialog } from 'primereact/dialog'
 import { Checkbox } from 'primereact/checkbox'
 import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
-import CalendarComponent from '../create-user/calendar-component'
+import CalendarComponent from '../create-entry/calendar-component'
 import { DeleteData, UpdateData } from '../API/api-requests'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { InputNumber } from 'primereact/inputnumber'
@@ -28,6 +28,7 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
         setDescription(selectedEntry.description)
         setEntryName(selectedEntry.entryName)
         setDate(selectedEntry.date)
+        console.log('date is ', date)
         setReminder(selectedEntry.reminder)
         setReminderDays(selectedEntry.reminderDays)
     }, [selectedEntry])
@@ -37,7 +38,6 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
         let month = data.getMonth() + 1
         let year = data.getFullYear()
         const date2 = `${day}/${month}/${year}`
-        console.log('date2 is ', date2)
         setDate(date2)
     }
 
@@ -115,7 +115,10 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
                 </div>
                 <div>
                     <label htmlFor="selectedDate">Date:</label>
-                    <CalendarComponent dateHandler={dateHandler} />
+                    <CalendarComponent
+                        dateHandler={dateHandler}
+                        selectedDate={date}
+                    />
                 </div>
                 <div className="p-field">
                     <label htmlFor="description">description</label>
