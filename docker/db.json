@@ -2,7 +2,7 @@
     "users": [
         {
             "entryName": "Mike",
-            "date": "24/07/1992",
+            "date": "2002-02-02T21:00:00.000Z",
             "reminder": true,
             "reminderDays": 10,
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
@@ -10,7 +10,7 @@
         },
         {
             "entryName": "Alice",
-            "date": "10/10/1998",
+            "date": "2000-01-01T21:00:00.000Z",
             "reminder": false,
             "reminderDays": 0,
             "description": "Desc text",
@@ -18,7 +18,7 @@
         },
         {
             "entryName": "Jason",
-            "date": "10/10/1998",
+            "date": "2021-12-12T21:00:00.000Z",
             "reminder": true,
             "reminderDays": 31,
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,",
@@ -26,7 +26,7 @@
         },
         {
             "entryName": "Alex",
-            "date": "26/06/2003",
+            "date": "2003-06-26T20:00:00.000Z",
             "reminder": true,
             "reminderDays": 31,
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
@@ -34,7 +34,7 @@
         },
         {
             "entryName": "Mako",
-            "date": "26/09/1998",
+            "date": "1998-09-26T20:00:00.000Z",
             "reminder": false,
             "reminderDays": 0,
             "description": "Desc text",
@@ -42,7 +42,7 @@
         },
         {
             "entryName": "Chris",
-            "date": "02/11/2003",
+            "date": "2003-11-02T21:00:00.000Z",
             "reminder": false,
             "reminderDays": 0,
             "description": "The Gamer!",

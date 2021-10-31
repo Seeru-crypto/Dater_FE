@@ -1,30 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { InputSwitch } from "primereact/inputswitch";
+import React, { useState, useEffect } from 'react'
+import { InputSwitch } from 'primereact/inputswitch'
 
-import FilterTable from "./filter-table";
+import FilterTable from './filter-table'
 
 const ViewPeople = () => {
-  const [viewReminder, setViewReminder] = useState(true);
-  const options = ["Off", "On"];
+    const [viewReminder, setViewReminder] = useState(true)
+    const options = ['Off', 'On']
 
-  useEffect(() => {
-    console.log(viewReminder);
+    useEffect(() => {
+        return () => {}
+    }, [viewReminder])
 
-    return () => {};
-  }, [viewReminder]);
+    return (
+        <div>
+            <div style={{ padding: '1rem' }} className="p-grid">
+                <h5 style={{ paddingRight: '2rem' }}>View reminders: </h5>
+                <InputSwitch
+                    checked={viewReminder}
+                    onChange={(e) => setViewReminder(e.value)}
+                />
+            </div>
 
-  return (
-    <div>
-      <div style={{ padding: "1rem" }} className="p-grid">
-        <h5 style={{ paddingRight: "2rem" }}>View reminders: </h5>
-        <InputSwitch
-          checked={viewReminder}
-          onChange={(e) => setViewReminder(e.value)}
-        />
-      </div>
-
-      <FilterTable />
-    </div>
-  );
-};
-export default ViewPeople;
+            <FilterTable />
+        </div>
+    )
+}
+export default ViewPeople
