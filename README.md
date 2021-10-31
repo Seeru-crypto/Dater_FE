@@ -66,17 +66,10 @@ An application for creating reminders and getting email notifications for impend
     -   [ ] Convert all dockerfiles to docker-compose format
 -   [ ] Sequentsial email functionality, (if person wants emails every day or every other day!)
 
-## Back-End
 
-### Technical info
-
-- [link](https://github.com/Seeru-crypto/Dater_BE) to Git repo
--   Ports:
-    -   prod uses: 5000
+### Connection ports:
+- spring back-end server:
     -   dev uses: 5001
--   uses Spring
-## Database
-### Technical info
-
-- uses Elasticsearch
-- uses port 5432
+    -   prod uses: 5000
+- JSON server : 
+    - dev uses: 5432
