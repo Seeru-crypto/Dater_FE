@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import CalendarComponent from './calendar-component'
 import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
@@ -32,8 +32,6 @@ const AddPerson = () => {
         PostData(apiPath, data)
         alert('Item added!')
     }
-
-    useEffect(() => {}, [])
 
     return (
         <div className="container">

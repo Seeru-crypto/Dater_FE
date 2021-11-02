@@ -3,38 +3,14 @@ import React from 'react'
 const Main = () => {
     return (
         <div>
-            <h1>Tere Tulemast!</h1>
+            <h1>Welcome to Dater!</h1>
 
             <div className="section-div">
-                <h3>Arhidektuur</h3>
-                <ul>
-                    <li>React App: Port 4000</li>
-                    <li>
-                        JSON server/ container: Port 5432{': '}
-                        <a href="http://localhost:5432/users">link</a>
-                    </li>
-                </ul>
-            </div>
-            <div className="section-div">
-                <h3>Äriline funktsionaalsus</h3>
-                <ul>
-                    <li>
-                        Klient saab sooritada CRUD operatsioone kuupäeva
-                        sisestustega{' '}
-                    </li>
-                    <li>
-                        Klient saab valida kas soovib email meelde tuletust,
-                        koos mitme päeva eelteatamisega
-                    </li>
-                    <li>
-                        Admin saab hallata emaili süsteemi konfe, mis pordid,
-                        mis aadressid jne
-                    </li>
-                    <li>
-                        Admin saab hallata emaili süsteemi konfe, mis pordid,
-                        mis aadressid jne
-                    </li>
-                </ul>
+                <h3>Description:</h3>
+                <p>
+                    Dater is a event manager, which will send out an email if a
+                    date is nearing.
+                </p>
             </div>
 
             <a
