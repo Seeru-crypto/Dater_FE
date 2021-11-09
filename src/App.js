@@ -13,7 +13,7 @@ import Navigationbar from './components/navbar'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import AddPerson from './components//create-entry/add-entry'
 import ViewPeople from './components/entry-list/view-people'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import NotFound from './components/not-found'
 import Main from './components/main'
 import Admin from './components/admin-page/admin'
@@ -23,15 +23,13 @@ function App() {
         <Router>
             <Navigationbar />
             <div className="container">
-                <Switch>
-                    <Route exact path="/" component={Main} />
-                    <Route exact path="/add" component={AddPerson} />
-                    <Route exact path="/peopleList" component={ViewPeople} />
-                    <Route exact path="/admin" component={Admin} />
-
-                    <Route exact path="/nf" component={NotFound} />
-                    <Route path="*" component={NotFound} />
-                </Switch>
+                <Routes>
+                    <Route exact path="/" element={<Main />} />
+                    <Route exact path="/add" element={<AddPerson />} />
+                    <Route exact path="/peopleList" element={<ViewPeople />} />
+                    <Route exact path="/admin" element={<Admin />} />
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
             </div>
         </Router>
     )

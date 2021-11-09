@@ -1,6 +1,7 @@
 import React from 'react'
 
 const Admin = () => {
+    console.log('in admind')
     return (
         <div>
             <h1>Admin Page!</h1>
