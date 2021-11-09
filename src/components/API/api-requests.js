@@ -8,6 +8,7 @@ export const DeleteData = async (url, id) => {
 
 export const GetData = async (url) => {
     const res = await axios.get(url)
+    console.log(res)
     return res
 }
 
