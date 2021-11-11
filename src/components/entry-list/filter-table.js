@@ -16,7 +16,10 @@ const FilterTable = () => {
     useEffect(() => {
         const getData = async () => {
             const data = await GetData(apiPath)
-            setData(data.data)
+            setData(data.data._embedded.event)
+            console.log('long ', data)
+
+            console.log('short ', data.data._embedded.event)
         }
         getData()
     }, [apiPath])
@@ -64,9 +67,9 @@ const FilterTable = () => {
                 <div className="card">
                     <DataTable value={data}>
                         <Column
-                            field="entryName"
+                            field="eventName"
                             sortable
-                            header="entryName"
+                            header="eventName"
                         ></Column>
                         <Column
                             field="date"

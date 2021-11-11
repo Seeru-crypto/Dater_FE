@@ -8,12 +8,13 @@ import CalendarComponent from '../create-entry/calendar-component'
 import { DeleteData, UpdateData } from '../API/api-requests'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { InputNumber } from 'primereact/inputnumber'
+import useGetId from '../../custom-hooks/useGetId'
 
 import config from '../../config.json'
 
 export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
     const [description, setDescription] = useState(selectedEntry.description)
-    const [entryName, setEntryName] = useState(selectedEntry.entryName)
+    const [eventName, setEventName] = useState(selectedEntry.eventName)
     const [date, setDate] = useState(selectedEntry.date)
     const [reminder, setReminder] = useState(selectedEntry.reminder)
     const [reminderDays, setReminderDays] = useState(selectedEntry.reminderDays)
@@ -24,10 +25,12 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
     const apiPath = config.apiPath
 
     let showHideModal = modalState ? true : false
+    console.log('selected enty is ', selectedEntry)
+    const eventId = useGetId(selectedEntry)
 
     useEffect(() => {
         setDescription(selectedEntry.description)
-        setEntryName(selectedEntry.entryName)
+        setEventName(selectedEntry.eventName)
         setDate(selectedEntry.date)
         setReminder(selectedEntry.reminder)
         setReminderDays(selectedEntry.reminderDays)
@@ -45,19 +48,19 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
     const deleteEntry = () => {
         //ToDo
         //  Ask for user confirmation, before deleting!
-        DeleteData(apiPath, selectedEntry.id)
+        DeleteData(apiPath, eventId)
         window.location.reload()
     }
 
     const updateEntry = () => {
         const data = {
-            entryName,
+            eventName,
             date: isoDate,
             reminder,
             reminderDays,
             description,
         }
-        UpdateData(`${apiPath}/${selectedEntry.id}`, data)
+        UpdateData(`${apiPath}/${eventId}`, data)
         window.location.reload()
     }
 
@@ -96,20 +99,20 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
             footer={productDialogFooter}
             onHide={hideModal}
         >
-            <h5>{entryName}</h5>
+            <h5>{eventName}</h5>
             <div className="p-fluid">
                 <div className="p-field">
-                    <label htmlFor="entryName">Entry name:</label>
+                    <label htmlFor="eventName">Entry name:</label>
                     <InputText
-                        value={entryName}
-                        id="entryName"
+                        value={eventName}
+                        id="eventName"
                         maxLength="20"
                         type="text"
                         onInput={(e) => {
-                            setEntryName(e.target.value)
+                            setEventName(e.target.value)
                         }}
                         onValueChange={(e) => {
-                            setEntryName(e.target.value)
+                            setEventName(e.target.value)
                         }}
                     />
                 </div>

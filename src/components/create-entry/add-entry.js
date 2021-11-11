@@ -22,7 +22,7 @@ const AddPerson = () => {
 
     const submitForm = () => {
         const data = {
-            entryName: name,
+            eventName: name,
             date: date,
             reminder: reminder,
             reminderDays: reminderInDays,
