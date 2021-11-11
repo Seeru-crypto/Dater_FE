@@ -23,10 +23,8 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
     )
 
     const apiPath = config.apiPath
-
-    let showHideModal = modalState ? true : false
-    console.log('selected enty is ', selectedEntry)
     const eventId = useGetId(selectedEntry)
+    let showHideModal = modalState ? true : false
 
     useEffect(() => {
         setDescription(selectedEntry.description)
@@ -36,11 +34,11 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
         setReminderDays(selectedEntry.reminderDays)
     }, [selectedEntry])
 
-    const dateHandler = (data) => {
-        setIsoDate(data.toISOString())
-        let day = data.getDate()
-        let month = data.getMonth() + 1
-        let year = data.getFullYear()
+    const dateHandler = (selectedDate) => {
+        setIsoDate(selectedDate.toISOString())
+        let day = selectedDate.getDate()
+        let month = selectedDate.getMonth() + 1
+        let year = selectedDate.getFullYear()
         const date2 = `${day}/${month}/${year}`
         setDate(date2)
     }

@@ -65,6 +65,7 @@ An application for creating reminders and getting email notifications for impend
     -   [x] Define SQL schema datafields
     -   [ ] Convert all dockerfiles to docker-compose format
 -   [ ] Sequentsial email functionality, (if person wants emails every day or every other day!)
+- [ ] create a general calendar view, where ALL dates are displayed (ignore year values).
 - [ ] Add loading animations
 - [ ] Add proper entry and update confirmations (green thumbs up, or smth like that)
 - [ ] add error handling for API requests
@@ -77,4 +78,4 @@ An application for creating reminders and getting email notifications for impend
     -   dev uses: 5001
     -   prod uses: 5000
 - JSON server : 
-    - dev uses: 5432
+    - dev uses: 270..
