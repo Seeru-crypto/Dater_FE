@@ -3,7 +3,7 @@ import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { Button } from 'primereact/button'
 import { EntryDetails } from './entry-details'
-import { GetData } from '../API/api-requests'
+import { GetData } from '../../API/api-requests'
 import config from '../../config.json'
 
 const FilterTable = () => {
@@ -17,12 +17,9 @@ const FilterTable = () => {
         const getData = async () => {
             const data = await GetData(apiPath)
             setData(data.data._embedded.event)
-            console.log('long ', data)
-
-            console.log('short ', data.data._embedded.event)
         }
         getData()
-    }, [apiPath])
+    }, [apiPath, showModal])
 
     const hideModal = () => {
         setShowModal(false)

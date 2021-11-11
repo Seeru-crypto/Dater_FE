@@ -6,7 +6,7 @@ import { Checkbox } from 'primereact/checkbox'
 import { InputTextarea } from 'primereact/inputtextarea'
 
 import { InputNumber } from 'primereact/inputnumber'
-import { PostData } from '../API/api-requests'
+import { PostData } from '../../API/api-requests'
 import config from '../../config.json'
 const AddPerson = () => {
     const apiPath = config.apiPath

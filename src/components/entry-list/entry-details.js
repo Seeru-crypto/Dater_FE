@@ -5,9 +5,10 @@ import { Checkbox } from 'primereact/checkbox'
 import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
 import CalendarComponent from '../create-entry/calendar-component'
-import { DeleteData, UpdateData } from '../API/api-requests'
+import { DeleteData, UpdateData } from '../../API/api-requests'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { InputNumber } from 'primereact/inputnumber'
+import Alert from 'react-bootstrap/Alert'
 import useGetId from '../../custom-hooks/useGetId'
 
 import config from '../../config.json'
@@ -18,6 +19,9 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
     const [date, setDate] = useState(selectedEntry.date)
     const [reminder, setReminder] = useState(selectedEntry.reminder)
     const [reminderDays, setReminderDays] = useState(selectedEntry.reminderDays)
+    const [showSuccess, setShowSuccess] = useState(false)
+    const [showDeleted, setShowDeleted] = useState(false)
+
     const [isoDate, setIsoDate] = useState(
         selectedEntry.date ? selectedEntry.date : null
     )
@@ -34,6 +38,20 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
         setReminderDays(selectedEntry.reminderDays)
     }, [selectedEntry])
 
+    const showAlert = (type) => {
+        if (type === 'update') {
+            setShowSuccess(true)
+            setTimeout(() => {
+                setShowSuccess(false)
+                hideModal()
+            }, 2500)
+        }
+        if (type === 'delete') {
+            setShowDeleted(true)
+            setTimeout(() => setShowDeleted(false), 2500)
+        }
+    }
+
     const dateHandler = (selectedDate) => {
         setIsoDate(selectedDate.toISOString())
         let day = selectedDate.getDate()
@@ -47,7 +65,7 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
         //ToDo
         //  Ask for user confirmation, before deleting!
         DeleteData(apiPath, eventId)
-        window.location.reload()
+        showAlert('delete')
     }
 
     const updateEntry = () => {
@@ -59,7 +77,7 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
             description,
         }
         UpdateData(`${apiPath}/${eventId}`, data)
-        window.location.reload()
+        showAlert('update')
     }
 
     const productDialogFooter = (
@@ -97,6 +115,16 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
             footer={productDialogFooter}
             onHide={hideModal}
         >
+            {showSuccess && (
+                <div>
+                    <Alert variant="success">This item has been updated.</Alert>
+                </div>
+            )}
+            {showDeleted && (
+                <div>
+                    <Alert variant="danger">This item has been deleted!</Alert>
+                </div>
+            )}
             <h5>{eventName}</h5>
             <div className="p-fluid">
                 <div className="p-field">
@@ -107,9 +135,6 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
                         maxLength="20"
                         type="text"
                         onInput={(e) => {
-                            setEventName(e.target.value)
-                        }}
-                        onValueChange={(e) => {
                             setEventName(e.target.value)
                         }}
                     />
@@ -132,16 +157,12 @@ export const EntryDetails = ({ selectedEntry, hideModal, modalState }) => {
                         onInput={(e) => {
                             setDescription(e.target.value)
                         }}
-                        onValueChange={(e) => {
-                            setDescription(e.target.value)
-                        }}
                     />
                 </div>
                 <div
                     style={{
                         alignItems: 'center',
                         display: 'flex',
-                        //justifyContent: 'center',
                     }}
                     className="p-field"
                 >

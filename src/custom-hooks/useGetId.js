@@ -5,9 +5,9 @@ function useGetId(eventEntry) {
 
     useEffect(() => {
         const eventTag = eventEntry._links.event.href
-        const test = eventTag.substring(28)
+        const eventId = eventTag.substring(28)
 
-        setId(test)
+        setId(eventId)
     }, [eventEntry])
 
     return id
