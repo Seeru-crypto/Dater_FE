@@ -4,17 +4,18 @@ import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
 import { Checkbox } from 'primereact/checkbox'
 import { InputTextarea } from 'primereact/inputtextarea'
-
+import { Message } from 'primereact/message'
 import { InputNumber } from 'primereact/inputnumber'
-import { PostData } from '../API/api-requests'
+import { PostData } from '../../API/api-requests'
 import config from '../../config.json'
-const AddPerson = () => {
+const AddEvent = () => {
     const apiPath = config.apiPath
     const [name, setName] = useState('')
     const [date, setDate] = useState('')
     const [reminder, setReminder] = useState(false)
     const [description, setDescription] = useState('')
     const [reminderInDays, setReminderInDays] = useState(0)
+    const [showSuccess, setShowSuccess] = useState(false)
 
     const dateHandler = (data) => {
         setDate(data.toISOString())
@@ -22,7 +23,7 @@ const AddPerson = () => {
 
     const submitForm = () => {
         const data = {
-            entryName: name,
+            eventName: name,
             date: date,
             reminder: reminder,
             reminderDays: reminderInDays,
@@ -30,7 +31,8 @@ const AddPerson = () => {
         }
 
         PostData(apiPath, data)
-        alert('Item added!')
+        setShowSuccess(true)
+        setTimeout(() => setShowSuccess(false), 3000)
     }
 
     return (
@@ -122,7 +124,12 @@ const AddPerson = () => {
                     onClick={submitForm}
                 />
             </div>
+            {showSuccess && (
+                <div className="row">
+                    <Message severity="success" text="Event Created" />
+                </div>
+            )}
         </div>
     )
 }
-export default AddPerson
+export default AddEvent

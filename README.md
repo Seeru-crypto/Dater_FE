@@ -35,12 +35,12 @@ An application for creating reminders and getting email notifications for impend
 
 ### ToDo:
 
--   [ ] Entry form
+-   [ ] event form
     -   [x] Form UI is created
     -   [x] uses POST request
     -   [ ] field validation;
     -   [ ] User can implement C function
--   [ ] <ins>Change Entry Data</ins>
+-   [ ] Change event Data
     -   [x] Form UI is created
     -   [x] uses GET requests for pulling
     -   [x] add Delete functionality
@@ -48,11 +48,11 @@ An application for creating reminders and getting email notifications for impend
     -   [x] add PUT functionality
     -   [ ] field validation
     -   [ ] User can implement U & D functions
--   [ ] config tools to change email aadress, port and reminder email template
+-   [ ] Admin view, change email aadress, port and reminder email template
     -   [ ] UI is created
     -   [ ] UI uses GET & POST requests
     -   [ ] field validation
--   [x] Table to display current entry´s
+-   [x] Table to display current event´s
     -   [x] Table UI is created
     -   [x] table gets data from GET request
     -   [x] table is sortable
@@ -64,19 +64,23 @@ An application for creating reminders and getting email notifications for impend
 -   [ ] misc tasks
     -   [x] Define SQL schema datafields
     -   [ ] Convert all dockerfiles to docker-compose format
--   [ ] Sequentsial email functionality, (if person wants emails every day or every other day!)
+- [ ] Sequentsial email option, (if person wants emails every day or every other day!)
+- [ ] create a general calendar view, where ALL dates are displayed (ignore year values).
 - [ ] Add loading animations
 - [ ] Setup Heroku CI/CD pipeline
 - [ ] Add 80% test coverage
-- [ ] Add proper entry and update confirmations (green thumbs up, or smth like that)
+- [x] Add proper entry and update confirmations (green thumbs up, or smth like that)
 - [ ] add error handling for API requests
 - [ ] convert Bootstrap styling to Semnantics UI
-
-
+- [ ] Styling
+    - [ ] Export all inline styling into a App.css file
+    - [ ] [Format app.css file into sass](https://medium.com/how-to-react/use-sass-in-react-js-bbeb0b94f8a6)
 
 ### Connection ports:
 - spring back-end server:
     -   dev uses: 5001
     -   prod uses: 5000
 - JSON server : 
-    - dev uses: 5432
+    - uses: 5432
+- MongoDB server:
+    - uses : 27017

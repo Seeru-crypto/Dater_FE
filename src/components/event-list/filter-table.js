@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { Button } from 'primereact/button'
-import { EntryDetails } from './entry-details'
-import { GetData } from '../API/api-requests'
+import { EventDetails } from './event-details'
+import { GetData } from '../../API/api-requests'
 import config from '../../config.json'
 
 const FilterTable = () => {
-    const [selectedEntry, setSelectedEntry] = useState(null)
+    const [selectedEvent, setselectedEvent] = useState(null)
     const apiPath = config.apiPath
 
     const [data, setData] = useState([])
@@ -16,10 +16,10 @@ const FilterTable = () => {
     useEffect(() => {
         const getData = async () => {
             const data = await GetData(apiPath)
-            setData(data.data)
+            setData(data.data._embedded.event)
         }
         getData()
-    }, [apiPath])
+    }, [apiPath, showModal])
 
     const hideModal = () => {
         setShowModal(false)
@@ -46,7 +46,7 @@ const FilterTable = () => {
     }
 
     const editProduct = (product) => {
-        setSelectedEntry(product)
+        setselectedEvent(product)
         setShowModal(true)
     }
 
@@ -64,9 +64,9 @@ const FilterTable = () => {
                 <div className="card">
                     <DataTable value={data}>
                         <Column
-                            field="entryName"
+                            field="eventName"
                             sortable
-                            header="entryName"
+                            header="eventName"
                         ></Column>
                         <Column
                             field="date"
@@ -102,10 +102,10 @@ const FilterTable = () => {
                     </DataTable>
                 </div>
             )}
-            {selectedEntry && (
+            {selectedEvent && (
                 <div>
-                    <EntryDetails
-                        selectedEntry={selectedEntry}
+                    <EventDetails
+                        selectedEvent={selectedEvent}
                         hideModal={hideModal}
                         modalState={showModal}
                     />
