@@ -67,7 +67,9 @@ An application for creating reminders and getting email notifications for impend
 - [ ] Sequentsial email option, (if person wants emails every day or every other day!)
 - [ ] create a general calendar view, where ALL dates are displayed (ignore year values).
 - [ ] Add loading animations
-- [x] Add proper event and update confirmations (green thumbs up, or smth like that)
+- [ ] Setup Heroku CI/CD pipeline
+- [ ] Add 80% test coverage
+- [x] Add proper entry and update confirmations (green thumbs up, or smth like that)
 - [ ] add error handling for API requests
 - [ ] convert Bootstrap styling to Semnantics UI
 - [ ] Styling
