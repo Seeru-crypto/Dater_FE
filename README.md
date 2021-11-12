@@ -66,6 +66,8 @@ An application for creating reminders and getting email notifications for impend
     -   [ ] Convert all dockerfiles to docker-compose format
 -   [ ] Sequentsial email functionality, (if person wants emails every day or every other day!)
 - [ ] Add loading animations
+- [ ] Setup Heroku CI/CD pipeline
+- [ ] Add 80% test coverage
 - [ ] Add proper entry and update confirmations (green thumbs up, or smth like that)
 - [ ] add error handling for API requests
 - [ ] convert Bootstrap styling to Semnantics UI
