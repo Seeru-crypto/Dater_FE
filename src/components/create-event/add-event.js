@@ -126,7 +126,7 @@ const AddEvent = () => {
             </div>
             {showSuccess && (
                 <div className="row">
-                    <Message severity="success" text="Message Content" />
+                    <Message severity="success" text="Event Created" />
                 </div>
             )}
         </div>

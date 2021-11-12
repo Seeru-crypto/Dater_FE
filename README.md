@@ -35,12 +35,12 @@ An application for creating reminders and getting email notifications for impend
 
 ### ToDo:
 
--   [ ] Entry form
+-   [ ] event form
     -   [x] Form UI is created
     -   [x] uses POST request
     -   [ ] field validation;
     -   [ ] User can implement C function
--   [ ] Change Entry Data
+-   [ ] Change event Data
     -   [x] Form UI is created
     -   [x] uses GET requests for pulling
     -   [x] add Delete functionality
@@ -52,7 +52,7 @@ An application for creating reminders and getting email notifications for impend
     -   [ ] UI is created
     -   [ ] UI uses GET & POST requests
     -   [ ] field validation
--   [x] Table to display current entry´s
+-   [x] Table to display current event´s
     -   [x] Table UI is created
     -   [x] table gets data from GET request
     -   [x] table is sortable
@@ -67,7 +67,7 @@ An application for creating reminders and getting email notifications for impend
 - [ ] Sequentsial email option, (if person wants emails every day or every other day!)
 - [ ] create a general calendar view, where ALL dates are displayed (ignore year values).
 - [ ] Add loading animations
-- [x] Add proper entry and update confirmations (green thumbs up, or smth like that)
+- [x] Add proper event and update confirmations (green thumbs up, or smth like that)
 - [ ] add error handling for API requests
 - [ ] convert Bootstrap styling to Semnantics UI
 - [ ] Styling
