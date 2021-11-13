@@ -81,7 +81,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
         showAlert('update')
     }
 
-    const productDialogFooter = (
+    const eventModalFooter = (
         <React.Fragment>
             <Button
                 label="Delete"
@@ -113,7 +113,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
             header="Event Details"
             modal
             className="p-fluid"
-            footer={productDialogFooter}
+            footer={eventModalFooter}
             onHide={hideModal}
         >
             {showSuccess && (
