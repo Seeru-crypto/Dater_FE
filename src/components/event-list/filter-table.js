@@ -15,8 +15,8 @@ const FilterTable = () => {
 
     useEffect(() => {
         const getData = async () => {
-            const data = await GetData(apiPath)
-            setData(data.data._embedded.event)
+            const eventData = await GetData(apiPath)
+            setData(eventData.data._embedded.event)
         }
         getData()
     }, [apiPath, showModal])
@@ -51,10 +51,10 @@ const FilterTable = () => {
     }
 
     const renderDateValues = (rowData, item) => {
-        const data = new Date(rowData.date)
-        let day = data.getDate()
-        let month = data.getMonth() + 1
-        let year = data.getFullYear()
+        const date = new Date(rowData.date)
+        let day = date.getDate()
+        let month = date.getMonth() + 1
+        let year = date.getFullYear()
         return `${day}-${month}-${year}`
     }
 

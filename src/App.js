@@ -6,7 +6,6 @@ import 'primereact/inputtext/inputtext.min.css'
 import 'primeicons/primeicons.css'
 import 'primereact/resources/primereact.min.css'
 import 'primereact/resources/themes/saga-blue/theme.css'
-// import "primeflex/primeflex.min.css"
 import 'primeflex/primeflex.css'
 
 import Navigationbar from './components/navbar'
