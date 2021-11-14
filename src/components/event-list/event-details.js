@@ -14,7 +14,6 @@ import useGetId from '../../custom-hooks/useGetId'
 import config from '../../config.json'
 
 export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
-    console.log(selectedEvent)
     const [description, setDescription] = useState(selectedEvent.description)
     const [eventName, setEventName] = useState(selectedEvent.eventName)
     const [date, setDate] = useState(selectedEvent.date)
@@ -22,6 +21,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
     const [reminderDays, setReminderDays] = useState(selectedEvent.reminderDays)
     const [showSuccess, setShowSuccess] = useState(false)
     const [showDeleted, setShowDeleted] = useState(false)
+    const [accountForYear] = useState(false)
 
     const [isoDate, setIsoDate] = useState(
         selectedEvent.date ? selectedEvent.date : null
@@ -76,6 +76,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
             reminder,
             reminderDays,
             description,
+            accountForYear,
         }
         UpdateData(`${apiPath}/${eventId}`, data)
         showAlert('update')

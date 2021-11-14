@@ -16,6 +16,7 @@ const AddEvent = () => {
     const [description, setDescription] = useState('')
     const [reminderInDays, setReminderInDays] = useState(0)
     const [showSuccess, setShowSuccess] = useState(false)
+    const [accountForYear] = useState(false)
 
     const dateHandler = (data) => {
         setDate(data.toISOString())
@@ -28,6 +29,7 @@ const AddEvent = () => {
             reminder: reminder,
             reminderDays: reminderInDays,
             description: description,
+            accountForYear,
         }
 
         PostData(apiPath, data)
