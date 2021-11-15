@@ -2,7 +2,10 @@ import React, { useState } from 'react'
 import CalendarComponent from './calendar-component'
 import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
+import { InputSwitch } from 'primereact/inputswitch'
 import { Checkbox } from 'primereact/checkbox'
+import { Card } from 'primereact/card'
+
 import { InputTextarea } from 'primereact/inputtextarea'
 import { Message } from 'primereact/message'
 import { InputNumber } from 'primereact/inputnumber'
@@ -16,7 +19,7 @@ const AddEvent = () => {
     const [description, setDescription] = useState('')
     const [reminderInDays, setReminderInDays] = useState(0)
     const [showSuccess, setShowSuccess] = useState(false)
-    const [accountForYear] = useState(false)
+    const [accountForYear, setAccountForYear] = useState(false)
 
     const dateHandler = (data) => {
         setDate(data.toISOString())
@@ -31,107 +34,117 @@ const AddEvent = () => {
             description: description,
             accountForYear,
         }
-
         PostData(apiPath, data)
         setShowSuccess(true)
         setTimeout(() => setShowSuccess(false), 3000)
     }
 
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col">
-                    <div style={{ padding: '10px' }}>
-                        <InputText
-                            maxLength="20"
-                            placeholder="name"
-                            required
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                    </div>
+        <Card style={{ marginBottom: '2em' }}>
+            <div
+                style={{ marginTop: '10px' }}
+                className="p-fluid p-formgrid p-grid"
+            >
+                <div className="p-field p-col">
+                    <label htmlFor="firstname2">Firstname</label>
+                    <InputText
+                        className="p-inputtext-lg p-d-block"
+                        maxLength="20"
+                        placeholder="name"
+                        required
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
                 </div>
-                <div className="col">
-                    <div style={{ padding: '10px' }}>
-                        <CalendarComponent
-                            dateHandler={dateHandler}
-                            selectedEntry={date}
-                        />
-                    </div>
+                <div className="p-field p-col">
+                    <label htmlFor="lastname2">Date:</label>
+                    <CalendarComponent
+                        dateHandler={dateHandler}
+                        selectedEntry={date}
+                    />
                 </div>
             </div>
 
-            <div className="row">
-                <div className="col">
+            <div
+                style={{ marginTop: '10px' }}
+                className="p-fluid p-formgrid p-grid"
+            >
+                <div className="p-field p-col">
+                    <label htmlFor="firstname2">Description:</label>
                     <InputTextarea
                         maxLength="120"
-                        style={{ width: '15rem', height: '8rem' }}
                         value={description}
                         placeholder="Description"
                         onChange={(e) => setDescription(e.target.value)}
                     />
                 </div>
-
-                <div className="col">
-                    <label
-                        className="p-col-fixed"
-                        style={{
-                            width: '250px',
-                            paddingRight: '10px',
-                            paddingLeft: '10px',
-                        }}
-                    >
-                        Do you want date reminder?
-                    </label>
-                    <Checkbox
-                        inputId="binary"
-                        checked={reminder}
-                        onChange={(e) => setReminder(e.checked)}
-                    />
-                </div>
-
-                {reminder && (
-                    <div style={{ paddingLeft: '2rem' }} className="col">
-                        <div className="row">
-                            <div>
-                                <label
-                                    style={{
-                                        width: '300px',
-                                        paddingLeft: '10px',
-                                    }}
-                                    htmlFor="integeronly"
-                                >
-                                    How many days notice?
-                                </label>
-                                <div className="col">
-                                    <InputNumber
-                                        inputId="integeronly"
-                                        min={0}
-                                        max={31}
-                                        value={reminderInDays}
-                                        onValueChange={(e) =>
-                                            setReminderInDays(e.value)
-                                        }
-                                    />
-                                </div>
-                            </div>
-                        </div>
+                <div className="p-field p-col">
+                    <h5 style={{ padding: '10px' }}>Additional settings:</h5>
+                    <div className="p-field-checkbox">
+                        <Checkbox
+                            inputId="city1"
+                            value="Do you want reminders?"
+                            onChange={() => setReminder(!reminder)}
+                            checked={reminder}
+                        />
+                        <label htmlFor="city1">Do you want reminders?</label>
                     </div>
-                )}
+                    {reminder && (
+                        <div className="p-field-checkbox">
+                            <Checkbox
+                                inputId="city2"
+                                value="Account for year?"
+                                onChange={() =>
+                                    setAccountForYear(!accountForYear)
+                                }
+                                checked={accountForYear}
+                            />
+                            <label htmlFor="city2">Account for year?</label>
+                        </div>
+                    )}
+                </div>
             </div>
-            <div className="row">
+            {reminder && (
+                <div className="p-fluid p-formgrid p-grid">
+                    <div className="p-field p-col">
+                        <label htmlFor="integeronly">
+                            How many days notice?{' '}
+                        </label>
+                        <InputNumber
+                            inputId="integeronly"
+                            min={0}
+                            max={31}
+                            value={reminderInDays}
+                            onValueChange={(e) => setReminderInDays(e.value)}
+                        />
+                    </div>
+                    <div className="p-field p-col"></div>
+                </div>
+            )}
+            <div className="p-fluid p-formgrid p-grid">
                 <Button
-                    style={{ width: '150px' }}
-                    label="Submit"
+                    label="Add Event"
+                    style={{
+                        display: 'flex',
+                        padding: '10px',
+                        width: '15rem',
+                    }}
+                    className="p-button-rounded p-button-secondary"
                     onClick={submitForm}
                 />
             </div>
-            {showSuccess && (
-                <div className="row">
-                    <Message severity="success" text="Event Created" />
-                </div>
-            )}
-        </div>
+
+            <div
+                style={{ marginTop: '2rem' }}
+                className="p-fluid p-formgrid p-grid"
+            >
+                {showSuccess && (
+                    <div className="p-field p-col">
+                        <Message severity="success" text="Event Created" />
+                    </div>
+                )}
+            </div>
+        </Card>
     )
 }
 export default AddEvent
