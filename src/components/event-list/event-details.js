@@ -15,6 +15,7 @@ import {
     infoNotification,
 } from '../../custom-hooks/notifications'
 import { Toast } from 'primereact/toast'
+import { Tooltip } from 'primereact/tooltip'
 
 import config from '../../config.json'
 
@@ -25,7 +26,9 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
     const [date, setDate] = useState(selectedEvent.date)
     const [reminder, setReminder] = useState(selectedEvent.reminder)
     const [reminderDays, setReminderDays] = useState(selectedEvent.reminderDays)
-    const [accountForYear] = useState(false)
+    const [accountForYear, setAccountForYear] = useState(
+        selectedEvent.accountForYear
+    )
 
     const [isoDate, setIsoDate] = useState(
         selectedEvent.date ? selectedEvent.date : null
@@ -39,6 +42,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
         setDescription(selectedEvent.description)
         setEventName(selectedEvent.eventName)
         setDate(selectedEvent.date)
+        setIsoDate(selectedEvent.date)
         setReminder(selectedEvent.reminder)
         setReminderDays(selectedEvent.reminderDays)
     }, [selectedEvent])
@@ -180,21 +184,54 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
                     ></Checkbox>
                 </div>
                 {reminder && (
-                    <div className="p-field">
-                        <label htmlFor="reminderDays">Reminder in days</label>
-                        <InputNumber
-                            value={reminderDays}
-                            inputId="integeronly"
-                            min={0}
-                            max={31}
-                            id="reminderDays"
-                            onInput={(e) => {
-                                setReminderDays(e.target.value)
-                            }}
-                            onValueChange={(e) => {
-                                setReminderDays(e.target.value)
-                            }}
-                        />
+                    <div>
+                        <div className="p-field-checkbox">
+                            <Checkbox
+                                className="p-d-block"
+                                inputId="accountForYear"
+                                value="Account for year?"
+                                onChange={() =>
+                                    setAccountForYear(!accountForYear)
+                                }
+                                checked={accountForYear}
+                            />
+                            <label
+                                className="p-d-block"
+                                htmlFor="accountForYear"
+                            >
+                                Account for year?
+                            </label>
+                            <Tooltip target=".pi-info-circle" />
+                            <i
+                                className="pi pi-info-circle"
+                                data-pr-tooltip="Will the reminder be sent every year or on the selected year"
+                                data-pr-position="right"
+                                data-pr-at="right+5 top"
+                                data-pr-my="left center-2"
+                                style={{
+                                    fontSize: '1rem',
+                                    paddingLeft: '1rem',
+                                }}
+                            ></i>
+                        </div>
+                        <div className="p-field">
+                            <label htmlFor="reminderDays">
+                                Reminder in days
+                            </label>
+                            <InputNumber
+                                value={reminderDays}
+                                inputId="integeronly"
+                                min={0}
+                                max={31}
+                                id="reminderDays"
+                                onInput={(e) => {
+                                    setReminderDays(e.target.value)
+                                }}
+                                onValueChange={(e) => {
+                                    setReminderDays(e.target.value)
+                                }}
+                            />
+                        </div>
                     </div>
                 )}
             </div>

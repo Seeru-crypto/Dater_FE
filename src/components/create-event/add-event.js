@@ -4,6 +4,7 @@ import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
 import { Checkbox } from 'primereact/checkbox'
 import { Card } from 'primereact/card'
+import { Tooltip } from 'primereact/tooltip'
 
 import { InputTextarea } from 'primereact/inputtextarea'
 import { InputNumber } from 'primereact/inputnumber'
@@ -95,14 +96,32 @@ const AddEvent = () => {
                     {reminder && (
                         <div className="p-field-checkbox">
                             <Checkbox
-                                inputId="city2"
+                                className="p-d-block"
+                                inputId="accountForYear"
                                 value="Account for year?"
                                 onChange={() =>
                                     setAccountForYear(!accountForYear)
                                 }
                                 checked={accountForYear}
                             />
-                            <label htmlFor="city2">Account for year?</label>
+                            <label
+                                className="p-d-block"
+                                htmlFor="accountForYear"
+                            >
+                                Account for year?
+                            </label>
+                            <Tooltip target=".pi-info-circle" />
+                            <i
+                                className="pi pi-info-circle"
+                                data-pr-tooltip="Will the reminder be sent every year or on the selected year"
+                                data-pr-position="right"
+                                data-pr-at="right+5 top"
+                                data-pr-my="left center-2"
+                                style={{
+                                    fontSize: '1rem',
+                                    paddingLeft: '1rem',
+                                }}
+                            ></i>
                         </div>
                     )}
                 </div>
