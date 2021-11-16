@@ -1,26 +1,30 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import { Dialog } from 'primereact/dialog'
 import { Checkbox } from 'primereact/checkbox'
 import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
 import CalendarComponent from '../create-event/calendar-component'
+import { confirmDialog } from 'primereact/confirmdialog'
 import { DeleteData, UpdateData } from '../../API/api-requests'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { InputNumber } from 'primereact/inputnumber'
-import Alert from 'react-bootstrap/Alert'
 import useGetId from '../../custom-hooks/useGetId'
+import {
+    positiveNotification,
+    infoNotification,
+} from '../../custom-hooks/notifications'
+import { Toast } from 'primereact/toast'
 
 import config from '../../config.json'
 
 export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
+    const toast = useRef(null)
     const [description, setDescription] = useState(selectedEvent.description)
     const [eventName, setEventName] = useState(selectedEvent.eventName)
     const [date, setDate] = useState(selectedEvent.date)
     const [reminder, setReminder] = useState(selectedEvent.reminder)
     const [reminderDays, setReminderDays] = useState(selectedEvent.reminderDays)
-    const [showSuccess, setShowSuccess] = useState(false)
-    const [showDeleted, setShowDeleted] = useState(false)
     const [accountForYear] = useState(false)
 
     const [isoDate, setIsoDate] = useState(
@@ -39,20 +43,6 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
         setReminderDays(selectedEvent.reminderDays)
     }, [selectedEvent])
 
-    const showAlert = (type) => {
-        if (type === 'update') {
-            setShowSuccess(true)
-            setTimeout(() => {
-                setShowSuccess(false)
-                hideModal()
-            }, 2500)
-        }
-        if (type === 'delete') {
-            setShowDeleted(true)
-            setTimeout(() => setShowDeleted(false), 2500)
-        }
-    }
-
     const dateHandler = (selectedDate) => {
         setIsoDate(selectedDate.toISOString())
         let day = selectedDate.getDate()
@@ -62,11 +52,23 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
         setDate(date2)
     }
 
+    const deleteConfirmationDialog = () => {
+        confirmDialog({
+            message: 'Do you want to delete this event?',
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            acceptClassName: 'p-button-danger',
+            accept: () => deleteEvent(),
+        })
+    }
+
     const deleteEvent = () => {
-        //ToDo
-        //  Ask for user confirmation, before deleting!
         DeleteData(apiPath, eventId)
-        showAlert('delete')
+        infoNotification(
+            toast,
+            'Delete successful',
+            'This event has been deleted'
+        )
     }
 
     const updateEvent = () => {
@@ -79,7 +81,14 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
             accountForYear,
         }
         UpdateData(`${apiPath}/${eventId}`, data)
-        showAlert('update')
+        positiveNotification(
+            toast,
+            'Update successful',
+            'This event has been updated'
+        )
+        setTimeout(() => {
+            hideModal()
+        }, 3000)
     }
 
     const eventModalFooter = (
@@ -88,7 +97,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
                 label="Delete"
                 icon="pi pi-check"
                 className="p-button-text"
-                onClick={() => deleteEvent()}
+                onClick={() => deleteConfirmationDialog()}
             />
 
             <Button
@@ -117,16 +126,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
             footer={eventModalFooter}
             onHide={hideModal}
         >
-            {showSuccess && (
-                <div>
-                    <Alert variant="success">This item has been updated.</Alert>
-                </div>
-            )}
-            {showDeleted && (
-                <div>
-                    <Alert variant="danger">This item has been deleted!</Alert>
-                </div>
-            )}
+            <Toast ref={toast} />
             <h5>{eventName}</h5>
             <div className="p-fluid">
                 <div className="p-field">

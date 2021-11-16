@@ -1,16 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import CalendarComponent from './calendar-component'
 import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
-import { InputSwitch } from 'primereact/inputswitch'
 import { Checkbox } from 'primereact/checkbox'
 import { Card } from 'primereact/card'
 
 import { InputTextarea } from 'primereact/inputtextarea'
-import { Message } from 'primereact/message'
 import { InputNumber } from 'primereact/inputnumber'
 import { PostData } from '../../API/api-requests'
 import config from '../../config.json'
+import { positiveNotification } from '../../custom-hooks/notifications'
+import { Toast } from 'primereact/toast'
+
 const AddEvent = () => {
     const apiPath = config.apiPath
     const [name, setName] = useState('')
@@ -18,8 +19,9 @@ const AddEvent = () => {
     const [reminder, setReminder] = useState(false)
     const [description, setDescription] = useState('')
     const [reminderInDays, setReminderInDays] = useState(0)
-    const [showSuccess, setShowSuccess] = useState(false)
     const [accountForYear, setAccountForYear] = useState(false)
+
+    const toast = useRef(null)
 
     const dateHandler = (data) => {
         setDate(data.toISOString())
@@ -35,12 +37,13 @@ const AddEvent = () => {
             accountForYear,
         }
         PostData(apiPath, data)
-        setShowSuccess(true)
-        setTimeout(() => setShowSuccess(false), 3000)
+        positiveNotification(toast, 'Event Created successfully', '')
     }
 
     return (
         <Card style={{ marginBottom: '2em' }}>
+            <Toast ref={toast} />
+
             <div
                 style={{ marginTop: '10px' }}
                 className="p-fluid p-formgrid p-grid"
@@ -146,13 +149,7 @@ const AddEvent = () => {
                     marginTop: '2rem',
                     justifyContent: 'center',
                 }}
-            >
-                {showSuccess && (
-                    <div className="p-field p-col">
-                        <Message severity="success" text="Event Created" />
-                    </div>
-                )}
-            </div>
+            ></div>
         </Card>
     )
 }
