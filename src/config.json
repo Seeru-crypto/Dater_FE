@@ -1,3 +1,5 @@
 {
-    "apiPath": "http://localhost:8081/event"
+    "apiPath": "http://localhost:8081/event",
+    "descMaxLength": 120,
+    "nameMaxLength": 25
 }

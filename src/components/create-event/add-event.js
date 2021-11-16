@@ -14,7 +14,6 @@ import { positiveNotification } from '../../custom-hooks/notifications'
 import { Toast } from 'primereact/toast'
 
 const AddEvent = () => {
-    const apiPath = config.apiPath
     const [name, setName] = useState('')
     const [date, setDate] = useState('')
     const [reminder, setReminder] = useState(false)
@@ -23,6 +22,10 @@ const AddEvent = () => {
     const [accountForYear, setAccountForYear] = useState(false)
 
     const toast = useRef(null)
+
+    const apiPath = config.apiPath
+    const nameMaxLength = config.nameMaxLength
+    const descMaxLength = config.descMaxLength
 
     const dateHandler = (data) => {
         setDate(data.toISOString())
@@ -53,7 +56,7 @@ const AddEvent = () => {
                     <label htmlFor="firstname2">Firstname</label>
                     <InputText
                         className="p-inputtext-lg p-d-block"
-                        maxLength="20"
+                        maxLength={nameMaxLength}
                         placeholder="name"
                         required
                         value={name}
@@ -76,7 +79,7 @@ const AddEvent = () => {
                 <div className="p-field p-col">
                     <label htmlFor="firstname2">Description:</label>
                     <InputTextarea
-                        maxLength="120"
+                        maxLength={descMaxLength}
                         value={description}
                         placeholder="Description"
                         onChange={(e) => setDescription(e.target.value)}

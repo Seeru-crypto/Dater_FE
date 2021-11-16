@@ -4,19 +4,19 @@ import { Dialog } from 'primereact/dialog'
 import { Checkbox } from 'primereact/checkbox'
 import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
-import CalendarComponent from '../create-event/calendar-component'
 import { confirmDialog } from 'primereact/confirmdialog'
-import { DeleteData, UpdateData } from '../../API/api-requests'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { InputNumber } from 'primereact/inputnumber'
+import { Toast } from 'primereact/toast'
+import { Tooltip } from 'primereact/tooltip'
+
+import { DeleteData, UpdateData } from '../../API/api-requests'
 import useGetId from '../../custom-hooks/useGetId'
 import {
     positiveNotification,
     infoNotification,
 } from '../../custom-hooks/notifications'
-import { Toast } from 'primereact/toast'
-import { Tooltip } from 'primereact/tooltip'
-
+import CalendarComponent from '../create-event/calendar-component'
 import config from '../../config.json'
 
 export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
@@ -29,12 +29,14 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
     const [accountForYear, setAccountForYear] = useState(
         selectedEvent.accountForYear
     )
-
     const [isoDate, setIsoDate] = useState(
         selectedEvent.date ? selectedEvent.date : null
     )
 
     const apiPath = config.apiPath
+    const nameMaxLength = config.nameMaxLength
+    const descMaxLength = config.descMaxLength
+
     const eventId = useGetId(selectedEvent)
     let showHideModal = modalState ? true : false
 
@@ -138,7 +140,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
                     <InputText
                         value={eventName}
                         id="eventName"
-                        maxLength="20"
+                        maxLength={nameMaxLength}
                         type="text"
                         onInput={(e) => {
                             setEventName(e.target.value)
@@ -157,7 +159,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
                     <InputTextarea
                         value={description}
                         id="description"
-                        maxLength="120"
+                        maxLength={descMaxLength}
                         autoResize
                         type="text"
                         onInput={(e) => {
