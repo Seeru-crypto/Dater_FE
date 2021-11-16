@@ -121,7 +121,13 @@ const AddEvent = () => {
                     <div className="p-field p-col"></div>
                 </div>
             )}
-            <div className="p-fluid p-formgrid p-grid">
+            <div
+                className="p-fluid p-formgrid p-grid"
+                style={{
+                    marginTop: '2rem',
+                    justifyContent: 'center',
+                }}
+            >
                 <Button
                     label="Add Event"
                     style={{
@@ -135,8 +141,11 @@ const AddEvent = () => {
             </div>
 
             <div
-                style={{ marginTop: '2rem' }}
                 className="p-fluid p-formgrid p-grid"
+                style={{
+                    marginTop: '2rem',
+                    justifyContent: 'center',
+                }}
             >
                 {showSuccess && (
                     <div className="p-field p-col">

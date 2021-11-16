@@ -145,7 +145,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
                     <label htmlFor="selectedDate">Date:</label>
                     <CalendarComponent
                         dateHandler={dateHandler}
-                        selectedDate={date}
+                        selectedDate={new Date(date)}
                     />
                 </div>
                 <div className="p-field">
