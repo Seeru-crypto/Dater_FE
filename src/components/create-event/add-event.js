@@ -15,10 +15,10 @@ import CalendarComponent from './calendar-component'
 import { PostData } from '../../API/api-requests'
 //ToDo
 // Add field validation, so that invalid input cannot be entered.
+// Add form layout to the input!
 // make name and date fields required.
 // Make the styles used here into a separate .css file
 // Make  the tooltip desc, reminderDaysNotice mix, max values into a separate config file
-// anull all the fields after a new entry has been created
 
 const AddEvent = () => {
     const [name, setName] = useState('')
@@ -75,7 +75,7 @@ const AddEvent = () => {
                         className="p-inputtext-lg p-d-block"
                         maxLength={nameMaxLength}
                         placeholder="name"
-                        required
+                        required = {true}
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
@@ -85,6 +85,7 @@ const AddEvent = () => {
                     <CalendarComponent
                         dateHandler={dateHandler}
                         selectedEntry={date}
+                        required = {true}
                     />
                 </div>
             </div>

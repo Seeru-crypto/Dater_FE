@@ -45,13 +45,15 @@ const CalendarComponent = ({ dateHandler, selectedDate }) => {
                 placeholder="Add date"
                 dateFormat="dd-mm-yy"
                 id="navigatorstemplate"
+                readOnlyInput = {true}
+                required = {true}
                 value={date}
                 onChange={(e) => {
                     changeHandler(e)
                 }}
                 monthNavigator
                 yearNavigator
-                yearRange="1950:2030"
+                yearRange="1980:2050"
                 monthNavigatorTemplate={monthNavigatorTemplate}
                 yearNavigatorTemplate={yearNavigatorTemplate}
             />
