@@ -5,6 +5,9 @@ import { Dropdown } from 'primereact/dropdown'
 const CalendarComponent = ({ dateHandler, selectedDate }) => {
     const [date, setDate] = useState(selectedDate ? selectedDate : null)
 
+    //ToDo
+    // Make the year range into a config entry
+    // make the default date to current date
     const yearNavigatorTemplate = (e) => {
         return (
             <Dropdown

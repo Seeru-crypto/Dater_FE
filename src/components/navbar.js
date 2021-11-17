@@ -3,6 +3,9 @@ import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 
+//ToDo
+// Replace the current navbar with a prime react navbar
+// Add button ,which checks all events and sends email if neccesary, make it hidden/ viewed from the config file value
 const Navigationbar = () => {
     return (
         <Navbar bg="light" expand="lg">

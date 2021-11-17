@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react'
+
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { Button } from 'primereact/button'
+
 import { EventDetails } from './event-details'
 import { GetData } from '../../API/api-requests'
 import config from '../../config.json'
 
+//ToDo
+// add loading animation, when the data is fetched
+// Add search bar, which searches via description and name
+// Add filter, where a dates year is only rendered when the event has take year into account enabled
+// Add basic view (name, date, desc, reminder, reminder in days) and all view functionality (user sees ALL the fileds of an event, execpt Id)
 const FilterTable = () => {
     const [selectedEvent, setselectedEvent] = useState(null)
     const apiPath = config.apiPath

@@ -19,6 +19,15 @@ import {
 import CalendarComponent from '../create-event/calendar-component'
 import config from '../../config.json'
 
+//ToDo
+// Add field validation, so that invalid input cannot be entered.
+// make name and date fields required.
+// Test if the isoDate  const/ dateHandler func can be removed
+// Add notifcations dependent on the result on the API request. Show notification only if the Request has been succesful
+// Test if <i> and <checkobx tagas can be made into 1 <i /> tag>
+// export used css into a separate .css file
+// use conifg values for Reminder in days min, max values
+// Replace used px values with relative values
 export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
     const toast = useRef(null)
     const [description, setDescription] = useState(selectedEvent.description)
@@ -50,7 +59,11 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
     }, [selectedEvent])
 
     const dateHandler = (selectedDate) => {
-        setIsoDate(selectedDate.toISOString())
+        const newDate = selectedDate
+        newDate.setHours(selectedDate.getHours()+2);
+
+        setIsoDate(newDate.toISOString())
+
         let day = selectedDate.getDate()
         let month = selectedDate.getMonth() + 1
         let year = selectedDate.getFullYear()
@@ -183,7 +196,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
                             setReminder(!reminder)
                             if (reminder) setReminderDays(0)
                         }}
-                    ></Checkbox>
+                     />
                 </div>
                 {reminder && (
                     <div>
@@ -212,9 +225,10 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
                                 data-pr-my="left center-2"
                                 style={{
                                     fontSize: '1rem',
-                                    paddingLeft: '1rem',
+                                    paddingLeft: '.5rem',
+                                    color: "darkblue"
                                 }}
-                            ></i>
+                            />
                         </div>
                         <div className="p-field">
                             <label htmlFor="reminderDays">
