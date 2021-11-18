@@ -1,3 +1,14 @@
 {
-    "apiPath": "http://localhost:8081/event"
+    "apiPath": "http://localhost:8081/event",
+    "descMaxLength": 120,
+    "nameMaxLength": 25,
+    "daysNoticeMinValue": 0,
+    "daysNoticeMaxValue": 31,
+    "calendarMinYear": 1960,
+    "calendarMaxYear": 2040,
+    "labels": {
+        "reminderLabel": "Do you want reminders?",
+        "accountForYearLabel": "Account for year?",
+        "accountForYearTooltip": "Account for year?"
+    }
 }

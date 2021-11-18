@@ -1,9 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Calendar } from 'primereact/calendar'
 import { Dropdown } from 'primereact/dropdown'
-
+import config from "../../config.json"
 const CalendarComponent = ({ dateHandler, selectedDate }) => {
-    const [date, setDate] = useState(selectedDate ? selectedDate : null)
+
+    const calendarMinYear = config.calendarMinYear
+    const calendarMaxYear = config.calendarMaxYear
+    const yearRange = `${calendarMinYear}:${calendarMaxYear}`
+
+    //ToDo
+    // Make the year range into a config entry
+    // make the default date to current date
     const yearNavigatorTemplate = (e) => {
         return (
             <Dropdown
@@ -30,10 +37,7 @@ const CalendarComponent = ({ dateHandler, selectedDate }) => {
         )
     }
 
-    const changeHandler = (e) => {
-        dateHandler(e.value)
-        setDate(e.value)
-    }
+    const changeHandler = (e) => dateHandler(e.value);
 
     return (
         <div>
@@ -41,13 +45,14 @@ const CalendarComponent = ({ dateHandler, selectedDate }) => {
                 placeholder="Add date"
                 dateFormat="dd-mm-yy"
                 id="navigatorstemplate"
-                value={date}
+                readOnlyInput = {true}
+                value={selectedDate}
                 onChange={(e) => {
                     changeHandler(e)
                 }}
                 monthNavigator
                 yearNavigator
-                yearRange="1950:2030"
+                yearRange={yearRange}
                 monthNavigatorTemplate={monthNavigatorTemplate}
                 yearNavigatorTemplate={yearNavigatorTemplate}
             />

@@ -1,24 +1,55 @@
-import React, { useState } from 'react'
-import CalendarComponent from './calendar-component'
-import { InputText } from 'primereact/inputtext'
+import React, { useState, useRef } from 'react'
+
 import { Button } from 'primereact/button'
 import { Checkbox } from 'primereact/checkbox'
-import { InputTextarea } from 'primereact/inputtextarea'
-import { Message } from 'primereact/message'
+import { Card } from 'primereact/card'
+import { Tooltip } from 'primereact/tooltip'
 import { InputNumber } from 'primereact/inputnumber'
-import { PostData } from '../../API/api-requests'
+import { Toast } from 'primereact/toast'
+
 import config from '../../config.json'
+import {
+    positiveNotification,
+    infoNotification,
+} from '../../custom-hooks/notifications'
+import CalendarComponent from './calendar-component'
+import dataValidation from '../../custom-hooks/dataValidation'
+import { PostData } from '../../API/api-requests'
+import {
+    EventDescription,
+    EventName,
+    EventReminder,
+} from '../form-components/fields'
+
+//ToDo
+// Add field validation, so that invalid input cannot be entered.
+// make name and date fields required.
+// Make the styles used here into a separate .css file
+// Make  the tooltip desc, reminderDaysNotice mix, max values into a separate config file
+
 const AddEvent = () => {
-    const apiPath = config.apiPath
     const [name, setName] = useState('')
     const [date, setDate] = useState('')
     const [reminder, setReminder] = useState(false)
     const [description, setDescription] = useState('')
     const [reminderInDays, setReminderInDays] = useState(0)
-    const [showSuccess, setShowSuccess] = useState(false)
+    const [accountForYear, setAccountForYear] = useState(false)
+
+    const toast = useRef(null)
+
+    const apiPath = config.apiPath
+    const daysNoticeMaxValue = config.daysNoticeMaxValue
+    const daysNoticeMinValue = config.daysNoticeMinValue
 
     const dateHandler = (data) => {
-        setDate(data.toISOString())
+        const newDate = data
+        newDate.setHours(data.getHours() + 2)
+        setDate(newDate)
+    }
+
+    const checkData = () => {
+        if (dataValidation(name, date)) return submitForm()
+        infoNotification(toast, 'please fill fields', '')
     }
 
     const submitForm = () => {
@@ -28,108 +59,133 @@ const AddEvent = () => {
             reminder: reminder,
             reminderDays: reminderInDays,
             description: description,
+            accountForYear,
         }
-
         PostData(apiPath, data)
-        setShowSuccess(true)
-        setTimeout(() => setShowSuccess(false), 3000)
+        positiveNotification(toast, 'Event Created successfully', '')
+        anulAllFields()
+    }
+
+    const anulAllFields = () => {
+        setDate('')
+        setDescription('')
+        setName('')
+        setReminder(false)
+        setReminderInDays(0)
+        setAccountForYear(false)
     }
 
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col">
-                    <div style={{ padding: '10px' }}>
-                        <InputText
-                            maxLength="20"
-                            placeholder="name"
-                            required
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+        <Card style={{ marginBottom: '2rem' }}>
+            <Toast ref={toast} />
+            <div className="p-fluid p-formgrid p-grid">
+                <div className="p-field p-col">
+                    <div className="p-field p-col">
+                        <EventName
+                            name={name}
+                            nameHandler={(e) => setName(e)}
                         />
                     </div>
                 </div>
-                <div className="col">
-                    <div style={{ padding: '10px' }}>
+                <div className="p-field p-col">
+                    <div className="p-field p-col">
                         <CalendarComponent
                             dateHandler={dateHandler}
-                            selectedEntry={date}
+                            selectedDate={date}
                         />
                     </div>
                 </div>
             </div>
 
-            <div className="row">
-                <div className="col">
-                    <InputTextarea
-                        maxLength="120"
-                        style={{ width: '15rem', height: '8rem' }}
-                        value={description}
-                        placeholder="Description"
-                        onChange={(e) => setDescription(e.target.value)}
+            <div
+                style={{ marginTop: '.5rem' }}
+                className="p-fluid p-formgrid p-grid"
+            >
+                <div className="p-field p-col">
+                    <EventDescription
+                        desc={description}
+                        descHandler={(e) => setDescription(e)}
                     />
                 </div>
-
-                <div className="col">
-                    <label
-                        className="p-col-fixed"
-                        style={{
-                            width: '250px',
-                            paddingRight: '10px',
-                            paddingLeft: '10px',
-                        }}
-                    >
-                        Do you want date reminder?
-                    </label>
-                    <Checkbox
-                        inputId="binary"
-                        checked={reminder}
-                        onChange={(e) => setReminder(e.checked)}
-                    />
-                </div>
-
-                {reminder && (
-                    <div style={{ paddingLeft: '2rem' }} className="col">
-                        <div className="row">
-                            <div>
-                                <label
-                                    style={{
-                                        width: '300px',
-                                        paddingLeft: '10px',
-                                    }}
-                                    htmlFor="integeronly"
-                                >
-                                    How many days notice?
-                                </label>
-                                <div className="col">
-                                    <InputNumber
-                                        inputId="integeronly"
-                                        min={0}
-                                        max={31}
-                                        value={reminderInDays}
-                                        onValueChange={(e) =>
-                                            setReminderInDays(e.value)
-                                        }
-                                    />
-                                </div>
-                            </div>
-                        </div>
+                <div className="p-field p-col">
+                    <h5 style={{ padding: '.5rem' }}>Additional settings:</h5>
+                    <div className="p-field-checkbox">
+                        <EventReminder
+                            reminder={reminder}
+                            reminderHandler={(e) => setReminder(e)}
+                        />
                     </div>
-                )}
+                    {reminder && (
+                        <div className="p-field-checkbox">
+                            <Checkbox
+                                className="p-d-block"
+                                inputId="accountForYear"
+                                value="Account for year?"
+                                onChange={() =>
+                                    setAccountForYear(!accountForYear)
+                                }
+                                checked={accountForYear}
+                            />
+                            <label
+                                className="p-d-block"
+                                htmlFor="accountForYear"
+                            >
+                                Account for year?
+                            </label>
+                            <Tooltip target=".pi-info-circle" />
+                            <i
+                                className="pi pi-info-circle"
+                                data-pr-tooltip="Will the reminder be sent every year or on the selected year"
+                                data-pr-position="right"
+                                data-pr-at="right+5 top"
+                                data-pr-my="left center-2"
+                                style={{
+                                    fontSize: '1rem',
+                                    paddingLeft: '.5rem',
+                                    color: 'darkblue',
+                                }}
+                            />
+                        </div>
+                    )}
+                </div>
             </div>
-            <div className="row">
-                <Button
-                    style={{ width: '150px' }}
-                    label="Submit"
-                    onClick={submitForm}
-                />
-            </div>
-            {showSuccess && (
-                <div className="row">
-                    <Message severity="success" text="Event Created" />
+            {reminder && (
+                <div className="p-fluid p-formgrid p-grid">
+                    <div className="p-field p-col">
+                        <label htmlFor="integeronly">
+                            How many days notice?
+                        </label>
+                        <InputNumber
+                            inputId="integeronly"
+                            min={daysNoticeMinValue}
+                            max={daysNoticeMaxValue}
+                            value={reminderInDays}
+                            onValueChange={(e) => setReminderInDays(e.value)}
+                        />
+                    </div>
+                    <div className="p-field p-col" />
                 </div>
             )}
-        </div>
+            <div
+                className="p-fluid p-formgrid p-grid"
+                style={{
+                    marginTop: '2rem',
+                    justifyContent: 'center',
+                }}
+            >
+                <Button
+                    label="Add Event"
+                    style={{
+                        display: 'flex',
+                        padding: '1rem',
+                        width: '15rem',
+                        marginBottom: '1rem',
+                    }}
+                    className="p-button-rounded p-button-secondary"
+                    onClick={checkData}
+                />
+            </div>
+        </Card>
     )
 }
 export default AddEvent

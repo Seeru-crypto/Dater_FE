@@ -10,19 +10,21 @@ An application for creating reminders and getting email notifications for impend
 
     - Navigate to the docker folder
     - run:
-        - docker build -t json-server .
-        - docker run -it --name json-server-container -d -p 5432:8080 json-server
-        - docker cp .\db.json json-server-container:/tmp/test.json
-        - if needed restart docker container
+    ```
+    docker build -t json-server .
+    docker run -it --name json-server-container -d -p 5432:8080 json-server
+    docker cp .\db.json json-server-container:/tmp/test.json
+    ```
+    - if needed restart docker container
 
 2. Start React server
 
 -   Navigate to root level
 -   For dev run:
-    -   npm start
+    -   `npm start`
 -   For production run:
-    -   docker build -t dater-react-app .
-    -   docker run -it --name dater-react-app --rm -d -v %cd%:/app -v /app/node_modules -p 4000:3000 -e CHOKIDAR_USEPOLLING=true dater-react-app
+    -   `docker build -t dater-react-app .`
+    -   `docker run -it --name dater-react-app --rm -d -v %cd%:/app -v /app/node_modules -p 4000:3000 -e CHOKIDAR_USEPOLLING=true dater-react-app`
 
 ## Front-end
 
@@ -68,7 +70,7 @@ An application for creating reminders and getting email notifications for impend
 - [ ] create a general calendar view, where ALL dates are displayed (ignore year values).
 - [ ] Add loading animations
 - [ ] Setup Heroku CI/CD pipeline
-- [ ] Add 80% test coverage
+- [ ] Add 66% test coverage (unit + integration tests)
 - [x] Add proper entry and update confirmations (green thumbs up, or smth like that)
 - [ ] add error handling for API requests
 - [ ] convert Bootstrap styling to Semnantics UI

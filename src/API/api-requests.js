@@ -7,22 +7,18 @@ export const DeleteData = async (url, id) => {
 }
 
 export const GetData = async (url) => {
-    const res = await axios.get(url)
-    return res
+    return axios.get(url)
 }
 
 export const GetDataById = async (url, id) => {
     const path = (url, '/' + id)
-    const res = await axios.get(path)
-    return res
+    return axios.get(path)
 }
 
 export const PostData = async (url, data) => {
-    const res = axios.post(url, data)
-    return res
+    return axios.post(url, data)
 }
 
 export const UpdateData = async (url, data) => {
-    const res = axios.put(url, data)
-    return res
+    return axios.put(url, data)
 }

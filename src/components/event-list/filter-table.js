@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from 'react'
+
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { Button } from 'primereact/button'
+
 import { EventDetails } from './event-details'
 import { GetData } from '../../API/api-requests'
 import config from '../../config.json'
 
+//ToDo
+// add loading animation, when the data is fetched
+// Add search bar, which searches via description and name
+// Add filter, where a dates year is only rendered when the event has take year into account enabled
+// Add basic view (name, date, desc, reminder, reminder in days) and all view functionality (user sees ALL the fileds of an event, execpt Id)
+// increase mongoDB get limit to 100
 const FilterTable = () => {
     const [selectedEvent, setselectedEvent] = useState(null)
     const apiPath = config.apiPath
@@ -15,11 +23,14 @@ const FilterTable = () => {
 
     useEffect(() => {
         const getData = async () => {
-            const data = await GetData(apiPath)
-            setData(data.data._embedded.event)
+            const eventData = await GetData(apiPath)
+            setData(eventData.data._embedded.event)
         }
         getData()
     }, [apiPath, showModal])
+
+    const paginatorLeft = <Button type="button" icon="pi pi-refresh" className="p-button-text" />;
+    const paginatorRight = <Button type="button" icon="pi pi-cloud" className="p-button-text" />;
 
     const hideModal = () => {
         setShowModal(false)
@@ -38,7 +49,7 @@ const FilterTable = () => {
             <React.Fragment>
                 <Button
                     icon="pi pi-pencil"
-                    className="p-button-rounded p-button-success p-mr-2"
+                    className="p-button-rounded p-button-secondary p-mr-2"
                     onClick={() => editProduct(rowData)}
                 />
             </React.Fragment>
@@ -50,19 +61,27 @@ const FilterTable = () => {
         setShowModal(true)
     }
 
-    const renderDateValues = (rowData, item) => {
-        const data = new Date(rowData.date)
-        let day = data.getDate()
-        let month = data.getMonth() + 1
-        let year = data.getFullYear()
-        return `${day}-${month}-${year}`
+    const renderDateValues = (rowData) => {
+        const date = new Date(rowData.date)
+        const accountForYear = rowData.accountForYear;
+        let day = date.getDate()
+        let month = date.getMonth() + 1
+        let year = date.getFullYear()
+        if (accountForYear) return `${day}-${month}-${year}`
+        return `${day}-${month}`
     }
 
     return (
         <div>
             {data && (
                 <div className="card">
-                    <DataTable value={data}>
+                    <DataTable responsiveLayout="scroll" paginator value={data}
+                    paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
+                   currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" rows={10} rowsPerPageOptions={[10,20,50]}
+                   paginatorLeft={paginatorLeft} paginatorRight={paginatorRight}>
+
+
+
                         <Column
                             field="eventName"
                             sortable
