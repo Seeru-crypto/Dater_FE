@@ -2,10 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 
 import { Dialog } from 'primereact/dialog'
 import { Checkbox } from 'primereact/checkbox'
-import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
 import { confirmDialog } from 'primereact/confirmdialog'
-import { InputTextarea } from 'primereact/inputtextarea'
 import { InputNumber } from 'primereact/inputnumber'
 import { Toast } from 'primereact/toast'
 import { Tooltip } from 'primereact/tooltip'
@@ -18,6 +16,11 @@ import {
 } from '../../custom-hooks/notifications'
 import CalendarComponent from '../create-event/calendar-component'
 import config from '../../config.json'
+import {
+    EventDescription,
+    EventName,
+    EventReminder,
+} from '../form-components/fields'
 
 //ToDo
 // Add field validation, so that invalid input cannot be entered.
@@ -27,7 +30,9 @@ import config from '../../config.json'
 // export used css into a separate .css file
 export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
     const toast = useRef(null)
-    const [description, setDescription] = useState(selectedEvent.description)
+    const [eventDescription, setDescription] = useState(
+        selectedEvent.description
+    )
     const [eventName, setEventName] = useState(selectedEvent.eventName)
     const [date, setDate] = useState(selectedEvent.date)
     const [reminder, setReminder] = useState(selectedEvent.reminder)
@@ -40,11 +45,8 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
     )
 
     const apiPath = config.apiPath
-    const nameMaxLength = config.nameMaxLength
-    const descMaxLength = config.descMaxLength
     const daysNoticeMaxValue = config.daysNoticeMaxValue
     const daysNoticeMinValue = config.daysNoticeMinValue
-
 
     const eventId = useGetId(selectedEvent)
     let showHideModal = modalState ? true : false
@@ -60,7 +62,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
 
     const dateHandler = (selectedDate) => {
         const newDate = selectedDate
-        newDate.setHours(selectedDate.getHours()+2);
+        newDate.setHours(selectedDate.getHours() + 2)
 
         setIsoDate(newDate.toISOString())
 
@@ -96,7 +98,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
             date: isoDate,
             reminder,
             reminderDays,
-            description,
+            eventDescription,
             accountForYear,
         }
         UpdateData(`${apiPath}/${eventId}`, data)
@@ -109,6 +111,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
             hideModal()
         }, 3000)
     }
+    const nameHandler = (e) => setEventName(e)
 
     const eventModalFooter = (
         <React.Fragment>
@@ -149,16 +152,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
             <h5>{eventName}</h5>
             <div className="p-fluid">
                 <div className="p-field">
-                    <label htmlFor="eventName">Event name:</label>
-                    <InputText
-                        value={eventName}
-                        id="eventName"
-                        maxLength={nameMaxLength}
-                        type="text"
-                        onInput={(e) => {
-                            setEventName(e.target.value)
-                        }}
-                    />
+                    <EventName name={eventName} nameHandler={nameHandler} />
                 </div>
                 <div>
                     <label htmlFor="selectedDate">Date:</label>
@@ -168,16 +162,9 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
                     />
                 </div>
                 <div className="p-field">
-                    <label htmlFor="description">description</label>
-                    <InputTextarea
-                        value={description}
-                        id="description"
-                        maxLength={descMaxLength}
-                        autoResize
-                        type="text"
-                        onInput={(e) => {
-                            setDescription(e.target.value)
-                        }}
+                    <EventDescription
+                        desc={eventDescription}
+                        descHandler={(e) => setDescription(e)}
                     />
                 </div>
                 <div
@@ -187,16 +174,10 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
                     }}
                     className="p-field"
                 >
-                    <label style={{ paddingRight: '1rem' }}>
-                        send e-mail notification?
-                    </label>
-                    <Checkbox
-                        checked={reminder}
-                        onChange={(e) => {
-                            setReminder(!reminder)
-                            if (reminder) setReminderDays(0)
-                        }}
-                     />
+                    <EventReminder
+                        reminder={reminder}
+                        reminderHandler={(e) => setReminder(e)}
+                    />
                 </div>
                 {reminder && (
                     <div>
@@ -226,7 +207,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
                                 style={{
                                     fontSize: '1rem',
                                     paddingLeft: '.5rem',
-                                    color: "darkblue"
+                                    color: 'darkblue',
                                 }}
                             />
                         </div>
