@@ -1,5 +1,9 @@
 {
-    "apiPath": "http://localhost:8081/event",
+    "apiPath": "http://localhost:8765/event",
     "descMaxLength": 120,
-    "nameMaxLength": 25
+    "nameMaxLength": 25,
+    "daysNoticeMinValue": 0,
+    "daysNoticeMaxValue": 31,
+    "calendarMinYear": 1960,
+    "calendarMaxYear": 2040
 }

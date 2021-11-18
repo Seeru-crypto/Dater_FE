@@ -24,10 +24,7 @@ import config from '../../config.json'
 // make name and date fields required.
 // Test if the isoDate  const/ dateHandler func can be removed
 // Add notifcations dependent on the result on the API request. Show notification only if the Request has been succesful
-// Test if <i> and <checkobx tagas can be made into 1 <i /> tag>
 // export used css into a separate .css file
-// use conifg values for Reminder in days min, max values
-// Replace used px values with relative values
 export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
     const toast = useRef(null)
     const [description, setDescription] = useState(selectedEvent.description)
@@ -45,6 +42,9 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
     const apiPath = config.apiPath
     const nameMaxLength = config.nameMaxLength
     const descMaxLength = config.descMaxLength
+    const daysNoticeMaxValue = config.daysNoticeMaxValue
+    const daysNoticeMinValue = config.daysNoticeMinValue
+
 
     const eventId = useGetId(selectedEvent)
     let showHideModal = modalState ? true : false
@@ -237,8 +237,8 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
                             <InputNumber
                                 value={reminderDays}
                                 inputId="integeronly"
-                                min={0}
-                                max={31}
+                                min={daysNoticeMinValue}
+                                max={daysNoticeMaxValue}
                                 id="reminderDays"
                                 onInput={(e) => {
                                     setReminderDays(e.target.value)

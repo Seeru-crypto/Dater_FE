@@ -1,26 +1,25 @@
-import React from 'react'
-import Navbar from 'react-bootstrap/Navbar'
-import Container from 'react-bootstrap/Container'
-import Nav from 'react-bootstrap/Nav'
+import React, {useState} from 'react'
+import { TabMenu } from 'primereact/tabmenu';
 
 //ToDo
-// Replace the current navbar with a prime react navbar
 // Add button ,which checks all events and sends email if neccesary, make it hidden/ viewed from the config file value
+// Fix active page bug
 const Navigationbar = () => {
+    const [activeIndex, setActiveIndex] = useState(null);
+    const items = [
+        {label: 'Home', icon: 'pi pi-fw pi-home', url:'/'},
+        {label: 'Add Event', icon: 'pi pi-fw pi-pencil', url:'/add'},
+        {label: 'Event list', icon: 'pi pi-fw pi-file', url:'/eventList'},
+        {label: 'Calendar', icon: 'pi pi-fw pi-calendar', url:'/*', disabled:true},
+        {label: 'Admin', icon: 'pi pi-fw pi-cog', url:'/admin', disabled: true}
+    ];
+
     return (
-        <Navbar bg="light" expand="lg">
-            <Container>
-                <Navbar.Brand href="/">Date</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        <Nav.Link href="/add">Add Event</Nav.Link>
-                        <Nav.Link href="/peopleList">View Events</Nav.Link>
-                        <Nav.Link href="/admin">Admin tools</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
+        <div>
+            <div style={{paddingLeft:"19.5rem"}} className="card">
+                <TabMenu model={items} activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)} />
+            </div>
+        </div>
     )
 }
 export default Navigationbar

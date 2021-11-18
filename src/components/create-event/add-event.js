@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, {useState, useRef} from 'react'
 
 import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
@@ -10,12 +10,12 @@ import { InputNumber } from 'primereact/inputnumber'
 import { Toast } from 'primereact/toast'
 
 import config from '../../config.json'
-import { positiveNotification } from '../../custom-hooks/notifications'
+import { positiveNotification, infoNotification } from '../../custom-hooks/notifications'
 import CalendarComponent from './calendar-component'
+import dataValidation from "../../custom-hooks/dataValidation";
 import { PostData } from '../../API/api-requests'
 //ToDo
 // Add field validation, so that invalid input cannot be entered.
-// Add form layout to the input!
 // make name and date fields required.
 // Make the styles used here into a separate .css file
 // Make  the tooltip desc, reminderDaysNotice mix, max values into a separate config file
@@ -33,11 +33,18 @@ const AddEvent = () => {
     const apiPath = config.apiPath
     const nameMaxLength = config.nameMaxLength
     const descMaxLength = config.descMaxLength
+    const daysNoticeMaxValue = config.daysNoticeMaxValue
+    const daysNoticeMinValue = config.daysNoticeMinValue
 
     const dateHandler = (data) => {
         const newDate = data
         newDate.setHours(data.getHours()+2);
         setDate(newDate);
+    }
+
+    const checkData = () => {
+        if(dataValidation(name, date)) return submitForm();
+        infoNotification(toast, "please fill fields", "")
     }
 
     const submitForm = () => {
@@ -64,13 +71,13 @@ const AddEvent = () => {
     }
 
     return (
-        <Card style={{ marginBottom: '2em' }}>
+        <Card style={{ marginBottom: '2rem' }}>
             <Toast ref={toast} />
             <div
                 className="p-fluid p-formgrid p-grid"
             >
                 <div className="p-field p-col">
-                    <label htmlFor="firstname2">Firstname</label>
+                    <label htmlFor="firstname2">* Event name</label>
                     <InputText
                         className="p-inputtext-lg p-d-block"
                         maxLength={nameMaxLength}
@@ -81,11 +88,10 @@ const AddEvent = () => {
                     />
                 </div>
                 <div className="p-field p-col">
-                    <label htmlFor="dateLabel">Date:</label>
+                    <label htmlFor="dateLabel">* Date:</label>
                     <CalendarComponent
                         dateHandler={dateHandler}
-                        selectedEntry={date}
-                        required = {true}
+                        selectedDate={date}
                     />
                 </div>
             </div>
@@ -112,7 +118,7 @@ const AddEvent = () => {
                             onChange={() => setReminder(!reminder)}
                             checked={reminder}
                         />
-                        <label htmlFor="city1">Do you want reminders?</label>
+                        <label htmlFor="reminderCheckbox">Do you want reminders?</label>
                     </div>
                     {reminder && (
                         <div className="p-field-checkbox">
@@ -152,12 +158,12 @@ const AddEvent = () => {
                 <div className="p-fluid p-formgrid p-grid">
                     <div className="p-field p-col">
                         <label htmlFor="integeronly">
-                            How many days notice?{' '}
+                            How many days notice?
                         </label>
                         <InputNumber
                             inputId="integeronly"
-                            min={0}
-                            max={31}
+                            min={daysNoticeMinValue}
+                            max={daysNoticeMaxValue}
                             value={reminderInDays}
                             onValueChange={(e) => setReminderInDays(e.value)}
                         />
@@ -182,7 +188,7 @@ const AddEvent = () => {
 
                     }}
                     className="p-button-rounded p-button-secondary"
-                    onClick={submitForm}
+                    onClick={checkData}
                 />
             </div>
         </Card>
