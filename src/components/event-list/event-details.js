@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 
 import { Dialog } from 'primereact/dialog'
-import { Checkbox } from 'primereact/checkbox'
 import { Button } from 'primereact/button'
 import { confirmDialog } from 'primereact/confirmdialog'
-import { InputNumber } from 'primereact/inputnumber'
 import { Toast } from 'primereact/toast'
-import { Tooltip } from 'primereact/tooltip'
 
 import { DeleteData, UpdateData } from '../../API/api-requests'
 import useGetId from '../../custom-hooks/useGetId'
@@ -16,10 +13,14 @@ import {
 } from '../../custom-hooks/notifications'
 import CalendarComponent from '../create-event/calendar-component'
 import config from '../../config.json'
+import dataValidation from '../../custom-hooks/dataValidation'
+
 import {
     EventDescription,
     EventName,
     EventReminder,
+    EventReminderInDays,
+    EventAccountForYear,
 } from '../form-components/fields'
 
 //ToDo
@@ -45,14 +46,13 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
     )
 
     const apiPath = config.apiPath
-    const daysNoticeMaxValue = config.daysNoticeMaxValue
-    const daysNoticeMinValue = config.daysNoticeMinValue
-
+    console.log('selectedEvent ', selectedEvent)
     const eventId = useGetId(selectedEvent)
     let showHideModal = modalState ? true : false
 
     useEffect(() => {
         setDescription(selectedEvent.description)
+        setAccountForYear(selectedEvent.accountForYear)
         setEventName(selectedEvent.eventName)
         setDate(selectedEvent.date)
         setIsoDate(selectedEvent.date)
@@ -81,6 +81,11 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
             acceptClassName: 'p-button-danger',
             accept: () => deleteEvent(),
         })
+    }
+
+    const checkData = () => {
+        if (dataValidation(eventName, date)) return updateEvent()
+        infoNotification(toast, 'please fill fields', '')
     }
 
     const deleteEvent = () => {
@@ -133,7 +138,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
                 label="Save"
                 icon="pi pi-check"
                 className="p-button-text"
-                onClick={() => updateEvent()}
+                onClick={() => checkData()}
             />
         </React.Fragment>
     )
@@ -182,51 +187,15 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
                 {reminder && (
                     <div>
                         <div className="p-field-checkbox">
-                            <Checkbox
-                                className="p-d-block"
-                                inputId="accountForYear"
-                                value="Account for year?"
-                                onChange={() =>
-                                    setAccountForYear(!accountForYear)
-                                }
-                                checked={accountForYear}
-                            />
-                            <label
-                                className="p-d-block"
-                                htmlFor="accountForYear"
-                            >
-                                Account for year?
-                            </label>
-                            <Tooltip target=".pi-info-circle" />
-                            <i
-                                className="pi pi-info-circle"
-                                data-pr-tooltip="Will the reminder be sent every year or on the selected year"
-                                data-pr-position="right"
-                                data-pr-at="right+5 top"
-                                data-pr-my="left center-2"
-                                style={{
-                                    fontSize: '1rem',
-                                    paddingLeft: '.5rem',
-                                    color: 'darkblue',
-                                }}
+                            <EventAccountForYear
+                                eventAccountForYear={accountForYear}
+                                changeHandler={(e) => setAccountForYear(e)}
                             />
                         </div>
                         <div className="p-field">
-                            <label htmlFor="reminderDays">
-                                Reminder in days
-                            </label>
-                            <InputNumber
-                                value={reminderDays}
-                                inputId="integeronly"
-                                min={daysNoticeMinValue}
-                                max={daysNoticeMaxValue}
-                                id="reminderDays"
-                                onInput={(e) => {
-                                    setReminderDays(e.target.value)
-                                }}
-                                onValueChange={(e) => {
-                                    setReminderDays(e.target.value)
-                                }}
+                            <EventReminderInDays
+                                eventReminderDays={reminderDays}
+                                changeHandler={(e) => setReminderDays(e)}
                             />
                         </div>
                     </div>

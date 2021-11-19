@@ -1,10 +1,7 @@
 import React, { useState, useRef } from 'react'
 
 import { Button } from 'primereact/button'
-import { Checkbox } from 'primereact/checkbox'
 import { Card } from 'primereact/card'
-import { Tooltip } from 'primereact/tooltip'
-import { InputNumber } from 'primereact/inputnumber'
 import { Toast } from 'primereact/toast'
 
 import config from '../../config.json'
@@ -16,16 +13,15 @@ import CalendarComponent from './calendar-component'
 import dataValidation from '../../custom-hooks/dataValidation'
 import { PostData } from '../../API/api-requests'
 import {
+    EventAccountForYear,
     EventDescription,
     EventName,
     EventReminder,
+    EventReminderInDays,
 } from '../form-components/fields'
 
 //ToDo
-// Add field validation, so that invalid input cannot be entered.
-// make name and date fields required.
 // Make the styles used here into a separate .css file
-// Make  the tooltip desc, reminderDaysNotice mix, max values into a separate config file
 
 const AddEvent = () => {
     const [name, setName] = useState('')
@@ -38,8 +34,6 @@ const AddEvent = () => {
     const toast = useRef(null)
 
     const apiPath = config.apiPath
-    const daysNoticeMaxValue = config.daysNoticeMaxValue
-    const daysNoticeMinValue = config.daysNoticeMinValue
 
     const dateHandler = (data) => {
         const newDate = data
@@ -87,6 +81,7 @@ const AddEvent = () => {
                         />
                     </div>
                 </div>
+
                 <div className="p-field p-col">
                     <div className="p-field p-col">
                         <CalendarComponent
@@ -107,6 +102,7 @@ const AddEvent = () => {
                         descHandler={(e) => setDescription(e)}
                     />
                 </div>
+
                 <div className="p-field p-col">
                     <h5 style={{ padding: '.5rem' }}>Additional settings:</h5>
                     <div className="p-field-checkbox">
@@ -116,54 +112,24 @@ const AddEvent = () => {
                         />
                     </div>
                     {reminder && (
-                        <div className="p-field-checkbox">
-                            <Checkbox
-                                className="p-d-block"
-                                inputId="accountForYear"
-                                value="Account for year?"
-                                onChange={() =>
-                                    setAccountForYear(!accountForYear)
-                                }
-                                checked={accountForYear}
-                            />
-                            <label
-                                className="p-d-block"
-                                htmlFor="accountForYear"
-                            >
-                                Account for year?
-                            </label>
-                            <Tooltip target=".pi-info-circle" />
-                            <i
-                                className="pi pi-info-circle"
-                                data-pr-tooltip="Will the reminder be sent every year or on the selected year"
-                                data-pr-position="right"
-                                data-pr-at="right+5 top"
-                                data-pr-my="left center-2"
-                                style={{
-                                    fontSize: '1rem',
-                                    paddingLeft: '.5rem',
-                                    color: 'darkblue',
-                                }}
+                        <div>
+                            <EventAccountForYear
+                                eventAccountForYear={accountForYear}
+                                changeHandler={(e) => setAccountForYear(e)}
                             />
                         </div>
                     )}
                 </div>
             </div>
             {reminder && (
-                <div className="p-fluid p-formgrid p-grid">
-                    <div className="p-field p-col">
-                        <label htmlFor="integeronly">
-                            How many days notice?
-                        </label>
-                        <InputNumber
-                            inputId="integeronly"
-                            min={daysNoticeMinValue}
-                            max={daysNoticeMaxValue}
-                            value={reminderInDays}
-                            onValueChange={(e) => setReminderInDays(e.value)}
-                        />
-                    </div>
-                    <div className="p-field p-col" />
+                <div
+                    style={{ width: '50%' }}
+                    className="p-fluid p-formgrid p-grid"
+                >
+                    <EventReminderInDays
+                        eventReminderDays={reminderInDays}
+                        changeHandler={(e) => setReminderInDays(e)}
+                    />
                 </div>
             )}
             <div

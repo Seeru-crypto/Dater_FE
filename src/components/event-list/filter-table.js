@@ -29,8 +29,12 @@ const FilterTable = () => {
         getData()
     }, [apiPath, showModal])
 
-    const paginatorLeft = <Button type="button" icon="pi pi-refresh" className="p-button-text" />;
-    const paginatorRight = <Button type="button" icon="pi pi-cloud" className="p-button-text" />;
+    const paginatorLeft = (
+        <Button type="button" icon="pi pi-refresh" className="p-button-text" />
+    )
+    const paginatorRight = (
+        <Button type="button" icon="pi pi-cloud" className="p-button-text" />
+    )
 
     const hideModal = () => {
         setShowModal(false)
@@ -63,7 +67,7 @@ const FilterTable = () => {
 
     const renderDateValues = (rowData) => {
         const date = new Date(rowData.date)
-        const accountForYear = rowData.accountForYear;
+        const accountForYear = rowData.accountForYear
         let day = date.getDate()
         let month = date.getMonth() + 1
         let year = date.getFullYear()
@@ -75,13 +79,17 @@ const FilterTable = () => {
         <div>
             {data && (
                 <div className="card">
-                    <DataTable responsiveLayout="scroll" paginator value={data}
-                    paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
-                   currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" rows={10} rowsPerPageOptions={[10,20,50]}
-                   paginatorLeft={paginatorLeft} paginatorRight={paginatorRight}>
-
-
-
+                    <DataTable
+                        responsiveLayout="scroll"
+                        paginator
+                        value={data}
+                        paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
+                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
+                        rows={10}
+                        rowsPerPageOptions={[10, 20, 50]}
+                        paginatorLeft={paginatorLeft}
+                        paginatorRight={paginatorRight}
+                    >
                         <Column
                             field="eventName"
                             sortable

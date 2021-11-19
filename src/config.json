@@ -9,6 +9,6 @@
     "labels": {
         "reminderLabel": "Do you want reminders?",
         "accountForYearLabel": "Account for year?",
-        "accountForYearTooltip": "Account for year?"
+        "accountForYearTooltip": "Will the reminder be sent every year or on the selected year?"
     }
 }
