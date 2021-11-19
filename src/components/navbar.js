@@ -3,7 +3,6 @@ import { TabMenu } from 'primereact/tabmenu'
 
 //ToDo
 // Add button ,which checks all events and sends email if neccesary, make it hidden/ viewed from the config file value
-// Fix active page bug
 const Navigationbar = () => {
     const [activeIndex, setActiveIndex] = useState(null)
     const [items] = useState([
@@ -20,7 +19,7 @@ const Navigationbar = () => {
             label: 'Admin',
             icon: 'pi pi-fw pi-cog',
             url: '/admin',
-            disabled: true,
+            disabled: false,
         },
     ])
 

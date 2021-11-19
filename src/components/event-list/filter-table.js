@@ -29,13 +29,6 @@ const FilterTable = () => {
         getData()
     }, [apiPath, showModal])
 
-    const paginatorLeft = (
-        <Button type="button" icon="pi pi-refresh" className="p-button-text" />
-    )
-    const paginatorRight = (
-        <Button type="button" icon="pi pi-cloud" className="p-button-text" />
-    )
-
     const hideModal = () => {
         setShowModal(false)
     }
@@ -87,8 +80,6 @@ const FilterTable = () => {
                         currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
                         rows={10}
                         rowsPerPageOptions={[10, 20, 50]}
-                        paginatorLeft={paginatorLeft}
-                        paginatorRight={paginatorRight}
                     >
                         <Column
                             field="eventName"

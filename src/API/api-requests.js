@@ -22,3 +22,8 @@ export const PostData = async (url, data) => {
 export const UpdateData = async (url, data) => {
     return axios.put(url, data)
 }
+
+export const PostSendEmailReminders = async (url) => {
+    const data = {}
+    return axios.post(url, data)
+}

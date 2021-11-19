@@ -166,7 +166,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
                         selectedDate={new Date(date)}
                     />
                 </div>
-                <div className="p-field">
+                <div style={{ marginTop: '2rem' }} className="p-field">
                     <EventDescription
                         desc={eventDescription}
                         descHandler={(e) => setDescription(e)}
