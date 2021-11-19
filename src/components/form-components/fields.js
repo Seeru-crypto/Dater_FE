@@ -97,7 +97,7 @@ export const EventReminderInDays = ({ eventReminderDays, changeHandler }) => {
                 min={daysNoticeMinValue}
                 max={daysNoticeMaxValue}
                 value={eventReminderDays}
-                onValueChange={() => changeHandler(!eventReminderDays)}
+                onValueChange={(e) => changeHandler(e.target.value)}
             />
         </div>
     )
