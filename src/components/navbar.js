@@ -33,7 +33,7 @@ const Navigationbar = () => {
 
     return (
         <div>
-            <div style={{ paddingLeft: '19.5rem' }} className="card">
+            <div className="card">
                 <TabMenu
                     model={items}
                     activeIndex={activeIndex}

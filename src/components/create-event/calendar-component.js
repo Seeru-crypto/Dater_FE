@@ -39,7 +39,7 @@ const CalendarComponent = ({ dateHandler, selectedDate }) => {
     const changeHandler = (e) => dateHandler(e.value)
 
     return (
-        <div>
+        <div className="p-d-flex">
             <Calendar
                 placeholder="* Add date"
                 dateFormat="dd-mm-yy"

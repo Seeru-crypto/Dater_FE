@@ -9,6 +9,8 @@
     "labels": {
         "reminderLabel": "Do you want reminders?",
         "accountForYearLabel": "Account for year?",
-        "accountForYearTooltip": "Will the reminder be sent every year or on the selected year?"
+        "accountForYearTooltip": "Will the reminder be sent every year or on the selected year?",
+        "invalidFormErrorHeader": "Please fill all the neccesary fields",
+        "invalidFormErrorBody": ""
     }
 }

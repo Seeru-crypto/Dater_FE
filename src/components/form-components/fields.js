@@ -16,7 +16,7 @@ const accountForYearTooltip = config.labels.accountForYearTooltip
 
 export const EventName = ({ name, nameHandler }) => {
     return (
-        <div>
+        <div className="p-d-flex">
             <InputText
                 className="p-inputtext-lg p-d-block"
                 maxLength={nameMaxLength}

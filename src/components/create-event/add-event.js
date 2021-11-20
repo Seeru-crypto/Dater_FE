@@ -34,7 +34,8 @@ const AddEvent = () => {
     const toast = useRef(null)
 
     const apiPath = config.apiPath
-
+    const invalidFormErrorHeader = config.labels.invalidFormErrorHeader
+    console.log(invalidFormErrorHeader)
     const dateHandler = (data) => {
         const newDate = data
         newDate.setHours(data.getHours() + 2)
@@ -43,7 +44,7 @@ const AddEvent = () => {
 
     const checkData = () => {
         if (dataValidation(name, date)) return submitForm()
-        infoNotification(toast, 'please fill fields', '')
+        infoNotification(toast, invalidFormErrorHeader, invalidFormErrorHeader)
     }
 
     const submitForm = () => {
@@ -72,7 +73,9 @@ const AddEvent = () => {
     return (
         <Card style={{ marginBottom: '2rem' }}>
             <Toast ref={toast} />
-            <div className="p-fluid p-formgrid p-grid">
+            {/*             <div className="p-fluid p-formgrid p-grid">
+             */}{' '}
+            <div className="p-d-flex p-flex-wrap-reverse">
                 <div className="p-field p-col">
                     <div className="p-field p-col">
                         <EventName
@@ -91,7 +94,6 @@ const AddEvent = () => {
                     </div>
                 </div>
             </div>
-
             <div
                 style={{ marginTop: '.5rem' }}
                 className="p-fluid p-formgrid p-grid"

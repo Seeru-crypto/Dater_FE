@@ -46,6 +46,8 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
     )
 
     const apiPath = config.apiPath
+    const invalidFormErrorHeader = config.labels.invalidFormErrorHeader
+
     console.log('selectedEvent ', selectedEvent)
     const eventId = useGetId(selectedEvent)
     let showHideModal = modalState ? true : false
@@ -85,7 +87,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
 
     const checkData = () => {
         if (dataValidation(eventName, date)) return updateEvent()
-        infoNotification(toast, 'please fill fields', '')
+        infoNotification(toast, { invalidFormErrorHeader }, '')
     }
 
     const deleteEvent = () => {
