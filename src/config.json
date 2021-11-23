@@ -1,5 +1,5 @@
 {
-    "apiPath": "http://localhost:8081/event",
+    "apiPath": "https://date-manager-back.herokuapp.com/event",
     "descMaxLength": 120,
     "nameMaxLength": 25,
     "daysNoticeMinValue": 0,
