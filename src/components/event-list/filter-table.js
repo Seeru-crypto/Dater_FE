@@ -6,6 +6,7 @@ import { Button } from 'primereact/button'
 
 import { EventDetails } from './event-details'
 import { GetData } from '../../API/api-requests'
+import useGetData from '../../API/useGetData'
 import config from '../../config.json'
 
 //ToDo
@@ -21,10 +22,14 @@ const FilterTable = () => {
     const [data, setData] = useState([])
     const [showModal, setShowModal] = useState(false)
 
+    const { getData, isPending } = useGetData(apiPath)
+    console.log(isPending, getData)
+
     useEffect(() => {
         const getData = async () => {
             const eventData = await GetData(apiPath)
-            setData(eventData.data._embedded.event)
+            //setData(eventData.data._embedded.event)
+            setData(eventData.data)
         }
         getData()
     }, [apiPath, showModal])

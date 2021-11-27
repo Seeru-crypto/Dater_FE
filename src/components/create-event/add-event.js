@@ -35,7 +35,6 @@ const AddEvent = () => {
 
     const apiPath = config.apiPath
     const invalidFormErrorHeader = config.labels.invalidFormErrorHeader
-    console.log(invalidFormErrorHeader)
     const dateHandler = (data) => {
         const newDate = data
         newDate.setHours(data.getHours() + 2)

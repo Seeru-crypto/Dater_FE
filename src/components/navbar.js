@@ -24,8 +24,9 @@ const Navigationbar = () => {
     ])
 
     useEffect(() => {
-        // eslint-disable-next-line no-restricted-globals
-        const activeItem = items.find(({ url }) => url === location.pathname)
+        const activeItem = items.find(
+            ({ url }) => url === window.location.pathname
+        )
         if (!activeItem) return
         const index = items.indexOf(activeItem)
         setActiveIndex(index)
