@@ -14,7 +14,7 @@ import 'primeflex/primeflex.css'
 
 import Navigationbar from './components/navbar'
 import AddEvent from './components/create-event/add-event'
-import ViewPeople from './components/event-list/view-events'
+import ViewEvents from './components/event-list/view-events'
 import NotFound from './components/not-found'
 import Main from './components/main'
 import Admin from './components/admin-page/admin'
@@ -33,7 +33,7 @@ const App = () => (
                         <Route
                             exact
                             path="/eventList"
-                            element={<ViewPeople />}
+                            element={<ViewEvents />}
                         />
                         <Route exact path="/admin" element={<Admin />} />
                         <Route path="*" element={<NotFound />} />

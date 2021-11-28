@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
@@ -11,18 +11,25 @@ import { EventDetails } from './event-details'
 // Add search bar, which searches via description and name
 // Add filter, where a dates year is only rendered when the event has take year into account enabled
 // Add basic view (name, date, desc, reminder, reminder in days) and all view functionality (user sees ALL the fileds of an event, execpt Id)
-// increase mongoDB get limit to 100
 const FilterTable = (props) => {
-    const data = props.data?.data
+    //const [data, setData] = useState(props.data)
+    let data = props.data
     const isPending = props.isPending
-
-    console.log(data)
     const [selectedEvent, setselectedEvent] = useState(null)
 
     const [showModal, setShowModal] = useState(false)
 
     const hideModal = () => {
         setShowModal(false)
+    }
+
+    const handleUpdate = (event) => {
+        const newData = data.map((dataEvent) => {
+            if (dataEvent.id === event.id) return event
+            return dataEvent
+        })
+        console.log('final data list is ', newData)
+        data = newData
     }
 
     const renderBooleanValues = (rowData, item) => {
@@ -118,6 +125,7 @@ const FilterTable = (props) => {
                         selectedEvent={selectedEvent}
                         hideModal={hideModal}
                         modalState={showModal}
+                        handleUpdate={handleUpdate}
                     />
                 </div>
             )}

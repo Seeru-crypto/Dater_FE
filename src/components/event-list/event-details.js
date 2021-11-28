@@ -6,7 +6,6 @@ import { confirmDialog } from 'primereact/confirmdialog'
 import { Toast } from 'primereact/toast'
 
 import { DeleteData, UpdateData } from '../../API/api-requests'
-import useGetId from '../../custom-hooks/useGetId'
 import {
     positiveNotification,
     infoNotification,
@@ -29,7 +28,12 @@ import {
 // Test if the isoDate  const/ dateHandler func can be removed
 // Add notifcations dependent on the result on the API request. Show notification only if the Request has been succesful
 // export used css into a separate .css file
-export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
+export const EventDetails = ({
+    selectedEvent,
+    hideModal,
+    modalState,
+    handleUpdate,
+}) => {
     const toast = useRef(null)
     const [eventDescription, setDescription] = useState(
         selectedEvent.description
@@ -47,9 +51,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
 
     const apiPath = config.apiPath
     const invalidFormErrorHeader = config.labels.invalidFormErrorHeader
-
-    console.log('selectedEvent ', selectedEvent)
-    const eventId = useGetId(selectedEvent)
+    const eventId = selectedEvent.id
     let showHideModal = modalState ? true : false
 
     useEffect(() => {
@@ -101,6 +103,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
 
     const updateEvent = () => {
         const data = {
+            id: eventId,
             eventName,
             date: isoDate,
             reminder,
@@ -114,6 +117,7 @@ export const EventDetails = ({ selectedEvent, hideModal, modalState }) => {
             'Update successful',
             'This event has been updated'
         )
+        handleUpdate(data)
         setTimeout(() => {
             hideModal()
         }, 3000)
