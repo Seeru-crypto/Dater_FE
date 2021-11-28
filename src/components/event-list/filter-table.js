@@ -13,7 +13,6 @@ import { EventDetails } from './event-details'
 // Add basic view (name, date, desc, reminder, reminder in days) and all view functionality (user sees ALL the fileds of an event, execpt Id)
 const FilterTable = (props) => {
     const [data, setData] = useState(props.data)
-    const [isPending, setIsPending] = useState(props.isPending)
     const [selectedEvent, setselectedEvent] = useState(null)
 
     const [showModal, setShowModal] = useState(false)
@@ -24,7 +23,6 @@ const FilterTable = (props) => {
 
     useEffect(() => {
         setData(props.data)
-        setIsPending(props.isPending)
     }, [props])
 
     const handleUpdate = (event) => {
@@ -138,7 +136,6 @@ const FilterTable = (props) => {
                     />
                 </div>
             )}
-            {isPending && <div>Loading!</div>}
         </div>
     )
 }

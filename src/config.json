@@ -11,6 +11,7 @@
         "accountForYearLabel": "Account for year?",
         "accountForYearTooltip": "Will the reminder be sent every year or on the selected year?",
         "invalidFormErrorHeader": "Please fill all the neccesary fields",
-        "invalidFormErrorBody": ""
+        "invalidFormErrorBody": "",
+        "defaultErrorMessage": "Connection cannot be established, please try again later"
     }
 }

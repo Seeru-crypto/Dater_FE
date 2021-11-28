@@ -103,6 +103,12 @@ export const EventDetails = ({
         handleDelete(eventId)
     }
 
+    const reminderLogic = () => {
+        if (reminder !== 'true') {
+            setReminderDays(0)
+        }
+    }
+
     const updateEvent = () => {
         const data = {
             id: eventId,
@@ -189,7 +195,10 @@ export const EventDetails = ({
                 >
                     <EventReminder
                         reminder={reminder}
-                        reminderHandler={(e) => setReminder(e)}
+                        reminderHandler={(e) => {
+                            setReminder(e)
+                            reminderLogic()
+                        }}
                     />
                 </div>
                 {reminder && (

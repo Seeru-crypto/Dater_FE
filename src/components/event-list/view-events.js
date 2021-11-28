@@ -1,24 +1,46 @@
 import React, { useState } from 'react'
+import { Message } from 'primereact/message'
 
 import FilterTable from './filter-table'
 import config from '../../config.json'
 import useGetData from '../../API/useGetData'
 
 const ViewEvents = () => {
-    //const [isPending, setIsPending] = useState(true)
     const apiPath = 'http://localhost:8080/api/event'
+    const defaultErrorMessage = config.labels.defaultErrorMessage
 
-    let { getData: data, isPending } = useGetData(apiPath)
+    let { getData: data, isPending, error } = useGetData(apiPath)
 
-    console.log(data?.data)
-    console.log(typeof data?.data)
+    console.log('isPending is ', isPending)
 
     return (
         <div>
-            <div style={{ padding: '1rem' }} className="p-grid">
-                <h5 style={{ paddingRight: '2rem' }}>View reminders: </h5>
+            <div
+                hidden={error ? true : false}
+                style={{ padding: '1rem' }}
+                className="p-grid"
+            >
+                <h5 style={{ paddingRight: '2rem' }}>View events: </h5>
             </div>
-            <FilterTable data={data?.data} isPending={isPending} />
+            <div
+                hidden={error ? false : true}
+                style={{
+                    display: 'flex',
+                    width: '100%',
+                    flexDirection: 'column',
+                }}
+            >
+                <Message severity="error" text={defaultErrorMessage} />
+            </div>
+            <FilterTable data={data?.data} />
+            {isPending && (
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <i
+                        className="pi pi-spin pi-spinner"
+                        style={{ fontSize: '2em' }}
+                    ></i>
+                </div>
+            )}
         </div>
     )
 }
