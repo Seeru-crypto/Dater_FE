@@ -12,11 +12,6 @@ const ViewEvents = () => {
 
     console.log(data?.data)
     console.log(typeof data?.data)
-    const handleUpdate = (newEntry) => {
-        const currentData = { ...data.data, newEntry }
-        data = currentData
-        console.log(currentData)
-    }
 
     return (
         <div>

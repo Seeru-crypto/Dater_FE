@@ -12,9 +12,8 @@ import { EventDetails } from './event-details'
 // Add filter, where a dates year is only rendered when the event has take year into account enabled
 // Add basic view (name, date, desc, reminder, reminder in days) and all view functionality (user sees ALL the fileds of an event, execpt Id)
 const FilterTable = (props) => {
-    //const [data, setData] = useState(props.data)
-    let data = props.data
-    const isPending = props.isPending
+    const [data, setData] = useState(props.data)
+    const [isPending, setIsPending] = useState(props.isPending)
     const [selectedEvent, setselectedEvent] = useState(null)
 
     const [showModal, setShowModal] = useState(false)
@@ -23,13 +22,22 @@ const FilterTable = (props) => {
         setShowModal(false)
     }
 
+    useEffect(() => {
+        setData(props.data)
+        setIsPending(props.isPending)
+    }, [props])
+
     const handleUpdate = (event) => {
         const newData = data.map((dataEvent) => {
             if (dataEvent.id === event.id) return event
             return dataEvent
         })
         console.log('final data list is ', newData)
-        data = newData
+        setData(newData)
+    }
+    const handleDelete = (eventId) => {
+        const newData = data.filter((dateEvent) => dateEvent.id !== eventId)
+        setData(newData)
     }
 
     const renderBooleanValues = (rowData, item) => {
@@ -103,9 +111,9 @@ const FilterTable = (props) => {
                             header="reminderDays"
                         ></Column>
                         <Column
-                            field="description"
+                            field="eventDescription"
                             sortable
-                            header="description"
+                            header="eventDescription"
                         ></Column>
                         <Column
                             body={rowActions}
@@ -126,6 +134,7 @@ const FilterTable = (props) => {
                         hideModal={hideModal}
                         modalState={showModal}
                         handleUpdate={handleUpdate}
+                        handleDelete={handleDelete}
                     />
                 </div>
             )}

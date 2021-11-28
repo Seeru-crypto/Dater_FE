@@ -33,6 +33,7 @@ export const EventDetails = ({
     hideModal,
     modalState,
     handleUpdate,
+    handleDelete,
 }) => {
     const toast = useRef(null)
     const [eventDescription, setDescription] = useState(
@@ -55,7 +56,7 @@ export const EventDetails = ({
     let showHideModal = modalState ? true : false
 
     useEffect(() => {
-        setDescription(selectedEvent.description)
+        setDescription(selectedEvent.eventDescription)
         setAccountForYear(selectedEvent.accountForYear)
         setEventName(selectedEvent.eventName)
         setDate(selectedEvent.date)
@@ -99,6 +100,7 @@ export const EventDetails = ({
             'Delete successful',
             'This event has been deleted'
         )
+        handleDelete(eventId)
     }
 
     const updateEvent = () => {
