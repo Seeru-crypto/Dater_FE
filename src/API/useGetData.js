@@ -8,6 +8,7 @@ const useGetData = (url) => {
     const [error, setError] = useState(null)
 
     useEffect(() => {
+        // the timeout simulates realtime lag
         setTimeout(() => {
             axios
                 .get(url)

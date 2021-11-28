@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Message } from 'primereact/message'
 
 import FilterTable from './filter-table'

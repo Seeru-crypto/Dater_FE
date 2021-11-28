@@ -7,6 +7,7 @@ import 'primereact/dropdown/dropdown.min.css'
 import 'primereact/inputtext/inputtext.min.css'
 import 'primereact/resources/primereact.min.css'
 import 'primereact/resources/themes/saga-blue/theme.css'
+import PrimeReact from 'primereact/api'
 //import 'primereact/resources/themes/md-dark-indigo/theme.css'
 
 import 'primeicons/primeicons.css'
@@ -18,7 +19,7 @@ import ViewEvents from './components/event-list/view-events'
 import NotFound from './components/not-found'
 import Main from './components/main'
 import Admin from './components/admin-page/admin'
-import PrimeReact from 'primereact/api'
+
 PrimeReact.ripple = true
 
 const App = () => (

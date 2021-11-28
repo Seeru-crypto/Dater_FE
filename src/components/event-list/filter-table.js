@@ -7,14 +7,12 @@ import { Button } from 'primereact/button'
 import { EventDetails } from './event-details'
 
 //ToDo
-// add loading animation, when the data is fetched
 // Add search bar, which searches via description and name
 // Add filter, where a dates year is only rendered when the event has take year into account enabled
 // Add basic view (name, date, desc, reminder, reminder in days) and all view functionality (user sees ALL the fileds of an event, execpt Id)
 const FilterTable = (props) => {
     const [data, setData] = useState(props.data)
     const [selectedEvent, setselectedEvent] = useState(null)
-
     const [showModal, setShowModal] = useState(false)
 
     const hideModal = () => {
@@ -33,8 +31,11 @@ const FilterTable = (props) => {
         console.log('final data list is ', newData)
         setData(newData)
     }
-    const handleDelete = (eventId) => {
-        const newData = data.filter((dateEvent) => dateEvent.id !== eventId)
+
+    const handleDelete = (deletedEventId) => {
+        const newData = data.filter(
+            (dateEvent) => dateEvent.id !== deletedEventId
+        )
         setData(newData)
     }
 
