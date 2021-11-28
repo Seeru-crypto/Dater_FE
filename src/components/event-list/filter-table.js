@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { Button } from 'primereact/button'
 
 import { EventDetails } from './event-details'
-import { GetData } from '../../API/api-requests'
-import useGetData from '../../API/useGetData'
-import config from '../../config.json'
 
 //ToDo
 // add loading animation, when the data is fetched
@@ -15,24 +12,14 @@ import config from '../../config.json'
 // Add filter, where a dates year is only rendered when the event has take year into account enabled
 // Add basic view (name, date, desc, reminder, reminder in days) and all view functionality (user sees ALL the fileds of an event, execpt Id)
 // increase mongoDB get limit to 100
-const FilterTable = () => {
+const FilterTable = (props) => {
+    const data = props.data?.data
+    const isPending = props.isPending
+
+    console.log(data)
     const [selectedEvent, setselectedEvent] = useState(null)
-    const apiPath = config.apiPath
 
-    const [data, setData] = useState([])
     const [showModal, setShowModal] = useState(false)
-
-    const { getData, isPending } = useGetData(apiPath)
-    console.log(isPending, getData)
-
-    useEffect(() => {
-        const getData = async () => {
-            const eventData = await GetData(apiPath)
-            //setData(eventData.data._embedded.event)
-            setData(eventData.data)
-        }
-        getData()
-    }, [apiPath, showModal])
 
     const hideModal = () => {
         setShowModal(false)
@@ -134,6 +121,7 @@ const FilterTable = () => {
                     />
                 </div>
             )}
+            {isPending && <div>Loading!</div>}
         </div>
     )
 }
