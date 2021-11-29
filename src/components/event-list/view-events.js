@@ -5,11 +5,15 @@ import { Button } from 'primereact/button'
 import FilterTable from './filter-table'
 import config from '../../config.json'
 import useGetData from '../../API/useGetData'
+import axios from 'axios'
 
 const ViewEvents = () => {
     const apiPath = 'http://localhost:8080/api/event'
     const defaultErrorMessage = config.labels.defaultErrorMessage
     let { getData: data, isPending, error } = useGetData(apiPath)
+
+    const handleEventCheck = () =>
+        axios.get('http://localhost:8080/api/checkEvents')
     return (
         <div>
             <div
@@ -21,7 +25,7 @@ const ViewEvents = () => {
                 <div>
                     <div className="p-col p-col-align-end">
                         <Button
-                            onClick={() => console.log('email checking!')}
+                            onClick={() => handleEventCheck()}
                             className="p-button-outlined p-button-secondary"
                         >
                             <i className="pi pi-envelope p-px-2" />
