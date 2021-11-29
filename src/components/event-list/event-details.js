@@ -49,6 +49,7 @@ export const EventDetails = ({
     const [isoDate, setIsoDate] = useState(
         selectedEvent.date ? selectedEvent.date : null
     )
+    const [eventTitle, setEventTitle] = useState('')
 
     const apiPath = config.apiPath
     const invalidFormErrorHeader = config.labels.invalidFormErrorHeader
@@ -64,6 +65,11 @@ export const EventDetails = ({
         setReminder(selectedEvent.reminder)
         setReminderDays(selectedEvent.reminderDays)
     }, [selectedEvent])
+
+    useEffect(() => {
+        const timeOutId = setTimeout(() => setEventTitle(eventName), 500)
+        return () => clearTimeout(timeOutId)
+    }, [eventName])
 
     const dateHandler = (selectedDate) => {
         const newDate = selectedDate
@@ -168,7 +174,7 @@ export const EventDetails = ({
             onHide={hideModal}
         >
             <Toast ref={toast} />
-            <h5>{eventName}</h5>
+            <h5>{eventTitle}</h5>
             <div className="p-fluid">
                 <div className="p-field">
                     <EventName name={eventName} nameHandler={nameHandler} />
