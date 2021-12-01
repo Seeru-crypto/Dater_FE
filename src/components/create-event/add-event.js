@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, memo } from 'react'
 
 import { Button } from 'primereact/button'
 import { Card } from 'primereact/card'
@@ -155,4 +155,4 @@ const AddEvent = () => {
         </Card>
     )
 }
-export default AddEvent
+export default memo(AddEvent)

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, memo } from 'react'
 
 import { Dialog } from 'primereact/dialog'
 import { Button } from 'primereact/button'
@@ -227,3 +227,5 @@ export const EventDetails = ({
         </Dialog>
     )
 }
+
+export default memo(EventDetails)

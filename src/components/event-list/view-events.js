@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Message } from 'primereact/message'
 import { Button } from 'primereact/button'
 
@@ -56,4 +56,4 @@ const ViewEvents = () => {
         </div>
     )
 }
-export default ViewEvents
+export default memo(ViewEvents)

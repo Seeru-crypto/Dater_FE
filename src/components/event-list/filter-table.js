@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
@@ -140,4 +140,4 @@ const FilterTable = (props) => {
         </div>
     )
 }
-export default FilterTable
+export default memo(FilterTable)
