@@ -25,7 +25,7 @@ const useGetData = (url) => {
                         setError(err.message)
                     }
                 })
-        }, 1500)
+        }, 1000)
     }, [url])
     return { getData, isPending, error }
 }

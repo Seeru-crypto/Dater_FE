@@ -22,12 +22,6 @@ import {
     EventAccountForYear,
 } from '../form-components/fields'
 
-//ToDo
-// Add field validation, so that invalid input cannot be entered.
-// make name and date fields required.
-// Test if the isoDate  const/ dateHandler func can be removed
-// Add notifcations dependent on the result on the API request. Show notification only if the Request has been succesful
-// export used css into a separate .css file
 export const EventDetails = ({
     selectedEvent,
     hideModal,
@@ -68,7 +62,10 @@ export const EventDetails = ({
 
     useEffect(() => {
         const timeOutId = setTimeout(() => setEventTitle(eventName), 500)
-        return () => clearTimeout(timeOutId)
+        return () => {
+            clearTimeout(timeOutId)
+            setEventTitle('')
+        }
     }, [eventName])
 
     const dateHandler = (selectedDate) => {

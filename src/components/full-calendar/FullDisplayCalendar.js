@@ -1,32 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 
 const FullDisplayCalendar = ({ eventData }) => {
-    const [events, setEvents] = useState(eventData.data)
-    console.log(eventData.data)
-
-    const currentDate = new Date().toISOString()
-    console.log(currentDate)
-
-    useEffect(() => {
-        // eventService.getEvents().then((data) => setEvents(data))
-    }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
     return (
         <div>
             <div className="card">
                 <FullCalendar
-                    events={events}
-                    initialDate={currentDate}
+                    events={eventData}
+                    initialDate={new Date().toISOString()}
                     initialView="dayGridMonth"
                     plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                     headerToolbar={{
                         left: 'prev,next today',
                         center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay',
+                        right: 'dayGridMonth',
                     }}
                     editable
                     selectable
@@ -34,7 +24,9 @@ const FullDisplayCalendar = ({ eventData }) => {
                     dayMaxEvents
                 />
             </div>
+            )
         </div>
     )
 }
+
 export default FullDisplayCalendar

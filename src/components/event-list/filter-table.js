@@ -6,12 +6,9 @@ import { Button } from 'primereact/button'
 
 import { EventDetails } from './event-details'
 
-//ToDo
-// Add search bar, which searches via description and name
-// Add filter, where a dates year is only rendered when the event has take year into account enabled
-// Add basic view (name, date, desc, reminder, reminder in days) and all view functionality (user sees ALL the fileds of an event, execpt Id)
 const FilterTable = (props) => {
     const [data, setData] = useState(props.data)
+    console.log('initial data is ', data)
     const [selectedEvent, setselectedEvent] = useState(null)
     const [showModal, setShowModal] = useState(false)
 
@@ -66,12 +63,10 @@ const FilterTable = (props) => {
 
     const renderDateValues = (rowData) => {
         const date = new Date(rowData.date)
-        const accountForYear = rowData.accountForYear
         let day = date.getDate()
         let month = date.getMonth() + 1
         let year = date.getFullYear()
-        if (accountForYear) return `${day}-${month}-${year}`
-        return `${day}-${month}`
+        return `${day}-${month}-${year}`
     }
 
     return (

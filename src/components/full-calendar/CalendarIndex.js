@@ -1,65 +1,54 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import FullDisplayCalendar from './FullDisplayCalendar'
+import config from '../../config.json'
+import useGetData from '../../API/useGetData'
+import { Message } from 'primereact/message'
 
 const CalendarIndex = () => {
-    const data = {
-        data: [
-            {
-                id: 1,
-                title: 'All Day Event',
-                start: '2021-12-04T11:44:35.615Z',
-            },
-            {
-                id: 2,
-                title: 'Long Event',
-                start: '2017-02-07',
-                end: '2017-02-10',
-            },
-            {
-                id: 3,
-                title: 'Repeating Event',
-                start: '2017-02-09T16:00:00',
-            },
-            {
-                id: 4,
-                title: 'Repeating Event',
-                start: '2017-02-16T16:00:00',
-            },
-            {
-                id: 5,
-                title: 'Conference',
-                start: '2017-02-11',
-                end: '2017-02-13',
-            },
-            {
-                id: 6,
-                title: 'Meeting',
-                start: '2017-02-12T10:30:00',
-                end: '2017-02-12T12:30:00',
-            },
-            { id: 7, title: 'Lunch', start: '2021-12-05' },
-            { id: 8, title: 'Meeting', start: '2017-02-12T14:30:00' },
-            { id: 9, title: 'Happy Hour', start: '2017-02-12T17:30:00' },
-            { id: 10, title: 'Dinner', start: '2017-02-12T20:00:00' },
-            {
-                id: 11,
-                title: 'Birthday Party',
-                start: '2017-02-13T07:00:00',
-            },
-            {
-                id: 12,
-                title: 'Click for Google',
-                url: 'https://www.google.com/',
-                start: '2017-02-28',
-            },
-        ],
-    }
+    const [formattedDates, setFormattedDates] = useState([])
+
+    const apiPath = 'http://localhost:8080/api/event'
+    const defaultErrorMessage = config.labels.defaultErrorMessage
+    let { getData: eventData, isPending, error } = useGetData(apiPath)
+
+    useEffect(() => {
+        if (eventData) {
+            const eventDataBody = eventData.data
+            const currentYear = new Date().getFullYear()
+            const newList = eventDataBody.map((event) => {
+                const title = event.eventName
+                const newDate = currentYear + event.date.substring(4, 10)
+                return { ...event, title: title, date: newDate }
+            })
+            setFormattedDates(newList)
+        }
+    }, [eventData])
 
     return (
         <div>
-            <div style={{ marginTop: '2rem' }}>
-                <FullDisplayCalendar eventData={data} />
+            <div
+                hidden={error ? false : true}
+                style={{
+                    display: 'flex',
+                    width: '100%',
+                    flexDirection: 'column',
+                }}
+            >
+                <Message severity="error" text={defaultErrorMessage} />
             </div>
+            {!isPending && !error && (
+                <div style={{ marginTop: '2rem' }}>
+                    <FullDisplayCalendar eventData={formattedDates} />
+                </div>
+            )}
+            {isPending && (
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <i
+                        className="pi pi-spin pi-spinner"
+                        style={{ fontSize: '2em' }}
+                    ></i>
+                </div>
+            )}
         </div>
     )
 }

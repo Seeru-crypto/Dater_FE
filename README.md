@@ -30,19 +30,20 @@ An application for creating reminders and getting email notifications for impend
 
 ### Technical info
 
--   uses React framework, react prime components and axios.
+-   uses React library, Primereact components and axios.
 -   Ports:
     -   prod uses: 4000
     -   dev uses: 4001
 
 ### ToDo:
 
--   [x] event form
+-   [ ] event form
     -   [x] Form UI is created
     -   [x] uses POST request
     -   [x] field validation;
     -   [x] User can implement C function
--   [x] Change event Data
+    -   [ ] user gets a notification if post is successful
+-   [ ] Change event Data
     -   [x] Form UI is created
     -   [x] uses GET requests for pulling
     -   [x] add Delete functionality
@@ -50,10 +51,12 @@ An application for creating reminders and getting email notifications for impend
     -   [x] add PUT functionality
     -   [x] field validation
     -   [x] User can implement U & D functions
+    -   [ ] user gets a notification if delete or post is successful
 -   [ ] Admin view, change email aadress, port and reminder email template
     -   [ ] UI is created
     -   [ ] UI uses GET & POST requests
     -   [ ] field validation
+    -   [ ] Sequentsial email option, (if person wants emails every day or every other day!)
 -   [x] Table to display current event´s
     -   [x] Table UI is created
     -   [x] table gets data from GET request
@@ -66,16 +69,15 @@ An application for creating reminders and getting email notifications for impend
 -   [ ] misc tasks
     -   [x] Define SQL schema datafields
     -   [ ] Convert all dockerfiles to docker-compose format
-- [ ] Sequentsial email option, (if person wants emails every day or every other day!)
-- [ ] create a general calendar view, where ALL dates are displayed (ignore year values).
-- [ ] Setup Heroku CI/CD pipeline
+- [x] create a general calendar view, where ALL dates are displayed (ignore year values).
+- [x] Setup Heroku CI/CD pipeline
 - [ ] Add 66% test coverage (unit + integration tests)
 - [x] Add proper entry and update confirmations (green thumbs up, or smth like that)
 - [ ] add error handling for API requests
-- [ ] convert Bootstrap styling to Prime-react
+- [x] convert Bootstrap styling to Prime-react
 - [ ] Styling
     - [ ] fix mobile view
-    - [ ] Add loading animations
+    - [x] Add loading animations
     - [ ] Add support for multible themes
     - [ ] Export all inline styling into a App.css file
     - [ ] [Format app.css file into sass](https://medium.com/how-to-react/use-sass-in-react-js-bbeb0b94f8a6)
