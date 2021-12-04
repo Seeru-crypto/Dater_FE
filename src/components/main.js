@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 const Main = () => {
     return (
@@ -21,4 +21,4 @@ const Main = () => {
         </div>
     )
 }
-export default Main
+export default memo(Main)

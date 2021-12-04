@@ -1,39 +1,39 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { Button } from 'primereact/button'
 
 import { EventDetails } from './event-details'
-import { GetData } from '../../API/api-requests'
-import config from '../../config.json'
 
-//ToDo
-// add loading animation, when the data is fetched
-// Add search bar, which searches via description and name
-// Add filter, where a dates year is only rendered when the event has take year into account enabled
-// Add basic view (name, date, desc, reminder, reminder in days) and all view functionality (user sees ALL the fileds of an event, execpt Id)
-// increase mongoDB get limit to 100
-const FilterTable = () => {
+const FilterTable = (props) => {
+    const [data, setData] = useState(props.data)
+    console.log('initial data is ', data)
     const [selectedEvent, setselectedEvent] = useState(null)
-    const apiPath = config.apiPath
-
-    const [data, setData] = useState([])
     const [showModal, setShowModal] = useState(false)
-
-    useEffect(() => {
-        const getData = async () => {
-            const eventData = await GetData(apiPath)
-            setData(eventData.data._embedded.event)
-        }
-        getData()
-    }, [apiPath, showModal])
-
-    const paginatorLeft = <Button type="button" icon="pi pi-refresh" className="p-button-text" />;
-    const paginatorRight = <Button type="button" icon="pi pi-cloud" className="p-button-text" />;
 
     const hideModal = () => {
         setShowModal(false)
+    }
+
+    useEffect(() => {
+        setData(props.data)
+    }, [props])
+
+    const handleUpdate = (event) => {
+        const newData = data.map((dataEvent) => {
+            if (dataEvent.id === event.id) return event
+            return dataEvent
+        })
+        console.log('final data list is ', newData)
+        setData(newData)
+    }
+
+    const handleDelete = (deletedEventId) => {
+        const newData = data.filter(
+            (dateEvent) => dateEvent.id !== deletedEventId
+        )
+        setData(newData)
     }
 
     const renderBooleanValues = (rowData, item) => {
@@ -63,25 +63,25 @@ const FilterTable = () => {
 
     const renderDateValues = (rowData) => {
         const date = new Date(rowData.date)
-        const accountForYear = rowData.accountForYear;
         let day = date.getDate()
         let month = date.getMonth() + 1
         let year = date.getFullYear()
-        if (accountForYear) return `${day}-${month}-${year}`
-        return `${day}-${month}`
+        return `${day}-${month}-${year}`
     }
 
     return (
         <div>
             {data && (
                 <div className="card">
-                    <DataTable responsiveLayout="scroll" paginator value={data}
-                    paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
-                   currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" rows={10} rowsPerPageOptions={[10,20,50]}
-                   paginatorLeft={paginatorLeft} paginatorRight={paginatorRight}>
-
-
-
+                    <DataTable
+                        responsiveLayout="scroll"
+                        paginator
+                        value={data}
+                        paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
+                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
+                        rows={10}
+                        rowsPerPageOptions={[10, 20, 50]}
+                    >
                         <Column
                             field="eventName"
                             sortable
@@ -105,9 +105,9 @@ const FilterTable = () => {
                             header="reminderDays"
                         ></Column>
                         <Column
-                            field="description"
+                            field="eventDescription"
                             sortable
-                            header="description"
+                            header="eventDescription"
                         ></Column>
                         <Column
                             body={rowActions}
@@ -127,10 +127,12 @@ const FilterTable = () => {
                         selectedEvent={selectedEvent}
                         hideModal={hideModal}
                         modalState={showModal}
+                        handleUpdate={handleUpdate}
+                        handleDelete={handleDelete}
                     />
                 </div>
             )}
         </div>
     )
 }
-export default FilterTable
+export default memo(FilterTable)

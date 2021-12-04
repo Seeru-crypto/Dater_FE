@@ -1,5 +1,5 @@
 {
-    "apiPath": "http://localhost:8081/event",
+    "apiPath": "http://localhost:8080/event",
     "descMaxLength": 120,
     "nameMaxLength": 25,
     "daysNoticeMinValue": 0,
@@ -9,6 +9,9 @@
     "labels": {
         "reminderLabel": "Do you want reminders?",
         "accountForYearLabel": "Account for year?",
-        "accountForYearTooltip": "Account for year?"
+        "accountForYearTooltip": "Will the reminder be sent every year or on the selected year?",
+        "invalidFormErrorHeader": "Please fill all the neccesary fields",
+        "invalidFormErrorBody": "",
+        "defaultErrorMessage": "Connection cannot be established, please try again later"
     }
 }

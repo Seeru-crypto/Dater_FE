@@ -1,9 +1,8 @@
 import React from 'react'
 import { Calendar } from 'primereact/calendar'
 import { Dropdown } from 'primereact/dropdown'
-import config from "../../config.json"
+import config from '../../config.json'
 const CalendarComponent = ({ dateHandler, selectedDate }) => {
-
     const calendarMinYear = config.calendarMinYear
     const calendarMaxYear = config.calendarMaxYear
     const yearRange = `${calendarMinYear}:${calendarMaxYear}`
@@ -37,15 +36,15 @@ const CalendarComponent = ({ dateHandler, selectedDate }) => {
         )
     }
 
-    const changeHandler = (e) => dateHandler(e.value);
+    const changeHandler = (e) => dateHandler(e.value)
 
     return (
-        <div>
+        <div className="p-d-flex">
             <Calendar
-                placeholder="Add date"
+                placeholder="* Add date"
                 dateFormat="dd-mm-yy"
                 id="navigatorstemplate"
-                readOnlyInput = {true}
+                readOnlyInput={true}
                 value={selectedDate}
                 onChange={(e) => {
                     changeHandler(e)

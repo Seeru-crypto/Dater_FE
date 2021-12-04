@@ -1,7 +1,14 @@
 import React from 'react'
+import { Button } from 'primereact/button'
+
+import { PostSendEmailReminders } from '../../API/api-requests'
 
 const Admin = () => {
-    console.log('in admind')
+    const sendEmailReminder = () => {
+        PostSendEmailReminders()
+        console.log('emails sent!')
+    }
+
     return (
         <div>
             <h1>Admin Page!</h1>
@@ -9,6 +16,13 @@ const Admin = () => {
                 <li>change email template</li>
                 <li>default email aadress</li>
             </ul>
+            <Button
+                style={{ margin: '2rem' }}
+                className="p-button-raised"
+                onClick={sendEmailReminder}
+            >
+                Send email reminders!
+            </Button>
         </div>
     )
 }
