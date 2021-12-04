@@ -12,8 +12,8 @@ const Navigationbar = () => {
         {
             label: 'Calendar',
             icon: 'pi pi-fw pi-calendar',
-            url: '/*',
-            disabled: true,
+            url: '/fullCalendar',
+            disabled: false,
         },
         {
             label: 'Admin',

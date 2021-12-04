@@ -19,6 +19,7 @@ import ViewEvents from './components/event-list/view-events'
 import NotFound from './components/not-found'
 import Main from './components/main'
 import Admin from './components/admin-page/admin'
+import CalendarIndex from './components/full-calendar/CalendarIndex'
 
 PrimeReact.ripple = true
 
@@ -37,6 +38,12 @@ const App = () => (
                             element={<ViewEvents />}
                         />
                         <Route exact path="/admin" element={<Admin />} />
+                        <Route
+                            exact
+                            path="/fullCalendar"
+                            element={<CalendarIndex />}
+                        />
+
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </div>
