@@ -6,10 +6,7 @@ import { confirmDialog } from 'primereact/confirmdialog'
 import { Toast } from 'primereact/toast'
 
 import { DeleteData, UpdateData } from '../../API/api-requests'
-import {
-    positiveNotification,
-    infoNotification,
-} from '../../custom-hooks/notifications'
+import { infoNotification } from '../../custom-hooks/notifications'
 import CalendarComponent from '../create-event/calendar-component'
 import config from '../../config.json'
 import dataValidation from '../../custom-hooks/dataValidation'
@@ -97,19 +94,9 @@ export const EventDetails = ({
     }
 
     const deleteEvent = () => {
-        DeleteData(apiPath, eventId)
-        infoNotification(
-            toast,
-            'Delete successful',
-            'This event has been deleted'
-        )
-        handleDelete(eventId)
-    }
-
-    const reminderLogic = () => {
-        if (reminder !== 'true') {
-            setReminderDays(0)
-        }
+        DeleteData(apiPath, eventId, toast).then((res) => {
+            if (res) handleDelete(eventId)
+        })
     }
 
     const updateEvent = () => {
@@ -122,16 +109,15 @@ export const EventDetails = ({
             eventDescription,
             accountForYear,
         }
-        UpdateData(`${apiPath}/${eventId}`, data)
-        positiveNotification(
-            toast,
-            'Update successful',
-            'This event has been updated'
-        )
-        handleUpdate(data)
-        setTimeout(() => {
-            hideModal()
-        }, 3000)
+        UpdateData(`${apiPath}/${eventId}`, data, toast).then((res) => {
+            if (res) {
+                console.log('res is ', res)
+                handleUpdate(data)
+                setTimeout(() => {
+                    hideModal()
+                }, 2000)
+            }
+        })
     }
     const nameHandler = (e) => setEventName(e)
 
@@ -200,7 +186,7 @@ export const EventDetails = ({
                         reminder={reminder}
                         reminderHandler={(e) => {
                             setReminder(e)
-                            reminderLogic()
+                            if (reminder !== 'true') setReminderDays(0)
                         }}
                     />
                 </div>

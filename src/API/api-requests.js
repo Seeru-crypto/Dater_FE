@@ -1,17 +1,50 @@
 import axios from 'axios'
-
-export const DeleteData = async (url, id) => {
+import config from '../config.json'
+import {
+    positiveNotification,
+    errorNotification,
+    infoNotification,
+} from '../custom-hooks/notifications'
+const defaultErrorMessage = config.labels.defaultErrorMessage
+const eventCreatedMessage = config.labels.eventCreatedMessage
+const eventUpdatedMessage = config.labels.eventUpdatedMessage
+export const DeleteData = async (url, id, toast) => {
     const path = url + '/' + id
-    const res = await axios.delete(path)
-    return res.status
+    return axios
+        .delete(path)
+        .then((res) => {
+            infoNotification(
+                toast,
+                'Delete successful',
+                'This event has been deleted'
+            )
+            return res
+        })
+        .catch(() => {
+            errorNotification(toast, defaultErrorMessage)
+        })
 }
 
-export const PostData = async (url, data) => {
-    return axios.post(url, data)
+export const PostData = async (url, data, toast) => {
+    return axios
+        .post(url, data)
+        .then(() => {
+            positiveNotification(toast, eventCreatedMessage, '')
+        })
+        .catch(() => {
+            errorNotification(toast, defaultErrorMessage)
+        })
 }
 
-export const UpdateData = async (url, data) => {
-    return axios.put(url, data)
+export const UpdateData = async (url, data, toast) => {
+    return axios
+        .put(url, data)
+        .then(() => {
+            positiveNotification(toast, eventUpdatedMessage, '')
+        })
+        .catch(() => {
+            errorNotification(toast, defaultErrorMessage)
+        })
 }
 
 export const PostSendEmailReminders = async (url) => {

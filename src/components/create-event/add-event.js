@@ -5,10 +5,7 @@ import { Card } from 'primereact/card'
 import { Toast } from 'primereact/toast'
 
 import config from '../../config.json'
-import {
-    positiveNotification,
-    infoNotification,
-} from '../../custom-hooks/notifications'
+import { infoNotification } from '../../custom-hooks/notifications'
 import CalendarComponent from './calendar-component'
 import dataValidation from '../../custom-hooks/dataValidation'
 import { PostData } from '../../API/api-requests'
@@ -20,9 +17,6 @@ import {
     EventReminderInDays,
 } from '../form-components/fields'
 
-//ToDo
-// Make the styles used here into a separate .css file
-
 const AddEvent = () => {
     const [name, setName] = useState('')
     const [date, setDate] = useState('')
@@ -30,7 +24,6 @@ const AddEvent = () => {
     const [description, setDescription] = useState('')
     const [reminderInDays, setReminderInDays] = useState(0)
     const [accountForYear, setAccountForYear] = useState(false)
-
     const toast = useRef(null)
 
     const apiPath = config.apiPath
@@ -55,9 +48,8 @@ const AddEvent = () => {
             description: description,
             accountForYear,
         }
-        PostData(apiPath, data)
-        positiveNotification(toast, 'Event Created successfully', '')
-        anulAllFields()
+
+        PostData(apiPath, data, toast).then(() => anulAllFields())
     }
 
     const anulAllFields = () => {
@@ -72,8 +64,6 @@ const AddEvent = () => {
     return (
         <Card style={{ marginBottom: '2rem' }}>
             <Toast ref={toast} />
-            {/*             <div className="p-fluid p-formgrid p-grid">
-             */}{' '}
             <div className="p-d-flex p-flex-wrap-reverse">
                 <div className="p-field p-col">
                     <div className="p-field p-col">

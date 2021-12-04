@@ -12,6 +12,8 @@
         "accountForYearTooltip": "Will the reminder be sent every year or on the selected year?",
         "invalidFormErrorHeader": "Please fill all the neccesary fields",
         "invalidFormErrorBody": "",
-        "defaultErrorMessage": "Connection cannot be established, please try again later"
+        "defaultErrorMessage": "Connection cannot be established, please try again later",
+        "eventCreatedMessage": "Event Created successfully",
+        "eventUpdatedMessage": "Event updated successfully"
     }
 }
