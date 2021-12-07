@@ -37,13 +37,13 @@ An application for creating reminders and getting email notifications for impend
 
 ### ToDo:
 
--   [ ] event form
+-   [x] event form
     -   [x] Form UI is created
     -   [x] uses POST request
     -   [x] field validation;
     -   [x] User can implement C function
-    -   [ ] user gets a notification if post is successful
--   [ ] Change event Data
+    -   [x] user gets a notification if post is successful
+-   [x] Change event Data
     -   [x] Form UI is created
     -   [x] uses GET requests for pulling
     -   [x] add Delete functionality
@@ -51,7 +51,7 @@ An application for creating reminders and getting email notifications for impend
     -   [x] add PUT functionality
     -   [x] field validation
     -   [x] User can implement U & D functions
-    -   [ ] user gets a notification if delete or post is successful
+    -   [x] user gets a notification if delete or post is successful
 -   [ ] Admin view, change email aadress, port and reminder email template
     -   [ ] UI is created
     -   [ ] UI uses GET & POST requests
@@ -77,6 +77,7 @@ An application for creating reminders and getting email notifications for impend
 - [x] convert Bootstrap styling to Prime-react
 - [ ] Styling
     - [ ] fix mobile view
+    - [ ] Add incorrect field specific css, to signal a field is missing or incorrectly filled. 
     - [x] Add loading animations
     - [ ] Add support for multible themes
     - [ ] Export all inline styling into a App.css file

@@ -102,3 +102,47 @@ export const EventReminderInDays = ({ eventReminderDays, changeHandler }) => {
         </div>
     )
 }
+
+export const AdminEmailAdress = ({ email, emailHandler }) => {
+    return (
+        <div className="p-d-flex">
+            <InputText
+                className="p-inputtext-lg p-d-block"
+                placeholder="* email"
+                required={true}
+                value={email}
+                onChange={(e) => emailHandler(e.target.value)}
+            />
+        </div>
+    )
+}
+
+export const EmailReminders = ({ emailReminder, emailReminderHandler }) => {
+    return (
+        <div className="p-field-checkbox">
+            <Checkbox
+                className="p-d-block"
+                inputId="accountForYear"
+                value={emailReminder}
+                onChange={() => emailReminderHandler(!emailReminder)}
+                checked={emailReminder}
+            />
+            <label className="p-d-block" htmlFor="accountForYear">
+                Enable emails?
+            </label>
+            <Tooltip target=".pi-info-circle" />
+            <i
+                className="pi pi-info-circle"
+                data-pr-tooltip="enable email reminders"
+                data-pr-position="right"
+                data-pr-at="right+5 top"
+                data-pr-my="left center-2"
+                style={{
+                    fontSize: '1rem',
+                    paddingLeft: '.5rem',
+                    color: 'darkblue',
+                }}
+            />
+        </div>
+    )
+}
