@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Message } from 'primereact/message'
 import config from '../../config.json'
+import { Button } from 'primereact/button'
 
 import { AdminEmailAdress, EmailReminders } from '../form-components/fields'
 import useGetData from '../../API/useGetData'
@@ -28,7 +29,7 @@ const Admin = () => {
     }, [getData])
 
     return (
-        <div className="card">
+        <div>
             <div
                 hidden={error ? false : true}
                 style={{
@@ -39,30 +40,6 @@ const Admin = () => {
             >
                 <Message severity="error" text={defaultErrorMessage} />
             </div>
-            {!isPending && !error && (
-                <div className="p-field">
-                    <div className="p-field p-col">
-                        <div className="p-field p-row">
-                            <h1>Admin Page!</h1>
-                            <p>default email aadress</p>
-                            <div>
-                                <AdminEmailAdress
-                                    email={adminEmail}
-                                    emailHandler={(e) => setAdminEmail(e)}
-                                />
-                            </div>
-                        </div>
-                        <div>
-                            <EmailReminders
-                                emailReminder={emailReminder}
-                                emailReminderHandler={(e) =>
-                                    setEmailReminder(e)
-                                }
-                            />
-                        </div>
-                    </div>
-                </div>
-            )}
             {isPending && (
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <i
@@ -71,6 +48,35 @@ const Admin = () => {
                     ></i>
                 </div>
             )}
+            <div className="card">
+                {!isPending && !error && (
+                    <div className="p-field">
+                        <div className="p-field p-col">
+                            <div className="p-field p-row">
+                                <h1>Admin Page!</h1>
+                                <p>default email aadress</p>
+                                <div>
+                                    <AdminEmailAdress
+                                        email={adminEmail}
+                                        emailHandler={(e) => setAdminEmail(e)}
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <EmailReminders
+                                    emailReminder={emailReminder}
+                                    emailReminderHandler={(e) =>
+                                        setEmailReminder(e)
+                                    }
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <Button>Btn1</Button>
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
     )
 }
