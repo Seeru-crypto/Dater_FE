@@ -38,6 +38,9 @@ const CalendarIndex = () => {
             </div>
             {!isPending && !error && (
                 <div style={{ marginTop: '2rem' }}>
+                    <p>
+                        This is a general view, where all events are displayed.
+                    </p>
                     <FullDisplayCalendar eventData={formattedDates} />
                 </div>
             )}

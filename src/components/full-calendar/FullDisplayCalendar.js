@@ -9,6 +9,7 @@ const FullDisplayCalendar = ({ eventData }) => {
         <div>
             <div className="card">
                 <FullCalendar
+                    firstDay="1"
                     events={eventData}
                     initialDate={new Date().toISOString()}
                     initialView="dayGridMonth"
@@ -16,7 +17,7 @@ const FullDisplayCalendar = ({ eventData }) => {
                     headerToolbar={{
                         left: 'prev,next today',
                         center: 'title',
-                        right: 'dayGridMonth',
+                        right: '',
                     }}
                     editable
                     selectable
