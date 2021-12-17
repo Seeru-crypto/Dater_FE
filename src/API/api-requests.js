@@ -47,6 +47,17 @@ export const UpdateData = async (url, data, toast) => {
         })
 }
 
+export const PatchSettings = async (url, data, toast) => {
+    return axios
+        .patch(url, data)
+        .then(() => {
+            positiveNotification(toast, eventUpdatedMessage, '')
+        })
+        .catch(() => {
+            errorNotification(toast, defaultErrorMessage)
+        })
+}
+
 export const PostSendEmailReminders = async (url) => {
     const data = {}
     return axios.post(url, data)

@@ -117,7 +117,11 @@ export const AdminEmailAdress = ({ email, emailHandler }) => {
     )
 }
 
-export const EmailReminders = ({ emailReminder, emailReminderHandler }) => {
+export const EmailReminders = ({
+    emailReminder,
+    emailReminderHandler,
+    toolTipMessage,
+}) => {
     return (
         <div className="p-field-checkbox">
             <Checkbox
@@ -133,7 +137,7 @@ export const EmailReminders = ({ emailReminder, emailReminderHandler }) => {
             <Tooltip target=".pi-info-circle" />
             <i
                 className="pi pi-info-circle"
-                data-pr-tooltip="enable email reminders"
+                data-pr-tooltip={toolTipMessage}
                 data-pr-position="right"
                 data-pr-at="right+5 top"
                 data-pr-my="left center-2"

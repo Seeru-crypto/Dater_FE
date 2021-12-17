@@ -1,35 +1,53 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Message } from 'primereact/message'
 import config from '../../config.json'
 import { Button } from 'primereact/button'
+import { Toast } from 'primereact/toast'
 
 import { AdminEmailAdress, EmailReminders } from '../form-components/fields'
 import useGetData from '../../API/useGetData'
+import { PatchSettings } from '../../API/api-requests'
 const Admin = () => {
     const [adminEmail, setAdminEmail] = useState('')
     const [emailReminder, setEmailReminder] = useState(true)
     const [smsReminder, setSmsReminder] = useState(false)
     const [checkInterval, setCheckInterval] = useState(0)
-
+    const [settingsID, setSettingsID] = useState('')
     const defaultErrorMessage = config.labels.defaultErrorMessage
+    const patchApiPath = 'http://localhost:8080/settings'
+    const toast = useRef(null)
 
     const { getData, isPending, error } = useGetData(
-        'http://localhost:8080/settings'
+        'http://localhost:8080/api/settings'
     )
 
     useEffect(() => {
-        console.log('get data is ', getData?.data._embedded.settings[0])
         if (getData) {
-            const path = getData.data._embedded.settings[0]
+            const path = getData?.data[0]
+            console.log(path)
             setAdminEmail(path.emailAddress)
             setEmailReminder(path.sendEmails)
             setCheckInterval(path.checkInterval)
             setSmsReminder(path.sendSMS)
+            setSettingsID(path.id)
         }
     }, [getData])
 
+    const submitForm = () => {
+        const path = patchApiPath + '/' + settingsID
+        const data = {
+            emailAddress: adminEmail,
+            sendEmails: emailReminder,
+            sendSMS: smsReminder,
+            checkInterval,
+        }
+        PatchSettings(path, data, toast)
+    }
+
     return (
         <div>
+            <Toast ref={toast} />
+
             <div
                 hidden={error ? false : true}
                 style={{
@@ -68,11 +86,12 @@ const Admin = () => {
                                     emailReminderHandler={(e) =>
                                         setEmailReminder(e)
                                     }
+                                    toolTipMessage="message!"
                                 />
                             </div>
                         </div>
                         <div>
-                            <Button>Btn1</Button>
+                            <Button onClick={submitForm}>Btn1</Button>
                         </div>
                     </div>
                 )}
