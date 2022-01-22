@@ -1,4 +1,4 @@
-import { Route, Router, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import Main from './components/main'
 import AddEvent from './components/create-event/add-event'
 import ViewEvents from './components/event-list/view-events'
@@ -9,7 +9,6 @@ import NotFound from './components/not-found'
 const ComponentRoutes = () => {
     return (
         <div>
-            <Router>
             <Routes>
                 <Route exact path='/' element={<Main />} />
                 <Route exact path='/add' element={<AddEvent />} />
@@ -26,7 +25,6 @@ const ComponentRoutes = () => {
                 />
                 <Route path='*' element={<NotFound />} />
             </Routes>
-            </Router>
         </div>
     )
 };
