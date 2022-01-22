@@ -1,23 +1,31 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 import { Message } from 'primereact/message'
 import { Button } from 'primereact/button'
+import { useSelector } from 'react-redux'
+import { getEvents } from '../../slicers/eventSlice'
 
 import FilterTable from './filter-table'
 import config from '../../config.json'
-import useGetData from '../../API/useGetData'
 import axios from 'axios'
+import { useAppDispatch, useAppSelector } from '../../store'
 
 const ViewEvents = () => {
-    const apiPath = 'http://localhost:8080/api/event'
     const defaultErrorMessage = config.labels.defaultErrorMessage
-    let { getData: data, isPending, error } = useGetData(apiPath)
+    const dispatch = useAppDispatch()
+    const data = useAppSelector((state) => state.event.events);
+    const loading = useAppSelector((state) => state.event.loading);
+    const error = useAppSelector((state) => state.event.error);
+
+    useEffect(() => {
+        if (!!data) dispatch(getEvents());
+    }, [dispatch])
 
     const handleEventCheck = () =>
         axios.get('http://localhost:8080/api/checkEvents')
     return (
         <div>
             <div
-                hidden={error ? true : false}
+                hidden={!!error}
                 style={{ padding: '1rem' }}
                 className="p-grid vertical-container"
             >
@@ -35,7 +43,7 @@ const ViewEvents = () => {
                 </div>
             </div>
             <div
-                hidden={error ? false : true}
+                hidden={!error}
                 style={{
                     display: 'flex',
                     width: '100%',
@@ -45,12 +53,12 @@ const ViewEvents = () => {
                 <Message severity="error" text={defaultErrorMessage} />
             </div>
             <FilterTable data={data?.data} />
-            {isPending && (
+            {loading && (
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <i
                         className="pi pi-spin pi-spinner"
                         style={{ fontSize: '2em' }}
-                    ></i>
+                    />
                 </div>
             )}
         </div>

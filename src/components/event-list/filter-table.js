@@ -8,7 +8,6 @@ import { EventDetails } from './event-details'
 
 const FilterTable = (props) => {
     const [data, setData] = useState(props.data)
-    console.log('initial data is ', data)
     const [selectedEvent, setselectedEvent] = useState(null)
     const [showModal, setShowModal] = useState(false)
 
@@ -25,13 +24,12 @@ const FilterTable = (props) => {
             if (dataEvent.id === event.id) return event
             return dataEvent
         })
-        console.log('final data list is ', newData)
         setData(newData)
     }
 
     const handleDelete = (deletedEventId) => {
         const newData = data.filter(
-            (dateEvent) => dateEvent.id !== deletedEventId
+            (dateEvent) => dateEvent.id !== deletedEventId,
         )
         setData(newData)
     }
@@ -48,8 +46,8 @@ const FilterTable = (props) => {
         return (
             <React.Fragment>
                 <Button
-                    icon="pi pi-pencil"
-                    className="p-button-rounded p-button-secondary p-mr-2"
+                    icon='pi pi-pencil'
+                    className='p-button-rounded p-button-secondary p-mr-2'
                     onClick={() => editProduct(rowData)}
                 />
             </React.Fragment>
@@ -72,46 +70,46 @@ const FilterTable = (props) => {
     return (
         <div>
             {data && (
-                <div className="card">
+                <div className='card'>
                     <DataTable
-                        responsiveLayout="scroll"
+                        responsiveLayout='scroll'
                         paginator
                         value={data}
-                        paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
-                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
+                        paginatorTemplate='CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown'
+                        currentPageReportTemplate='Showing {first} to {last} of {totalRecords}'
                         rows={10}
                         rowsPerPageOptions={[10, 20, 50]}
                     >
                         <Column
-                            field="eventName"
+                            field='eventName'
                             sortable
-                            header="eventName"
-                        ></Column>
+                            header='eventName'
+                        />
                         <Column
-                            field="date"
+                            field='date'
                             sortable
-                            header="date"
+                            header='date'
                             body={renderDateValues}
-                        ></Column>
+                        />
                         <Column
                             sortable
-                            field="reminder"
+                            field='reminder'
                             body={renderBooleanValues}
-                            header="reminder"
-                        ></Column>
+                            header='reminder'
+                        />
                         <Column
-                            field="reminderDays"
+                            field='reminderDays'
                             sortable
-                            header="reminderDays"
-                        ></Column>
+                            header='reminderDays'
+                        />
                         <Column
-                            field="eventDescription"
+                            field='eventDescription'
                             sortable
-                            header="eventDescription"
-                        ></Column>
+                            header='eventDescription'
+                        />
                         <Column
                             body={rowActions}
-                            header="Edit"
+                            header='Edit'
                             headerStyle={{ width: '8em', textAlign: 'center' }}
                             bodyStyle={{
                                 textAlign: 'center',
