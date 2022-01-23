@@ -6,19 +6,19 @@ class EventService {
     }
 
     deleteEvent(eventId) {
-        return Promise.resolve(undefined)
+        return http.delete(`'/event'/${eventId}`);
     }
 
     updateEvent(reminderEvent) {
-        return Promise.resolve(undefined)
+        return http.put('/event', reminderEvent);
     }
 
     createEvent(reminderEvent) {
         return Promise.resolve(undefined)
     }
 
-    getEventById() {
-        return Promise.resolve(undefined)
+    getEventById(eventId) {
+        return http.get(`'/event'/${eventId}`);
     }
 }
 

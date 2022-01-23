@@ -18,9 +18,10 @@ export const updateEvent = createAsyncThunk('events/updateEvent', async (reminde
 export const createEvent = createAsyncThunk('events/createEvent', async (reminderEvent) => EventService.createEvent(reminderEvent));
 
 
-// ToDo add, edit & delte slicers event slicer
+// ToDo Integrate existing slicers into main code
+// replacing existing API calls
+// Add styled components to main code
 
-// ToDo make storage persist between page reloads.
 
 export const eventSlice = createSlice({
     name: 'event',
