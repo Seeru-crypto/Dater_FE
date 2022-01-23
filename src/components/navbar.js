@@ -1,31 +1,47 @@
 import React, { useState, useEffect, memo } from 'react'
 import { TabMenu } from 'primereact/tabmenu'
+import { useNavigate } from 'react-router-dom'
 
-//ToDo
-// Add button ,which checks all events and sends email if neccesary, make it hidden/ viewed from the config file value
 const Navigationbar = () => {
+    const navigate = useNavigate()
     const [activeIndex, setActiveIndex] = useState(null)
+    const navigateToUrl = (e) => {
+        e.originalEvent.preventDefault()
+        if (e.item.url) navigate(e.item.url)
+    }
+
     const [items] = useState([
-        { label: 'Home', icon: 'pi pi-fw pi-home', url: '/' },
-        { label: 'Add Event', icon: 'pi pi-fw pi-pencil', url: '/add' },
-        { label: 'Event list', icon: 'pi pi-fw pi-file', url: '/eventList' },
+        {
+            label: 'Home', icon: 'pi pi-fw pi-home', url: '/',
+            command: navigateToUrl,
+        },
+        {
+            label: 'Add Event', icon: 'pi pi-fw pi-pencil', url: '/add',
+            command: navigateToUrl,
+        },
+        {
+            label: 'Event list', icon: 'pi pi-fw pi-file', url: '/eventList',
+            command: navigateToUrl,
+        },
         {
             label: 'Calendar',
             icon: 'pi pi-fw pi-calendar',
             url: '/fullCalendar',
             disabled: false,
+            command: navigateToUrl,
         },
         {
             label: 'Admin',
             icon: 'pi pi-fw pi-cog',
             url: '/admin',
             disabled: false,
+            command: navigateToUrl,
         },
     ])
 
     useEffect(() => {
         const activeItem = items.find(
-            ({ url }) => url === window.location.pathname
+            ({ url }) => url === window.location.pathname,
         )
         if (!activeItem) return
         const index = items.indexOf(activeItem)
@@ -34,7 +50,7 @@ const Navigationbar = () => {
 
     return (
         <div>
-            <div className="card">
+            <div className='card'>
                 <TabMenu
                     model={items}
                     activeIndex={activeIndex}

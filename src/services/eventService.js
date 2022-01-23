@@ -16,6 +16,10 @@ class EventService {
     createEvent(reminderEvent) {
         return Promise.resolve(undefined)
     }
+
+    getEventById() {
+        return Promise.resolve(undefined)
+    }
 }
 
 export default new EventService();

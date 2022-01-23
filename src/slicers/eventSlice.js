@@ -9,6 +9,8 @@ const initialState = {
 
 export const getEvents = createAsyncThunk('events/getAllEvents', async () => EventService.getEvents())
 
+export const getEventByID = createAsyncThunk('events/getEventByID', async (eventId) => EventService.getEventById(eventId))
+
 export const deleteEvent = createAsyncThunk('events/deleteEvent', async (eventId) => EventService.deleteEvent(eventId));
 
 export const updateEvent = createAsyncThunk('events/updateEvent', async (reminderEvent) => EventService.updateEvent(reminderEvent));
@@ -35,14 +37,13 @@ export const eventSlice = createSlice({
         builder.addCase(getEvents.fulfilled, (state, action) => {
             state.loading = false;
             state.error = "";
-            state.events = action.payload;
+            state.events = action.payload.data;
         });
-        builder.addCase(getEvents.rejected, (state, action) => {
+        builder.addCase(getEvents.rejected, (state) => {
             state.error = "an error has occured"
         });
     },
 })
-
 export const { setEvents } = eventSlice.actions
 
 export default eventSlice.reducer
