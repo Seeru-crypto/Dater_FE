@@ -1,11 +1,10 @@
 import React, { memo, useEffect } from 'react'
 import { Message } from 'primereact/message'
 import { Button } from 'primereact/button'
-import { getEvents } from '../../slicers/eventSlice'
+import { checkEvents, getEvents } from '../../slicers/eventSlice'
 
 import FilterTable from './filter-table'
 import config from '../../config.json'
-import axios from 'axios'
 import { useAppDispatch, useAppSelector } from '../../store'
 
 const ViewEvents = () => {
@@ -19,8 +18,7 @@ const ViewEvents = () => {
         if (events[0] === undefined) dispatch(getEvents())
     }, [dispatch])
 
-    const handleEventCheck = () =>
-        axios.get('http://localhost:8080/api/checkEvents')
+    const handleEventCheck = () => dispatch(checkEvents());
     return (
         <div>
             <div
@@ -51,7 +49,6 @@ const ViewEvents = () => {
             >
                 <Message severity='error' text={defaultErrorMessage} />
             </div>
-            <FilterTable data={events} />
             {loading && (
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <i
@@ -60,6 +57,7 @@ const ViewEvents = () => {
                     />
                 </div>
             )}
+            <FilterTable data={events} />
         </div>
     )
 }

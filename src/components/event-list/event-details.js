@@ -18,6 +18,8 @@ import {
     EventReminderInDays,
     EventAccountForYear,
 } from '../form-components/fields'
+import { useAppDispatch } from '../../store'
+import { getEventByID } from '../../slicers/eventSlice'
 
 export const EventDetails = ({
     selectedEvent,
@@ -45,7 +47,8 @@ export const EventDetails = ({
     const apiPath = config.apiPath
     const invalidFormErrorHeader = config.labels.invalidFormErrorHeader
     const eventId = selectedEvent.id
-    let showHideModal = modalState ? true : false
+    const dispatch = useAppDispatch()
+    let showHideModal = !!modalState
 
     useEffect(() => {
         setDescription(selectedEvent.eventDescription)
@@ -110,8 +113,9 @@ export const EventDetails = ({
             accountForYear,
         }
         UpdateData(`${apiPath}/${eventId}`, data, toast).then((res) => {
+            console.log('updating data')
+            dispatch(getEventByID(eventId));
             if (res) {
-                console.log('res is ', res)
                 handleUpdate(data)
                 setTimeout(() => {
                     hideModal()

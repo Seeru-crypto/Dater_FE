@@ -2,11 +2,11 @@ import http from './http.service';
 
 class EventService {
     getEvents() {
-        return http.get('/event');
+        return http.get('/api/event');
     }
 
     deleteEvent(eventId) {
-        return http.delete(`'/event'/${eventId}`);
+        return http.delete(`/api/event/${eventId}`);
     }
 
     updateEvent(reminderEvent) {
@@ -14,11 +14,16 @@ class EventService {
     }
 
     createEvent(reminderEvent) {
-        return Promise.resolve(undefined)
+        return http.post('/event', reminderEvent);
     }
 
     getEventById(eventId) {
-        return http.get(`'/event'/${eventId}`);
+        console.log('getting by ID')
+        return http.get(`/event/${eventId}`);
+    }
+
+    checkEvents() {
+        return http.get('/checkEvents');
     }
 }
 

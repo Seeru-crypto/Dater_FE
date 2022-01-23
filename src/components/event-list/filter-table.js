@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
@@ -18,14 +18,6 @@ const FilterTable = (props) => {
     useEffect(() => {
         setData(props.data)
     }, [props])
-
-    const handleUpdate = (event) => {
-        const newData = data.map((dataEvent) => {
-            if (dataEvent.id === event.id) return event
-            return dataEvent
-        })
-        setData(newData)
-    }
 
     const handleDelete = (deletedEventId) => {
         const newData = data.filter(
