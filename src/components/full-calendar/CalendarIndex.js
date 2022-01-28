@@ -6,7 +6,7 @@ import { Message } from 'primereact/message'
 
 const CalendarIndex = () => {
     const [formattedDates, setFormattedDates] = useState([])
-
+    // ToDo replace this request with a dispatch
     const apiPath = 'http://localhost:8080/api/event'
     const defaultErrorMessage = config.labels.defaultErrorMessage
     let { getData: eventData, isPending, error } = useGetData(apiPath)

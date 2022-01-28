@@ -5,21 +5,15 @@ import { Tooltip } from 'primereact/tooltip'
 import { InputNumber } from 'primereact/inputnumber'
 
 import config from '../../config.json'
+const labels = config.labels;
 
-const nameMaxLength = config.nameMaxLength
-const descMaxLength = config.descMaxLength
-const daysNoticeMaxValue = config.daysNoticeMaxValue
-const daysNoticeMinValue = config.daysNoticeMinValue
-const reminderLabel = config.labels.reminderLabel
-const accountForYearLabel = config.labels.accountForYearLabel
-const accountForYearTooltip = config.labels.accountForYearTooltip
 
 export const EventName = ({ name, nameHandler }) => {
     return (
         <div className="p-d-flex">
             <InputText
                 className="p-inputtext-lg p-d-block"
-                maxLength={nameMaxLength}
+                maxLength={config.nameMaxLength}
                 placeholder="* name"
                 required={true}
                 value={name}
@@ -33,7 +27,7 @@ export const EventDescription = ({ desc, descHandler }) => {
     return (
         <div>
             <InputTextarea
-                maxLength={descMaxLength}
+                maxLength={config.descMaxLength}
                 value={desc}
                 placeholder="Description"
                 onChange={(e) => descHandler(e.target.value)}
@@ -52,7 +46,7 @@ export const EventReminder = ({ reminder, reminderHandler }) => {
                 checked={reminder}
             />
             <label style={{ paddingLeft: '.5rem' }} htmlFor="reminderCheckbox">
-                {reminderLabel}
+                {labels.reminderLabel}
             </label>
         </div>
     )
@@ -69,12 +63,12 @@ export const EventAccountForYear = ({ eventAccountForYear, changeHandler }) => {
                 checked={eventAccountForYear}
             />
             <label className="p-d-block" htmlFor="accountForYear">
-                {accountForYearLabel}
+                {labels.accountForYearLabel}
             </label>
             <Tooltip target=".pi-info-circle" />
             <i
                 className="pi pi-info-circle"
-                data-pr-tooltip={accountForYearTooltip}
+                data-pr-tooltip={labels.accountForYearTooltip}
                 data-pr-position="right"
                 data-pr-at="right+5 top"
                 data-pr-my="left center-2"
@@ -94,8 +88,8 @@ export const EventReminderInDays = ({ eventReminderDays, changeHandler }) => {
             <label htmlFor="integeronly">How many days notice?</label>
             <InputNumber
                 inputId="integeronly"
-                min={daysNoticeMinValue}
-                max={daysNoticeMaxValue}
+                min={config.daysNoticeMinValue}
+                max={config.daysNoticeMaxValue}
                 value={eventReminderDays}
                 onValueChange={(e) => changeHandler(e.target.value)}
             />

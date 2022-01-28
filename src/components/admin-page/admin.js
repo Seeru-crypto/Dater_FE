@@ -13,13 +13,14 @@ const Admin = () => {
     const [smsReminder, setSmsReminder] = useState(false)
     const [checkInterval, setCheckInterval] = useState(0)
     const [settingsID, setSettingsID] = useState('')
-    const defaultErrorMessage = config.labels.defaultErrorMessage
+    const labels = config.labels;
     const patchApiPath = 'http://localhost:8080/settings'
     const toast = useRef(null)
-
+    // ToDo Replace this query with dispatch
     const { getData, isPending, error } = useGetData(
         'http://localhost:8080/api/settings'
     )
+    // ToDo Create a separate reducer for admin settings, which will get settings everytime user comes to this page
 
     useEffect(() => {
         if (getData) {
@@ -56,7 +57,7 @@ const Admin = () => {
                     flexDirection: 'column',
                 }}
             >
-                <Message severity="error" text={defaultErrorMessage} />
+                <Message severity="error" text={labels.defaultErrorMessage} />
             </div>
             {isPending && (
                 <div style={{ display: 'flex', justifyContent: 'center' }}>

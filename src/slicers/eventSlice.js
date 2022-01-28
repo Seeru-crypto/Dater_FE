@@ -11,10 +11,6 @@ const initialState = {
 
 export const getEvents = createAsyncThunk('events/getAllEvents', async () => EventService.getEvents())
 
-export const getEventByID = createAsyncThunk('events/getEventByID', async (eventId, thunkApi) => {
-    EventService.getEventById(eventId).then(dateEvent => thunkApi.dispatch(replaceEvent(dateEvent.data.payload)));
-})
-
 export const deleteEvent = createAsyncThunk('events/deleteEvent', async (eventId) => EventService.deleteEvent(eventId))
 
 export const saveUpdatedEvent = createAsyncThunk('events/updateEvent', async (reminderEvent) => EventService.updateEvent(reminderEvent))
@@ -33,13 +29,6 @@ export const eventSlice = createSlice({
         addEvent: (state, event) => {
             if (event) state.events.push(event)
         },
-        replaceEvent: (state, event) => {
-            console.log(event)
-            state.events = state.events.map(dateEvent => {
-                if (event.id === dateEvent.id) return event
-                return dateEvent
-            })
-        },
     },
     extraReducers: (builder) => {
         builder.addCase(getEvents.pending, (state) => {
@@ -55,6 +44,6 @@ export const eventSlice = createSlice({
         });
     },
 })
-export const { setEvents, addEvent, replaceEvent } = eventSlice.actions
+export const { setEvents, addEvent } = eventSlice.actions
 
 export default eventSlice.reducer
