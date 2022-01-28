@@ -5,7 +5,7 @@ import { Card } from 'primereact/card'
 import { Toast } from 'primereact/toast'
 
 import styled from 'styled-components'
-import config from '../../config.json'
+import {labels} from '../../config.json'
 import { errorNotification, infoNotification, positiveNotification } from '../../custom-hooks/notifications'
 import CalendarComponent from './calendar-component'
 import dataValidation from '../../custom-hooks/dataValidation'
@@ -28,9 +28,8 @@ const AddEvent = () => {
     const [accountForYear, setAccountForYear] = useState(false)
     const toast = useRef(null)
     const dispatch = useAppDispatch()
-    const labels = config.labels;
 
-    const invalidFormErrorHeader = config.labels.invalidFormErrorHeader
+    const invalidFormErrorHeader = labels.invalidFormErrorHeader
     const dateHandler = (data) => {
         const newDate = data
         newDate.setHours(data.getHours() + 2)

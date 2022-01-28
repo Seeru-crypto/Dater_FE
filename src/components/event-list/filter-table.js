@@ -3,7 +3,6 @@ import React, { memo, useEffect, useState } from 'react'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { Button } from 'primereact/button'
-
 import { EventDetails } from './event-details'
 
 const FilterTable = (props) => {
@@ -11,20 +10,13 @@ const FilterTable = (props) => {
     const [selectedEvent, setselectedEvent] = useState(null)
     const [showModal, setShowModal] = useState(false)
 
-    const hideModal = () => {
-        setShowModal(false)
-    }
-
     useEffect(() => {
         setData(props.data)
     }, [props])
 
     const renderBooleanValues = (rowData, item) => {
-        if (typeof rowData[item.field] === 'boolean') {
-            return rowData[item.field] ? 'True' : 'False'
-        } else {
-            return rowData[item.field]
-        }
+        if (typeof rowData[item.field] === 'boolean') return rowData[item.field] ? 'True' : 'False'
+        else return rowData[item.field]
     }
 
     const rowActions = (rowData) => {
@@ -108,7 +100,7 @@ const FilterTable = (props) => {
                 <div>
                     <EventDetails
                         selectedEvent={selectedEvent}
-                        hideModal={hideModal}
+                        hideModal={() => setShowModal(false)}
                         modalState={showModal}
                     />
                 </div>

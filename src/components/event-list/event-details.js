@@ -6,7 +6,7 @@ import { confirmDialog } from 'primereact/confirmdialog'
 import { Toast } from 'primereact/toast'
 import { errorNotification, infoNotification, positiveNotification } from '../../custom-hooks/notifications'
 import CalendarComponent from '../create-event/calendar-component'
-import config from '../../config.json'
+import {labels} from '../../config.json'
 import dataValidation from '../../custom-hooks/dataValidation'
 
 import {
@@ -38,10 +38,8 @@ export const EventDetails = ({
     const [isoDate, setIsoDate] = useState(
         selectedEvent.date ? selectedEvent.date : null
     )
-    const [eventTitle, setEventTitle] = useState('')
 
     const eventId = selectedEvent.id
-    const labels = config.labels;
     const dispatch = useAppDispatch()
     let showHideModal = !!modalState
 
@@ -54,14 +52,6 @@ export const EventDetails = ({
         setReminder(selectedEvent.reminder)
         setReminderDays(selectedEvent.reminderDays)
     }, [selectedEvent])
-
-    useEffect(() => {
-        const timeOutId = setTimeout(() => setEventTitle(eventName), 500)
-        return () => {
-            clearTimeout(timeOutId)
-            setEventTitle('')
-        }
-    }, [eventName])
 
     const dateHandler = (selectedDate) => {
         const newDate = selectedDate
@@ -93,7 +83,7 @@ export const EventDetails = ({
 
     const deleteSelectedEvent = () => {
         dispatch(deleteEvent(eventId)).then(() => {
-            positiveNotification(toast, "TEST", '');
+            positiveNotification(toast, labels.eventDeletedMessage, '');
             dispatch(getEvents());
         });
     };
@@ -118,7 +108,6 @@ export const EventDetails = ({
             }
         }).catch(() => errorNotification(toast, labels.defaultErrorMessage));
     }
-    const nameHandler = (e) => setEventName(e);
 
     const eventModalFooter = (
         <React.Fragment>
@@ -156,10 +145,9 @@ export const EventDetails = ({
             onHide={hideModal}
         >
             <Toast ref={toast} />
-            <h5>{eventTitle}</h5>
             <div className="p-fluid">
                 <div className="p-field">
-                    <EventName name={eventName} nameHandler={nameHandler} />
+                    <EventName name={eventName} nameHandler={(e) => setEventName(e)} />
                 </div>
                 <div>
                     <label htmlFor="selectedDate">Date:</label>

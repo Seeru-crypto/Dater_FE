@@ -7,6 +7,8 @@ const initialState = {
     error: '',
 }
 
+// ToDo create selected event Reducer and implement it in Add event & event detail components.
+
 export const getEvents = createAsyncThunk('events/getAllEvents', async () => EventService.getEvents())
 
 export const getEventByID = createAsyncThunk('events/getEventByID', async (eventId, thunkApi) => {
@@ -42,12 +44,12 @@ export const eventSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getEvents.pending, (state) => {
             state.loading = true
-        })
+        });
         builder.addCase(getEvents.fulfilled, (state, action) => {
             state.loading = false
             state.error = ''
             state.events = action.payload.data
-        })
+        });
         builder.addCase(getEvents.rejected, (state) => {
             state.error = 'an error has occured'
         });
