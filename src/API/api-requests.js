@@ -5,6 +5,7 @@ import {
     errorNotification,
     infoNotification,
 } from '../custom-hooks/notifications'
+
 const defaultErrorMessage = config.labels.defaultErrorMessage
 const eventCreatedMessage = config.labels.eventCreatedMessage
 const eventUpdatedMessage = config.labels.eventUpdatedMessage
@@ -16,7 +17,7 @@ export const DeleteData = async (url, id, toast) => {
             infoNotification(
                 toast,
                 'Delete successful',
-                'This event has been deleted'
+                'This event has been deleted',
             )
             return res
         })

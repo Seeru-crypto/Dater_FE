@@ -1,14 +1,14 @@
-import React, { useState, useRef, memo } from 'react'
+import React, { memo, useRef, useState } from 'react'
 
 import { Button } from 'primereact/button'
 import { Card } from 'primereact/card'
 import { Toast } from 'primereact/toast'
 
+import styled from 'styled-components'
 import config from '../../config.json'
-import { infoNotification } from '../../custom-hooks/notifications'
+import { errorNotification, infoNotification, positiveNotification } from '../../custom-hooks/notifications'
 import CalendarComponent from './calendar-component'
 import dataValidation from '../../custom-hooks/dataValidation'
-import { PostData } from '../../API/api-requests'
 import {
     EventAccountForYear,
     EventDescription,
@@ -16,6 +16,8 @@ import {
     EventReminder,
     EventReminderInDays,
 } from '../form-components/fields'
+import { useAppDispatch } from '../../store'
+import { createEvent, getEvents } from '../../slicers/eventSlice'
 
 const AddEvent = () => {
     const [name, setName] = useState('')
@@ -25,8 +27,9 @@ const AddEvent = () => {
     const [reminderInDays, setReminderInDays] = useState(0)
     const [accountForYear, setAccountForYear] = useState(false)
     const toast = useRef(null)
+    const dispatch = useAppDispatch()
+    const labels = config.labels;
 
-    const apiPath = config.apiPath
     const invalidFormErrorHeader = config.labels.invalidFormErrorHeader
     const dateHandler = (data) => {
         const newDate = data
@@ -48,8 +51,11 @@ const AddEvent = () => {
             description: description,
             accountForYear,
         }
-
-        PostData(apiPath, data, toast).then(() => anulAllFields())
+        dispatch(createEvent(data)).then(() => {
+            dispatch(getEvents());
+            positiveNotification(toast, labels.eventCreatedMessage, '');
+            anulAllFields();
+        } ).catch(() => errorNotification(toast, labels.defaultErrorMessage));
     }
 
     const anulAllFields = () => {
@@ -141,8 +147,20 @@ const AddEvent = () => {
                     className="p-button-rounded p-button-secondary"
                     onClick={checkData}
                 />
+                <ChatContentStyles>
+                    test
+                </ChatContentStyles>
             </div>
         </Card>
     )
 }
+
+const ChatContentStyles = styled.div`
+  align-self: center;
+  flex: 1;
+  color: red;
+  overflow-y: auto;
+  width: 100%;
+`;
+
 export default memo(AddEvent)

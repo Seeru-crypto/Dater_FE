@@ -19,13 +19,6 @@ const FilterTable = (props) => {
         setData(props.data)
     }, [props])
 
-    const handleDelete = (deletedEventId) => {
-        const newData = data.filter(
-            (dateEvent) => dateEvent.id !== deletedEventId,
-        )
-        setData(newData)
-    }
-
     const renderBooleanValues = (rowData, item) => {
         if (typeof rowData[item.field] === 'boolean') {
             return rowData[item.field] ? 'True' : 'False'
@@ -117,8 +110,6 @@ const FilterTable = (props) => {
                         selectedEvent={selectedEvent}
                         hideModal={hideModal}
                         modalState={showModal}
-                        handleUpdate={handleUpdate}
-                        handleDelete={handleDelete}
                     />
                 </div>
             )}

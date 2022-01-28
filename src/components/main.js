@@ -23,7 +23,7 @@ const Main = () => {
                     <i
                         className="pi pi-github"
                         style={{ fontSize: '2rem' }}
-                    ></i>
+                    />
                 </a>
 
                 <details style={{ marginLeft: '3rem' }}>

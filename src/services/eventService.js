@@ -6,11 +6,11 @@ class EventService {
     }
 
     deleteEvent(eventId) {
-        return http.delete(`/api/event/${eventId}`);
+        return http.delete(`/event/${eventId}`);
     }
 
     updateEvent(reminderEvent) {
-        return http.put('/event', reminderEvent);
+        return http.put(`/event/${reminderEvent.id}`, reminderEvent);
     }
 
     createEvent(reminderEvent) {

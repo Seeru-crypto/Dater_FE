@@ -1,32 +1,28 @@
-import React, { useState, useEffect, useRef, memo } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 
 import { Dialog } from 'primereact/dialog'
 import { Button } from 'primereact/button'
 import { confirmDialog } from 'primereact/confirmdialog'
 import { Toast } from 'primereact/toast'
-
-import { DeleteData, UpdateData } from '../../API/api-requests'
-import { infoNotification } from '../../custom-hooks/notifications'
+import { errorNotification, infoNotification, positiveNotification } from '../../custom-hooks/notifications'
 import CalendarComponent from '../create-event/calendar-component'
 import config from '../../config.json'
 import dataValidation from '../../custom-hooks/dataValidation'
 
 import {
+    EventAccountForYear,
     EventDescription,
     EventName,
     EventReminder,
     EventReminderInDays,
-    EventAccountForYear,
 } from '../form-components/fields'
 import { useAppDispatch } from '../../store'
-import { getEventByID } from '../../slicers/eventSlice'
+import { deleteEvent, getEvents, saveUpdatedEvent } from '../../slicers/eventSlice'
 
 export const EventDetails = ({
     selectedEvent,
     hideModal,
     modalState,
-    handleUpdate,
-    handleDelete,
 }) => {
     const toast = useRef(null)
     const [eventDescription, setDescription] = useState(
@@ -44,9 +40,8 @@ export const EventDetails = ({
     )
     const [eventTitle, setEventTitle] = useState('')
 
-    const apiPath = config.apiPath
-    const invalidFormErrorHeader = config.labels.invalidFormErrorHeader
     const eventId = selectedEvent.id
+    const labels = config.labels;
     const dispatch = useAppDispatch()
     let showHideModal = !!modalState
 
@@ -87,20 +82,21 @@ export const EventDetails = ({
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             acceptClassName: 'p-button-danger',
-            accept: () => deleteEvent(),
+            accept: () => deleteSelectedEvent(),
         })
     }
 
     const checkData = () => {
         if (dataValidation(eventName, date)) return updateEvent()
-        infoNotification(toast, { invalidFormErrorHeader }, '')
+        infoNotification(toast,  labels.invalidFormErrorHeader, '')
     }
 
-    const deleteEvent = () => {
-        DeleteData(apiPath, eventId, toast).then((res) => {
-            if (res) handleDelete(eventId)
-        })
-    }
+    const deleteSelectedEvent = () => {
+        dispatch(deleteEvent(eventId)).then(() => {
+            positiveNotification(toast, "TEST", '');
+            dispatch(getEvents());
+        });
+    };
 
     const updateEvent = () => {
         const data = {
@@ -112,18 +108,17 @@ export const EventDetails = ({
             eventDescription,
             accountForYear,
         }
-        UpdateData(`${apiPath}/${eventId}`, data, toast).then((res) => {
-            console.log('updating data')
-            dispatch(getEventByID(eventId));
+        dispatch(saveUpdatedEvent(data)).then((res) => {
+            positiveNotification(toast, labels.eventUpdatedMessage, '');
+            dispatch(getEvents());
             if (res) {
-                handleUpdate(data)
                 setTimeout(() => {
                     hideModal()
                 }, 2000)
             }
-        })
+        }).catch(() => errorNotification(toast, labels.defaultErrorMessage));
     }
-    const nameHandler = (e) => setEventName(e)
+    const nameHandler = (e) => setEventName(e);
 
     const eventModalFooter = (
         <React.Fragment>
