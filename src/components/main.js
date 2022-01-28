@@ -1,6 +1,7 @@
 import React, { memo } from 'react'
 
 const Main = () => {
+// ToDo fix front page styling
     return (
         <div>
             <h1>Welcome to Dater!</h1>

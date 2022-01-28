@@ -6,7 +6,7 @@ import { confirmDialog } from 'primereact/confirmdialog'
 import { Toast } from 'primereact/toast'
 import { errorNotification, infoNotification, positiveNotification } from '../../custom-hooks/notifications'
 import CalendarComponent from '../create-event/calendar-component'
-import {labels} from '../../config.json'
+import config from '../../config.json'
 import dataValidation from '../../custom-hooks/dataValidation'
 
 import {
@@ -28,6 +28,7 @@ export const EventDetails = ({
     const [eventDescription, setDescription] = useState(
         selectedEvent.description
     )
+    const labels = config.labels;
     const [eventName, setEventName] = useState(selectedEvent.eventName)
     const [date, setDate] = useState(selectedEvent.date)
     const [reminder, setReminder] = useState(selectedEvent.reminder)

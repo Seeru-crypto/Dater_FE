@@ -5,7 +5,7 @@ import { Card } from 'primereact/card'
 import { Toast } from 'primereact/toast'
 
 import styled from 'styled-components'
-import {labels} from '../../config.json'
+import config from '../../config.json'
 import { errorNotification, infoNotification, positiveNotification } from '../../custom-hooks/notifications'
 import CalendarComponent from './calendar-component'
 import dataValidation from '../../custom-hooks/dataValidation'
@@ -28,7 +28,7 @@ const AddEvent = () => {
     const [accountForYear, setAccountForYear] = useState(false)
     const toast = useRef(null)
     const dispatch = useAppDispatch()
-
+    const labels = config.labels
     const invalidFormErrorHeader = labels.invalidFormErrorHeader
     const dateHandler = (data) => {
         const newDate = data
@@ -51,10 +51,10 @@ const AddEvent = () => {
             accountForYear,
         }
         dispatch(createEvent(data)).then(() => {
-            dispatch(getEvents());
-            positiveNotification(toast, labels.eventCreatedMessage, '');
-            anulAllFields();
-        } ).catch(() => errorNotification(toast, labels.defaultErrorMessage));
+            dispatch(getEvents())
+            positiveNotification(toast, labels.eventCreatedMessage, '')
+            anulAllFields()
+        }).catch(() => errorNotification(toast, labels.defaultErrorMessage))
     }
 
     const anulAllFields = () => {
@@ -69,9 +69,9 @@ const AddEvent = () => {
     return (
         <Card style={{ marginBottom: '2rem' }}>
             <Toast ref={toast} />
-            <div className="p-d-flex p-flex-wrap-reverse">
-                <div className="p-field p-col">
-                    <div className="p-field p-col">
+            <div className='p-d-flex p-flex-wrap-reverse'>
+                <div className='p-field p-col'>
+                    <div className='p-field p-col'>
                         <EventName
                             name={name}
                             nameHandler={(e) => setName(e)}
@@ -79,8 +79,8 @@ const AddEvent = () => {
                     </div>
                 </div>
 
-                <div className="p-field p-col">
-                    <div className="p-field p-col">
+                <div className='p-field p-col'>
+                    <div className='p-field p-col'>
                         <CalendarComponent
                             dateHandler={dateHandler}
                             selectedDate={date}
@@ -90,18 +90,18 @@ const AddEvent = () => {
             </div>
             <div
                 style={{ marginTop: '.5rem' }}
-                className="p-fluid p-formgrid p-grid"
+                className='p-fluid p-formgrid p-grid'
             >
-                <div className="p-field p-col">
+                <div className='p-field p-col'>
                     <EventDescription
                         desc={description}
                         descHandler={(e) => setDescription(e)}
                     />
                 </div>
 
-                <div className="p-field p-col">
+                <div className='p-field p-col'>
                     <h5 style={{ padding: '.5rem' }}>Additional settings:</h5>
-                    <div className="p-field-checkbox">
+                    <div className='p-field-checkbox'>
                         <EventReminder
                             reminder={reminder}
                             reminderHandler={(e) => setReminder(e)}
@@ -120,7 +120,7 @@ const AddEvent = () => {
             {reminder && (
                 <div
                     style={{ width: '50%' }}
-                    className="p-fluid p-formgrid p-grid"
+                    className='p-fluid p-formgrid p-grid'
                 >
                     <EventReminderInDays
                         eventReminderDays={reminderInDays}
@@ -129,21 +129,21 @@ const AddEvent = () => {
                 </div>
             )}
             <div
-                className="p-fluid p-formgrid p-grid"
+                className='p-fluid p-formgrid p-grid'
                 style={{
                     marginTop: '2rem',
                     justifyContent: 'center',
                 }}
             >
                 <Button
-                    label="Add Event"
+                    label='Add Event'
                     style={{
                         display: 'flex',
                         padding: '1rem',
                         width: '15rem',
                         marginBottom: '1rem',
                     }}
-                    className="p-button-rounded p-button-secondary"
+                    className='p-button-rounded p-button-secondary'
                     onClick={checkData}
                 />
                 <ChatContentStyles>
@@ -160,6 +160,6 @@ const ChatContentStyles = styled.div`
   color: red;
   overflow-y: auto;
   width: 100%;
-`;
+`
 
 export default memo(AddEvent)

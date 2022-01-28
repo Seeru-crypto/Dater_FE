@@ -9,45 +9,8 @@ import {
 const defaultErrorMessage = config.labels.defaultErrorMessage
 const eventCreatedMessage = config.labels.eventCreatedMessage
 const eventUpdatedMessage = config.labels.eventUpdatedMessage
-export const DeleteData = async (url, id, toast) => {
-    const path = url + '/' + id
-    return axios
-        .delete(path)
-        .then((res) => {
-            infoNotification(
-                toast,
-                'Delete successful',
-                'This event has been deleted',
-            )
-            return res
-        })
-        .catch(() => {
-            errorNotification(toast, defaultErrorMessage)
-        })
-}
 
-export const PostData = async (url, data, toast) => {
-    return axios
-        .post(url, data)
-        .then(() => {
-            positiveNotification(toast, eventCreatedMessage, '')
-        })
-        .catch(() => {
-            errorNotification(toast, defaultErrorMessage)
-        })
-}
-
-export const UpdateData = async (url, data, toast) => {
-    return axios
-        .put(url, data)
-        .then(() => {
-            positiveNotification(toast, eventUpdatedMessage, '')
-        })
-        .catch(() => {
-            errorNotification(toast, defaultErrorMessage)
-        })
-}
-
+// ToDo Replace PatchSettings
 export const PatchSettings = async (url, data, toast) => {
     return axios
         .patch(url, data)
@@ -59,6 +22,7 @@ export const PatchSettings = async (url, data, toast) => {
         })
 }
 
+// ToDo Replace PostSendEmailReminders
 export const PostSendEmailReminders = async (url) => {
     const data = {}
     return axios.post(url, data)
