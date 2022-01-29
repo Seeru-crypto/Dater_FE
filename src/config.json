@@ -6,6 +6,7 @@
     "daysNoticeMaxValue": 31,
     "calendarMinYear": 1960,
     "calendarMaxYear": 2040,
+    "IntervalValue": 5000,
     "labels": {
         "reminderLabel": "Do you want reminders?",
         "accountForYearLabel": "Account for year?",
