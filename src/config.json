@@ -9,6 +9,8 @@
     "IntervalValue": 5000,
     "labels": {
         "reminderLabel": "Do you want reminders?",
+        "emailReminderLabel": "Enable email reminders for the system",
+
         "accountForYearLabel": "Account for year?",
         "accountForYearTooltip": "Will the reminder be sent every year or on the selected year?",
         "invalidFormErrorHeader": "Please fill all the neccesary fields",

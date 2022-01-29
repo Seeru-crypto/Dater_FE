@@ -17,11 +17,11 @@ export const adminSlice = createSlice({
     name: 'admin',
     initialState,
     reducers: {
-        setEmailAdressNotifications: (state, value) => {
-            state.enableEmailAdressNotifications = value;
+        setEmailAdressNotifications: (state, action) => {
+            state.enableEmailAdressNotifications = action.payload;
         },
-        setEmailAdress: (state, value) => {
-            state.notificationEmailAdress = value;
+        setEmailAdress: (state, action) => {
+            state.notificationEmailAdress = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -29,11 +29,12 @@ export const adminSlice = createSlice({
             state.loading = true
         });
         builder.addCase(getAdminData.fulfilled, (state, action) => {
+            const dataObject = action.payload.data[0];
             state.loading = false
             state.error = ''
-            state.notificationEmailAdress = action.payload.notificationEmailAdress
-            state.enableEmailAdressNotifications = action.payload.enableEmailAdressNotifications
-            state.configID = action.payload.configID
+            state.notificationEmailAdress = dataObject.emailAddress
+            state.enableEmailAdressNotifications = dataObject.sendEmails
+            state.configID = dataObject.id
         });
         builder.addCase(getAdminData.rejected, (state) => {
             state.error = 'an error has occured'

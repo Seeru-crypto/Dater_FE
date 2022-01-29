@@ -5,8 +5,8 @@ import { Tooltip } from 'primereact/tooltip'
 import { InputNumber } from 'primereact/inputnumber'
 
 import config from '../../config.json'
-const labels = config.labels;
 
+const labels = config.labels;
 
 export const EventName = ({ name, nameHandler }) => {
     return (
@@ -109,7 +109,7 @@ export const AdminEmailAdress = ({ email, emailHandler }) => {
             />
         </div>
     )
-}
+};
 
 export const EmailReminders = ({
     emailReminder,

@@ -17,19 +17,13 @@ export const saveUpdatedEvent = createAsyncThunk('events/updateEvent', async (re
 
 export const createEvent = createAsyncThunk('events/createEvent', async (reminderEvent) => EventService.createEvent(reminderEvent))
 
+// ToDo add notifcation for successful update, with count
 export const checkEvents = createAsyncThunk('events/checkEvents', async () => EventService.checkEvents())
 
 export const eventSlice = createSlice({
     name: 'event',
     initialState,
-    reducers: {
-        setEvents: (state, events) => {
-            state.events = events
-        },
-        addEvent: (state, event) => {
-            if (event) state.events.push(event)
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(getEvents.pending, (state) => {
             state.loading = true

@@ -5,21 +5,13 @@ import { Button } from 'primereact/button'
 import { Toast } from 'primereact/toast'
 
 import { AdminEmailAdress, EmailReminders } from '../form-components/fields'
-import { PatchSettings } from '../../API/api-requests'
-import { getEvents } from '../../slicers/eventSlice'
 import { useAppDispatch, useAppSelector } from '../../store'
-import { getAdminData } from '../../slicers/adminSlice'
+import { getAdminData, setEmailAdress, updateAdmin } from '../../slicers/adminSlice'
 
 const Admin = () => {
-    const [adminEmail, setAdminEmail] = useState('')
     const [emailReminder, setEmailReminder] = useState(true)
-    const [smsReminder, setSmsReminder] = useState(false)
-    const [checkInterval, setCheckInterval] = useState(0)
-    const [settingsID, setSettingsID] = useState('')
     const labels = config.labels
-    const patchApiPath = 'http://localhost:8080/settings'
     const toast = useRef(null)
-    const events = useAppSelector((state) => state.admin.events)
     const loading = useAppSelector((state) => state.admin.loading)
     const error = useAppSelector((state) => state.admin.error)
     const notificationEmailAdress = useAppSelector((state) => state.admin.notificationEmailAdress)
@@ -28,24 +20,25 @@ const Admin = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        if (error!=="") {
+        if (error !== '') {
             const timer = setInterval(() => {
-                dispatch(getAdminData());
+                dispatch(getAdminData())
             }, config.IntervalValue)
-            return () => clearTimeout(timer);
+            return () => clearTimeout(timer)
         }
-    }, [error, dispatch]);
-
+        if (configID === '') dispatch(getAdminData())
+    }, [error, dispatch, configID])
 
     const submitForm = () => {
-        const path = patchApiPath + '/' + settingsID
         const data = {
-            emailAddress: adminEmail,
-            sendEmails: emailReminder,
-            sendSMS: smsReminder,
-            checkInterval,
+            emailAddress: notificationEmailAdress,
+            sendEmails: enableEmailAdressNotifications,
+            id: configID,
         }
-        PatchSettings(path, data, toast)
+        dispatch(updateAdmin(data)).then(() => {
+            // ToDo add notifcation
+            console.log('log')
+        })
     }
 
     return (
@@ -79,8 +72,10 @@ const Admin = () => {
                                 <p>default email aadress</p>
                                 <div>
                                     <AdminEmailAdress
-                                        email={adminEmail}
-                                        emailHandler={(e) => setAdminEmail(e)}
+                                        email={notificationEmailAdress}
+                                        emailHandler={(e) => {
+                                            dispatch(setEmailAdress(e))
+                                        }}
                                     />
                                 </div>
                             </div>
@@ -90,12 +85,12 @@ const Admin = () => {
                                     emailReminderHandler={(e) =>
                                         setEmailReminder(e)
                                     }
-                                    toolTipMessage='message!'
+                                    toolTipMessage={labels.emailReminderLabel}
                                 />
                             </div>
                         </div>
                         <div>
-                            <Button onClick={submitForm}>Btn1</Button>
+                            <Button onClick={submitForm}>Submit</Button>
                         </div>
                     </div>
                 )}
