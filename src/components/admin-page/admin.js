@@ -5,34 +5,37 @@ import { Button } from 'primereact/button'
 import { Toast } from 'primereact/toast'
 
 import { AdminEmailAdress, EmailReminders } from '../form-components/fields'
-import useGetData from '../../API/useGetData'
 import { PatchSettings } from '../../API/api-requests'
+import { getEvents } from '../../slicers/eventSlice'
+import { useAppDispatch, useAppSelector } from '../../store'
+import { getAdminData } from '../../slicers/adminSlice'
+
 const Admin = () => {
     const [adminEmail, setAdminEmail] = useState('')
     const [emailReminder, setEmailReminder] = useState(true)
     const [smsReminder, setSmsReminder] = useState(false)
     const [checkInterval, setCheckInterval] = useState(0)
     const [settingsID, setSettingsID] = useState('')
-    const labels = config.labels;
+    const labels = config.labels
     const patchApiPath = 'http://localhost:8080/settings'
     const toast = useRef(null)
-    // ToDo Replace this query with dispatch
-    const { getData, isPending, error } = useGetData(
-        'http://localhost:8080/api/settings'
-    )
-    // ToDo Create a separate reducer for admin settings, which will get settings everytime user comes to this page
+    const events = useAppSelector((state) => state.admin.events)
+    const loading = useAppSelector((state) => state.admin.loading)
+    const error = useAppSelector((state) => state.admin.error)
+    const notificationEmailAdress = useAppSelector((state) => state.admin.notificationEmailAdress)
+    const enableEmailAdressNotifications = useAppSelector((state) => state.admin.enableEmailAdressNotifications)
+    const configID = useAppSelector((state) => state.admin.configID)
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
-        if (getData) {
-            const path = getData?.data[0]
-            console.log(path)
-            setAdminEmail(path.emailAddress)
-            setEmailReminder(path.sendEmails)
-            setCheckInterval(path.checkInterval)
-            setSmsReminder(path.sendSMS)
-            setSettingsID(path.id)
+        if (error!=="") {
+            const timer = setInterval(() => {
+                dispatch(getAdminData());
+            }, config.IntervalValue)
+            return () => clearTimeout(timer);
         }
-    }, [getData])
+    }, [error, dispatch]);
+
 
     const submitForm = () => {
         const path = patchApiPath + '/' + settingsID
@@ -50,28 +53,28 @@ const Admin = () => {
             <Toast ref={toast} />
 
             <div
-                hidden={error ? false : true}
+                hidden={!error}
                 style={{
                     display: 'flex',
                     width: '100%',
                     flexDirection: 'column',
                 }}
             >
-                <Message severity="error" text={labels.defaultErrorMessage} />
+                <Message severity='error' text={labels.defaultErrorMessage} />
             </div>
-            {isPending && (
+            {loading && (
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <i
-                        className="pi pi-spin pi-spinner"
+                        className='pi pi-spin pi-spinner'
                         style={{ fontSize: '2em' }}
-                    ></i>
+                    />
                 </div>
             )}
-            <div className="card">
-                {!isPending && !error && (
-                    <div className="p-field">
-                        <div className="p-field p-col">
-                            <div className="p-field p-row">
+            <div className='card'>
+                {!loading && !error && (
+                    <div className='p-field'>
+                        <div className='p-field p-col'>
+                            <div className='p-field p-row'>
                                 <h1>Admin Page!</h1>
                                 <p>default email aadress</p>
                                 <div>
@@ -87,7 +90,7 @@ const Admin = () => {
                                     emailReminderHandler={(e) =>
                                         setEmailReminder(e)
                                     }
-                                    toolTipMessage="message!"
+                                    toolTipMessage='message!'
                                 />
                             </div>
                         </div>

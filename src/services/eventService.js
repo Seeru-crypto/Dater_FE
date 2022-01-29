@@ -18,7 +18,6 @@ class EventService {
     }
 
     getEventById(eventId) {
-        console.log('getting by ID')
         return http.get(`/event/${eventId}`);
     }
 

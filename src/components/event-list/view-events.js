@@ -16,7 +16,7 @@ const ViewEvents = () => {
 
     useEffect(() => {
         if (events[0] === undefined) dispatch(getEvents())
-    }, [dispatch]);
+    }, [dispatch, events]);
 
     useEffect(() => {
         if (error!=="") {
@@ -25,7 +25,7 @@ const ViewEvents = () => {
             }, config.IntervalValue)
         return () => clearTimeout(timer);
         }
-    }, [error]);
+    }, [error, dispatch]);
 
     const handleEventCheck = () => dispatch(checkEvents());
     return (
