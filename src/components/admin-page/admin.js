@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Message } from 'primereact/message'
 import config from '../../config.json'
 import { Button } from 'primereact/button'
@@ -7,6 +7,7 @@ import { Toast } from 'primereact/toast'
 import { AdminEmailAdress, EmailReminders } from '../form-components/fields'
 import { useAppDispatch, useAppSelector } from '../../store'
 import { getAdminData, setEmailAdress, setEmailAdressNotifications, updateAdmin } from '../../slicers/adminSlice'
+import { errorNotification, positiveNotification } from '../../custom-hooks/notifications'
 
 const Admin = () => {
     const labels = config.labels
@@ -28,20 +29,19 @@ const Admin = () => {
         if (configID === '') dispatch(getAdminData())
     }, [error, dispatch, configID])
 
-    const submitForm = () => {
+    const submitForm = async () => {
         const data = {
             emailAddress: notificationEmailAdress,
             sendEmails: enableEmailAdressNotifications,
             id: configID,
         }
-        dispatch(updateAdmin(data)).then(() => {
-            // ToDo add notifcation
-            console.log('log')
-        })
+        const res = await dispatch(updateAdmin(data));
+        if (res.meta.requestStatus==='fulfilled') positiveNotification(toast, labels.configUpdatedSuccessfullyMessage, '');
+        else errorNotification(toast, labels.defaultErrorMessage);
     }
 
     return (
-        <div>
+        <div style={{padding: '0 2rem 0 2rem'}}>
             <Toast ref={toast} />
 
             <div

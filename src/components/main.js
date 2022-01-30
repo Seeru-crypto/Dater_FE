@@ -3,7 +3,7 @@ import React, { memo } from 'react'
 const Main = () => {
 // ToDo fix front page styling
     return (
-        <div>
+        <div style={{padding: '2rem 2rem 0 2rem'  }}>
             <h1>Welcome to Dater!</h1>
 
             <div className="section-div">
@@ -32,7 +32,7 @@ const Main = () => {
                     <ul>
                         <li>
                             For the front end I used React with primereact
-                            componennt library
+                            component library
                         </li>
                         <li>
                             For the back-end I used spring boot, with REST API

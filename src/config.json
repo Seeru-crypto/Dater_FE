@@ -10,7 +10,6 @@
     "labels": {
         "reminderLabel": "Do you want reminders?",
         "emailReminderLabel": "Enable email reminders for the system",
-
         "accountForYearLabel": "Account for year?",
         "accountForYearTooltip": "Will the reminder be sent every year or on the selected year?",
         "invalidFormErrorHeader": "Please fill all the neccesary fields",
@@ -18,6 +17,7 @@
         "defaultErrorMessage": "Connection cannot be established, please try again later",
         "eventCreatedMessage": "Event Created successfully",
         "eventUpdatedMessage": "Event updated successfully",
-        "eventDeletedMessage": "Event successfully deleted"
+        "eventDeletedMessage": "Event successfully deleted",
+        "configUpdatedSuccessfullyMessage": "Configurations updated successfully"
     }
 }

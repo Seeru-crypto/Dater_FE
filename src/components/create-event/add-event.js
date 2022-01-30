@@ -20,14 +20,14 @@ import { useAppDispatch } from '../../store'
 import { createEvent, getEvents } from '../../slicers/eventSlice'
 
 const AddEvent = () => {
-    const [name, setName] = useState('')
-    const [date, setDate] = useState('')
-    const [reminder, setReminder] = useState(false)
-    const [description, setDescription] = useState('')
-    const [reminderInDays, setReminderInDays] = useState(0)
-    const [accountForYear, setAccountForYear] = useState(false)
-    const toast = useRef(null)
-    const dispatch = useAppDispatch()
+    const [name, setName] = useState('');
+    const [date, setDate] = useState('');
+    const [reminder, setReminder] = useState(false);
+    const [description, setDescription] = useState('');
+    const [reminderInDays, setReminderInDays] = useState(0);
+    const [accountForYear, setAccountForYear] = useState(false);
+    const toast = useRef(null);
+    const dispatch = useAppDispatch();
     const labels = config.labels
     const invalidFormErrorHeader = labels.invalidFormErrorHeader
     const dateHandler = (data) => {
@@ -41,7 +41,7 @@ const AddEvent = () => {
         infoNotification(toast, invalidFormErrorHeader, invalidFormErrorHeader)
     }
 
-    const submitForm = () => {
+    const submitForm = async () => {
         const data = {
             eventName: name,
             date: date,
@@ -50,11 +50,14 @@ const AddEvent = () => {
             description: description,
             accountForYear,
         }
-        dispatch(createEvent(data)).then(() => {
-            dispatch(getEvents())
-            positiveNotification(toast, labels.eventCreatedMessage, '')
-            anulAllFields()
-        }).catch(() => errorNotification(toast, labels.defaultErrorMessage))
+        const res = await dispatch(createEvent(data));
+        if (res.meta.requestStatus==='fulfilled') {
+            dispatch(getEvents());
+            positiveNotification(toast, labels.configUpdatedSuccessfullyMessage, '');
+            anulAllFields();
+        }
+        else errorNotification(toast, labels.defaultErrorMessage);
+
     }
 
     const anulAllFields = () => {
@@ -67,7 +70,7 @@ const AddEvent = () => {
     }
 
     return (
-        <Card style={{ marginBottom: '2rem' }}>
+        <Card style={{ padding: '0 2rem 2rem 2rem' }}>
             <Toast ref={toast} />
             <div className='p-d-flex p-flex-wrap-reverse'>
                 <div className='p-field p-col'>

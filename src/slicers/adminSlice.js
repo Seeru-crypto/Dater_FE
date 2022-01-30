@@ -38,6 +38,12 @@ export const adminSlice = createSlice({
         });
         builder.addCase(getAdminData.rejected, (state) => {
             state.error = 'an error has occured'
+            state.loading = false
+        });
+        builder.addCase(updateAdmin.rejected, (state) => {
+            state.error = 'an error has occured'
+            state.loading = false
+
         });
     },
 })
