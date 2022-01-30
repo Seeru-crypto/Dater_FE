@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { Message } from 'primereact/message'
 import config from '../../config.json'
 import { Button } from 'primereact/button'
@@ -6,10 +6,9 @@ import { Toast } from 'primereact/toast'
 
 import { AdminEmailAdress, EmailReminders } from '../form-components/fields'
 import { useAppDispatch, useAppSelector } from '../../store'
-import { getAdminData, setEmailAdress, updateAdmin } from '../../slicers/adminSlice'
+import { getAdminData, setEmailAdress, setEmailAdressNotifications, updateAdmin } from '../../slicers/adminSlice'
 
 const Admin = () => {
-    const [emailReminder, setEmailReminder] = useState(true)
     const labels = config.labels
     const toast = useRef(null)
     const loading = useAppSelector((state) => state.admin.loading)
@@ -81,9 +80,9 @@ const Admin = () => {
                             </div>
                             <div>
                                 <EmailReminders
-                                    emailReminder={emailReminder}
+                                    emailReminder={enableEmailAdressNotifications}
                                     emailReminderHandler={(e) =>
-                                        setEmailReminder(e)
+                                        dispatch(setEmailAdressNotifications(e))
                                     }
                                     toolTipMessage={labels.emailReminderLabel}
                                 />

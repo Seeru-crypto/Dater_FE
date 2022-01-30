@@ -126,7 +126,7 @@ export const EmailReminders = ({
                 checked={emailReminder}
             />
             <label className="p-d-block" htmlFor="accountForYear">
-                Enable emails?
+                Enable email reminders?
             </label>
             <Tooltip target=".pi-info-circle" />
             <i

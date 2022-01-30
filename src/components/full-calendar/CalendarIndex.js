@@ -1,33 +1,43 @@
 import React, { useState, useEffect } from 'react'
 import FullDisplayCalendar from './FullDisplayCalendar'
 import config from '../../config.json'
-import useGetData from '../../API/useGetData'
 import { Message } from 'primereact/message'
+import { useAppDispatch, useAppSelector } from '../../store'
+import { getEvents } from '../../slicers/eventSlice'
 
 const CalendarIndex = () => {
     const [formattedDates, setFormattedDates] = useState([])
     // ToDo replace this request with a dispatch
-    const apiPath = 'http://localhost:8080/api/event'
     const defaultErrorMessage = config.labels.defaultErrorMessage
-    let { getData: eventData, isPending, error } = useGetData(apiPath)
+    const events = useAppSelector((state) => state.event.events)
+    const loading = useAppSelector((state) => state.event.loading)
+    const error = useAppSelector((state) => state.event.error)
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
-        if (eventData) {
-            const eventDataBody = eventData.data
+        if (error!=="") {
+            const timer = setInterval(() => {
+                dispatch(getEvents())
+            }, config.IntervalValue)
+            return () => clearTimeout(timer);
+        };
+        if (events[0] === undefined) dispatch(getEvents());
+        if (events) {
+            const eventDataBody = events
             const currentYear = new Date().getFullYear()
             const newList = eventDataBody.map((event) => {
                 const title = event.eventName
                 const newDate = currentYear + event.date.substring(4, 10)
                 return { ...event, title: title, date: newDate }
-            })
-            setFormattedDates(newList)
+            });
+            setFormattedDates(newList);
         }
-    }, [eventData])
+    }, [error, dispatch, events]);
 
     return (
         <div>
             <div
-                hidden={error ? false : true}
+                hidden={!error}
                 style={{
                     display: 'flex',
                     width: '100%',
@@ -36,7 +46,7 @@ const CalendarIndex = () => {
             >
                 <Message severity="error" text={defaultErrorMessage} />
             </div>
-            {!isPending && !error && (
+            {!loading && !error && (
                 <div style={{ marginTop: '2rem' }}>
                     <p>
                         This is a general view, where all events are displayed.
@@ -44,12 +54,12 @@ const CalendarIndex = () => {
                     <FullDisplayCalendar eventData={formattedDates} />
                 </div>
             )}
-            {isPending && (
+            {loading && (
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <i
                         className="pi pi-spin pi-spinner"
                         style={{ fontSize: '2em' }}
-                    ></i>
+                    />
                 </div>
             )}
         </div>

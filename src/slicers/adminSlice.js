@@ -18,7 +18,7 @@ export const adminSlice = createSlice({
     initialState,
     reducers: {
         setEmailAdressNotifications: (state, action) => {
-            state.enableEmailAdressNotifications = action.payload;
+            state.enableEmailAdressNotifications = !state.enableEmailAdressNotifications;
         },
         setEmailAdress: (state, action) => {
             state.notificationEmailAdress = action.payload;
