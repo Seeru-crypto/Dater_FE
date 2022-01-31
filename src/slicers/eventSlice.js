@@ -18,7 +18,6 @@ export const saveUpdatedEvent = createAsyncThunk('events/updateEvent', async (re
 
 export const createEvent = createAsyncThunk('events/createEvent', async (reminderEvent) => EventService.createEvent(reminderEvent))
 
-// ToDo add notifcation for successful update, with count
 export const checkEvents = createAsyncThunk('events/checkEvents', async () => EventService.checkEvents())
 
 export const eventSlice = createSlice({

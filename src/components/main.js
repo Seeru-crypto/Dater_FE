@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 const Main = () => {
 // ToDo fix front page styling with Styled component
+// ToDo fix console errors!
     return (
         <MainStyle>
         <div className="main-div">

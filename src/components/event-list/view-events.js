@@ -32,7 +32,7 @@ const ViewEvents = () => {
                 hidden={!!error}
                 className='p-grid vertical-container'
             >
-                <h5 className='p-col p-col-align-start'>View events: </h5>
+                <h5 className='p-col p-col-align-start'>Number of events: {events.length}</h5>
                 <div>
                     <div className='p-col p-col-align-end'>
                         <Button
