@@ -5,6 +5,7 @@ const initialState = {
     events: [],
     loading: false,
     error: '',
+    eventDetails: {}
 }
 
 // ToDo create selected event Reducer and implement it in Add event & event detail components.
@@ -23,7 +24,11 @@ export const checkEvents = createAsyncThunk('events/checkEvents', async () => Ev
 export const eventSlice = createSlice({
     name: 'event',
     initialState,
-    reducers: {},
+    reducers: {
+        setEventDetails: (state, action) => {
+            state.eventDetails = action.payload;
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(getEvents.pending, (state) => {
             state.loading = true
@@ -38,6 +43,6 @@ export const eventSlice = createSlice({
         });
     },
 })
-export const { setEvents, addEvent } = eventSlice.actions
+export const { setEventDetails } = eventSlice.actions
 
 export default eventSlice.reducer

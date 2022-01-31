@@ -36,7 +36,6 @@ An application for creating reminders and getting email notifications for impend
     -   dev uses: 4001
 
 ### ToDo:
-  
   - [ ] Heroku CI/CD
      - [x] Deploy front-end
      - [x] Setup live DB

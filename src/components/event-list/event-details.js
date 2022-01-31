@@ -17,7 +17,7 @@ import {
     EventReminderInDays,
 } from '../form-components/fields'
 import { useAppDispatch } from '../../store'
-import { deleteEvent, getEvents, saveUpdatedEvent } from '../../slicers/eventSlice'
+import { deleteEvent, getEvents, saveUpdatedEvent, setEventDetails } from '../../slicers/eventSlice'
 // ToDo realize redux events in this compoent
 export const EventDetails = ({
                                  selectedEvent,

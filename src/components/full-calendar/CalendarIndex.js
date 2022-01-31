@@ -7,7 +7,6 @@ import { getEvents } from '../../slicers/eventSlice'
 
 const CalendarIndex = () => {
     const [formattedDates, setFormattedDates] = useState([])
-    // ToDo replace this request with a dispatch
     const defaultErrorMessage = config.labels.defaultErrorMessage
     const events = useAppSelector((state) => state.event.events)
     const loading = useAppSelector((state) => state.event.loading)
@@ -20,7 +19,7 @@ const CalendarIndex = () => {
                 dispatch(getEvents())
             }, config.IntervalValue)
             return () => clearTimeout(timer);
-        };
+        }
         if (events[0] === undefined) dispatch(getEvents());
         if (events) {
             const eventDataBody = events
