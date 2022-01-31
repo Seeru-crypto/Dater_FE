@@ -22,7 +22,7 @@ class EventService {
     }
 
     checkEvents() {
-        return http.get('/checkEvents');
+        return http.get('/api/checkEvents');
     }
 }
 

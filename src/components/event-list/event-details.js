@@ -8,6 +8,7 @@ import { errorNotification, infoNotification, positiveNotification } from '../..
 import CalendarComponent from '../create-event/calendar-component'
 import config from '../../config.json'
 import dataValidation from '../../custom-hooks/dataValidation'
+import styled from 'styled-components'
 
 import {
     EventAccountForYear,
@@ -17,8 +18,7 @@ import {
     EventReminderInDays,
 } from '../form-components/fields'
 import { useAppDispatch } from '../../store'
-import { deleteEvent, getEvents, saveUpdatedEvent, setEventDetails } from '../../slicers/eventSlice'
-// ToDo realize redux events in this compoent
+import { deleteEvent, getEvents, saveUpdatedEvent } from '../../slicers/eventSlice'
 export const EventDetails = ({
                                  selectedEvent,
                                  hideModal,
@@ -132,14 +132,14 @@ export const EventDetails = ({
     return (
         <Dialog
             visible={showHideModal}
-            style={{ width: '450px' }}
             header='Event Details'
             modal
-            className='p-fluid'
+            className='p-fluid main-dialogue'
             footer={eventModalFooter}
             onHide={hideModal}
         >
             <Toast ref={toast} />
+            <EventDetalStyle>
             <div className='p-fluid'>
                 <div className='p-field'>
                     <EventName name={eventName} nameHandler={(e) => setEventName(e)} />
@@ -151,18 +151,14 @@ export const EventDetails = ({
                         selectedDate={new Date(date)}
                     />
                 </div>
-                <div style={{ marginTop: '2rem' }} className='p-field'>
+                <div className='p-field detail-desc'>
                     <EventDescription
                         desc={eventDescription}
                         descHandler={(e) => setDescription(e)}
                     />
                 </div>
                 <div
-                    style={{
-                        alignItems: 'center',
-                        display: 'flex',
-                    }}
-                    className='p-field'
+                    className='p-field event-detal-reminder'
                 >
                     <EventReminder
                         reminder={reminder}
@@ -189,8 +185,25 @@ export const EventDetails = ({
                     </div>
                 )}
             </div>
+            </EventDetalStyle>
+
         </Dialog>
     )
 }
+
+const EventDetalStyle = styled.div`
+main-dialogue. {
+    width: 400px;
+}
+
+.detail-desc {
+    margin-top: 2rem;
+}
+
+.event-detal-reminder {
+    align-items: center;
+    display: flex;
+}
+`
 
 export default memo(EventDetails)
