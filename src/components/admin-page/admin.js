@@ -1,103 +1,119 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Message } from 'primereact/message'
 import config from '../../config.json'
 import { Button } from 'primereact/button'
 import { Toast } from 'primereact/toast'
 
 import { AdminEmailAdress, EmailReminders } from '../form-components/fields'
-import useGetData from '../../API/useGetData'
-import { PatchSettings } from '../../API/api-requests'
-const Admin = () => {
-    const [adminEmail, setAdminEmail] = useState('')
-    const [emailReminder, setEmailReminder] = useState(true)
-    const [smsReminder, setSmsReminder] = useState(false)
-    const [checkInterval, setCheckInterval] = useState(0)
-    const [settingsID, setSettingsID] = useState('')
-    const defaultErrorMessage = config.labels.defaultErrorMessage
-    const patchApiPath = 'http://localhost:8080/settings'
-    const toast = useRef(null)
+import { useAppDispatch, useAppSelector } from '../../store'
+import { getAdminData, setEmailAdress, setEmailAdressNotifications, updateAdmin } from '../../slicers/adminSlice'
+import { errorNotification, positiveNotification } from '../../custom-hooks/notifications'
+import styled from 'styled-components'
 
-    const { getData, isPending, error } = useGetData(
-        'http://localhost:8080/api/settings'
-    )
+const Admin = () => {
+    const labels = config.labels
+    const toast = useRef(null)
+    const loading = useAppSelector((state) => state.admin.loading)
+    const error = useAppSelector((state) => state.admin.error)
+    const notificationEmailAdress = useAppSelector((state) => state.admin.notificationEmailAdress)
+    const enableEmailAdressNotifications = useAppSelector((state) => state.admin.enableEmailAdressNotifications)
+    const configID = useAppSelector((state) => state.admin.configID)
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
-        if (getData) {
-            const path = getData?.data[0]
-            console.log(path)
-            setAdminEmail(path.emailAddress)
-            setEmailReminder(path.sendEmails)
-            setCheckInterval(path.checkInterval)
-            setSmsReminder(path.sendSMS)
-            setSettingsID(path.id)
+        if (error !== '') {
+            const timer = setInterval(() => {
+                dispatch(getAdminData())
+            }, config.IntervalValue)
+            return () => clearTimeout(timer)
         }
-    }, [getData])
+        if (configID === '') dispatch(getAdminData())
+    }, [error, dispatch, configID])
 
-    const submitForm = () => {
-        const path = patchApiPath + '/' + settingsID
+    const submitForm = async () => {
         const data = {
-            emailAddress: adminEmail,
-            sendEmails: emailReminder,
-            sendSMS: smsReminder,
-            checkInterval,
+            emailAddress: notificationEmailAdress,
+            sendEmails: enableEmailAdressNotifications,
+            id: configID,
         }
-        PatchSettings(path, data, toast)
+        const res = await dispatch(updateAdmin(data))
+        if (res.meta.requestStatus === 'fulfilled') positiveNotification(toast, labels.configUpdatedSuccessfullyMessage, '')
+        else errorNotification(toast, labels.defaultErrorMessage)
     }
 
     return (
-        <div>
-            <Toast ref={toast} />
-
-            <div
-                hidden={error ? false : true}
-                style={{
-                    display: 'flex',
-                    width: '100%',
-                    flexDirection: 'column',
-                }}
-            >
-                <Message severity="error" text={defaultErrorMessage} />
-            </div>
-            {isPending && (
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <i
-                        className="pi pi-spin pi-spinner"
-                        style={{ fontSize: '2em' }}
-                    ></i>
+        <AdminStyle>
+            <div className='admin-border'>
+                <Toast ref={toast} />
+                <div
+                    hidden={!error}
+                    className='admin-error-msg'
+                >
+                    <Message severity='error' text={labels.defaultErrorMessage} />
                 </div>
-            )}
-            <div className="card">
-                {!isPending && !error && (
-                    <div className="p-field">
-                        <div className="p-field p-col">
-                            <div className="p-field p-row">
-                                <h1>Admin Page!</h1>
-                                <p>default email aadress</p>
+                <div className='card'>
+                    {!loading && !error && (
+                        <div className='p-field'>
+                            <div className='p-field p-col'>
+                                <div className='p-field p-row'>
+                                    <h1>Admin Page!</h1>
+                                    <p>default email aadress</p>
+                                    <div>
+                                        <AdminEmailAdress
+                                            email={notificationEmailAdress}
+                                            emailHandler={(e) => {
+                                                dispatch(setEmailAdress(e))
+                                            }}
+                                        />
+                                    </div>
+                                </div>
                                 <div>
-                                    <AdminEmailAdress
-                                        email={adminEmail}
-                                        emailHandler={(e) => setAdminEmail(e)}
+                                    <EmailReminders
+                                        emailReminder={enableEmailAdressNotifications}
+                                        emailReminderHandler={(e) =>
+                                            dispatch(setEmailAdressNotifications(e))
+                                        }
+                                        toolTipMessage={labels.emailReminderLabel}
                                     />
                                 </div>
                             </div>
                             <div>
-                                <EmailReminders
-                                    emailReminder={emailReminder}
-                                    emailReminderHandler={(e) =>
-                                        setEmailReminder(e)
-                                    }
-                                    toolTipMessage="message!"
-                                />
+                                <Button onClick={submitForm}>Submit</Button>
                             </div>
                         </div>
-                        <div>
-                            <Button onClick={submitForm}>Btn1</Button>
-                        </div>
-                    </div>
-                )}
+                    )}
+                </div>
             </div>
-        </div>
+            {loading && (
+                <div className="admin-loading-icon">
+                    <i
+                        className='pi pi-spin pi-spinner'
+                    />
+                </div>
+            )}
+        </AdminStyle>
     )
 }
+
+const AdminStyle = styled.div`
+.admin-border {
+    padding: 0 2rem 0 2rem;
+}
+
+.admin-error-msg {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.admin-loading-icon {
+    display: flex;
+    justify-content: center;
+}
+
+.pi-spinner {
+    font-size: 2em;
+}
+`
 
 export default Admin

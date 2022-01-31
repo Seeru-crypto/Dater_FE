@@ -1,8 +1,11 @@
 import React, { memo } from 'react'
+import styled from 'styled-components'
 
 const Main = () => {
+// ToDo fix front page styling with Styled component
     return (
-        <div>
+        <MainStyle>
+        <div className="main-div">
             <h1>Welcome to Dater!</h1>
 
             <div className="section-div">
@@ -14,24 +17,20 @@ const Main = () => {
             </div>
             <div className="p-fluid p-formgrid p-grid">
                 <a
-                    style={{
-                        textDecoration: 'none',
-                        color: 'black',
-                    }}
+                    className="git-link"
                     href="https://github.com/Seeru-crypto/bDay_front-end"
                 >
                     <i
-                        className="pi pi-github"
-                        style={{ fontSize: '2rem' }}
-                    ></i>
+                        className="pi pi-github git-icon"
+                    />
                 </a>
 
-                <details style={{ marginLeft: '3rem' }}>
+                <details className="main-content">
                     <summary>About this project</summary>
                     <ul>
                         <li>
                             For the front end I used React with primereact
-                            componennt library
+                            component library
                         </li>
                         <li>
                             For the back-end I used spring boot, with REST API
@@ -49,6 +48,28 @@ const Main = () => {
                 </details>
             </div>
         </div>
+        </MainStyle>
     )
 }
 export default memo(Main)
+
+
+const MainStyle = styled.div`
+.main-div {
+    padding: 2rem 2rem 0 2rem;
+}
+
+.git-link {
+    text-decoration: none;
+    color: black;
+}
+
+.git-icon {
+    font-size: 2rem;
+}
+
+.main-content{
+    margin-left: 3rem;
+}
+    
+`

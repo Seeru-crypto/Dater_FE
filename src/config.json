@@ -6,14 +6,18 @@
     "daysNoticeMaxValue": 31,
     "calendarMinYear": 1960,
     "calendarMaxYear": 2040,
+    "IntervalValue": 5000,
     "labels": {
         "reminderLabel": "Do you want reminders?",
+        "emailReminderLabel": "Enable email reminders for the system",
         "accountForYearLabel": "Account for year?",
         "accountForYearTooltip": "Will the reminder be sent every year or on the selected year?",
         "invalidFormErrorHeader": "Please fill all the neccesary fields",
         "invalidFormErrorBody": "",
         "defaultErrorMessage": "Connection cannot be established, please try again later",
         "eventCreatedMessage": "Event Created successfully",
-        "eventUpdatedMessage": "Event updated successfully"
+        "eventUpdatedMessage": "Event updated successfully",
+        "eventDeletedMessage": "Event successfully deleted",
+        "configUpdatedSuccessfullyMessage": "Configurations updated successfully"
     }
 }
