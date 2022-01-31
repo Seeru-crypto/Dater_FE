@@ -20,16 +20,15 @@ import { useAppDispatch } from '../../store'
 import { createEvent, getEvents } from '../../slicers/eventSlice'
 
 const AddEvent = () => {
-    const [name, setName] = useState('')
+    const [eventName, setEventName] = useState('')
     const [date, setDate] = useState('')
     const [reminder, setReminder] = useState(false)
-    const [description, setDescription] = useState('')
+    const [eventDescription, setDescription] = useState('')
     const [reminderInDays, setReminderInDays] = useState(0)
     const [accountForYear, setAccountForYear] = useState(false)
     const toast = useRef(null)
     const dispatch = useAppDispatch()
     const labels = config.labels
-    const invalidFormErrorHeader = labels.invalidFormErrorHeader
     const dateHandler = (data) => {
         const newDate = data
         newDate.setHours(data.getHours() + 2)
@@ -37,31 +36,31 @@ const AddEvent = () => {
     }
 
     const checkData = () => {
-        if (dataValidation(name, date)) return submitForm()
-        infoNotification(toast, invalidFormErrorHeader, invalidFormErrorHeader)
+        if (dataValidation(eventName, date)) return submitForm()
+        infoNotification(toast, labels.invalidFormErrorHeader, labels.invalidFormErrorHeader)
     }
 
     const submitForm = async () => {
         const data = {
-            eventName: name,
-            date: date,
-            reminder: reminder,
+            eventName,
+            date,
+            reminder,
             reminderDays: reminderInDays,
-            description: description,
+            eventDescription,
             accountForYear,
         }
-        const res = await dispatch(createEvent(data))
+        const res = await dispatch(createEvent(data));
         if (res.meta.requestStatus === 'fulfilled') {
-            dispatch(getEvents())
             positiveNotification(toast, labels.configUpdatedSuccessfullyMessage, '')
             anulAllFields()
+            dispatch(getEvents())
         } else errorNotification(toast, labels.defaultErrorMessage)
     }
 
     const anulAllFields = () => {
         setDate('')
         setDescription('')
-        setName('')
+        setEventName('')
         setReminder(false)
         setReminderInDays(0)
         setAccountForYear(false)
@@ -69,14 +68,14 @@ const AddEvent = () => {
 
     return (
         <EventStyle>
-            <Card className="card-border">
+            <Card className='card-border'>
                 <Toast ref={toast} />
                 <div className='p-d-flex p-flex-wrap-reverse'>
                     <div className='p-field p-col'>
                         <div className='p-field p-col'>
                             <EventName
-                                name={name}
-                                nameHandler={(e) => setName(e)}
+                                name={eventName}
+                                nameHandler={(e) => setEventName(e)}
                             />
                         </div>
                     </div>
@@ -95,7 +94,7 @@ const AddEvent = () => {
                 >
                     <div className='p-field p-col'>
                         <EventDescription
-                            desc={description}
+                            desc={eventDescription}
                             descHandler={(e) => setDescription(e)}
                         />
                     </div>

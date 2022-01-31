@@ -8,6 +8,7 @@ import { AdminEmailAdress, EmailReminders } from '../form-components/fields'
 import { useAppDispatch, useAppSelector } from '../../store'
 import { getAdminData, setEmailAdress, setEmailAdressNotifications, updateAdmin } from '../../slicers/adminSlice'
 import { errorNotification, positiveNotification } from '../../custom-hooks/notifications'
+import styled from 'styled-components'
 
 const Admin = () => {
     const labels = config.labels
@@ -35,67 +36,84 @@ const Admin = () => {
             sendEmails: enableEmailAdressNotifications,
             id: configID,
         }
-        const res = await dispatch(updateAdmin(data));
-        if (res.meta.requestStatus==='fulfilled') positiveNotification(toast, labels.configUpdatedSuccessfullyMessage, '');
-        else errorNotification(toast, labels.defaultErrorMessage);
+        const res = await dispatch(updateAdmin(data))
+        if (res.meta.requestStatus === 'fulfilled') positiveNotification(toast, labels.configUpdatedSuccessfullyMessage, '')
+        else errorNotification(toast, labels.defaultErrorMessage)
     }
 
     return (
-        <div style={{padding: '0 2rem 0 2rem'}}>
-            <Toast ref={toast} />
-
-            <div
-                hidden={!error}
-                style={{
-                    display: 'flex',
-                    width: '100%',
-                    flexDirection: 'column',
-                }}
-            >
-                <Message severity='error' text={labels.defaultErrorMessage} />
-            </div>
-            {loading && (
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <i
-                        className='pi pi-spin pi-spinner'
-                        style={{ fontSize: '2em' }}
-                    />
+        <AdminStyle>
+            <div className='admin-border'>
+                <Toast ref={toast} />
+                <div
+                    hidden={!error}
+                    className='admin-error-msg'
+                >
+                    <Message severity='error' text={labels.defaultErrorMessage} />
                 </div>
-            )}
-            <div className='card'>
-                {!loading && !error && (
-                    <div className='p-field'>
-                        <div className='p-field p-col'>
-                            <div className='p-field p-row'>
-                                <h1>Admin Page!</h1>
-                                <p>default email aadress</p>
+                <div className='card'>
+                    {!loading && !error && (
+                        <div className='p-field'>
+                            <div className='p-field p-col'>
+                                <div className='p-field p-row'>
+                                    <h1>Admin Page!</h1>
+                                    <p>default email aadress</p>
+                                    <div>
+                                        <AdminEmailAdress
+                                            email={notificationEmailAdress}
+                                            emailHandler={(e) => {
+                                                dispatch(setEmailAdress(e))
+                                            }}
+                                        />
+                                    </div>
+                                </div>
                                 <div>
-                                    <AdminEmailAdress
-                                        email={notificationEmailAdress}
-                                        emailHandler={(e) => {
-                                            dispatch(setEmailAdress(e))
-                                        }}
+                                    <EmailReminders
+                                        emailReminder={enableEmailAdressNotifications}
+                                        emailReminderHandler={(e) =>
+                                            dispatch(setEmailAdressNotifications(e))
+                                        }
+                                        toolTipMessage={labels.emailReminderLabel}
                                     />
                                 </div>
                             </div>
                             <div>
-                                <EmailReminders
-                                    emailReminder={enableEmailAdressNotifications}
-                                    emailReminderHandler={(e) =>
-                                        dispatch(setEmailAdressNotifications(e))
-                                    }
-                                    toolTipMessage={labels.emailReminderLabel}
-                                />
+                                <Button onClick={submitForm}>Submit</Button>
                             </div>
                         </div>
-                        <div>
-                            <Button onClick={submitForm}>Submit</Button>
-                        </div>
-                    </div>
-                )}
+                    )}
+                </div>
             </div>
-        </div>
+            {loading && (
+                <div className="admin-loading-icon">
+                    <i
+                        className='pi pi-spin pi-spinner'
+                    />
+                </div>
+            )}
+        </AdminStyle>
     )
 }
+
+const AdminStyle = styled.div`
+.admin-border {
+    padding: 0 2rem 0 2rem;
+}
+
+.admin-error-msg {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.admin-loading-icon {
+    display: flex;
+    justify-content: center;
+}
+
+.pi-spinner {
+    font-size: 2em;
+}
+`
 
 export default Admin

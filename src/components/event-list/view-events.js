@@ -6,6 +6,7 @@ import { checkEvents, getEvents } from '../../slicers/eventSlice'
 import FilterTable from './filter-table'
 import config from '../../config.json'
 import { useAppDispatch, useAppSelector } from '../../store'
+import styled from 'styled-components'
 
 const ViewEvents = () => {
     const defaultErrorMessage = config.labels.defaultErrorMessage
@@ -16,7 +17,6 @@ const ViewEvents = () => {
 
     useEffect(() => {
         if (events[0] === undefined) dispatch(getEvents())
-
         if (error!=="") {
             const timer = setInterval(() => {
                 dispatch(getEvents())
@@ -27,10 +27,9 @@ const ViewEvents = () => {
 
     const handleEventCheck = () => dispatch(checkEvents());
     return (
-        <div>
+        <ViewEventsStyle>
             <div
                 hidden={!!error}
-                style={{ padding: '1rem' }}
                 className='p-grid vertical-container'
             >
                 <h5 className='p-col p-col-align-start'>View events: </h5>
@@ -48,24 +47,43 @@ const ViewEvents = () => {
             </div>
             <div
                 hidden={!error}
-                style={{
-                    display: 'flex',
-                    width: '100%',
-                    flexDirection: 'column',
-                }}
-            >
+                className="error-msg"
+                >
                 <Message severity='error' text={defaultErrorMessage} />
             </div>
             {loading && (
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <div className="loading-msg">
                     <i
                         className='pi pi-spin pi-spinner'
-                        style={{ fontSize: '2em' }}
                     />
                 </div>
             )}
             <FilterTable data={events} />
-        </div>
+        </ViewEventsStyle>
     )
 }
+
+const ViewEventsStyle = styled.div`
+
+.vertical-container {
+    padding: 1rem;
+}
+
+.error-msg {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.loading-msg {
+    display: flex;
+    justify-content: center;
+}
+
+.pi-spinner {
+    font-size: 2em;
+}
+`
+
+
 export default memo(ViewEvents)

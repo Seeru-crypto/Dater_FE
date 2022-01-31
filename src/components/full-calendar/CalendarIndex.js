@@ -4,6 +4,7 @@ import config from '../../config.json'
 import { Message } from 'primereact/message'
 import { useAppDispatch, useAppSelector } from '../../store'
 import { getEvents } from '../../slicers/eventSlice'
+import styled from 'styled-components'
 
 const CalendarIndex = () => {
     const [formattedDates, setFormattedDates] = useState([])
@@ -34,19 +35,15 @@ const CalendarIndex = () => {
     }, [error, dispatch, events]);
 
     return (
-        <div>
+        <CalendarStyle>
             <div
+                className="error-message"
                 hidden={!error}
-                style={{
-                    display: 'flex',
-                    width: '100%',
-                    flexDirection: 'column',
-                }}
-            >
+                     >
                 <Message severity="error" text={defaultErrorMessage} />
             </div>
             {!loading && !error && (
-                <div style={{ marginTop: '2rem' }}>
+                <div className="main-desc">
                     <p>
                         This is a general view, where all events are displayed.
                     </p>
@@ -54,14 +51,34 @@ const CalendarIndex = () => {
                 </div>
             )}
             {loading && (
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <div className="calendar-loading-msg">
                     <i
                         className="pi pi-spin pi-spinner"
-                        style={{ fontSize: '2em' }}
                     />
                 </div>
             )}
-        </div>
+        </CalendarStyle>
     )
 }
+
+const CalendarStyle = styled.div`
+.error-message {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.main-desc {
+    margin-top: 2rem;
+}
+
+.calendar-loading-msg {
+    display: flex;
+    justify-content: center;
+}
+
+.pi-spinner {
+    font-size: 2em;
+}
+`
 export default CalendarIndex
