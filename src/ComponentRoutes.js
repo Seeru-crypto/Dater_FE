@@ -27,6 +27,6 @@ const ComponentRoutes = () => {
             </Routes>
         </div>
     )
-};
+}
 
 export default ComponentRoutes

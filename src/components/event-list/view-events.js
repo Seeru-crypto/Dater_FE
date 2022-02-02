@@ -8,6 +8,7 @@ import config from '../../config.json'
 import { useAppDispatch, useAppSelector } from '../../store'
 import styled from 'styled-components'
 
+// ToDo Add searching by name and description
 const ViewEvents = () => {
     const defaultErrorMessage = config.labels.defaultErrorMessage
     const dispatch = useAppDispatch()

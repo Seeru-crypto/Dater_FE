@@ -1,21 +1,18 @@
 import React, { memo, useRef, useState } from 'react'
-
-import { Button } from 'primereact/button'
-import { Card } from 'primereact/card'
 import { Toast } from 'primereact/toast'
 
 import styled from 'styled-components'
 import config from '../../config.json'
 import { errorNotification, infoNotification, positiveNotification } from '../../custom-hooks/notifications'
-import CalendarComponent from './calendar-component'
+import CalendarComponent from '../form-fields/calendar-component'
 import dataValidation from '../../custom-hooks/dataValidation'
-import {
-    EventAccountForYear,
-    EventDescription,
-    EventName,
-    EventReminder,
-    EventReminderInDays,
-} from '../form-components/fields'
+import EventNameField from '../form-fields/event-name'
+import EventDescField from '../form-fields/event-desc'
+import EventSubmitButton from '../form-fields/event-submit-button'
+import EventReminder from '../form-fields/event-reminder-cb'
+import EventYearlyCb from '../form-fields/event-yearly-cb'
+import EventNumberOfDays from '../form-fields/event-number-of-days'
+
 import { useAppDispatch } from '../../store'
 import { createEvent, getEvents } from '../../slicers/eventSlice'
 
@@ -41,15 +38,16 @@ const AddEvent = () => {
     }
 
     const submitForm = async () => {
+        const reminderDays = (reminderInDays === '') ? '0' : reminderInDays
         const data = {
             eventName,
             date,
             reminder,
-            reminderDays: reminderInDays,
+            reminderDays: reminderDays,
             eventDescription,
             accountForYear,
         }
-        const res = await dispatch(createEvent(data));
+        const res = await dispatch(createEvent(data))
         if (res.meta.requestStatus === 'fulfilled') {
             positiveNotification(toast, labels.configUpdatedSuccessfullyMessage, '')
             anulAllFields()
@@ -68,112 +66,59 @@ const AddEvent = () => {
 
     return (
         <EventStyle>
-            <Card className='card-border'>
+
+            <form className='event-add-form'>
+                <h2>ADD NEW EVENT</h2>
                 <Toast ref={toast} />
-                <div className='p-d-flex p-flex-wrap-reverse'>
-                    <div className='p-field p-col'>
-                        <div className='p-field p-col'>
-                            <EventName
-                                name={eventName}
-                                nameHandler={(e) => setEventName(e)}
-                            />
-                        </div>
-                    </div>
+                <EventNameField name={eventName} nameHandler={(e) => setEventName(e)} />
+                <CalendarComponent
+                    dateHandler={dateHandler}
+                    selectedDate={date}
+                />
 
-                    <div className='p-field p-col'>
-                        <div className='p-field p-col'>
-                            <CalendarComponent
-                                dateHandler={dateHandler}
-                                selectedDate={date}
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div
-                    className='p-fluid p-formgrid p-grid additional-settings'
-                >
-                    <div className='p-field p-col'>
-                        <EventDescription
-                            desc={eventDescription}
-                            descHandler={(e) => setDescription(e)}
-                        />
-                    </div>
+                <EventDescField desc={eventDescription} descHandler={(e) => setDescription(e)} />
+                <EventReminder reminder={reminder} reminderHandler={() => setReminder(!reminder)} />
 
-                    <div className='p-field p-col item-padding'>
-                        <h5>Additional settings:</h5>
-                        <div className='p-field-checkbox'>
-                            <EventReminder
-                                reminder={reminder}
-                                reminderHandler={(e) => setReminder(e)}
-                            />
+                {
+                    reminder && (
+                        <div>
+                            <EventYearlyCb eventAccountForYear={accountForYear}
+                                           changeHandler={(e) => setAccountForYear(e)} />
+                            <EventNumberOfDays eventReminderDays={reminderInDays}
+                                               changeHandler={(e) => setReminderInDays(e)} />
                         </div>
-                        {reminder && (
-                            <div>
-                                <EventAccountForYear
-                                    eventAccountForYear={accountForYear}
-                                    changeHandler={(e) => setAccountForYear(e)}
-                                />
-                            </div>
-                        )}
-                    </div>
-                </div>
-                {reminder && (
-                    <div
-                        className='p-fluid p-formgrid p-grid day-notice-bar'
-                    >
-                        <EventReminderInDays
-                            eventReminderDays={reminderInDays}
-                            changeHandler={(e) => setReminderInDays(e)}
-                        />
-                    </div>
-                )}
-                <div
-                    className='p-fluid p-formgrid p-grid btn-div'
-                >
-                    <Button
-                        label='Add Event'
-                        className='p-button-rounded p-button-secondary submit-btn'
-                        onClick={checkData}
-                    />
-                </div>
-            </Card>
+                    )}
+                <EventSubmitButton onClickHandler={() => checkData()} />
+            </form>
         </EventStyle>
     )
 }
 
 const EventStyle = styled.div`
-  align-self: center;
-  flex: 1;
-  color: red;
-  overflow-y: auto;
-  width: 100%;
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
 
-.card-border {
-    padding: 0 2rem 2rem 2rem;
-}
+  --btn: #3da9fc;
+  --btntext: #fffffe;
+  --text: #094067;
+  --paragraph: #5f6c7b;
+  --bkg: #fffffe;
 
-.item-padding {
-    padding: .5rem;
-}
+  font-family: 'Inter', sans-serif;
+  display: grid;
+  place-items: center;
+  min-height: 100vh; // will position items in the middle
+  background-color: var(--bkg);
 
-.btn-div {
-    margin-top: 2rem;
-    justify-content: center;
-}
+  .event-add-form {
+    display: grid;
+    gap: 3rem;
+    border: 4px solid var(--btn);
+    border-radius: .75rem;
+    text-align: center;
+    padding: clamp(1rem, 10vw, 4rem);
+    margin: clamp(1rem, 10vw, 4rem);
+  }
 
-.submit-btn {
-    display: flex;
-    padding: 1rem;
-    width: 15rem;
-}
-
-.additional-settings {
-    margin-top: .5rem;
-}
-
-.day-notice-bar {
-    width: 50%;
-}
 
 `
 

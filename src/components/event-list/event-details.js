@@ -5,7 +5,7 @@ import { Button } from 'primereact/button'
 import { confirmDialog } from 'primereact/confirmdialog'
 import { Toast } from 'primereact/toast'
 import { errorNotification, infoNotification, positiveNotification } from '../../custom-hooks/notifications'
-import CalendarComponent from '../create-event/calendar-component'
+import CalendarComponent from '../form-fields/calendar-component'
 import config from '../../config.json'
 import dataValidation from '../../custom-hooks/dataValidation'
 import styled from 'styled-components'
@@ -19,6 +19,7 @@ import {
 } from '../form-components/fields'
 import { useAppDispatch } from '../../store'
 import { deleteEvent, getEvents, saveUpdatedEvent } from '../../slicers/eventSlice'
+
 export const EventDetails = ({
                                  selectedEvent,
                                  hideModal,
@@ -140,51 +141,51 @@ export const EventDetails = ({
         >
             <Toast ref={toast} />
             <EventDetalStyle>
-            <div className='p-fluid'>
-                <div className='p-field'>
-                    <EventName name={eventName} nameHandler={(e) => setEventName(e)} />
-                </div>
-                <div>
-                    <label htmlFor='selectedDate'>Date:</label>
-                    <CalendarComponent
-                        dateHandler={dateHandler}
-                        selectedDate={new Date(date)}
-                    />
-                </div>
-                <div className='p-field detail-desc'>
-                    <EventDescription
-                        desc={eventDescription}
-                        descHandler={(e) => setDescription(e)}
-                    />
-                </div>
-                <div
-                    className='p-field event-detal-reminder'
-                >
-                    <EventReminder
-                        reminder={reminder}
-                        reminderHandler={(e) => {
-                            setReminder(e)
-                            if (reminder !== 'true') setReminderDays(0)
-                        }}
-                    />
-                </div>
-                {reminder && (
-                    <div>
-                        <div className='p-field-checkbox'>
-                            <EventAccountForYear
-                                eventAccountForYear={accountForYear}
-                                changeHandler={(e) => setAccountForYear(e)}
-                            />
-                        </div>
-                        <div className='p-field'>
-                            <EventReminderInDays
-                                eventReminderDays={reminderDays}
-                                changeHandler={(e) => setReminderDays(e)}
-                            />
-                        </div>
+                <div className='p-fluid'>
+                    <div className='p-field'>
+                        <EventName name={eventName} nameHandler={(e) => setEventName(e)} />
                     </div>
-                )}
-            </div>
+                    <div>
+                        <label htmlFor='selectedDate'>Date:</label>
+                        <CalendarComponent
+                            dateHandler={dateHandler}
+                            selectedDate={new Date(date)}
+                        />
+                    </div>
+                    <div className='p-field detail-desc'>
+                        <EventDescription
+                            desc={eventDescription}
+                            descHandler={(e) => setDescription(e)}
+                        />
+                    </div>
+                    <div
+                        className='p-field event-detal-reminder'
+                    >
+                        <EventReminder
+                            reminder={reminder}
+                            reminderHandler={(e) => {
+                                setReminder(e)
+                                if (reminder !== 'true') setReminderDays(0)
+                            }}
+                        />
+                    </div>
+                    {reminder && (
+                        <div>
+                            <div className='p-field-checkbox'>
+                                <EventAccountForYear
+                                    eventAccountForYear={accountForYear}
+                                    changeHandler={(e) => setAccountForYear(e)}
+                                />
+                            </div>
+                            <div className='p-field'>
+                                <EventReminderInDays
+                                    eventReminderDays={reminderDays}
+                                    changeHandler={(e) => setReminderDays(e)}
+                                />
+                            </div>
+                        </div>
+                    )}
+                </div>
             </EventDetalStyle>
 
         </Dialog>
@@ -192,18 +193,18 @@ export const EventDetails = ({
 }
 
 const EventDetalStyle = styled.div`
-main-dialogue. {
+  main-dialogue. {
     width: 400px;
-}
+  }
 
-.detail-desc {
+  .detail-desc {
     margin-top: 2rem;
-}
+  }
 
-.event-detal-reminder {
+  .event-detal-reminder {
     align-items: center;
     display: flex;
-}
+  }
 `
 
 export default memo(EventDetails)

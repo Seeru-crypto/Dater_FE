@@ -2,11 +2,14 @@ import React from 'react'
 import { Calendar } from 'primereact/calendar'
 import { Dropdown } from 'primereact/dropdown'
 import config from '../../config.json'
+import './form-styles.css'
+
 const CalendarComponent = ({ dateHandler, selectedDate }) => {
     const calendarMinYear = config.calendarMinYear
     const calendarMaxYear = config.calendarMaxYear
     const yearRange = `${calendarMinYear}:${calendarMaxYear}`
 
+    // ToDo redesign it with default date input element!
     const yearNavigatorTemplate = (e) => {
         return (
             <Dropdown
@@ -15,7 +18,7 @@ const CalendarComponent = ({ dateHandler, selectedDate }) => {
                 onChange={(event) =>
                     e.onChange(event.originalEvent, event.value)
                 }
-                className="p-ml-2"
+                className='p-ml-2'
                 style={{ lineHeight: 1 }}
             />
         )
@@ -36,23 +39,24 @@ const CalendarComponent = ({ dateHandler, selectedDate }) => {
     const changeHandler = (e) => dateHandler(e.value)
 
     return (
-        <div className="p-d-flex">
-            <Calendar
-                placeholder="* Add date"
-                dateFormat="dd-mm-yy"
-                id="navigatorstemplate"
-                readOnlyInput={true}
-                value={selectedDate}
-                onChange={(e) => {
-                    changeHandler(e)
-                }}
-                monthNavigator
-                yearNavigator
-                yearRange={yearRange}
-                monthNavigatorTemplate={monthNavigatorTemplate}
-                yearNavigatorTemplate={yearNavigatorTemplate}
-            />
-        </div>
+        <Calendar
+            required={true}
+            className='event-calendar'
+            inputClassName='event-calendar'
+            placeholder='* Add date'
+            dateFormat='dd-mm-yy'
+            id='navigatorstemplate'
+            readOnlyInput={true}
+            value={selectedDate}
+            onChange={(e) => {
+                changeHandler(e)
+            }}
+            monthNavigator
+            yearNavigator
+            yearRange={yearRange}
+            monthNavigatorTemplate={monthNavigatorTemplate}
+            yearNavigatorTemplate={yearNavigatorTemplate}
+        />
     )
 }
 export default CalendarComponent
