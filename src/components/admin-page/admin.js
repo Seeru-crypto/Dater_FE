@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react'
-import { Message } from 'primereact/message'
 import config from '../../config.json'
 import { Button } from 'primereact/button'
 import { Toast } from 'primereact/toast'
@@ -9,6 +8,8 @@ import { useAppDispatch, useAppSelector } from '../../store'
 import { getAdminData, setEmailAdress, setEmailAdressNotifications, updateAdmin } from '../../slicers/adminSlice'
 import { errorNotification, positiveNotification } from '../../custom-hooks/notifications'
 import styled from 'styled-components'
+import ErrorBar from '../functional-components/error-bar'
+import LoadingBar from '../functional-components/loading-bar'
 
 const Admin = () => {
     const labels = config.labels
@@ -43,14 +44,11 @@ const Admin = () => {
 
     return (
         <AdminStyle>
+            <ErrorBar error={error} />
+            <LoadingBar loading={loading} />
             <div className='admin-border'>
                 <Toast ref={toast} />
-                <div
-                    hidden={!error}
-                    className='admin-error-msg'
-                >
-                    <Message severity='error' text={labels.defaultErrorMessage} />
-                </div>
+
                 <div className='card'>
                     {!loading && !error && (
                         <div className='p-field'>
@@ -84,13 +82,6 @@ const Admin = () => {
                     )}
                 </div>
             </div>
-            {loading && (
-                <div className="admin-loading-icon">
-                    <i
-                        className='pi pi-spin pi-spinner'
-                    />
-                </div>
-            )}
         </AdminStyle>
     )
 }
@@ -98,21 +89,6 @@ const Admin = () => {
 const AdminStyle = styled.div`
 .admin-border {
     padding: 0 2rem 0 2rem;
-}
-
-.admin-error-msg {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-}
-
-.admin-loading-icon {
-    display: flex;
-    justify-content: center;
-}
-
-.pi-spinner {
-    font-size: 2em;
 }
 `
 

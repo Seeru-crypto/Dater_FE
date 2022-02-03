@@ -1,5 +1,4 @@
 import React, { memo, useEffect } from 'react'
-import { Message } from 'primereact/message'
 import { Button } from 'primereact/button'
 import { checkEvents, getEvents } from '../../slicers/eventSlice'
 
@@ -7,10 +6,11 @@ import FilterTable from './filter-table'
 import config from '../../config.json'
 import { useAppDispatch, useAppSelector } from '../../store'
 import styled from 'styled-components'
+import ErrorBar from '../functional-components/error-bar'
+import LoadingBar from '../functional-components/loading-bar'
 
 // ToDo Add searching by name and description
 const ViewEvents = () => {
-    const defaultErrorMessage = config.labels.defaultErrorMessage
     const dispatch = useAppDispatch()
     const events = useAppSelector((state) => state.event.events)
     const loading = useAppSelector((state) => state.event.loading)
@@ -46,19 +46,9 @@ const ViewEvents = () => {
                     </div>
                 </div>
             </div>
-            <div
-                hidden={!error}
-                className="error-msg"
-                >
-                <Message severity='error' text={defaultErrorMessage} />
-            </div>
-            {loading && (
-                <div className="loading-msg">
-                    <i
-                        className='pi pi-spin pi-spinner'
-                    />
-                </div>
-            )}
+            <ErrorBar error={error} />
+            <LoadingBar loading={loading} />
+
             <FilterTable data={events} />
         </ViewEventsStyle>
     )
@@ -68,21 +58,6 @@ const ViewEventsStyle = styled.div`
 
 .vertical-container {
     padding: 1rem;
-}
-
-.error-msg {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-}
-
-.loading-msg {
-    display: flex;
-    justify-content: center;
-}
-
-.pi-spinner {
-    font-size: 2em;
 }
 `
 

@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import FullDisplayCalendar from './FullDisplayCalendar'
 import config from '../../config.json'
-import { Message } from 'primereact/message'
 import { useAppDispatch, useAppSelector } from '../../store'
 import { getEvents } from '../../slicers/eventSlice'
 import styled from 'styled-components'
+import LoadingBar from '../functional-components/loading-bar'
+import ErrorBar from '../functional-components/error-bar'
 
 const CalendarIndex = () => {
     const [formattedDates, setFormattedDates] = useState([])
-    const defaultErrorMessage = config.labels.defaultErrorMessage
     const events = useAppSelector((state) => state.event.events)
     const loading = useAppSelector((state) => state.event.loading)
     const error = useAppSelector((state) => state.event.error)
@@ -36,12 +36,8 @@ const CalendarIndex = () => {
 
     return (
         <CalendarStyle>
-            <div
-                className="error-message"
-                hidden={!error}
-                     >
-                <Message severity="error" text={defaultErrorMessage} />
-            </div>
+            <ErrorBar error={error} />
+
             {!loading && !error && (
                 <div className="main-desc">
                     <p>
@@ -50,35 +46,16 @@ const CalendarIndex = () => {
                     <FullDisplayCalendar eventData={formattedDates} />
                 </div>
             )}
-            {loading && (
-                <div className="calendar-loading-msg">
-                    <i
-                        className="pi pi-spin pi-spinner"
-                    />
-                </div>
-            )}
+            <LoadingBar loading={loading} />
+
         </CalendarStyle>
     )
 }
 
 const CalendarStyle = styled.div`
-.error-message {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-}
 
 .main-desc {
     margin-top: 2rem;
-}
-
-.calendar-loading-msg {
-    display: flex;
-    justify-content: center;
-}
-
-.pi-spinner {
-    font-size: 2em;
 }
 `
 export default CalendarIndex
