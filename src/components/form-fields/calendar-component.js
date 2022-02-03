@@ -4,7 +4,7 @@ import { Dropdown } from 'primereact/dropdown'
 import config from '../../config.json'
 import './form-styles.css'
 
-const CalendarComponent = ({ dateHandler, selectedDate }) => {
+const CalendarComponent = ({ dateHandler, selectedDate, missing }) => {
     const calendarMinYear = config.calendarMinYear
     const calendarMaxYear = config.calendarMaxYear
     const yearRange = `${calendarMinYear}:${calendarMaxYear}`
@@ -41,7 +41,7 @@ const CalendarComponent = ({ dateHandler, selectedDate }) => {
     return (
         <Calendar
             required={true}
-            className='event-calendar'
+            className={`event-calendar ${missing ? 'missing' : ''}`}
             inputClassName='event-calendar'
             placeholder='* Add date'
             dateFormat='dd-mm-yy'

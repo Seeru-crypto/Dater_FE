@@ -6,6 +6,7 @@ root {
     --text: #094067;
     --paragraph: #5f6c7b;
     --bkg: #fffffe;
+    --err: #ef4565;
 }
 
 *, *::after, *::before {
@@ -79,4 +80,9 @@ input:valid + .floating-label {
     padding: 1rem 2rem;
     text-transform: uppercase;
     font-size: clamp(1rem, 5vw + 1rem, 1.2rem);
+}
+
+.missing{
+    border: solid 2px;
+    border-color: var(--err);
 }

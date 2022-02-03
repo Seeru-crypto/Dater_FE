@@ -1,4 +1,4 @@
-import React, { memo, useRef, useState } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 import { Toast } from 'primereact/toast'
 
 import styled from 'styled-components'
@@ -23,6 +23,9 @@ const AddEvent = () => {
     const [eventDescription, setDescription] = useState('')
     const [reminderInDays, setReminderInDays] = useState(0)
     const [accountForYear, setAccountForYear] = useState(false)
+    const [missingName, setMissingName] = useState(false);
+    const [missingDate, setMissingDate] = useState(false);
+
     const toast = useRef(null)
     const dispatch = useAppDispatch()
     const labels = config.labels
@@ -32,8 +35,11 @@ const AddEvent = () => {
         setDate(newDate)
     }
 
-    const checkData = () => {
-        if (dataValidation(eventName, date)) return submitForm()
+     const checkData = () => {
+        const validationResult = dataValidation(eventName, date);
+        validationResult.property === 'name' ? setMissingName(true) : setMissingName(false)
+        validationResult.property === 'date' ? setMissingDate(true) : setMissingDate(false)
+        if (validationResult.result) return submitForm();
         infoNotification(toast, labels.invalidFormErrorHeader, labels.invalidFormErrorHeader)
     }
 
@@ -66,12 +72,12 @@ const AddEvent = () => {
 
     return (
         <EventStyle>
-
             <form className='event-add-form'>
-                <h2>ADD NEW EVENT</h2>
+                <h2 className="add-event-header">add new event</h2>
                 <Toast ref={toast} />
-                <EventNameField name={eventName} nameHandler={(e) => setEventName(e)} />
+                <EventNameField name={eventName} nameHandler={(e) => setEventName(e)} missing={missingName} />
                 <CalendarComponent
+                    missing={missingDate}
                     dateHandler={dateHandler}
                     selectedDate={date}
                 />
@@ -88,7 +94,10 @@ const AddEvent = () => {
                                                changeHandler={(e) => setReminderInDays(e)} />
                         </div>
                     )}
-                <EventSubmitButton onClickHandler={() => checkData()} />
+                <EventSubmitButton onClickHandler={(e) => {
+                    e.preventDefault();
+                    checkData()
+                }} />
             </form>
         </EventStyle>
     )
@@ -102,6 +111,7 @@ const EventStyle = styled.div`
   --text: #094067;
   --paragraph: #5f6c7b;
   --bkg: #fffffe;
+  --err: #ef4565;
 
   font-family: 'Inter', sans-serif;
   display: grid;
@@ -109,6 +119,10 @@ const EventStyle = styled.div`
   min-height: 100vh; // will position items in the middle
   background-color: var(--bkg);
 
+  .add-event-header{
+    text-transform: uppercase;
+  }
+  
   .event-add-form {
     display: grid;
     gap: 3rem;
@@ -118,8 +132,6 @@ const EventStyle = styled.div`
     padding: clamp(1rem, 10vw, 4rem);
     margin: clamp(1rem, 10vw, 4rem);
   }
-
-
 `
 
 export default memo(AddEvent)

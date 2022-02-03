@@ -1,10 +1,13 @@
 const dataValidation = (name, date) => {
 
     const checkData = () => {
-        if(name.trim() === "" || date.toString().trim() === "") {
-            return false
+        if(name.trim() === "") {
+            return { result:false, property: "name" }
         }
-        return true;
+        if (date.toString().trim() === ""){
+            return { result:false, property: "date" }
+        }
+        return { result : true };
     }
     return checkData();
 }

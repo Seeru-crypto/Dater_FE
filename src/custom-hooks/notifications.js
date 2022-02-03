@@ -3,7 +3,7 @@ export const positiveNotification = (toast, summary, messageBody) => {
         severity: 'success',
         summary: summary,
         detail: messageBody,
-        life: 3000,
+        life: 5000,
     })
 }
 
@@ -12,7 +12,7 @@ export const infoNotification = (toast, summary, messageBody) => {
         severity: 'info',
         summary: summary,
         detail: messageBody,
-        life: 3000,
+        life: 5000,
     })
 }
 
@@ -21,6 +21,6 @@ export const errorNotification = (toast, summary, messageBody) => {
         severity: 'error',
         summary: summary,
         detail: messageBody,
-        life: 3000,
+        life: 5000,
     })
 }
