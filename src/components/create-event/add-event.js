@@ -13,8 +13,9 @@ import EventReminder from '../form-fields/event-reminder-cb'
 import EventYearlyCb from '../form-fields/event-yearly-cb'
 import EventNumberOfDays from '../form-fields/event-number-of-days'
 
-import { useAppDispatch } from '../../store'
+import { useAppDispatch, useAppSelector } from '../../store'
 import { createEvent, getEvents } from '../../slicers/eventSlice'
+import LoadingBar from '../functional-components/loading-bar'
 
 const AddEvent = () => {
     const [eventName, setEventName] = useState('')
@@ -25,6 +26,7 @@ const AddEvent = () => {
     const [accountForYear, setAccountForYear] = useState(false)
     const [missingName, setMissingName] = useState(false)
     const [missingDate, setMissingDate] = useState(false)
+    const loading = useAppSelector((state) => state.event.loading)
 
     const toast = useRef(null)
     const dispatch = useAppDispatch()
@@ -71,6 +73,13 @@ const AddEvent = () => {
     }
 
     return (
+        <>
+            <AddEventLoadingBar>
+
+                <LoadingBar loading={loading} />
+
+            </AddEventLoadingBar>
+
         <EventStyle>
             <form className='event-add-form'>
                 <h2 className='add-event-header'>add new event</h2>
@@ -99,8 +108,13 @@ const AddEvent = () => {
                 }} />
             </form>
         </EventStyle>
+        </>
     )
 }
+
+const AddEventLoadingBar = styled.div`
+  margin-top: 0.1rem;
+`
 
 const EventStyle = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
@@ -121,7 +135,9 @@ const EventStyle = styled.div`
   .add-event-header {
     text-transform: uppercase;
   }
-
+  .add-loading-bar{
+    margin-top: 30px;
+  }
   .event-add-form {
     display: grid;
     gap: 3rem;
