@@ -18,11 +18,7 @@ const FilterTable = (props) => {
         setData(props.data)
     }, [props])
 
-    const renderBooleanValues = (rowData, item) => {
-        if (typeof rowData[item.field] === 'boolean') return rowData[item.field] ? 'True' : 'False'
-        else return rowData[item.field]
-    }
-
+    const renderBooleanValues = (rowData, item) => rowData[item.field] ? 'True' : 'False'
     const rowActions = (rowData) => {
         return (
             <React.Fragment>

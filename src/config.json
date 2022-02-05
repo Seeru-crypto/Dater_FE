@@ -1,23 +1,53 @@
 {
-    "apiPath": "http://localhost:8080/event",
-    "descMaxLength": 120,
-    "nameMaxLength": 25,
-    "daysNoticeMinValue": 0,
-    "daysNoticeMaxValue": 31,
-    "calendarMinYear": 1960,
-    "calendarMaxYear": 2040,
-    "IntervalValue": 5000,
-    "labels": {
-        "reminderLabel": "Do you want reminders?",
-        "emailReminderLabel": "Enable email reminders for the system",
-        "accountForYearLabel": "Account for year?",
-        "accountForYearTooltip": "Will the reminder be sent every year or on the selected year?",
-        "invalidFormErrorHeader": "Invalid input",
-        "invalidFormErrorBody": "",
-        "defaultErrorMessage": "Connection cannot be established, please try again later",
-        "eventCreatedMessage": "Event Created successfully",
-        "eventUpdatedMessage": "Event updated successfully",
-        "eventDeletedMessage": "Event successfully deleted",
-        "configUpdatedSuccessfullyMessage": "Configurations updated successfully"
+  "apiPath": "http://localhost:8080/event",
+  "sessionStorageThemeLabel": "theme",
+  "descMaxLength": 120,
+  "nameMaxLength": 25,
+  "daysNoticeMinValue": 0,
+  "daysNoticeMaxValue": 31,
+  "calendarMinYear": 1960,
+  "calendarMaxYear": 2040,
+  "IntervalValue": 5000,
+  "labels": {
+    "reminderLabel": "Do you want reminders?",
+    "emailReminderLabel": "Enable email reminders for the system",
+    "accountForYearLabel": "Account for year?",
+    "accountForYearTooltip": "Will the reminder be sent every year or on the selected year?",
+    "invalidFormErrorHeader": "Invalid input",
+    "invalidFormErrorBody": "",
+    "defaultErrorMessage": "Connection cannot be established, please try again later",
+    "eventCreatedMessage": "Event Created successfully",
+    "eventUpdatedMessage": "Event updated successfully",
+    "eventDeletedMessage": "Event successfully deleted",
+    "configUpdatedSuccessfullyMessage": "Configurations updated successfully"
+  },
+  "headerItems": [
+    {
+      "label": "Home",
+      "icon": "pi pi-fw pi-home",
+      "url": "/"
+    },
+    {
+      "label": "Add Event",
+      "icon": "pi pi-fw pi-pencil",
+      "url": "/add"
+    },
+    {
+      "label": "Event list",
+      "icon": "pi pi-fw pi-file",
+      "url": "/eventList"
+    },
+    {
+      "label": "Calendar",
+      "icon": "pi pi-fw pi-calendar",
+      "url": "/fullCalendar",
+      "disabled": false
+    },
+    {
+      "label": "Admin",
+      "icon": "pi pi-fw pi-cog",
+      "url": "/admin",
+      "disabled": false
     }
+  ]
 }
