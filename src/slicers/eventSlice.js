@@ -10,13 +10,13 @@ const initialState = {
 
 // ToDo create selected event Reducer and implement it in Add event & event detail components.
 
-export const getEvents = createAsyncThunk('events/getAllEvents', async () => EventService.getEvents())
+export const getEvents = createAsyncThunk('events/getAllEvents', async () => (await (EventService.getEvents())).data);
 
-export const deleteEvent = createAsyncThunk('events/deleteEvent', async (eventId) => EventService.deleteEvent(eventId))
+export const deleteEvent = createAsyncThunk('events/deleteEvent', async (eventId) => (await EventService.deleteEvent(eventId)).data)
 
-export const saveUpdatedEvent = createAsyncThunk('events/updateEvent', async (reminderEvent) => EventService.updateEvent(reminderEvent))
+export const saveUpdatedEvent = createAsyncThunk('events/updateEvent', async (reminderEvent) => (await EventService.updateEvent(reminderEvent)).data)
 
-export const createEvent = createAsyncThunk('events/createEvent', async (reminderEvent) => EventService.createEvent(reminderEvent))
+export const createEvent = createAsyncThunk('events/createEvent', async (reminderEvent) => (await EventService.createEvent(reminderEvent)).data)
 
 export const checkEvents = createAsyncThunk('events/checkEvents', async () => EventService.checkEvents())
 
@@ -35,7 +35,7 @@ export const eventSlice = createSlice({
         builder.addCase(getEvents.fulfilled, (state, action) => {
             state.loading = false
             state.error = ''
-            state.events = action.payload.data
+            state.events = action.payload
         });
         builder.addCase(getEvents.rejected, (state) => {
             state.error = 'an error has occured'

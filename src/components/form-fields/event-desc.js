@@ -22,7 +22,7 @@ const EventDescription = ({ desc, descHandler }) => {
     return (
         <DescBoxStyle>
             <div className='floating-group desc'>
-                <textarea aria-invalid={false} rows={3} maxLength={config.descMaxLength} value={desc}
+                <textarea aria-invalid={false} rows={4} value={desc}
                           onChange={(e) => inputValidation(e.target.value)}
                           id='eventDesc' />
                 <label className='floating-label' htmlFor='eventDesc'>event description</label>
@@ -35,7 +35,9 @@ const EventDescription = ({ desc, descHandler }) => {
 export default EventDescription
 
 const DescBoxStyle = styled.div`
+
   textarea {
-    resize: none;
+    resize: vertical;
+    overflow: hidden;
   }
 `

@@ -9,9 +9,9 @@ const initialState = {
     configID : ""
 }
 
-export const getAdminData = createAsyncThunk('admin/getAdminData', async () => AdminService.getAdmin());
+export const getAdminData = createAsyncThunk('admin/getAdminData', async () => ( (await (AdminService.getAdmin())).data));
 
-export const updateAdmin = createAsyncThunk('admin/updateAdmin', async (adminDTO) => AdminService.updateAdmin(adminDTO))
+export const updateAdmin = createAsyncThunk('admin/updateAdmin', async (adminDTO) => (await AdminService.updateAdmin(adminDTO)).data)
 
 export const adminSlice = createSlice({
     name: 'admin',
@@ -29,7 +29,7 @@ export const adminSlice = createSlice({
             state.loading = true
         });
         builder.addCase(getAdminData.fulfilled, (state, action) => {
-            const dataObject = action.payload.data[0];
+            const dataObject = action.payload[0];
             state.loading = false
             state.error = ''
             state.notificationEmailAdress = dataObject.emailAddress
