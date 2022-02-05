@@ -4,6 +4,7 @@
 
 /* ToDo Vaheta impordid välja ja eemalda ebavajalikud klassid*/
 
+/*ühtlusta muutujate nimetused ja sisesta muutujad app.css tasemele ja kasuta neid sealt alla poole!*/
 *{
     margin: 0;
     padding: 0;
@@ -16,7 +17,7 @@
 /* ===== Colours ===== */
 :root{
     --body-color: #E4E9F7;
-    --nav-color: #4070F4;
+    --nav-color: #3da9fc;
     --side-nav: #010718;
     --text-color: #FFF;
 }

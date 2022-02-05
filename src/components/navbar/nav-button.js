@@ -16,7 +16,7 @@ const NavButton = ({ text, url, active }) => {
 
 const NavButtonStyle = styled.div`
   .active {
-    color: red;
+    color: #094067;
   }
 `
 
