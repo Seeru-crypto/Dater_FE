@@ -79,4 +79,10 @@ export default PageHeader
 
 const PageHeaderStyle = styled.div`
   margin-bottom: 70px;
+  
+  .dark-light{
+    display: flex;
+    align-items: center;
+  }
+  
 `

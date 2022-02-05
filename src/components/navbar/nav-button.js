@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import React from 'react'
 
+// ToDo change anchors into butoons with anchorm like styling
 const NavButton = ({ text, url, active }) => {
     return (
         <NavButtonStyle>
@@ -15,6 +16,7 @@ const NavButton = ({ text, url, active }) => {
 }
 
 const NavButtonStyle = styled.div`
+  padding-top: 1rem;
   .active {
     color: #094067;
   }

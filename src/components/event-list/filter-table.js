@@ -77,29 +77,29 @@ const FilterTable = (props) => {
                 <Column
                     field='eventName'
                     sortable
-                    header='eventName'
+                    header='Event'
                 />
                 <Column
                     field='date'
                     sortable
-                    header='date'
+                    header='Date'
                     body={renderDateValues}
                 />
                 <Column
                     sortable
                     field='reminder'
                     body={renderBooleanValues}
-                    header='reminder'
+                    header='Reminder'
                 />
                 <Column
                     field='reminderDays'
                     sortable
-                    header='reminderDays'
+                    header='Number of days'
                 />
                 <Column
                     field='eventDescription'
                     sortable
-                    header='eventDescription'
+                    header='Description'
                 />
                 <Column
                     body={rowActions}
