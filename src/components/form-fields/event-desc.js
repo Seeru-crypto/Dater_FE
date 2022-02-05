@@ -1,32 +1,37 @@
 import config from '../../config.json'
 import './form-styles.css'
 import styled from 'styled-components'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import FieldInvalidMsg from './field-invalid-msg'
 
 const EventDescription = ({ desc, descHandler }) => {
+    // ToDo Add continues check, so that uuser can enter invalid chars but cannot submit them
+    const [invalidMsg, setInvalidMsg] = useState('')
 
     useEffect(() => {
-        document.getElementById('eventDesc').setCustomValidity('Input cannot be empty')
-    }, [])
+        if (desc.trim().length === 0) document.getElementById('eventDesc').setCustomValidity('Input cannot be empty');
+    }, []);
+
     const inputValidation = (userInput) => {
         const input = document.getElementById('eventDesc')
-        if (userInput.length <= 100) descHandler(userInput)
-        if (userInput === '') input.setCustomValidity('Input cannot be empty')
-        else input.setCustomValidity('')
+        userInput.length > config.descMaxLength ? setInvalidMsg("Description too long!") : setInvalidMsg("");
+        userInput === '' ?  input.setCustomValidity('Input cannot be empty') : input.setCustomValidity('');
+        descHandler(userInput);
     }
-
 
     return (
         <DescBoxStyle>
             <div className='floating-group desc'>
-                <textarea rows={3} maxLength={config.descMaxLength} value={desc}
+                <textarea aria-invalid={false} rows={3} maxLength={config.descMaxLength} value={desc}
                           onChange={(e) => inputValidation(e.target.value)}
                           id='eventDesc' />
                 <label className='floating-label' htmlFor='eventDesc'>event description</label>
+                <FieldInvalidMsg errorMessage={invalidMsg} />
             </div>
         </DescBoxStyle>
     )
-}
+};
+
 export default EventDescription
 
 const DescBoxStyle = styled.div`

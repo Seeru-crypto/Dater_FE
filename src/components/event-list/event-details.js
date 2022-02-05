@@ -10,15 +10,14 @@ import config from '../../config.json'
 import dataValidation from '../../custom-hooks/dataValidation'
 import styled from 'styled-components'
 
-import {
-    EventAccountForYear,
-    EventDescription,
-    EventName,
-    EventReminder,
-    EventReminderInDays,
-} from '../form-components/fields'
 import { useAppDispatch } from '../../store'
 import { deleteEvent, getEvents, saveUpdatedEvent } from '../../slicers/eventSlice'
+import EventNameField from '../form-fields/event-name'
+import EventDescField from '../form-fields/event-desc'
+import EventYearlyCb from '../form-fields/event-yearly-cb'
+import EventNumberOfDays from '../form-fields/event-number-of-days'
+import EventReminder from '../form-fields/event-reminder-cb'
+
 
 export const EventDetails = ({
                                  selectedEvent,
@@ -40,6 +39,8 @@ export const EventDetails = ({
     const [isoDate, setIsoDate] = useState(
         selectedEvent.date ? selectedEvent.date : null,
     )
+    const [missingName, setMissingName] = useState(false)
+    const [missingDate, setMissingDate] = useState(false)
 
     const eventId = selectedEvent.id
     const dispatch = useAppDispatch()
@@ -79,10 +80,12 @@ export const EventDetails = ({
     }
 
     const checkData = () => {
-        if (dataValidation(eventName, date)) return updateEvent()
-        infoNotification(toast, labels.invalidFormErrorHeader, '')
+        const validationResult = dataValidation(eventName, date, eventDescription)
+        validationResult.property === 'name' ? setMissingName(true) : setMissingName(false)
+        validationResult.property === 'date' ? setMissingDate(true) : setMissingDate(false)
+        if (validationResult.result) return updateEvent()
+        infoNotification(toast, labels.invalidFormErrorHeader, labels.invalidFormErrorHeader)
     }
-
     const deleteSelectedEvent = async () => afterRequestActions(await dispatch(deleteEvent(eventId)))
 
     const updateEvent = async () => {
@@ -135,57 +138,30 @@ export const EventDetails = ({
             visible={showHideModal}
             header='Event Details'
             modal
-            className='p-fluid main-dialogue'
             footer={eventModalFooter}
             onHide={hideModal}
         >
             <Toast ref={toast} />
             <EventDetalStyle>
-                <div className='p-fluid'>
-                    <div className='p-field'>
-                        <EventName name={eventName} nameHandler={(e) => setEventName(e)} />
-                    </div>
-                    <div>
-                        <label htmlFor='selectedDate'>Date:</label>
-                        <CalendarComponent
-                            dateHandler={dateHandler}
-                            selectedDate={new Date(date)}
-                        />
-                    </div>
-                    <div className='p-field detail-desc'>
-                        <EventDescription
-                            desc={eventDescription}
-                            descHandler={(e) => setDescription(e)}
-                        />
-                    </div>
-                    <div
-                        className='p-field event-detal-reminder'
-                    >
-                        <EventReminder
-                            reminder={reminder}
-                            reminderHandler={(e) => {
-                                setReminder(e)
-                                if (reminder !== 'true') setReminderDays(0)
-                            }}
-                        />
-                    </div>
+                <form className='event-add-form'>
+                    <EventNameField name={eventName} nameHandler={(e) => setEventName(e)} missing={missingName} />
+                    <CalendarComponent
+                        missing={missingDate}
+                        dateHandler={dateHandler}
+                        selectedDate={date}
+                    />
+                    <EventDescField desc={eventDescription} descHandler={(e) => setDescription(e)} />
+                    <EventReminder reminder={reminder} reminderHandler={((e) => setReminder(e))} />
+
                     {reminder && (
                         <div>
-                            <div className='p-field-checkbox'>
-                                <EventAccountForYear
-                                    eventAccountForYear={accountForYear}
-                                    changeHandler={(e) => setAccountForYear(e)}
-                                />
-                            </div>
-                            <div className='p-field'>
-                                <EventReminderInDays
-                                    eventReminderDays={reminderDays}
-                                    changeHandler={(e) => setReminderDays(e)}
-                                />
-                            </div>
+                            <EventYearlyCb eventAccountForYear={accountForYear}
+                                           changeHandler={(e) => setAccountForYear(e)} />
+                            <EventNumberOfDays eventReminderDays={reminderDays}
+                                               changeHandler={(e) => setReminderDays(e)} />
                         </div>
                     )}
-                </div>
+                </form>
             </EventDetalStyle>
 
         </Dialog>
@@ -193,9 +169,16 @@ export const EventDetails = ({
 }
 
 const EventDetalStyle = styled.div`
-  main-dialogue. {
-    width: 400px;
-  }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+
+  --btn: #3da9fc;
+  --btntext: #fffffe;
+  --text: #094067;
+  --paragraph: #5f6c7b;
+  --bkg: #fffffe;
+  --err: #ef4565;
+
+  font-family: 'Inter', sans-serif;
 
   .detail-desc {
     margin-top: 2rem;
@@ -204,6 +187,16 @@ const EventDetalStyle = styled.div`
   .event-detal-reminder {
     align-items: center;
     display: flex;
+  }
+
+  display: grid;
+  background-color: var(--bkg);
+
+  .event-add-form {
+    display: grid;
+    gap: 3rem;
+    text-align: center;
+    padding: clamp(1rem, 10vw, 4rem);
   }
 `
 

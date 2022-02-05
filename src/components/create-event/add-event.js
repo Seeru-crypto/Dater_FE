@@ -38,7 +38,7 @@ const AddEvent = () => {
     }
 
     const checkData = () => {
-        const validationResult = dataValidation(eventName, date)
+        const validationResult = dataValidation(eventName, date, eventDescription)
         validationResult.property === 'name' ? setMissingName(true) : setMissingName(false)
         validationResult.property === 'date' ? setMissingDate(true) : setMissingDate(false)
         if (validationResult.result) return submitForm()

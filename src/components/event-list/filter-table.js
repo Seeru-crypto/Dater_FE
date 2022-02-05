@@ -4,6 +4,7 @@ import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { Button } from 'primereact/button'
 import { EventDetails } from './event-details'
+import styled from 'styled-components'
 
 const FilterTable = (props) => {
     const [data, setData] = useState(props.data)
@@ -45,67 +46,71 @@ const FilterTable = (props) => {
     }
 
     return (
-        <div>
-            {data && (
-                <div className='card'>
-                    <DataTable
-                        responsiveLayout='scroll'
-                        paginator
-                        value={data}
-                        paginatorTemplate='CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown'
-                        currentPageReportTemplate='Showing {first} to {last} of {totalRecords}'
-                        rows={10}
-                        rowsPerPageOptions={[10, 20, 50]}
-                    >
-                        <Column
-                            field='eventName'
-                            sortable
-                            header='eventName'
-                        />
-                        <Column
-                            field='date'
-                            sortable
-                            header='date'
-                            body={renderDateValues}
-                        />
-                        <Column
-                            sortable
-                            field='reminder'
-                            body={renderBooleanValues}
-                            header='reminder'
-                        />
-                        <Column
-                            field='reminderDays'
-                            sortable
-                            header='reminderDays'
-                        />
-                        <Column
-                            field='eventDescription'
-                            sortable
-                            header='eventDescription'
-                        />
-                        <Column
-                            body={rowActions}
-                            header='Edit'
-                            headerStyle={{ width: '8em', textAlign: 'center' }}
-                            bodyStyle={{
-                                textAlign: 'center',
-                                overflow: 'visible',
-                            }}
-                        />
-                    </DataTable>
-                </div>
-            )}
+        <EventFilterTableStyle>
+            <DataTable
+                responsiveLayout='scroll'
+                paginator
+                value={data}
+                paginatorTemplate='CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown'
+                currentPageReportTemplate='Showing {first} to {last} of {totalRecords}'
+                rows={10}
+                rowsPerPageOptions={[10, 20, 50]}
+            >
+                <Column
+                    field='eventName'
+                    sortable
+                    header='eventName'
+                />
+                <Column
+                    field='date'
+                    sortable
+                    header='date'
+                    body={renderDateValues}
+                />
+                <Column
+                    sortable
+                    field='reminder'
+                    body={renderBooleanValues}
+                    header='reminder'
+                />
+                <Column
+                    field='reminderDays'
+                    sortable
+                    header='reminderDays'
+                />
+                <Column
+                    field='eventDescription'
+                    sortable
+                    header='eventDescription'
+                />
+                <Column
+                    body={rowActions}
+                    header='Edit'
+                    headerStyle={{ textAlign: 'center' }}
+                    bodyStyle={{
+                        textAlign: 'center',
+                    }}
+                />
+            </DataTable>
             {selectedEvent && (
                 <div>
                     <EventDetails
                         selectedEvent={selectedEvent}
-                        hideModal={() => setShowModal(false)}
+                        hideModal={() => {
+                            setShowModal(false);
+                            setselectedEvent("");
+                        }}
                         modalState={showModal}
                     />
                 </div>
             )}
-        </div>
+        </EventFilterTableStyle>
     )
 }
 export default memo(FilterTable)
+
+const EventFilterTableStyle = styled.div`
+  width: 100vw;
+  overflow-y: auto;
+  transition: 250ms width;
+`
