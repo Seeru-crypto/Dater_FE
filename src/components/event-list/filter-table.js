@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
@@ -12,7 +12,7 @@ const FilterTable = (props) => {
     const [selectedEvent, setselectedEvent] = useState(null)
     const [showModal, setShowModal] = useState(false)
     const [globalFilter, setGlobalFilter] = useState('')
-
+    const ref = useRef(null)
 
     useEffect(() => {
         setData(props.data)
@@ -51,6 +51,8 @@ const FilterTable = (props) => {
     const renderHeader = () => {
         return (
             <div className='header-search'>
+                <Button className='export-btn' type='button' icon='pi pi-external-link' iconPos='left' label='export'
+                        onClick={() => ref.current.exportCSV()} />
                 <span className='p-input-icon-left'>
                     <i className='pi pi-search' />
                     <InputText value={globalFilter} onChange={(e) => setGlobalFilter(e.target.value)}
@@ -66,6 +68,7 @@ const FilterTable = (props) => {
             <DataTable
                 responsiveLayout='scroll'
                 paginator
+                ref={ref}
                 header={renderHeader()}
                 value={data}
                 globalFilter={globalFilter}
@@ -136,5 +139,9 @@ const EventFilterTableStyle = styled.div`
   .header-search {
     display: flex;
     justify-content: end;
+  }
+
+  .export-btn {
+    margin-right: 1rem;
   }
 `
