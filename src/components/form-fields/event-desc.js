@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { useEffect, useState } from 'react'
 import FieldInvalidMsg from './field-invalid-msg'
 
-const EventDescription = ({ desc, descHandler }) => {
+const EventDescription = ({ desc, descHandler, missing }) => {
     // ToDo Add continues check, so that uuser can enter invalid chars but cannot submit them
     const [invalidMsg, setInvalidMsg] = useState('')
 
@@ -23,6 +23,7 @@ const EventDescription = ({ desc, descHandler }) => {
         <DescBoxStyle>
             <div className='floating-group desc'>
                 <textarea aria-invalid={false} rows={4} value={desc}
+                          className={`desc ${missing ? 'missing' : ''}`}
                           onChange={(e) => inputValidation(e.target.value)}
                           id='eventDesc' />
                 <label className='floating-label' htmlFor='eventDesc'>event description</label>

@@ -85,8 +85,9 @@ export const EventDetails = ({
         validationResult.property === 'date' ? setMissingDate(true) : setMissingDate(false)
         if (validationResult.result) return updateEvent()
         infoNotification(toast, labels.invalidFormErrorHeader, labels.invalidFormErrorHeader)
-    }
-    const deleteSelectedEvent = async () => afterRequestActions(await dispatch(deleteEvent(eventId)))
+    };
+
+    const deleteSelectedEvent = async () => afterRequestActions({ requestResponse: await dispatch(deleteEvent(eventId)) , dispatchedAction: 'delete' });
 
     const updateEvent = async () => {
         const data = {
@@ -98,12 +99,13 @@ export const EventDetails = ({
             eventDescription,
             accountForYear,
         }
-        afterRequestActions(await dispatch(saveUpdatedEvent(data)))
+        afterRequestActions({ requestResponse:await dispatch(saveUpdatedEvent(data)) , dispatchedAction: 'update' });
     }
 
-    const afterRequestActions = (res) => {
+    const afterRequestActions = ({ requestResponse: res, dispatchedAction }) => {
         if (res.meta.requestStatus === 'fulfilled') {
-            positiveNotification(toast, labels.eventUpdatedMessage, '')
+            const toastMessage = dispatchedAction==='update' ? labels.eventUpdatedMessage : labels.eventDeletedMessage;
+            positiveNotification(toast, toastMessage, '')
             dispatch(getEvents())
         } else errorNotification(toast, labels.defaultErrorMessage)
     }

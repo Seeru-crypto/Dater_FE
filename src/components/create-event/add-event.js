@@ -24,8 +24,9 @@ const AddEvent = () => {
     const [eventDescription, setDescription] = useState('')
     const [reminderInDays, setReminderInDays] = useState(0)
     const [accountForYear, setAccountForYear] = useState(false)
-    const [missingName, setMissingName] = useState(false)
-    const [missingDate, setMissingDate] = useState(false)
+    const [invalidName, setInvalidName] = useState(false)
+    const [invalidDesc, setInvalidDesc] = useState(false)
+    const [invalidDate, setInvalidDate] = useState(false)
     const loading = useAppSelector((state) => state.event.loading)
 
     const toast = useRef(null)
@@ -39,10 +40,11 @@ const AddEvent = () => {
 
     const checkData = () => {
         const validationResult = dataValidation(eventName, date, eventDescription)
-        validationResult.property === 'name' ? setMissingName(true) : setMissingName(false)
-        validationResult.property === 'date' ? setMissingDate(true) : setMissingDate(false)
+        validationResult.property === 'name' ? setInvalidName(true) : setInvalidName(false)
+        validationResult.property === 'date' ? setInvalidDate(true) : setInvalidDate(false)
+        validationResult.property === 'desc' ? setInvalidDesc(true) : setInvalidDesc(false)
         if (validationResult.result) return submitForm()
-        infoNotification(toast, labels.invalidFormErrorHeader, labels.invalidFormErrorHeader)
+        infoNotification(toast, labels.invalidFormErrorHeader, '')
     }
 
     const submitForm = async () => {
@@ -57,7 +59,7 @@ const AddEvent = () => {
         }
         const res = await dispatch(createEvent(data))
         if (res.meta.requestStatus === 'fulfilled') {
-            positiveNotification(toast, labels.configUpdatedSuccessfullyMessage, '')
+            positiveNotification(toast, labels.eventCreatedMessage, '')
             anulAllFields()
             dispatch(getEvents())
         } else errorNotification(toast, labels.defaultErrorMessage)
@@ -80,34 +82,35 @@ const AddEvent = () => {
 
             </AddEventLoadingBar>
 
-        <EventStyle>
-            <form className='event-add-form'>
-                <h2 className='add-event-header'>add new event</h2>
-                <Toast ref={toast} />
-                <EventNameField name={eventName} nameHandler={(e) => setEventName(e)} missing={missingName} />
-                <CalendarComponent
-                    missing={missingDate}
-                    dateHandler={dateHandler}
-                    selectedDate={date}
-                />
+            <EventStyle>
+                <form className='event-add-form'>
+                    <h2 className='add-event-header'>add new event</h2>
+                    <Toast ref={toast} />
+                    <EventNameField name={eventName} nameHandler={(e) => setEventName(e)} missing={invalidName} />
+                    <CalendarComponent
+                        missing={invalidDate}
+                        dateHandler={dateHandler}
+                        selectedDate={date}
+                    />
 
-                <EventDescField desc={eventDescription} descHandler={(e) => setDescription(e)} />
-                <EventReminder reminder={reminder} reminderHandler={() => setReminder(!reminder)} />
+                    <EventDescField desc={eventDescription} descHandler={(e) => setDescription(e)} missing={invalidDesc}
+                    />
+                    <EventReminder reminder={reminder} reminderHandler={() => setReminder(!reminder)} />
 
-                {reminder && (
-                    <div>
-                        <EventYearlyCb eventAccountForYear={accountForYear}
-                                       changeHandler={(e) => setAccountForYear(e)} />
-                        <EventNumberOfDays eventReminderDays={reminderInDays}
-                                           changeHandler={(e) => setReminderInDays(e)} />
-                    </div>
-                )}
-                <EventSubmitButton onClickHandler={(e) => {
-                    e.preventDefault()
-                    checkData()
-                }} />
-            </form>
-        </EventStyle>
+                    {reminder && (
+                        <div>
+                            <EventYearlyCb eventAccountForYear={accountForYear}
+                                           changeHandler={(e) => setAccountForYear(e)} />
+                            <EventNumberOfDays eventReminderDays={reminderInDays}
+                                               changeHandler={(e) => setReminderInDays(e)} />
+                        </div>
+                    )}
+                    <EventSubmitButton onClickHandler={(e) => {
+                        e.preventDefault()
+                        checkData()
+                    }} />
+                </form>
+            </EventStyle>
         </>
     )
 }
@@ -135,9 +138,11 @@ const EventStyle = styled.div`
   .add-event-header {
     text-transform: uppercase;
   }
-  .add-loading-bar{
+
+  .add-loading-bar {
     margin-top: 30px;
   }
+
   .event-add-form {
     display: grid;
     gap: 3rem;
