@@ -3,6 +3,7 @@ import React, { memo, useEffect, useState } from 'react'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { Button } from 'primereact/button'
+import { InputText } from 'primereact/inputtext'
 import { EventDetails } from './event-details'
 import styled from 'styled-components'
 
@@ -10,6 +11,8 @@ const FilterTable = (props) => {
     const [data, setData] = useState(props.data)
     const [selectedEvent, setselectedEvent] = useState(null)
     const [showModal, setShowModal] = useState(false)
+    const [globalFilter, setGlobalFilter] = useState('')
+
 
     useEffect(() => {
         setData(props.data)
@@ -45,12 +48,28 @@ const FilterTable = (props) => {
         return `${day}-${month}-${year}`
     }
 
+    const renderHeader = () => {
+        return (
+            <div className='header-search'>
+                <span className='p-input-icon-left'>
+                    <i className='pi pi-search' />
+                    <InputText value={globalFilter} onChange={(e) => setGlobalFilter(e.target.value)}
+                               placeholder='Keyword Search' />
+                </span>
+            </div>
+        )
+    }
+
+
     return (
         <EventFilterTableStyle>
             <DataTable
                 responsiveLayout='scroll'
                 paginator
+                header={renderHeader()}
                 value={data}
+                globalFilter={globalFilter}
+                emptyMessage='No events found'
                 paginatorTemplate='CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown'
                 currentPageReportTemplate='Showing {first} to {last} of {totalRecords}'
                 rows={10}
@@ -97,8 +116,8 @@ const FilterTable = (props) => {
                     <EventDetails
                         selectedEvent={selectedEvent}
                         hideModal={() => {
-                            setShowModal(false);
-                            setselectedEvent("");
+                            setShowModal(false)
+                            setselectedEvent('')
                         }}
                         modalState={showModal}
                     />
@@ -113,4 +132,9 @@ const EventFilterTableStyle = styled.div`
   width: 100vw;
   overflow-y: auto;
   transition: 250ms width;
+
+  .header-search {
+    display: flex;
+    justify-content: end;
+  }
 `

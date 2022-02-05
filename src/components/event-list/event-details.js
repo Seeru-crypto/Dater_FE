@@ -39,8 +39,9 @@ export const EventDetails = ({
     const [isoDate, setIsoDate] = useState(
         selectedEvent.date ? selectedEvent.date : null,
     )
-    const [missingName, setMissingName] = useState(false)
-    const [missingDate, setMissingDate] = useState(false)
+    const [invalidName, setInvalidName] = useState(false)
+    const [invalidDate, setInvalidDate] = useState(false)
+    const [invalidDesc, setInvalidDesc] = useState(false)
 
     const eventId = selectedEvent.id
     const dispatch = useAppDispatch()
@@ -81,8 +82,9 @@ export const EventDetails = ({
 
     const checkData = () => {
         const validationResult = dataValidation(eventName, date, eventDescription)
-        validationResult.property === 'name' ? setMissingName(true) : setMissingName(false)
-        validationResult.property === 'date' ? setMissingDate(true) : setMissingDate(false)
+        validationResult.property === 'name' ? setInvalidName(true) : setInvalidName(false)
+        validationResult.property === 'date' ? setInvalidDate(true) : setInvalidDate(false)
+        validationResult.property === 'desc' ? setInvalidDesc(true) : setInvalidDesc(false)
         if (validationResult.result) return updateEvent()
         infoNotification(toast, labels.invalidFormErrorHeader, labels.invalidFormErrorHeader)
     };
@@ -146,13 +148,13 @@ export const EventDetails = ({
             <Toast ref={toast} />
             <EventDetalStyle>
                 <form className='event-add-form'>
-                    <EventNameField name={eventName} nameHandler={(e) => setEventName(e)} missing={missingName} />
+                    <EventNameField name={eventName} nameHandler={(e) => setEventName(e)} missing={invalidName} />
                     <CalendarComponent
-                        missing={missingDate}
+                        missing={invalidDate}
                         dateHandler={dateHandler}
                         selectedDate={date}
                     />
-                    <EventDescField desc={eventDescription} descHandler={(e) => setDescription(e)} />
+                    <EventDescField desc={eventDescription} descHandler={(e) => setDescription(e)} missing={invalidDesc} />
                     <EventReminder reminder={reminder} reminderHandler={((e) => setReminder(e))} />
 
                     {reminder && (

@@ -48,7 +48,6 @@ const ViewEvents = () => {
             </div>
             <ErrorBar error={error} />
             <LoadingBar loading={loading} />
-
             <FilterTable data={events} />
         </ViewEventsStyle>
     )

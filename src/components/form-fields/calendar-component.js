@@ -43,7 +43,7 @@ const CalendarComponent = ({ dateHandler, selectedDate, missing }) => {
             required={true}
             className={`event-calendar ${missing ? 'missing' : ''}`}
             inputClassName='event-calendar'
-            placeholder='* Add date'
+            placeholder='Add date'
             dateFormat='dd-mm-yy'
             id='navigatorstemplate'
             readOnlyInput={true}
