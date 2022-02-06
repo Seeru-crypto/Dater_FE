@@ -1,37 +1,6 @@
-/* ===== Google Font Import - Poppins ===== */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-@import url('https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css');
-
-/* ToDo Vaheta impordid välja ja eemalda ebavajalikud klassid*/
-
-/*ühtlusta muutujate nimetused ja sisesta muutujad app.css tasemele ja kasuta neid sealt alla poole!*/
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-    transition: all 0.4s ease;;
-}
-
-
-/* ===== Colours ===== */
-:root{
-    --body-color: #E4E9F7;
-    --nav-color: #3da9fc;
-    --side-nav: #010718;
-    --text-color: #FFF;
-}
-
 body{
     height: 100vh;
-    background-color: var(--body-color);
-}
-
-.dark{
-    --body-color: #18191A;
-    --nav-color: #242526;
-    --side-nav: #242526;
-    --text-color: #CCC;
+    background-color: var(--bkg);
 }
 
 nav{
@@ -40,13 +9,8 @@ nav{
     left: 0;
     height: 70px;
     width: 100%;
-    background-color: var(--nav-color);
+    background-color: var(--nav-bkg-color);
     z-index: 100;
-}
-
-.dark nav{
-    border: 1px solid #393838;
-
 }
 
 nav .nav-bar{
@@ -54,7 +18,7 @@ nav .nav-bar{
     height: 100%;
     max-width: 1000px;
     width: 100%;
-    background-color: var(--nav-color);
+    background-color: var(--nav-bkg-color);
     margin: 0 auto;
     padding: 0 30px;
     display: flex;
@@ -63,7 +27,7 @@ nav .nav-bar{
 }
 
 nav .nav-bar .sidebarOpen{
-    color: var(--text-color);
+    color: var(--nav-text-color);
     font-size: 25px;
     padding: 5px;
     cursor: pointer;
@@ -73,7 +37,7 @@ nav .nav-bar .sidebarOpen{
 nav .nav-bar .logo a{
     font-size: 25px;
     font-weight: 500;
-    color: var(--text-color);
+    color: var(--nav-text-color);
     text-decoration: none;
 }
 
@@ -95,7 +59,7 @@ nav .nav-bar .logo a{
     position: relative;
     font-size: 17px;
     font-weight: 400;
-    color: var(--text-color);
+    color: var(--nav-text-color);
     text-decoration: none;
     padding: 10px;
 }
@@ -109,7 +73,7 @@ nav .nav-bar .logo a{
     height: 6px;
     width: 6px;
     border-radius: 50%;
-    background-color: var(--text-color);
+    background-color: var(--nav-text-color);
     opacity: 0;
     transition: all 0.3s ease;
 }
@@ -118,30 +82,33 @@ nav .nav-bar .logo a{
     opacity: 1;
 }
 
-
-
 .dark-light i,
 .searchToggle i{
     position: absolute;
-    color: var(--text-color);
+    color: var(--nav-text-color);
     font-size: 22px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-.dark-light i.sun{
+.moon {
     opacity: 0;
     pointer-events: none;
 }
 
-.dark-light.active i.sun{
+.sun{
+    opacity: 0;
+    pointer-events: none;
+}
+
+ .sun.active{
     opacity: 1;
     pointer-events: auto;
 }
 
-.dark-light.active i.moon{
-    opacity: 0;
-    pointer-events: none;
+.moon.active{
+    opacity: 1;
+    pointer-events: auto;
 }
 
 @media (max-width: 790px) {
@@ -156,7 +123,7 @@ nav .nav-bar .logo a{
         left: -100%;
         top: 0;
         padding: 20px;
-        background-color: var(--side-nav);
+        background-color: var(--side-nav-bkg);
         z-index: 100;
         transition: all 0.4s ease;
     }
@@ -179,7 +146,7 @@ nav .nav-bar .logo a{
     }
 
     .logo-toggle .siderbarClose{
-        color: var(--text-color);
+        color: var(--nav-text-color);
         font-size: 24px;
         cursor: pointer;
     }

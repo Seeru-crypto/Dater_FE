@@ -1,22 +1,22 @@
+import React, {memo,  useEffect, useState } from 'react'
 import config from '../../config.json'
 import './form-styles.css'
 import styled from 'styled-components'
-import { useEffect, useState } from 'react'
 import FieldInvalidMsg from './field-invalid-msg'
 
 const EventDescription = ({ desc, descHandler, missing }) => {
-    // ToDo Add continues check, so that uuser can enter invalid chars but cannot submit them
     const [invalidMsg, setInvalidMsg] = useState('')
 
     useEffect(() => {
-        if (desc.trim().length === 0) document.getElementById('eventDesc').setCustomValidity('Input cannot be empty');
-    }, []);
+        if (desc.trim().length === 0) document.getElementById('eventDesc').setCustomValidity('Input cannot be empty')
+    }, [])
 
     const inputValidation = (userInput) => {
         const input = document.getElementById('eventDesc')
-        userInput.length > config.descMaxLength ? setInvalidMsg("Description too long!") : setInvalidMsg("");
-        userInput === '' ?  input.setCustomValidity('Input cannot be empty') : input.setCustomValidity('');
-        descHandler(userInput);
+        if (userInput.length > config.DESC_MAX_LEN - 10) setInvalidMsg(`${userInput.length}\/${config.DESC_MAX_LEN}`)
+        else setInvalidMsg("");
+        userInput === '' ? input.setCustomValidity('Input cannot be empty') : input.setCustomValidity('')
+        descHandler(userInput)
     }
 
     return (
@@ -31,9 +31,9 @@ const EventDescription = ({ desc, descHandler, missing }) => {
             </div>
         </DescBoxStyle>
     )
-};
+}
 
-export default EventDescription
+export default memo(EventDescription)
 
 const DescBoxStyle = styled.div`
 

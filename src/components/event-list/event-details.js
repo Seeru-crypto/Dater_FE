@@ -28,7 +28,7 @@ export const EventDetails = ({
     const [eventDescription, setDescription] = useState(
         selectedEvent.description,
     )
-    const labels = config.labels
+    const labels = config.LABELS
     const [eventName, setEventName] = useState(selectedEvent.eventName)
     const [date, setDate] = useState(selectedEvent.date)
     const [reminder, setReminder] = useState(selectedEvent.reminder)
@@ -86,10 +86,13 @@ export const EventDetails = ({
         validationResult.property === 'date' ? setInvalidDate(true) : setInvalidDate(false)
         validationResult.property === 'desc' ? setInvalidDesc(true) : setInvalidDesc(false)
         if (validationResult.result) return updateEvent()
-        infoNotification(toast, labels.invalidFormErrorHeader, labels.invalidFormErrorHeader)
-    };
+        infoNotification(toast, labels.INVALID_FORM_ERR_HEADER, labels.INVALID_FORM_ERR_HEADER)
+    }
 
-    const deleteSelectedEvent = async () => afterRequestActions({ requestResponse: await dispatch(deleteEvent(eventId)) , dispatchedAction: 'delete' });
+    const deleteSelectedEvent = async () => afterRequestActions({
+        requestResponse: await dispatch(deleteEvent(eventId)),
+        dispatchedAction: 'delete',
+    })
 
     const updateEvent = async () => {
         const data = {
@@ -101,15 +104,15 @@ export const EventDetails = ({
             eventDescription,
             accountForYear,
         }
-        afterRequestActions({ requestResponse:await dispatch(saveUpdatedEvent(data)) , dispatchedAction: 'update' });
+        afterRequestActions({ requestResponse: await dispatch(saveUpdatedEvent(data)), dispatchedAction: 'update' })
     }
 
     const afterRequestActions = ({ requestResponse: res, dispatchedAction }) => {
         if (res.meta.requestStatus === 'fulfilled') {
-            const toastMessage = dispatchedAction==='update' ? labels.eventUpdatedMessage : labels.eventDeletedMessage;
+            const toastMessage = dispatchedAction === 'update' ? labels.EVENT_UPDATED_MSG : labels.EVENT_DELETED_MSG
             positiveNotification(toast, toastMessage, '')
             dispatch(getEvents())
-        } else errorNotification(toast, labels.defaultErrorMessage)
+        } else errorNotification(toast, labels.DEFAULT_ERR_MSG)
     }
 
     const eventModalFooter = (
@@ -152,9 +155,10 @@ export const EventDetails = ({
                     <CalendarComponent
                         missing={invalidDate}
                         dateHandler={dateHandler}
-                        selectedDate={date}
+                        selectedDate={new Date(date)}
                     />
-                    <EventDescField desc={eventDescription} descHandler={(e) => setDescription(e)} missing={invalidDesc} />
+                    <EventDescField desc={eventDescription} descHandler={(e) => setDescription(e)}
+                                    missing={invalidDesc} />
                     <EventReminder reminder={reminder} reminderHandler={((e) => setReminder(e))} />
 
                     {reminder && (

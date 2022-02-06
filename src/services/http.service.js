@@ -1,9 +1,8 @@
 import axios from 'axios';
-
-const backendUrl = "http://localhost:8080";
+import config from "../config.json"
 
 const http = axios.create({
-    baseURL: backendUrl,
+    baseURL: config.API_PATH,
     headers: {
         'Content-Type': 'application/json',
     }

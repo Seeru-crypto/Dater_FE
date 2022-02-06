@@ -18,7 +18,7 @@ const NavButton = ({ text, url, active }) => {
 const NavButtonStyle = styled.div`
   padding-top: 1rem;
   .active {
-    color: #094067;
+    color: var(--text);
   }
 `
 

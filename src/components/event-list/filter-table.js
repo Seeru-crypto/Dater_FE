@@ -6,10 +6,12 @@ import { Button } from 'primereact/button'
 import { InputText } from 'primereact/inputtext'
 import { EventDetails } from './event-details'
 import styled from 'styled-components'
+import { Toolbar } from 'primereact/toolbar'
 
 const FilterTable = (props) => {
     const [data, setData] = useState(props.data)
     const [selectedEvent, setselectedEvent] = useState(null)
+    const [selectedEvents, setSelectedEvents] = useState([])
     const [showModal, setShowModal] = useState(false)
     const [globalFilter, setGlobalFilter] = useState('')
     const ref = useRef(null)
@@ -17,6 +19,10 @@ const FilterTable = (props) => {
     useEffect(() => {
         setData(props.data)
     }, [props])
+
+    useEffect(() => {
+        console.log(selectedEvents)
+    }, [selectedEvents])
 
     const renderBooleanValues = (rowData, item) => rowData[item.field] ? 'True' : 'False'
     const rowActions = (rowData) => {
@@ -43,11 +49,18 @@ const FilterTable = (props) => {
         let year = date.getFullYear()
         return `${day}-${month}-${year}`
     }
-
-    const renderHeader = () => {
+    const leftToolbar = () => {
+        return (
+            <React.Fragment>
+                <Button label='Delete' icon='pi pi-trash' className='p-button-danger'
+                        disabled={selectedEvents.length === 0} />
+            </React.Fragment>
+        )
+    }
+    const rightToolbar = () => {
         return (
             <div className='header-search'>
-                <Button className='export-btn' type='button' icon='pi pi-external-link' iconPos='left' label='export'
+                <Button className='p-button-outlined p-button-secondary' type='button' label='export'
                         onClick={() => ref.current.exportCSV()} />
                 <span className='p-input-icon-left'>
                     <i className='pi pi-search' />
@@ -61,11 +74,14 @@ const FilterTable = (props) => {
 
     return (
         <EventFilterTableStyle>
+            <Toolbar left={leftToolbar} right={rightToolbar} />
             <DataTable
                 responsiveLayout='scroll'
+                selection={selectedEvents}
+                onSelectionChange={(e) => setSelectedEvents(e.value)}
                 paginator
                 ref={ref}
-                header={renderHeader()}
+                // header={rightToolbar()}
                 value={data}
                 globalFilter={globalFilter}
                 emptyMessage='No events found'
@@ -74,6 +90,7 @@ const FilterTable = (props) => {
                 rows={10}
                 rowsPerPageOptions={[10, 20, 50]}
             >
+                <Column className='table-selector' selectionMode='multiple' exportable={false} />
                 <Column
                     field='eventName'
                     sortable
@@ -128,7 +145,6 @@ const FilterTable = (props) => {
 export default memo(FilterTable)
 
 const EventFilterTableStyle = styled.div`
-  width: 100vw;
   overflow-y: auto;
   transition: 250ms width;
 
@@ -137,7 +153,42 @@ const EventFilterTableStyle = styled.div`
     justify-content: end;
   }
 
+  .p-toolbar {
+    background-color: var(--bkg);
+    color: var(--text);
+  }
+
   .export-btn {
     margin-right: 1rem;
+  }
+
+  .p-datatable .p-datatable-tbody > tr {
+    background-color: var(--bkg);
+    color: var(--text);
+  }
+
+  .p-paginator.p-paginator-bottom {
+    background-color: var(--bkg);
+    color: var(--text);
+  }
+
+  .p-datatable .p-datatable-header, .p-paginator .p-dropdown {
+    background-color: var(--bkg);
+    color: var(--text);
+  }
+
+  .p-datatable .p-datatable-thead > tr > th {
+    background-color: var(--bkg);
+    color: var(--text);
+  }
+
+  .p-button-outlined.p-button-secondary {
+    background-color: var(--bkg);
+    color: var(--text);
+    margin-right: 1rem;
+  }
+
+  .table-selector {
+    width: 3rem
   }
 `

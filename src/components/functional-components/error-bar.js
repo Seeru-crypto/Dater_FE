@@ -7,7 +7,7 @@ const ErrorBar = ({ error }) => {
 
     return (
         <ErrorBarStyle hidden={!error}>
-            <Message className='error-msg' severity='error' text={config.labels.defaultErrorMessage} />
+            <Message className='error-msg' severity='error' text={config.LABELS.DEFAULT_ERR_MSG} />
         </ErrorBarStyle>
     )
 }

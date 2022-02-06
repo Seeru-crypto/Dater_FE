@@ -7,7 +7,7 @@ const EventNumberOfDays = ({ eventReminderDays, changeHandler }) => {
 
     const inputValidation = (userInput) => {
         const input = document.getElementById('eventNumberOfDays')
-        if (parseInt(userInput, 10) <= config.daysNoticeMaxValue || userInput === '') changeHandler(userInput)
+        if (parseInt(userInput, 10) <= config.DAYS_NOTICE_MAX_VAL || userInput === '') changeHandler(userInput)
         if (userInput === '') input.setCustomValidity('Input cannot be empty')
         else input.setCustomValidity('')
     }
@@ -16,7 +16,7 @@ const EventNumberOfDays = ({ eventReminderDays, changeHandler }) => {
         <EventNumberStyle>
             <div className='floating-group'>
                 <input type='number'
-                       max={config.daysNoticeMaxValue}
+                       max={config.DAYS_NOTICE_MAX_VAL}
                        maxLength={2}
                        value={eventReminderDays} onChange={(e) => inputValidation(e.target.value)}
                        id='eventNumberOfDays' />

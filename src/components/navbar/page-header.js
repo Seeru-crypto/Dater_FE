@@ -4,34 +4,39 @@ import './header.css'
 import config from '../../config.json'
 import { useNavigate } from 'react-router-dom'
 import NavButton from './nav-button'
+import { useAppDispatch, useAppSelector } from '../../store'
+import { setIsLightMode } from '../../slicers/adminSlice'
 
 // ToDo vaheta ikoonid välja kohalike vastu
 
 const PageHeader = () => {
-    const [isLightMode, setIsLightMode] = useState(true)
+
     const [sidebarToggle, setSidebarToggle] = useState(false)
     const [currentPage, setCurrentPage] = useState('home')
     const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+    const isLightMode = useAppSelector((state) => state.admin.isLightMode)
 
     const navigateToUrl = (e, item) => {
         e.preventDefault()
         if (item.url) {
             navigate(item.url)
         }
-
         const currentUrl = window.location.href
         const urlLastPart = currentUrl.substr(currentUrl.lastIndexOf('/'))
-        setCurrentPage(urlLastPart)
+        setCurrentPage(urlLastPart);
+        toggleSidebar();
     }
     const [headerItems] = useState(config.headerItems)
 
     useEffect(() => {
-        setIsLightMode(sessionStorage.getItem(config.sessionStorageThemeLabel) === 'true')
+        const value = sessionStorage.getItem(config.SESSION_STORAGE_LABEL) === 'true'
+        dispatch(setIsLightMode(value))
     }, [])
 
     const changeTheme = () => {
-        sessionStorage.setItem(config.sessionStorageThemeLabel, !isLightMode)
-        setIsLightMode(!isLightMode)
+        sessionStorage.setItem(config.SESSION_STORAGE_LABEL, !isLightMode)
+        dispatch(setIsLightMode(!isLightMode))
     }
 
     const toggleSidebar = () => setSidebarToggle(!sidebarToggle)
@@ -42,11 +47,11 @@ const PageHeader = () => {
                 <nav className={`${sidebarToggle ? 'active' : ''}`}>
                     <div className='nav-bar'>
                         <i onClick={toggleSidebar} className='bx bx-menu sidebarOpen' />
-                        <span className='logo navLogo'><a href='#'>Dater</a></span>
+                        <span className='logo navLogo'><a href='/'>Dater</a></span>
 
                         <div className='menu'>
                             <div className='logo-toggle'>
-                                <span className='logo'><a href='#'>Dater</a></span>
+                                <span className='logo'><a href='/'>Dater</a></span>
                                 <i onClick={toggleSidebar} className='bx bx-x siderbarClose' />
                             </div>
 
@@ -64,10 +69,10 @@ const PageHeader = () => {
 
                         <div className='darkLight-searchBox'>
                             <div className='dark-light'>
-                                <i onClick={changeTheme} className='bx bx-moon moon' />
-                                <i className='bx bx-sun sun' />
+                                <i onClick={changeTheme} className={`bx bx-sun sun ${isLightMode ? 'active' : ''} `} />
+                                <i onClick={changeTheme}
+                                   className={`bx bx-moon moon ${!isLightMode ? 'active' : ''}`} />
                             </div>
-
                         </div>
                     </div>
                 </nav>
@@ -79,10 +84,10 @@ export default PageHeader
 
 const PageHeaderStyle = styled.div`
   margin-bottom: 70px;
-  
-  .dark-light{
+
+  .dark-light {
     display: flex;
     align-items: center;
   }
-  
+
 `

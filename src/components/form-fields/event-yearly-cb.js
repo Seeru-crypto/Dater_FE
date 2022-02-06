@@ -1,12 +1,12 @@
+import React, {memo} from 'react'
 import { Checkbox } from 'primereact/checkbox'
-import React from 'react'
-import config from '../../config.json'
 import styled from 'styled-components'
+import config from '../../config.json'
 import './form-styles.css'
 import { Tooltip } from 'primereact/tooltip'
 
 const EventYearlyCb = ({ eventAccountForYear, changeHandler }) => {
-    const labels = config.labels
+    const labels = config.LABELS
 
     return (
         <CheckBoxStyle>
@@ -18,13 +18,13 @@ const EventYearlyCb = ({ eventAccountForYear, changeHandler }) => {
                     onChange={() => changeHandler(!eventAccountForYear)}
                     checked={eventAccountForYear}
                 />
-                <label className='p-d-block' htmlFor='accountForYear'>
-                    {labels.accountForYearLabel}
+                <label className='p-d-block label' htmlFor='accountForYear'>
+                    {labels.ACCOUNT_FOR_YEAR_LABEL}
                 </label>
                 <Tooltip target='.pi-info-circle' />
                 <i
                     className='pi pi-info-circle'
-                    data-pr-tooltip={labels.accountForYearTooltip}
+                    data-pr-tooltip={labels.ACCOUNT_FOR_YEAR_TOOLTIP}
                     data-pr-position='right'
                     data-pr-at='right+5 top'
                     data-pr-my='left center-2'
@@ -33,18 +33,18 @@ const EventYearlyCb = ({ eventAccountForYear, changeHandler }) => {
         </CheckBoxStyle>
     )
 }
-export default EventYearlyCb
+export default memo(EventYearlyCb)
 
 const CheckBoxStyle = styled.div`
   margin-top: -1.5rem;
   display: flex;
 
-  label {
+  .label {
     padding-left: 0.5rem;
     color: var(--text);
   }
 
-  i {
+  .pi-info-circle {
     font-size: 1rem;
     padding-left: .5rem;
     color: var(--text);

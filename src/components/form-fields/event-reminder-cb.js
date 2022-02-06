@@ -1,5 +1,5 @@
+import React, {memo} from 'react'
 import { Checkbox } from 'primereact/checkbox'
-import React from 'react'
 import config from '../../config.json'
 import styled from 'styled-components'
 import './form-styles.css'
@@ -14,12 +14,12 @@ const EventReminder = ({ reminder, reminderHandler }) => {
                 checked={reminder}
             />
             <label htmlFor='reminderCheckbox'>
-                {config.labels.reminderLabel}
+                {config.LABELS.REMINDER_LABEL}
             </label>
         </CheckBoxStyle>
     )
 }
-export default EventReminder
+export default memo (EventReminder);
 
 const CheckBoxStyle = styled.div`
   margin-top: -1.5rem;

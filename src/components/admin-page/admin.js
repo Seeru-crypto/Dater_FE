@@ -1,18 +1,19 @@
 import React, { useEffect, useRef } from 'react'
 import config from '../../config.json'
 import { Button } from 'primereact/button'
+import styled from 'styled-components'
 import { Toast } from 'primereact/toast'
-
-import { AdminEmailAdress, EmailReminders } from '../form-components/fields'
 import { useAppDispatch, useAppSelector } from '../../store'
 import { getAdminData, setEmailAdress, setEmailAdressNotifications, updateAdmin } from '../../slicers/adminSlice'
 import { errorNotification, positiveNotification } from '../../custom-hooks/notifications'
-import styled from 'styled-components'
 import ErrorBar from '../functional-components/error-bar'
 import LoadingBar from '../functional-components/loading-bar'
+import { checkEvents } from '../../slicers/eventSlice'
+import AdminEmailField from '../form-fields/admin-email-field'
+import AdminEmailReminders from '../form-fields/admin-email-reminders'
 
 const Admin = () => {
-    const labels = config.labels
+    const labels = config.LABELS
     const toast = useRef(null)
     const loading = useAppSelector((state) => state.admin.loading)
     const error = useAppSelector((state) => state.admin.error)
@@ -25,11 +26,13 @@ const Admin = () => {
         if (error !== '') {
             const timer = setInterval(() => {
                 dispatch(getAdminData())
-            }, config.IntervalValue)
+            }, config.HTTP_INTERVAL_VALUE)
             return () => clearTimeout(timer)
         }
         if (configID === '') dispatch(getAdminData())
     }, [error, dispatch, configID])
+
+    const handleEventCheck = () => dispatch(checkEvents())
 
     const submitForm = async () => {
         const data = {
@@ -38,8 +41,8 @@ const Admin = () => {
             id: configID,
         }
         const res = await dispatch(updateAdmin(data))
-        if (res.meta.requestStatus === 'fulfilled') positiveNotification(toast, labels.configUpdatedSuccessfullyMessage, '')
-        else errorNotification(toast, labels.defaultErrorMessage)
+        if (res.meta.requestStatus === 'fulfilled') positiveNotification(toast, labels.CONF_UPDATED_SUCCESS_MSG, '')
+        else errorNotification(toast, labels.DEFAULT_ERR_MSG)
     }
 
     return (
@@ -48,8 +51,7 @@ const Admin = () => {
             <LoadingBar loading={loading} />
             <div className='admin-border'>
                 <Toast ref={toast} />
-
-                <div className='card'>
+                <div>
                     {!loading && !error && (
                         <div className='p-field'>
                             <div className='p-field p-col'>
@@ -57,7 +59,7 @@ const Admin = () => {
                                     <h1>Admin Page!</h1>
                                     <p>default email aadress</p>
                                     <div>
-                                        <AdminEmailAdress
+                                        <AdminEmailField
                                             email={notificationEmailAdress}
                                             emailHandler={(e) => {
                                                 dispatch(setEmailAdress(e))
@@ -66,17 +68,26 @@ const Admin = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    <EmailReminders
+                                    <AdminEmailReminders
                                         emailReminder={enableEmailAdressNotifications}
                                         emailReminderHandler={(e) =>
                                             dispatch(setEmailAdressNotifications(e))
                                         }
-                                        toolTipMessage={labels.emailReminderLabel}
+                                        toolTipMessage={labels.EMAIL_REMINDER_LABEL}
                                     />
                                 </div>
                             </div>
                             <div>
                                 <Button onClick={submitForm}>Submit</Button>
+                            </div>
+                            <div className='p-col p-col-align-end'>
+                                <Button
+                                    onClick={() => handleEventCheck()}
+                                    className='p-button-outlined p-button-secondary'
+                                >
+                                    <i className='pi pi-envelope p-px-2' />
+                                    <span> Check dates </span>
+                                </Button>
                             </div>
                         </div>
                     )}
@@ -87,9 +98,18 @@ const Admin = () => {
 }
 
 const AdminStyle = styled.div`
-.admin-border {
-    padding: 0 2rem 0 2rem;
-}
+
+  background-color: var(--bkg);
+  color: var(--text);
+  min-height: 100vh;
+
+  input {
+    width: 25%
+  }
+
+  .admin-border {
+    padding: 2rem 4rem;
+  }
 `
 
 export default Admin

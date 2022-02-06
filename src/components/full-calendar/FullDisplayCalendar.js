@@ -3,11 +3,11 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
+import styled from 'styled-components'
 
 const FullDisplayCalendar = ({ eventData }) => {
     return (
-        <div>
-            <div className="card">
+        <CalendarStyle>
                 <FullCalendar
                     firstDay="1"
                     events={eventData}
@@ -24,10 +24,21 @@ const FullDisplayCalendar = ({ eventData }) => {
                     selectMirror
                     dayMaxEvents
                 />
-            </div>
             )
-        </div>
+        </CalendarStyle>
     )
 }
 
 export default FullDisplayCalendar
+
+const CalendarStyle = styled.div`
+
+  .fc td, th, a, .fc.fc-theme-standard .fc-view-harness th {
+    background-color: var(--bkg);
+    color: var(--text);
+  }
+
+
+
+
+`

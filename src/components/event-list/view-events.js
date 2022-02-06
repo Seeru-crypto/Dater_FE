@@ -1,6 +1,5 @@
 import React, { memo, useEffect } from 'react'
-import { Button } from 'primereact/button'
-import { checkEvents, getEvents } from '../../slicers/eventSlice'
+import { getEvents } from '../../slicers/eventSlice'
 
 import FilterTable from './filter-table'
 import config from '../../config.json'
@@ -18,34 +17,16 @@ const ViewEvents = () => {
 
     useEffect(() => {
         if (events[0] === undefined) dispatch(getEvents())
-        if (error!=="") {
+        if (error !== '') {
             const timer = setInterval(() => {
                 dispatch(getEvents())
-            }, config.IntervalValue)
-        return () => clearTimeout(timer);
+            }, config.HTTP_INTERVAL_VALUE)
+            return () => clearTimeout(timer)
         }
-    }, [error, dispatch, events]);
+    }, [error, dispatch, events])
 
-    const handleEventCheck = () => dispatch(checkEvents());
     return (
         <ViewEventsStyle>
-            <div
-                hidden={!!error}
-                className='p-grid vertical-container'
-            >
-                <h5 className='p-col p-col-align-start'>Number of events: {events.length}</h5>
-                <div>
-                    <div className='p-col p-col-align-end'>
-                        <Button
-                            onClick={() => handleEventCheck()}
-                            className='p-button-outlined p-button-secondary'
-                        >
-                            <i className='pi pi-envelope p-px-2' />
-                            <span> Check dates </span>
-                        </Button>
-                    </div>
-                </div>
-            </div>
             <ErrorBar error={error} />
             <LoadingBar loading={loading} />
             <FilterTable data={events} />
@@ -54,11 +35,9 @@ const ViewEvents = () => {
 }
 
 const ViewEventsStyle = styled.div`
-
-.vertical-container {
-    padding: 1rem;
-}
+  background-color: var(--bkg);
+  padding: 0 2rem 2rem 2rem;
+  min-height: 100vh;
 `
-
 
 export default memo(ViewEvents)

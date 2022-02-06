@@ -15,13 +15,13 @@ const CalendarIndex = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        if (error!=="") {
+        if (error !== '') {
             const timer = setInterval(() => {
                 dispatch(getEvents())
-            }, config.IntervalValue)
-            return () => clearTimeout(timer);
+            }, config.HTTP_INTERVAL_VALUE)
+            return () => clearTimeout(timer)
         }
-        if (events[0] === undefined) dispatch(getEvents());
+        if (events[0] === undefined) dispatch(getEvents())
         if (events) {
             const eventDataBody = events
             const currentYear = new Date().getFullYear()
@@ -29,20 +29,18 @@ const CalendarIndex = () => {
                 const title = event.eventName
                 const newDate = currentYear + event.date.substring(4, 10)
                 return { ...event, title: title, date: newDate }
-            });
-            setFormattedDates(newList);
+            })
+            setFormattedDates(newList)
         }
-    }, [error, dispatch, events]);
+    }, [error, dispatch, events])
 
     return (
         <CalendarStyle>
             <ErrorBar error={error} />
 
             {!loading && !error && (
-                <div className="main-desc">
-                    <p>
-                        This is a general view, where all events are displayed.
-                    </p>
+                <div className='main-calendar'>
+                    <p> This is a general view, where all events are displayed.</p>
                     <FullDisplayCalendar eventData={formattedDates} />
                 </div>
             )}
@@ -53,9 +51,11 @@ const CalendarIndex = () => {
 }
 
 const CalendarStyle = styled.div`
+  background-color: var(--bkg);
+  color: var(--text);
 
-.main-desc {
-    margin-top: 2rem;
-}
+  .main-calendar {
+    padding: 2rem;
+  }
 `
 export default CalendarIndex

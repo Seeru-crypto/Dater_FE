@@ -5,8 +5,8 @@ import config from '../../config.json'
 import './form-styles.css'
 
 const CalendarComponent = ({ dateHandler, selectedDate, missing }) => {
-    const calendarMinYear = config.calendarMinYear
-    const calendarMaxYear = config.calendarMaxYear
+    const calendarMinYear = config.CALENDAR_MIN_YEAR
+    const calendarMaxYear = config.CALENDAR_MAX_YEAR
     const yearRange = `${calendarMinYear}:${calendarMaxYear}`
 
     // ToDo redesign it with default date input element!

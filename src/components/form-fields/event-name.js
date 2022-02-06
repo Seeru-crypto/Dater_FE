@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import './form-styles.css'
 import FieldInvalidMsg from './field-invalid-msg'
 import config from '../../config.json'
 
 const EventName = ({ name, nameHandler, missing }) => {
-    // ToDo Add continues check, so that user can enter invalid chars but cannot submit them
     const [invalidMsg, setInvalidMsg] = useState('')
 
     const inputValidation = (userInput) => {
-        (userInput.length > config.nameMaxLength) ? setInvalidMsg('Name too long!') : setInvalidMsg('');
+        if (userInput.length > config.NAME_MAX_LEN - 10) setInvalidMsg(`${userInput.length}\/${config.NAME_MAX_LEN}`)
+        else setInvalidMsg("");
         nameHandler(userInput)
     }
 
@@ -22,4 +22,4 @@ const EventName = ({ name, nameHandler, missing }) => {
     )
 }
 
-export default EventName
+export default memo(EventName)

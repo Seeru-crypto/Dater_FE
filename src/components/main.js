@@ -1,10 +1,7 @@
 import React, { memo } from 'react'
 import styled from 'styled-components'
 
-const Main = () => {
-// ToDo fix front page styling with Styled component
-// ToDo fix console errors!
-    return (
+const Main = () => (
         <MainStyle>
         <div className="main-div">
             <h1>Welcome to Dater!</h1>
@@ -16,18 +13,9 @@ const Main = () => {
                     date is nearing.
                 </p>
             </div>
-            <div className="p-fluid p-formgrid p-grid">
-                <a
-                    className="git-link"
-                    href="https://github.com/Seeru-crypto/bDay_front-end"
-                >
-                    <i
-                        className="pi pi-github git-icon"
-                    />
-                </a>
-
-                <details className="main-content">
-                    <summary>About this project</summary>
+            <div>
+                        <section className="main-content">
+                    <h5>About this project</h5>
                     <ul>
                         <li>
                             For the front end I used React with primereact
@@ -46,25 +34,40 @@ const Main = () => {
                         time using mongoDB there were a few difficulties
                         integrating Spiring with mongoDB Atlas.
                     </p>
-                </details>
+                </section>
             </div>
         </div>
+            <a
+                className="git-link"
+                href="https://github.com/Seeru-crypto/bDay_front-end"
+            >
+                <i
+                    className="pi pi-github git-icon"
+                />
+            </a>
         </MainStyle>
     )
-}
+
 export default memo(Main)
 
-
 const MainStyle = styled.div`
-.main-div {
-    padding: 2rem 2rem 0 2rem;
-}
+  background-color: var(--bkg);
+  color: var(--text);
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  transition: all 0.4s ease;
+  padding: 2rem 2rem 30rem 2rem;
 
 .git-link {
     text-decoration: none;
-    color: black;
+    color: var(--git-icon);
 }
-
+  
+  section{
+    width: 75%;
+  }
+  
 .git-icon {
     font-size: 2rem;
 }
