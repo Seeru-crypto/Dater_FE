@@ -1,4 +1,3 @@
-
 *, *::after, *::before {
     box-sizing: border-box;
     margin: 0;
@@ -56,13 +55,11 @@ textarea:valid + .floating-label {
     color: var(--btn);
 }
 
-
 input:focus + .floating-label,
 input:valid + .floating-label {
     top: -1rem;
     color: var(--btn);
 }
-
 
 [type="submit"] {
     background-color: var(--btn);

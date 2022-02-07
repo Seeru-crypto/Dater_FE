@@ -20,10 +20,6 @@ const FilterTable = (props) => {
         setData(props.data)
     }, [props])
 
-    useEffect(() => {
-        console.log(selectedEvents)
-    }, [selectedEvents])
-
     const renderBooleanValues = (rowData, item) => rowData[item.field] ? 'True' : 'False'
     const rowActions = (rowData) => {
         return (
@@ -70,7 +66,6 @@ const FilterTable = (props) => {
             </div>
         )
     }
-
 
     return (
         <EventFilterTableStyle>

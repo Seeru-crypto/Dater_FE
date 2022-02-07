@@ -5,7 +5,7 @@ import { Button } from 'primereact/button'
 import { confirmDialog } from 'primereact/confirmdialog'
 import { Toast } from 'primereact/toast'
 import { errorNotification, infoNotification, positiveNotification } from '../../custom-hooks/notifications'
-import CalendarComponent from '../form-fields/calendar-component'
+import CalendarComponent from '../form-fields/event-calendar'
 import config from '../../config.json'
 import dataValidation from '../../custom-hooks/dataValidation'
 import styled from 'styled-components'
@@ -17,7 +17,6 @@ import EventDescField from '../form-fields/event-desc'
 import EventYearlyCb from '../form-fields/event-yearly-cb'
 import EventNumberOfDays from '../form-fields/event-number-of-days'
 import EventReminder from '../form-fields/event-reminder-cb'
-
 
 export const EventDetails = ({
                                  selectedEvent,
