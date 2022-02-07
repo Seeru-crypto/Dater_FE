@@ -2,16 +2,18 @@ import React from 'react'
 import './form-styles.css'
 import config from '../../config.json'
 import styled from 'styled-components'
+import FieldInvalidMsg from './field-invalid-msg'
 
 const EventNumberOfDays = ({ eventReminderDays, changeHandler }) => {
 
     const inputValidation = (userInput) => {
         const input = document.getElementById('eventNumberOfDays')
+        console.log(userInput === '');
         if (parseInt(userInput, 10) <= config.DAYS_NOTICE_MAX_VAL || userInput === '') changeHandler(userInput)
+        if (parseInt(userInput, 10) < 0) changeHandler('0');
         if (userInput === '') input.setCustomValidity('Input cannot be empty')
         else input.setCustomValidity('')
     }
-    // ToDo add small grey text that max is 31 days
     return (
         <EventNumberStyle>
             <div className='floating-group'>
@@ -22,6 +24,7 @@ const EventNumberOfDays = ({ eventReminderDays, changeHandler }) => {
                        id='eventNumberOfDays' />
                 <label className='floating-label' htmlFor='eventNumberOfDays'>How many days notice?</label>
             </div>
+            <FieldInvalidMsg errorMessage={'max value is '+config.DAYS_NOTICE_MAX_VAL } />
         </EventNumberStyle>
     )
 }

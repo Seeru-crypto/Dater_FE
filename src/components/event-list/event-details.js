@@ -18,6 +18,8 @@ import EventYearlyCb from '../form-fields/event-yearly-cb'
 import EventNumberOfDays from '../form-fields/event-number-of-days'
 import EventReminder from '../form-fields/event-reminder-cb'
 
+// ToDo replace primeReact modal with custom HTML element
+
 export const EventDetails = ({
                                  selectedEvent,
                                  hideModal,
@@ -142,6 +144,7 @@ export const EventDetails = ({
     return (
         <Dialog
             visible={showHideModal}
+            className='main-detail'
             header='Event Details'
             modal
             footer={eventModalFooter}
@@ -170,20 +173,12 @@ export const EventDetails = ({
                     )}
                 </form>
             </EventDetalStyle>
-
         </Dialog>
     )
 }
 
 const EventDetalStyle = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
-
-  --btn: #3da9fc;
-  --btntext: #fffffe;
-  --text: #094067;
-  --paragraph: #5f6c7b;
-  --bkg: #fffffe;
-  --err: #ef4565;
 
   font-family: 'Inter', sans-serif;
 
@@ -197,7 +192,6 @@ const EventDetalStyle = styled.div`
   }
 
   display: grid;
-  background-color: var(--bkg);
 
   .event-add-form {
     display: grid;

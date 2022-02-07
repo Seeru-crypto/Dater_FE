@@ -1,24 +1,37 @@
 import styled from 'styled-components'
 import React from 'react'
 
-// ToDo change anchors into butoons with anchorm like styling
 const NavButton = ({ text, url, active }) => {
     return (
         <NavButtonStyle>
-            <a className={active ? 'active' : ''} id={text} title={text} href='#' onClick={(e) => {
-                url(e)
-                return false
-            }}>
+            <button className={`${ active ? 'active' : '' } nav-button`} id={text} title={text}
+                    onClick={(e) => {
+                        url(e)
+                        return false
+                    }
+                    }>
                 {text}
-            </a>
+            </button>
+
         </NavButtonStyle>
     )
 }
 
 const NavButtonStyle = styled.div`
   padding-top: 1rem;
+  .nav-button {
+    background-color: transparent;
+    border: transparent;
+    color: var(--nav-text-color);
+    text-align: center;
+    display: inline-block;
+    font-size: 1.2rem;
+    margin: 10px 30px;
+    cursor: pointer;
+  }
+  
   .active {
-    color: var(--text);
+    color: var(--git-icon);
   }
 `
 

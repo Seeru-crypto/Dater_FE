@@ -11,7 +11,7 @@ const ErrorBar = ({ error }) => {
         </ErrorBarStyle>
     )
 }
-export default ErrorBar
+export default React.memo(ErrorBar)
 
 const ErrorBarStyle = styled.div`
   .error-msg {

@@ -14,7 +14,7 @@ const EventName = ({ name, nameHandler, missing }) => {
 
     return (
         <div className='floating-group'>
-            <input type='text' value={name} onChange={(e) => inputValidation(e.target.value)}
+            <input type='text' autoComplete="off" value={name} onChange={(e) => inputValidation(e.target.value)}
                    id='eventName' className={`text ${missing ? 'missing' : ''}`} required />
             <label className='floating-label' htmlFor='eventName'>event name</label>
             <FieldInvalidMsg errorMessage={invalidMsg} />

@@ -11,7 +11,7 @@ const LoadingBar = ({ loading }) => {
     )
 
 }
-export default LoadingBar
+export default React.memo(LoadingBar)
 
 const LoadingBarStyle = styled.div`
 

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
+
 import FullDisplayCalendar from './FullDisplayCalendar'
 import config from '../../config.json'
 import { useAppDispatch, useAppSelector } from '../../store'
 import { getEvents } from '../../slicers/eventSlice'
-import styled from 'styled-components'
 import LoadingBar from '../functional-components/loading-bar'
 import ErrorBar from '../functional-components/error-bar'
 
@@ -26,9 +27,8 @@ const CalendarIndex = () => {
             const eventDataBody = events
             const currentYear = new Date().getFullYear()
             const newList = eventDataBody.map((event) => {
-                const title = event.eventName
                 const newDate = currentYear + event.date.substring(4, 10)
-                return { ...event, title: title, date: newDate }
+                return { ...event, title: event.eventName, date: newDate }
             })
             setFormattedDates(newList)
         }
@@ -37,7 +37,6 @@ const CalendarIndex = () => {
     return (
         <CalendarStyle>
             <ErrorBar error={error} />
-
             {!loading && !error && (
                 <div className='main-calendar'>
                     <p> This is a general view, where all events are displayed.</p>
@@ -45,7 +44,6 @@ const CalendarIndex = () => {
                 </div>
             )}
             <LoadingBar loading={loading} />
-
         </CalendarStyle>
     )
 }

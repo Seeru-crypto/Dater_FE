@@ -9,8 +9,8 @@ import { errorNotification, positiveNotification } from '../../custom-hooks/noti
 import ErrorBar from '../functional-components/error-bar'
 import LoadingBar from '../functional-components/loading-bar'
 import { checkEvents } from '../../slicers/eventSlice'
-import AdminEmailField from '../form-fields/admin-email-field'
-import AdminEmailReminders from '../form-fields/admin-email-reminders'
+import AdminEmailField from './admin-email-field'
+import AdminEmailReminders from './admin-email-reminders'
 
 const Admin = () => {
     const labels = config.LABELS

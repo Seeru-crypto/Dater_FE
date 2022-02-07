@@ -4,6 +4,11 @@
     padding: 0;
 }
 
+.main-theme {
+    background-color: var(--bkg);
+    color: var(--text);
+}
+
 h2 {
     color: var(--text);
     font-size: clamp(1.2rem, 5vw + 1rem, 2rem);
@@ -69,7 +74,7 @@ input:valid + .floating-label {
     font-size: clamp(1rem, 5vw + 1rem, 1.2rem);
 }
 
-.missing{
+.missing {
     border: solid 2px;
     border-color: var(--err);
 }
