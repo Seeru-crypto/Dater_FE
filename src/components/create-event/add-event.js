@@ -112,6 +112,7 @@ const EventStyle = styled.div`
   transition: all 0.4s ease;
   background-color: var(--bkg);
   padding-bottom: 15rem;
+
   .event-loading {
     margin-top: 0.1rem;
   }
