@@ -5,10 +5,14 @@ import { Column } from 'primereact/column'
 import { Button } from 'primereact/button'
 import { InputText } from 'primereact/inputtext'
 import { EventDetails } from './event-details'
-import styled from 'styled-components'
 import { Toolbar } from 'primereact/toolbar'
+import './filter-table.css'
+import { confirmDialog } from 'primereact/confirmdialog'
+import { useAppDispatch } from '../../store'
+import { deleteEvents } from '../../slicers/eventSlice'
 
 const FilterTable = (props) => {
+    const dispatch = useAppDispatch()
     const [data, setData] = useState(props.data)
     const [selectedEvent, setselectedEvent] = useState(null)
     const [selectedEvents, setSelectedEvents] = useState([])
@@ -38,6 +42,24 @@ const FilterTable = (props) => {
         setShowModal(true)
     }
 
+    const deleteConfirmationDialog = () => {
+        confirmDialog({
+            message: 'Do you want to delete selected events?',
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            acceptClassName: 'p-button-danger',
+            accept: () => deleteSelectedEvents(),
+        })
+    }
+
+    const deleteSelectedEvents = async () => {
+        const test = selectedEvents.map((e) => e.id);
+        console.log(test)
+        dispatch(deleteEvents(test));
+
+        // dispatch(deleteEvent(eventId))
+    };
+
     const renderDateValues = (rowData) => {
         const date = new Date(rowData.date)
         let day = date.getDate()
@@ -49,7 +71,7 @@ const FilterTable = (props) => {
     const leftToolbar = () => {
         return (
             <React.Fragment>
-                <Button label='Delete' icon='pi pi-trash' className='p-button-danger'
+                <Button label='Delete' icon='pi pi-trash' onClick={() => deleteConfirmationDialog()} className='p-button-danger'
                         disabled={selectedEvents.length === 0} />
             </React.Fragment>
         )
@@ -70,7 +92,7 @@ const FilterTable = (props) => {
     }
 
     return (
-        <EventFilterTableStyle>
+        <div>
             <Toolbar left={leftToolbar} right={rightToolbar} />
             <DataTable
                 responsiveLayout='scroll'
@@ -136,56 +158,7 @@ const FilterTable = (props) => {
                     />
                 </div>
             )}
-        </EventFilterTableStyle>
+        </div>
     )
 }
 export default memo(FilterTable)
-
-const EventFilterTableStyle = styled.div`
-  overflow-y: auto;
-  transition: 250ms width;
-
-  .header-search {
-    display: flex;
-    justify-content: end;
-  }
-
-  .p-toolbar {
-    background-color: var(--bkg);
-    color: var(--text);
-  }
-
-  .export-btn {
-    margin-right: 1rem;
-  }
-
-  .p-datatable .p-datatable-tbody > tr {
-    background-color: var(--bkg);
-    color: var(--text);
-  }
-
-  .p-paginator.p-paginator-bottom {
-    background-color: var(--bkg);
-    color: var(--text);
-  }
-
-  .p-datatable .p-datatable-header, .p-paginator .p-dropdown {
-    background-color: var(--bkg);
-    color: var(--text);
-  }
-
-  .p-datatable .p-datatable-thead > tr > th {
-    background-color: var(--bkg);
-    color: var(--text);
-  }
-
-  .p-button-outlined.p-button-secondary {
-    background-color: var(--bkg);
-    color: var(--text);
-    margin-right: 1rem;
-  }
-
-  .table-selector {
-    width: 3rem
-  }
-`

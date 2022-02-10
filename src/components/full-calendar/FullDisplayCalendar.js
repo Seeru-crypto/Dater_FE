@@ -24,7 +24,6 @@ const FullDisplayCalendar = ({ eventData }) => {
                     selectMirror
                     dayMaxEvents
                 />
-            )
         </CalendarStyle>
     )
 }
@@ -37,8 +36,4 @@ const CalendarStyle = styled.div`
     background-color: var(--bkg);
     color: var(--text);
   }
-
-
-
-
 `

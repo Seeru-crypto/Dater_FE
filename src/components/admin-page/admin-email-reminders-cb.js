@@ -2,11 +2,11 @@ import styled from 'styled-components'
 import { Checkbox } from 'primereact/checkbox'
 import { Tooltip } from 'primereact/tooltip'
 
-const AdminEmailReminders = ({
-                                 emailReminder,
-                                 emailReminderHandler,
-                                 toolTipMessage,
-                             }) => {
+const AdminEmailRemindersCb = ({
+                                   emailReminder,
+                                   emailReminderHandler,
+                                   toolTipMessage,
+                               }) => {
     return (
         <AdminEmailReminderStyle>
             <div className='p-field-checkbox'>
@@ -19,25 +19,32 @@ const AdminEmailReminders = ({
                 />
                 <label className='p-d-block' htmlFor='accountForYear'>
                     Enable email reminders?
-                </label>
-                <Tooltip target='.pi-info-circle' />
+                    <span>
+                          <Tooltip target='.pi-info-circle' />
                 <i
-                    className='pi pi-info-circle'
+                    className='pi pi-info-circle admin-reminder-icon'
                     data-pr-tooltip={toolTipMessage}
                     data-pr-position='right'
                     data-pr-at='right+5 top'
                     data-pr-my='left center-2'
-                    style={{
-                        fontSize: '1rem',
-                        paddingLeft: '.5rem',
-                        color: 'darkblue',
-                    }}
                 />
+                    </span>
+                </label>
+
             </div>
         </AdminEmailReminderStyle>
     )
 }
 
-export default AdminEmailReminders
+export default AdminEmailRemindersCb
 
-const AdminEmailReminderStyle = styled.div``
+const AdminEmailReminderStyle = styled.div`
+
+  .pi-info-circle {
+    color: var(--text);
+  }
+
+  .admin-reminder-icon {
+    padding-left: .5rem;
+  }
+`

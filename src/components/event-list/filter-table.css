@@ -1,0 +1,49 @@
+body{
+    overflow-y: auto;
+    transition: 250ms width;
+    width: clamp(600px,100%, 100%);
+}
+
+.header-search {
+    display: flex;
+    justify-content: end;
+}
+
+.p-toolbar {
+    background-color: var(--bkg);
+    color: var(--text);
+}
+
+.export-btn {
+    margin-right: 1rem;
+}
+
+.p-datatable .p-datatable-tbody > tr {
+    background-color: var(--bkg);
+    color: var(--text);
+}
+
+.p-paginator.p-paginator-bottom {
+    background-color: var(--bkg);
+    color: var(--text);
+}
+
+.p-datatable .p-datatable-header, .p-paginator .p-dropdown {
+    background-color: var(--bkg);
+    color: var(--text);
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+    background-color: var(--bkg);
+    color: var(--text);
+}
+
+.p-button-outlined.p-button-secondary {
+    background-color: var(--bkg);
+    color: var(--text);
+    margin-right: 1rem;
+}
+
+.table-selector {
+    width: 3rem
+}

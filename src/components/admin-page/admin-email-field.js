@@ -1,23 +1,20 @@
 import React from 'react'
-import { InputText } from 'primereact/inputtext'
 import styled from 'styled-components'
+import "../form-fields/form-styles.css"
 
-const AdminEmailField = ({ email, emailHandler }) => {
+const AdminEmailField = ({ email, emailHandler, isDisabled }) => {
     return (
         <AdminEmailStyled>
-            <div className='p-d-flex'>
-                <InputText
-                    className='p-inputtext-lg p-d-block'
-                    placeholder='* email'
-                    required={true}
-                    value={email}
-                    onChange={(e) => emailHandler(e.target.value)}
-                />
-            </div>
+                <input type='email' disabled={isDisabled} placeholder="email@email.com" autoComplete='off' required value={email} onChange={(e) => emailHandler(e.target.value)}
+                       id='adminEmailInput' className='admin-email-input' />
         </AdminEmailStyled>
     )
 }
 
 export default AdminEmailField
 
-const AdminEmailStyled = styled.div``
+const AdminEmailStyled = styled.div`
+    .admin-email-input::placeholder{
+      color:var(--text);
+    }
+`

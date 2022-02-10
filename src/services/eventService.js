@@ -24,6 +24,11 @@ class EventService {
     checkEvents() {
         return http.get('/api/checkEvents');
     }
+
+    deleteEvents(events) {
+        return http.post(`/event/delete`, events);
+    }
+
 }
 
 export default new EventService();

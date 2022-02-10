@@ -1,6 +1,6 @@
 {
   "API_PATH": "http://localhost:8080",
-  "SESSION_STORAGE_LABEL": "theme",
+  "SESSION_STORAGE_LABEL": "isDarkMode",
   "DESC_MAX_LEN": 120,
   "NAME_MAX_LEN": 25,
   "DAYS_NOTICE_MIN_VAL": 0,

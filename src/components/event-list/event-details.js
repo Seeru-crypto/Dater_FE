@@ -178,10 +178,7 @@ export const EventDetails = ({
 }
 
 const EventDetalStyle = styled.div`
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
-
-  font-family: 'Inter', sans-serif;
-
+  display: grid;
   .detail-desc {
     margin-top: 2rem;
   }
@@ -190,9 +187,7 @@ const EventDetalStyle = styled.div`
     align-items: center;
     display: flex;
   }
-
-  display: grid;
-
+  
   .event-add-form {
     display: grid;
     gap: 3rem;

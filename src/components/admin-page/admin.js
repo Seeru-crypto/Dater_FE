@@ -10,7 +10,9 @@ import ErrorBar from '../functional-components/error-bar'
 import LoadingBar from '../functional-components/loading-bar'
 import { checkEvents } from '../../slicers/eventSlice'
 import AdminEmailField from './admin-email-field'
-import AdminEmailReminders from './admin-email-reminders'
+import AdminEmailRemindersCb from './admin-email-reminders-cb'
+import AdminSmsField from './admin-sms-field'
+import AdminSmsCb from './admin-sms-cb'
 
 const Admin = () => {
     const labels = config.LABELS
@@ -51,24 +53,12 @@ const Admin = () => {
             <LoadingBar loading={loading} />
             <div className='admin-border'>
                 <Toast ref={toast} />
-                <div>
                     {!loading && !error && (
-                        <div className='p-field'>
-                            <div className='p-field p-col'>
-                                <div className='p-field p-row'>
-                                    <h1>Admin Page!</h1>
-                                    <p>default email aadress</p>
-                                    <div>
-                                        <AdminEmailField
-                                            email={notificationEmailAdress}
-                                            emailHandler={(e) => {
-                                                dispatch(setEmailAdress(e))
-                                            }}
-                                        />
-                                    </div>
-                                </div>
-                                <div>
-                                    <AdminEmailReminders
+                        <div className='general-admin-page'>
+                            <h1>Admin Page!</h1>
+                            <div className='email-group'>
+                                <div className='admin-email-reminder'>
+                                    <AdminEmailRemindersCb
                                         emailReminder={enableEmailAdressNotifications}
                                         emailReminderHandler={(e) =>
                                             dispatch(setEmailAdressNotifications(e))
@@ -76,35 +66,115 @@ const Admin = () => {
                                         toolTipMessage={labels.EMAIL_REMINDER_LABEL}
                                     />
                                 </div>
+                                <div className='admin-email-field'>
+                                    <AdminEmailField
+                                        isDisabled = {!enableEmailAdressNotifications}
+                                        email={notificationEmailAdress}
+                                        emailHandler={(e) => {
+                                            dispatch(setEmailAdress(e))
+                                        }}
+                                    />
+                                </div>
                             </div>
-                            <div>
-                                <Button onClick={submitForm}>Submit</Button>
+
+                            <div className='sms-group'>
+                                <div className='admin-sms-cb'>
+                                    <AdminSmsCb isSmsActive={false} handleSmsActive={() => console.log("togge sms")} />
+                                </div>
+                                <div className='admin-sms-field'>
+                                    <AdminSmsField
+                                        value={''}
+                                        handleValue={() => console.log("toggle sms")}
+                                    />
+                                </div>
                             </div>
-                            <div className='p-col p-col-align-end'>
-                                <Button
-                                    onClick={() => handleEventCheck()}
-                                    className='p-button-outlined p-button-secondary'
-                                >
-                                    <i className='pi pi-envelope p-px-2' />
-                                    <span> Check dates </span>
-                                </Button>
+
+                            <div className='admin-btn-grp'>
+                                <div>
+                                    <Button onClick={submitForm}>Submit</Button>
+                                </div>
+                                <div className=''>
+                                    <Button
+                                        onClick={() => handleEventCheck()}
+                                        className='p-button-outlined p-button-secondary custom-butt'
+                                    >
+                                        <i className='pi pi-envelope p-px-2' />
+                                        <span> Check dates </span>
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                     )}
-                </div>
             </div>
         </AdminStyle>
     )
 }
 
 const AdminStyle = styled.div`
-
+  display: flex;
+  justify-content: space-around;
   background-color: var(--bkg);
   color: var(--text);
   min-height: 100vh;
+  transition: all 0.4s ease;
 
+  .admin-btn-grp {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .sms-group {
+    width: 100%;
+    border-bottom: solid 1px gray;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .email-group {
+    border-bottom: solid 1px gray;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .admin-sms-field {
+    padding: 2rem;
+  }
+
+  .admin-sms-cb {
+    padding: 2rem 2rem;
+  }
+
+  .admin-email-field {
+    padding: 2rem;
+  }
+
+  .admin-email-reminder {
+    padding: 2rem 2rem;
+  }
+
+  .general-admin-page {
+    min-height: 100vh;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    margin: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .custom-butt:hover{
+    border: #3da9fc solid 1px !important;
+  }
+  
   input {
-    width: 25%
+    width: 100%;
   }
 
   .admin-border {

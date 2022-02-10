@@ -35,7 +35,7 @@ const PageHeader = () => {
     }, [])
 
     const changeTheme = () => {
-        sessionStorage.setItem(config.SESSION_STORAGE_LABEL, !isLightMode)
+        sessionStorage.setItem(config.SESSION_STORAGE_LABEL, isLightMode.toString())
         dispatch(setIsLightMode(!isLightMode))
     }
 
@@ -64,15 +64,14 @@ const PageHeader = () => {
                                         </li>
                                     )
                                 })}
+                                <li>
+                                    <div className='dark-light'>
+                                        <i onClick={changeTheme} className={`bx bx-sun sun ${isLightMode ? 'active' : ''} `} />
+                                        <i onClick={changeTheme}
+                                           className={`bx bx-moon moon ${!isLightMode ? 'active' : ''}`} />
+                                    </div>
+                                </li>
                             </ul>
-                        </div>
-
-                        <div className='darkLight-searchBox'>
-                            <div className='dark-light'>
-                                <i onClick={changeTheme} className={`bx bx-sun sun ${isLightMode ? 'active' : ''} `} />
-                                <i onClick={changeTheme}
-                                   className={`bx bx-moon moon ${!isLightMode ? 'active' : ''}`} />
-                            </div>
                         </div>
                     </div>
                 </nav>
@@ -85,9 +84,5 @@ export default PageHeader
 const PageHeaderStyle = styled.div`
   margin-bottom: 70px;
 
-  .dark-light {
-    display: flex;
-    align-items: center;
-  }
 
 `
