@@ -1,23 +1,54 @@
 {
-    "apiPath": "http://localhost:8080/event",
-    "descMaxLength": 120,
-    "nameMaxLength": 25,
-    "daysNoticeMinValue": 0,
-    "daysNoticeMaxValue": 31,
-    "calendarMinYear": 1960,
-    "calendarMaxYear": 2040,
-    "IntervalValue": 5000,
-    "labels": {
-        "reminderLabel": "Do you want reminders?",
-        "emailReminderLabel": "Enable email reminders for the system",
-        "accountForYearLabel": "Account for year?",
-        "accountForYearTooltip": "Will the reminder be sent every year or on the selected year?",
-        "invalidFormErrorHeader": "Please fill all the neccesary fields",
-        "invalidFormErrorBody": "",
-        "defaultErrorMessage": "Connection cannot be established, please try again later",
-        "eventCreatedMessage": "Event Created successfully",
-        "eventUpdatedMessage": "Event updated successfully",
-        "eventDeletedMessage": "Event successfully deleted",
-        "configUpdatedSuccessfullyMessage": "Configurations updated successfully"
+  "API_PATH": "http://localhost:8080",
+  "GITHUB_LINK" : "https://github.com/Seeru-crypto/bDay_front-end",
+  "SESSION_STORAGE_LABEL": "isDarkMode",
+  "DESC_MAX_LEN": 120,
+  "NAME_MAX_LEN": 25,
+  "DAYS_NOTICE_MIN_VAL": 0,
+  "DAYS_NOTICE_MAX_VAL": 31,
+  "CALENDAR_MIN_DATE": "1960-01-01",
+  "CALENDAR_MAX_DATE": "2040-01-01",
+  "HTTP_INTERVAL_VALUE": 5000,
+  "LABELS": {
+    "REMINDER_LABEL": "Do you want reminders?",
+    "EMAIL_REMINDER_LABEL": "Enable email reminders for the system",
+    "ACCOUNT_FOR_YEAR_LABEL": "Account for year?",
+    "ACCOUNT_FOR_YEAR_TOOLTIP": "Will the reminder be sent every year or on the selected year?",
+    "INVALID_FORM_ERR_HEADER": "Invalid input",
+    "INVALID_FORM_ERR_BODY": "",
+    "DEFAULT_ERR_MSG": "Connection cannot be established, please try again later",
+    "EVENT_CREATED_MSG": "Event Created successfully",
+    "EVENT_UPDATED_MSG": "Event updated successfully",
+    "EVENT_DELETED_MSG": "Event successfully deleted",
+    "CONF_UPDATED_SUCCESS_MSG": "Configurations updated successfully"
+  },
+  "headerItems": [
+    {
+      "label": "Home",
+      "icon": "pi pi-fw pi-home",
+      "url": "/"
+    },
+    {
+      "label": "Add Event",
+      "icon": "pi pi-fw pi-pencil",
+      "url": "/add"
+    },
+    {
+      "label": "Event list",
+      "icon": "pi pi-fw pi-file",
+      "url": "/eventList"
+    },
+    {
+      "label": "Calendar",
+      "icon": "pi pi-fw pi-calendar",
+      "url": "/fullCalendar",
+      "disabled": false
+    },
+    {
+      "label": "Admin",
+      "icon": "pi pi-fw pi-cog",
+      "url": "/admin",
+      "disabled": false
     }
+  ]
 }
