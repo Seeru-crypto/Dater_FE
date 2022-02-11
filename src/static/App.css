@@ -13,6 +13,7 @@
   --nav-text-color: #fffffe;
   --side-nav-bkg: #90b4ce;
   --git-icon: #18191A;
+  --details-bkg: #fffffe;
 
 }
 
@@ -24,6 +25,8 @@
   --nav-text-color: #CCC;
   --add-border: #094067;
   --git-icon: #fffffe;
+  --details-bkg: #094067;
+
 
 }
 

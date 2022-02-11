@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import AdminService from '../services/adminService'
 
 const initialState = {
-    notificationEmailAdress: "",
+    notificationEmailAddress: "",
     loading: false,
     error: '',
     enableEmailAdressNotifications: false,

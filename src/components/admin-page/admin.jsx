@@ -46,7 +46,8 @@ const Admin = () => {
         if (res.meta.requestStatus === 'fulfilled') positiveNotification(toast, labels.CONF_UPDATED_SUCCESS_MSG, '')
         else errorNotification(toast, labels.DEFAULT_ERR_MSG)
     }
-
+    // ToDo add stats section, interval time,
+    //  make CB changes push update immedietly
     return (
         <AdminStyle>
             <ErrorBar error={error} />

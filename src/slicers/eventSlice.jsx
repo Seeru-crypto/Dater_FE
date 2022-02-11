@@ -8,8 +8,6 @@ const initialState = {
     eventDetails: {}
 }
 
-// ToDo create selected event Reducer and implement it in Add event & event detail components.
-
 export const getEvents = createAsyncThunk('events/getAllEvents', async () => (await (EventService.getEvents())).data);
 
 export const deleteEvent = createAsyncThunk('events/deleteEvent', async (eventId) => (await EventService.deleteEvent(eventId)).data)

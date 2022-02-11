@@ -7,7 +7,7 @@ import NavButton from './nav-button'
 import { useAppDispatch, useAppSelector } from '../../store'
 import { setIsLightMode } from '../../slicers/adminSlice'
 
-// ToDo vaheta ikoonid välja kohalike vastu
+// ToDo replace imported icons with local icons
 
 const PageHeader = () => {
 
@@ -64,12 +64,11 @@ const PageHeader = () => {
                                         </li>
                                     )
                                 })}
-                                <li>
-                                    <div className='dark-light'>
-                                        <i onClick={changeTheme} className={`bx bx-sun sun ${isLightMode ? 'active' : ''} `} />
-                                        <i onClick={changeTheme}
-                                           className={`bx bx-moon moon ${!isLightMode ? 'active' : ''}`} />
-                                    </div>
+                                <li key="theme-btn" className='dark-light'>
+                                    <i onClick={changeTheme}
+                                       className={`bx bx-sun sun ${isLightMode ? 'active' : ''} `} />
+                                    <i onClick={changeTheme}
+                                       className={`bx bx-moon moon ${!isLightMode ? 'active' : ''}`} />
                                 </li>
                             </ul>
                         </div>
@@ -84,5 +83,17 @@ export default PageHeader
 const PageHeaderStyle = styled.div`
   margin-bottom: 70px;
 
+  .bx-sun {
+    border: solid var(--text) 0.15rem;
+    padding: 0.75rem;
+    margin-top: -1rem;
+    border-radius: .75rem;
+  }
 
+  .bx-moon {
+    border: solid var(--text) 0.15rem;
+    padding: 0.75rem;
+    margin-top: -1rem;
+    border-radius: .75rem;
+  }
 `

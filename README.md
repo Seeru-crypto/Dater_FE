@@ -76,16 +76,15 @@ An application for creating reminders and getting email notifications for impend
   - [x] create a general calendar view, where ALL dates are displayed (ignore year values).
   - [ ] Add 66% test coverage (unit + integration tests)
   - [x] Add proper entry and update confirmations (green thumbs up, or smth like that)
-  - [ ] add error handling for API requests
+  - [x] add error handling for API requests
   - [x] convert Bootstrap styling to Prime-react
   - [ ] Styling
-      - [ ] fix mobile view
-      - [ ] Add incorrect field specific css, to signal a field is missing or incorrectly filled. 
+      - [x] fix mobile view
+      - [x] Add incorrect field specific css, to signal a field is missing or incorrectly filled. 
       - [x] Add loading animations
       - [ ] Export all inline styling into a App.css file / styled components
-      - [ ] [Format app.css file into sass](https://medium.com/how-to-react/use-sass-in-react-js-bbeb0b94f8a6)
-      - [ ] Add a manual button for switching themes on the navBar far right side
-      - [ ] Make the website switch to dark theme, when the current time is between 18.00 - 07.00
+      - [x] Add a manual button for switching themes on the navBar far right side
+      - [x] Make the website switch to dark theme, when the current time is between 18.00 - 07.00
 
 ### Connection ports:
 - spring back-end server:

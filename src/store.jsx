@@ -8,7 +8,6 @@ export const store = configureStore({
         event: eventReducer,
         admin: adminReducer,
     },
-
 })
 
 export const useAppDispatch = () => useDispatch()
