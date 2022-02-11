@@ -24,6 +24,7 @@ const Main = () => {
                             <p>
                                 Dater is a event manager, which will send out an email if a
                                 date is nearing.
+                                <p>Try it out!</p>
                             </p>
                         </article>
 
@@ -162,8 +163,8 @@ const MainStyle = styled.div`
   .cta {
     font-size: 5rem;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     width: 40%;
   }
 

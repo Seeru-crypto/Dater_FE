@@ -11,11 +11,5 @@ const CTAButton = ({ onClickHandler }) => {
 export default CTAButton;
 
 const CtaStyle = styled.div`
-  
-  .main-cta-button{
-  }
-  
-  
-    
-  
+  display:flex;
 `
