@@ -47,7 +47,8 @@ const Admin = () => {
         else errorNotification(toast, labels.DEFAULT_ERR_MSG)
     }
     // ToDo add stats section, interval time,
-    //  make CB changes push update immedietly
+    // make CB changes push update immedietly
+    // Make disabled fields stand out!
     return (
         <AdminStyle>
             <ErrorBar error={error} />
@@ -112,13 +113,15 @@ const Admin = () => {
 }
 
 const AdminStyle = styled.div`
-  display: flex;
-  justify-content: space-around;
   background-color: var(--bkg);
   color: var(--text);
   min-height: 100vh;
   transition: all 0.4s ease;
 
+  .admin-border{
+    display: flex;
+    justify-content: space-around;
+  }
   .admin-btn-grp {
     display: flex;
     flex-direction: row-reverse;

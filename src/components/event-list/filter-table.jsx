@@ -80,11 +80,11 @@ const FilterTable = (props) => {
     const rightToolbar = () => {
         return (
             <div className='header-search'>
-                <Button className='p-button-outlined p-button-secondary' type='button' label='export'
+                <Button disabled={data.length===0} className='p-button-outlined p-button-secondary' type='button' label='export'
                         onClick={() => ref.current.exportCSV()} />
                 <span className='p-input-icon-left'>
                     <i className='pi pi-search' />
-                    <InputText value={globalFilter} onChange={(e) => setGlobalFilter(e.target.value)}
+                    <InputText disabled={data.length===0} value={globalFilter} onChange={(e) => setGlobalFilter(e.target.value)}
                                placeholder='Keyword Search' />
                 </span>
             </div>

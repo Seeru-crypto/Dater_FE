@@ -39,6 +39,8 @@ An application for creating reminders and getting email notifications for impend
   - [ ] Heroku CI/CD
      - [x] Deploy front-end
      - [x] Setup live DB
+     - [ ] Merge DB & FE repos together; [link](https://saintgimp.org/2013/01/22/merging-two-git-repositories-into-one-repository-without-losing-file-history/)
+     - [ ] Create single docker compose file, which creates 2 containers, FE & BE
      - [ ] Deploy Back-end
      - [ ] Run integration tests to confirm functionality is intact
   - [x] event form
