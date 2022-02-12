@@ -16,7 +16,7 @@ export default React.memo(LoadingBar)
 const LoadingBarStyle = styled.div`
 
   .loading-bar {
-    height: 3px;
+    height: 5px;
   }
 
 `

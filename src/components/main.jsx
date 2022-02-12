@@ -81,27 +81,29 @@ const Main = () => {
                                         Navigating between pages
                                         does not create unncecesary HTTP requests</p>
                                     <p> Reusable components: by making separate react components, the amount of HTML
-                                        code was cut down to marginal amounts and makes it easier to upkeep this
+                                        code was cut down to marginal amounts, making it easier to upkeep this
                                         application.</p>
-                                    <p> styled components: Using them the most CSS is localized to .jsx files and the
+                                    <p> Styled components: Using them most CSS is localized to react components and the
                                         amount of seperate css files is reduced.</p>
-                                    <p> First time learning docker and dockerizing project modules.</p>
                                 </article>
                                 <article className='back-end'>
                                     <h5 className='main-detail-header'> Back-end</h5>
-                                    <p>Emailer is realized by and is set to check given dates every xh</p>
-                                    <p>Manipulating date formats so that effective comparison can be made and later
-                                        displayed in front-end.</p>
+                                    <p>Emailer is realized by Spring javaMail function with thymeleaf template engine.</p>
+                                    <p>local & dev profiles made it very easy to test locally and later deploy</p>
+                                    <p>Creating recurring check was achieved by springframework scheduling function</p>
+                                    <p>Manipulating date formats so that effective comparison can be made later on was a bit difficult.</p>
                                 </article>
                                 <article className='database'>
                                     <h5 className='main-detail-header'> DB</h5>
-                                    <p>The spring boot hs very good integration with MongoDB, but it actually made it
-                                        harder to customize functions.
-                                        Since it was difficult to track down how data moved inside back-end.</p>
+                                    <p>Spring boot has very good integration with MongoDB, which made it
+                                        harder to customize functions/ data flow.
+                                        Since it was difficult to track down how data moved inside spring.</p>
+                                    <p>Since the dataflow is comparetively simple, the DB schema was simple as well, created 2 indexes: events, settings</p>
                                 </article>
                                 <article className='hosting'>
                                     <h5 className='main-detail-header'> Hosting, CI/CD</h5>
-                                    <p></p>
+                                    <p> First time learning docker and dockerizing project modules (FE, BE, DB).</p>
+                                    <p>Learning how to use, Hosting platform Heroku well.</p>
                                 </article>
                             </details>
                         </article>
