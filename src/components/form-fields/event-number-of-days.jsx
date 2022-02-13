@@ -8,7 +8,6 @@ const EventNumberOfDays = ({ eventReminderDays, changeHandler }) => {
 
     const inputValidation = (userInput) => {
         const input = document.getElementById('eventNumberOfDays')
-        console.log(userInput === '')
         if (parseInt(userInput, 10) <= config.DAYS_NOTICE_MAX_VAL || userInput === '') changeHandler(userInput)
         if (parseInt(userInput, 10) < 0) changeHandler('0')
         if (userInput === '') input.setCustomValidity('Input cannot be empty')

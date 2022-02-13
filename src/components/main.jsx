@@ -21,11 +21,12 @@ const Main = () => {
                         </div>
                         <article className='about'>
                             <h4>About</h4>
-                            <p>
+                            <div>
                                 Dater is a event manager, which will send out an email if a
                                 date is nearing.
                                 <p>Try it out!</p>
-                            </p>
+                                <p className="heroku-warning">The initial load time might be longer than usual due to Heroku booting application up.</p>
+                            </div>
                         </article>
 
                     </div>
@@ -102,8 +103,9 @@ const Main = () => {
                                 </article>
                                 <article className='hosting'>
                                     <h5 className='main-detail-header'> Hosting, CI/CD</h5>
-                                    <p> First time learning docker and dockerizing project modules (FE, BE, DB).</p>
-                                    <p>Learning how to use, Hosting platform Heroku well.</p>
+                                    <p>First time learning docker and dockerizing project modules (FE, BE, DB).</p>
+                                    <p>Learning how to use, Hosting platform Heroku, managing env variables.</p>
+                                    <p>Setting up automatic deploy pipelines</p>
                                 </article>
                             </details>
                         </article>
@@ -124,6 +126,13 @@ const MainStyle = styled.div`
   transition: all 0.4s ease;
   padding: 2rem 2rem 30rem 2rem;
 
+  .heroku-warning{
+    background-color: grey;
+    color: white;
+    border-radius: .75rem;
+    padding: .5rem;
+  }
+  
   .content-row {
     padding-top: 2rem;
     display: flex;
