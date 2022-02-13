@@ -1,11 +1,11 @@
-import React, { memo } from 'react'
+import React, {memo} from 'react'
 import styled from 'styled-components'
-import { ReactComponent as MongoIcon } from '../static/icons/mongodb-icon.svg'
-import { ReactComponent as ReactIcon } from '../static/icons/reactjs-icon.svg'
-import { ReactComponent as JavaIcon } from '../static/icons/java-icon.svg'
+import {ReactComponent as MongoIcon} from '../static/icons/mongodb-icon.svg'
+import {ReactComponent as ReactIcon} from '../static/icons/reactjs-icon.svg'
+import {ReactComponent as JavaIcon} from '../static/icons/java-icon.svg'
 import config from '../config.json'
 import CTAButton from "./CTA-button"
-import { useNavigate } from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
 const Main = () => {
     const navigate = useNavigate()
@@ -17,31 +17,33 @@ const Main = () => {
                 <div className='main-content'>
                     <div className='first content-row'>
                         <div className='cta'>
-                            <CTAButton onClickHandler={() => navigate("/add")} />
+                            <CTAButton onClickHandler={() => navigate("/add")}/>
                         </div>
-                        <article className='about'>
+                        <article className='main-box about'>
                             <h4>About</h4>
                             <div>
                                 Dater is a event manager, which will send out an email if a
                                 date is nearing.
                                 <p>Try it out!</p>
-                                <p className="heroku-warning">The initial load time might be longer than usual due to Heroku booting application up.</p>
+                                <p className="heroku-warning">The initial load time might be longer than usual due to
+                                    Heroku booting application up.</p>
                             </div>
                         </article>
 
                     </div>
                     <div className='second content-row'>
-                        <article className='tech'>
-                            <h4>Tech
-                                <span>
+                        <article className="main-box">
+                            <div className='tech'>
+                                <h4>Tech
+                                    <span>
                                     <a className='git-link' href={config.GITHUB_LINK}>
-                                        <i className='pi pi-github git-icon' />
+                                        <i className='pi pi-github git-icon'/>
                                     </a>
                             </span></h4>
-                            <ul className='tech-ul'>
-                                <li>
-                                    <b>Front-end:</b> React with PrimeReact UI components.
-                                    <span>
+                                <ul className='tech-ul'>
+                                    <li>
+                                        <b>Front-end:</b> React with PrimeReact UI components.
+                                        <span>
                                         <ReactIcon />
                                         </span>
                                 </li>
@@ -55,18 +57,18 @@ const Main = () => {
                                 <li>
                                     <b>Database: </b> MongoDB
                                     <span className='icon' title='MongoDB'>
-                                    <MongoIcon />
+                                    <MongoIcon/>
                                 </span>
                                 </li>
-                                <li>
-                                    <b>Hosting:</b>
-                                    <p>Front- and back-end are hosted by Heroku. Database by MongoDB Atlas</p>
-                                </li>
-                            </ul>
+                                    <li>
+                                        <b>Hosting:</b>
+                                        <p>Front- and back-end are hosted by Heroku. Database by MongoDB Atlas</p>
+                                    </li>
+                                </ul>
+                            </div>
                         </article>
-                        <article className='lessons'>
+                        <article className='main-box lessons'>
                             <h4>Lessons</h4>
-
                             <p>
                                 The main difficulty was creating components as re-usable
                                 as possible without over-engineering. Since it was first
@@ -111,7 +113,6 @@ const Main = () => {
                         </article>
                     </div>
                 </div>
-
             </div>
         </MainStyle>
     )
@@ -164,8 +165,11 @@ const MainStyle = styled.div`
     padding: 1rem 0;
   }
 
-  .about, .tech, .lessons {
+  .main-box {
     width: 40%;
+  }
+
+  .about, .tech, .lessons {
     border: 3px var(--text) solid;
     border-radius: .75rem;
     padding: 1rem;

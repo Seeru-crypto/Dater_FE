@@ -4,11 +4,25 @@ An application for creating reminders and getting email notifications for impend
 
 ## set up
 
-0. run "npm i" at root level
+1. Start React server
 
-1. Start JSON Server via docker
+1.5 Dev server: 
+    
+   1. run `npm i` at root level
+   2. Navigate to root level
+   3. run `npm start`
 
-    - Navigate to the docker folder
+**OR**
+
+// ToDo test docker run.
+- Docker container:
+    -   `docker build -t dater-react-app .` at root level
+    -   `docker run -it --name dater-react-app --rm -d -v %cd%:/app -v /app/node_modules -p 4000:3000 -e CHOKIDAR_USEPOLLING=true dater-react-app`
+
+
+2. To mock backend data start JSON server via docker:
+
+- Navigate to the docker folder
     - run:
     ```
     docker build -t json-server .
@@ -17,32 +31,14 @@ An application for creating reminders and getting email notifications for impend
     ```
     - if needed restart docker container
 
-2. Start React server
-
--   Navigate to root level
--   For dev run:
-    -   `npm start`
--   For production run:
-    -   `docker build -t dater-react-app .`
-    -   `docker run -it --name dater-react-app --rm -d -v %cd%:/app -v /app/node_modules -p 4000:3000 -e CHOKIDAR_USEPOLLING=true dater-react-app`
 
 ## Front-end
 
-### Technical info
-
--   uses React library, Primereact components and axios.
--   Ports:
-    -   prod uses: 4000
-    -   dev uses: 4001
-
 ### ToDo:
-  - [ ] Heroku CI/CD
+  - [x] Heroku CI/CD
      - [x] Deploy front-end
      - [x] Setup live DB
-     - [ ] Merge DB & FE repos together; [link](https://saintgimp.org/2013/01/22/merging-two-git-repositories-into-one-repository-without-losing-file-history/)
-     - [ ] Create single docker compose file, which creates 2 containers, FE & BE
-     - [ ] Deploy Back-end
-     - [ ] Run integration tests to confirm functionality is intact
+     - [x] Deploy Back-end
   - [x] event form
       -   [x] Form UI is created
       -   [x] uses POST request
@@ -72,27 +68,15 @@ An application for creating reminders and getting email notifications for impend
       -   [x] Create local json-server, to serve API requests, for in-depth FE development.
       -   [x] Dockerize json-server.
   - [x] Dockerize react app
-  - [ ] misc tasks
+  - [x] misc tasks
       -   [x] Define SQL schema datafields
-      -   [ ] Convert all dockerfiles to docker-compose format
   - [x] create a general calendar view, where ALL dates are displayed (ignore year values).
-  - [ ] Add 66% test coverage (unit + integration tests)
   - [x] Add proper entry and update confirmations (green thumbs up, or smth like that)
   - [x] add error handling for API requests
   - [x] convert Bootstrap styling to Prime-react
   - [ ] Styling
-      - [x] fix mobile view
       - [x] Add incorrect field specific css, to signal a field is missing or incorrectly filled. 
       - [x] Add loading animations
-      - [ ] Export all inline styling into a App.css file / styled components
+      - [x] Export all inline styling into a App.css file / styled components
       - [x] Add a manual button for switching themes on the navBar far right side
-      - [x] Make the website switch to dark theme, when the current time is between 18.00 - 07.00
-
-### Connection ports:
-- spring back-end server:
-    -   dev uses: 5001
-    -   prod uses: 5000
-- JSON server : 
-    - uses: 5432
-- MongoDB server:
-    - uses : 27017
+      - [ ] fix mobile view
