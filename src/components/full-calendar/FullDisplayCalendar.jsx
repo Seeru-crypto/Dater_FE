@@ -31,6 +31,7 @@ const FullDisplayCalendar = ({ eventData }) => {
 export default FullDisplayCalendar
 
 const CalendarStyle = styled.div`
+  min-height: 100vh;
 
   .fc td, th, a, .fc.fc-theme-standard .fc-view-harness th {
     background-color: var(--bkg);

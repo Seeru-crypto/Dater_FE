@@ -64,12 +64,14 @@ const PageHeader = () => {
                                         </li>
                                     )
                                 })}
-                                <li key="theme-btn" className='dark-light'>
+                                <li key="theme-btn">
+                                    <div className='dark-light'>
                                     <i onClick={changeTheme}
                                        className={`bx bx-sun sun ${isLightMode ? 'active' : ''} `} />
                                     <i onClick={changeTheme}
                                        className={`bx bx-moon moon ${!isLightMode ? 'active' : ''}`} />
-                                </li>
+                                    </div>
+                                    </li>
                             </ul>
                         </div>
                     </div>

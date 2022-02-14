@@ -30,8 +30,7 @@ An application for creating reminders and getting email notifications for impend
     docker cp .\db.json json-server-container:/tmp/test.json
     ```
     - if needed restart docker container
-
-
+    
 ## Front-end
 
 ### ToDo:

@@ -1,4 +1,4 @@
-import React, { memo, useRef, useState } from 'react'
+import React, {memo, useEffect, useRef, useState} from 'react'
 import { Toast } from 'primereact/toast'
 
 import styled from 'styled-components'
@@ -32,7 +32,7 @@ const AddEvent = () => {
     const labels = config.LABELS
     const dateHandler = (data) => {
         const newDate = data
-        newDate.setHours(data.getHours() + 2)
+        newDate.setHours(data.getHours() + 2);
         setDate(newDate)
     }
 
@@ -41,14 +41,14 @@ const AddEvent = () => {
         validationResult.property === 'name' ? setInvalidName(true) : setInvalidName(false)
         validationResult.property === 'date' ? setInvalidDate(true) : setInvalidDate(false)
         validationResult.property === 'desc' ? setInvalidDesc(true) : setInvalidDesc(false)
-        if (validationResult.result) return submitForm()
+        if (validationResult.result) return submitForm();
         infoNotification(toast, labels.INVALID_FORM_ERR_HEADER, '')
     }
 
     const submitForm = async () => {
         const reminderDays = (reminderInDays === '') ? '0' : reminderInDays
         const data = {
-            eventName,
+            eventName : eventName.trim(),
             date,
             reminder,
             reminderDays: reminderDays,

@@ -137,7 +137,6 @@ nav .nav-bar .logo a{
     }
 
     .menu .logo-toggle{
-        /*display: block;*/
         width: 100%;
         display: flex;
         align-items: center;

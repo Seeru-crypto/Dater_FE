@@ -51,7 +51,6 @@ const CalendarIndex = () => {
 const CalendarStyle = styled.div`
   background-color: var(--bkg);
   color: var(--text);
-  min-height: 100vh;
 
   .main-calendar {
     padding: 2rem;

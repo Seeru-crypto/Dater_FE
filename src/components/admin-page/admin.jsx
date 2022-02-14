@@ -1,20 +1,22 @@
-import React, { useEffect, useRef } from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import config from '../../config.json'
-import { Button } from 'primereact/button'
+import {Button} from 'primereact/button'
 import styled from 'styled-components'
-import { Toast } from 'primereact/toast'
-import { useAppDispatch, useAppSelector } from '../../store'
-import { getAdminData, setEmailAdress, setEmailAdressNotifications, updateAdmin } from '../../slicers/adminSlice'
-import { errorNotification, positiveNotification } from '../../custom-hooks/notifications'
+import {Toast} from 'primereact/toast'
+import {useAppDispatch, useAppSelector} from '../../store'
+import {getAdminData, setEmailAdress, setEmailAdressNotifications, updateAdmin} from '../../slicers/adminSlice'
+import {errorNotification, positiveNotification} from '../../custom-hooks/notifications'
 import ErrorBar from '../functional-components/error-bar'
 import LoadingBar from '../functional-components/loading-bar'
-import { checkEvents } from '../../slicers/eventSlice'
+import {checkEvents} from '../../slicers/eventSlice'
 import AdminEmailField from './admin-email-field'
 import AdminEmailRemindersCb from './admin-email-reminders-cb'
 import AdminSmsField from './admin-sms-field'
 import AdminSmsCb from './admin-sms-cb'
 
 const Admin = () => {
+    const [isChanged, setIsChanged] = useState(false);
+    const [timer, setTimer] = useState(null);
     const labels = config.LABELS
     const toast = useRef(null)
     const loading = useAppSelector((state) => state.admin.loading)
@@ -34,7 +36,12 @@ const Admin = () => {
         if (configID === '') dispatch(getAdminData())
     }, [error, dispatch, configID])
 
-    const handleEventCheck = () => dispatch(checkEvents())
+    const handleEventCheck = () => {
+
+        if (timer) clearTimeout(timer);
+        const timeOut = setTimeout(() => dispatch(checkEvents()), 5000);
+        setTimer(timeOut);
+    }
 
     const submitForm = async () => {
         const data = {
@@ -57,43 +64,50 @@ const Admin = () => {
                 <Toast ref={toast} />
                     {!loading && !error && (
                         <div className='general-admin-page'>
-                            <h1>Admin Page!</h1>
+                            <h1>Admin Page</h1>
                             <div className='email-group'>
                                 <div className='admin-email-reminder'>
                                     <AdminEmailRemindersCb
                                         emailReminder={enableEmailAdressNotifications}
-                                        emailReminderHandler={(e) =>
-                                            dispatch(setEmailAdressNotifications(e))
+                                        emailReminderHandler={(e) => {
+                                            dispatch(setEmailAdressNotifications(e));
+                                            setIsChanged(true);
+                                        }
                                         }
                                         toolTipMessage={labels.EMAIL_REMINDER_LABEL}
                                     />
                                 </div>
-                                <div className='admin-email-field'>
+                                <div className={`admin-email-field`}>
                                     <AdminEmailField
-                                        isDisabled = {!enableEmailAdressNotifications}
+                                        isDisabled={!enableEmailAdressNotifications}
                                         email={notificationEmailAdress}
                                         emailHandler={(e) => {
                                             dispatch(setEmailAdress(e))
+                                            setIsChanged(true);
                                         }}
                                     />
                                 </div>
                             </div>
+                            <div className="WIP-div">
+                                <p className="WIP">The sms functionality is WIP</p>
+                                <div className='sms-group'>
 
-                            <div className='sms-group'>
-                                <div className='admin-sms-cb'>
-                                    <AdminSmsCb isSmsActive={false} handleSmsActive={() => console.log("togge sms")} />
-                                </div>
-                                <div className='admin-sms-field'>
-                                    <AdminSmsField
-                                        value={''}
-                                        handleValue={() => console.log("toggle sms")}
-                                    />
+                                    <div className='admin-sms-cb'>
+                                        <AdminSmsCb isSmsActive={false}
+                                                    handleSmsActive={() => console.log("togge sms")}/>
+                                    </div>
+                                    <div className='admin-sms-field'>
+                                        <AdminSmsField
+                                            value={''}
+                                            handleValue={() => console.log("toggle sms")}
+                                        />
+                                    </div>
                                 </div>
                             </div>
 
                             <div className='admin-btn-grp'>
                                 <div>
-                                    <Button onClick={submitForm}>Submit</Button>
+                                    <Button disabled={!isChanged} onClick={submitForm}>Submit</Button>
                                 </div>
                                 <div className=''>
                                     <Button
@@ -134,7 +148,6 @@ const AdminStyle = styled.div`
     width: 100%;
     border-bottom: solid 1px gray;
     margin-bottom: 2rem;
-    margin-top: 2rem;
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -176,7 +189,7 @@ const AdminStyle = styled.div`
   .custom-butt:hover{
     border: #3da9fc solid 1px !important;
   }
-  
+
   input {
     width: 100%;
   }
@@ -184,6 +197,16 @@ const AdminStyle = styled.div`
   .admin-border {
     padding: 2rem 4rem;
   }
+
+  .WIP-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .WIP{
+    margin-bottom: -10px;
+  }
+  
 `
 
 export default Admin
