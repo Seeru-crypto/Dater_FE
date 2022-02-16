@@ -1,7 +1,7 @@
 {
   "API_PATH": "http://localhost:8080",
   "GITHUB_LINK" : "https://github.com/Seeru-crypto/bDay_front-end",
-  "SESSION_STORAGE_LABEL": "isDarkMode",
+  "SESSION_STORAGE_LABEL": "isLightMode",
   "DESC_MAX_LEN": 120,
   "NAME_MAX_LEN": 25,
   "DAYS_NOTICE_MIN_VAL": 0,

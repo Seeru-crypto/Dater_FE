@@ -35,7 +35,7 @@ const PageHeader = () => {
     }, [])
 
     const changeTheme = () => {
-        sessionStorage.setItem(config.SESSION_STORAGE_LABEL, isLightMode.toString())
+        sessionStorage.setItem(config.SESSION_STORAGE_LABEL, (!isLightMode).toString())
         dispatch(setIsLightMode(!isLightMode))
     }
 
@@ -47,11 +47,11 @@ const PageHeader = () => {
                 <nav className={`${sidebarToggle ? 'active' : ''}`}>
                     <div className='nav-bar'>
                         <i onClick={toggleSidebar} className='bx bx-menu sidebarOpen' />
-                        <span className='logo navLogo'><a href='/'>Dater</a></span>
+                        <span className='logo navLogo'>Dater</span>
 
                         <div className='menu'>
                             <div className='logo-toggle'>
-                                <span className='logo'><a href='/'>Dater</a></span>
+                                <span className='logo'>Dater</span>
                                 <i onClick={toggleSidebar} className='bx bx-x siderbarClose' />
                             </div>
 

@@ -34,7 +34,7 @@ nav .nav-bar .sidebarOpen{
     display: none;
 }
 
-nav .nav-bar .logo a{
+nav .nav-bar .logo{
     font-size: 25px;
     font-weight: 500;
     color: var(--nav-text-color);

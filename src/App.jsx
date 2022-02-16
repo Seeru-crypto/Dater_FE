@@ -15,7 +15,7 @@ import { useAppSelector } from './store'
 PrimeReact.ripple = true
 
 const App = () => {
-    const isLightMode = useAppSelector((state) => state.admin.isLightMode)
+    const isLightMode = useAppSelector((state) => state.admin.isLightMode);
     return (
         <div>
             <PageHeader />
