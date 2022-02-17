@@ -2,7 +2,7 @@ import http from './http.service';
 
 class EventService {
     getEvents() {
-        return http.get('/api/event');
+        return http.get('/api/events');
     }
 
     deleteEvent(eventId) {

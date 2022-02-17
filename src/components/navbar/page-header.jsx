@@ -48,7 +48,6 @@ const PageHeader = () => {
                     <div className='nav-bar'>
                         <i onClick={toggleSidebar} className='bx bx-menu sidebarOpen' />
                         <span className='logo navLogo'>Dater</span>
-
                         <div className='menu'>
                             <div className='logo-toggle'>
                                 <span className='logo'>Dater</span>
