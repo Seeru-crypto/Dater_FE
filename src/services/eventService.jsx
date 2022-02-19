@@ -22,7 +22,7 @@ class EventService {
     }
 
     deleteEvents(events) {
-        return http.post(`/events/delete`, events);
+        return http.post(`/api/events/delete`, events);
     }
 }
 

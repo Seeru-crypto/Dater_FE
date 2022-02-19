@@ -22,7 +22,8 @@
     "EVENT_UPDATED_MSG": "Event updated successfully",
     "EVENT_DELETED_MSG": "Event successfully deleted",
     "CONF_UPDATED_SUCCESS_MSG": "Configurations updated successfully",
-    "SETTING_INVALID_EMAIL_ERROR" : "Please enter valid email address"
+    "SETTING_INVALID_EMAIL_ERROR" : "Please enter valid email address",
+    "TOAST_EVENTS_DELETE_SUCCESS" : "Events successfully deleted"
   },
   "headerItems": [
     {
