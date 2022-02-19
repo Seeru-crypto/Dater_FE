@@ -30,7 +30,7 @@ export const EventDetails = ({
         selectedEvent.description,
     )
     const labels = config.LABELS
-    const [eventName, setEventName] = useState(selectedEvent.eventName)
+    const [eventName, setEventName] = useState(selectedEvent.name)
     const [date, setDate] = useState(selectedEvent.date)
     const [reminder, setReminder] = useState(selectedEvent.reminder)
     const [reminderDays, setReminderDays] = useState(selectedEvent.reminderDays)
@@ -49,9 +49,9 @@ export const EventDetails = ({
     let showHideModal = !!modalState
 
     useEffect(() => {
-        setDescription(selectedEvent.eventDescription)
+        setDescription(selectedEvent.description)
         setAccountForYear(selectedEvent.accountForYear)
-        setEventName(selectedEvent.eventName)
+        setEventName(selectedEvent.name)
         setDate(selectedEvent.date)
         setIsoDate(selectedEvent.date)
         setReminder(selectedEvent.reminder)
@@ -98,15 +98,15 @@ export const EventDetails = ({
     const updateEvent = async () => {
         const data = {
             id: eventId,
-            eventName,
+            name: eventName,
             date: isoDate,
             reminder,
             reminderDays,
-            eventDescription,
+            description: eventDescription,
             accountForYear,
         }
         afterRequestActions({ requestResponse: await dispatch(saveUpdatedEvent(data)), dispatchedAction: 'update' })
-    }
+    };
 
     const afterRequestActions = ({ requestResponse: res, dispatchedAction }) => {
         if (res.meta.requestStatus === 'fulfilled') {

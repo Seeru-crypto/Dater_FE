@@ -16,7 +16,7 @@ export const deleteEvents = createAsyncThunk('events/deleteEvents', async (event
 
 export const saveUpdatedEvent = createAsyncThunk('events/updateEvent', async (reminderEvent) => (await EventService.updateEvent(reminderEvent)).data)
 
-export const createEvent = createAsyncThunk('events/createEvent', async (reminderEvent) => (await EventService.createEvent(reminderEvent)).data)
+export const createEvent = createAsyncThunk('events/createEvent', async (reminderEvent) => (await EventService.saveEvent(reminderEvent)).data)
 
 export const checkEvents = createAsyncThunk('events/checkEvents', async () => EventService.checkEvents())
 

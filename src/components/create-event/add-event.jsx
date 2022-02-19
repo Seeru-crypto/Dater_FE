@@ -48,11 +48,11 @@ const AddEvent = () => {
     const submitForm = async () => {
         const reminderDays = (reminderInDays === '') ? '0' : reminderInDays
         const data = {
-            eventName : eventName.trim(),
+            name : eventName.trim(),
             date,
             reminder,
             reminderDays: reminderDays,
-            eventDescription,
+            description: eventDescription,
             accountForYear,
         }
         const res = await dispatch(createEvent(data))

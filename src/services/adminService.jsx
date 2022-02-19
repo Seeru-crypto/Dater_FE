@@ -6,7 +6,7 @@ class AdminService {
     }
 
     updateAdmin(adminDTO) {
-        return http.patch(`/settings/${adminDTO.id}`, adminDTO);
+        return http.put(`/api/settings/${adminDTO.id}`, adminDTO);
     }
 }
 

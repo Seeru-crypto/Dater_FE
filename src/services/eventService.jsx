@@ -6,29 +6,24 @@ class EventService {
     }
 
     deleteEvent(eventId) {
-        return http.delete(`/event/${eventId}`);
+        return http.delete(`/api/events/${eventId}`);
     }
 
     updateEvent(reminderEvent) {
         return http.put(`/event/${reminderEvent.id}`, reminderEvent);
     }
 
-    createEvent(reminderEvent) {
-        return http.post('/event', reminderEvent);
-    }
-
-    getEventById(eventId) {
-        return http.get(`/event/${eventId}`);
+    saveEvent(reminderEvent) {
+        return http.post('/api/events', reminderEvent);
     }
 
     checkEvents() {
-        return http.get('/api/checkEvents');
+        return http.get('/api/events/checkEvents');
     }
 
     deleteEvents(events) {
-        return http.post(`/event/delete`, events);
+        return http.post(`/events/delete`, events);
     }
-
 }
 
 export default new EventService();

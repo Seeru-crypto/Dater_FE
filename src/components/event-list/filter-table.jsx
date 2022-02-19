@@ -111,7 +111,7 @@ const FilterTable = (props) => {
             >
                 <Column className='table-selector' selectionMode='multiple' exportable={false} />
                 <Column
-                    field='eventName'
+                    field='name'
                     sortable
                     header='Event'
                 />
@@ -133,7 +133,7 @@ const FilterTable = (props) => {
                     header='Number of days'
                 />
                 <Column
-                    field='eventDescription'
+                    field='description'
                     sortable
                     header='Description'
                 />
