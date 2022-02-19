@@ -13,6 +13,7 @@ import AdminEmailField from './admin-email-field'
 import AdminEmailRemindersCb from './admin-email-reminders-cb'
 import AdminSmsField from './admin-sms-field'
 import AdminSmsCb from './admin-sms-cb'
+import FieldInvalidMsg from "../form-fields/field-invalid-msg";
 
 const Admin = () => {
     const [isChanged, setIsChanged] = useState(false);
@@ -37,10 +38,17 @@ const Admin = () => {
     }, [error, dispatch, configID])
 
     const handleEventCheck = () => {
-
         if (timer) clearTimeout(timer);
-        const timeOut = setTimeout(() => dispatch(checkEvents()), 5000);
+        const timeOut = setTimeout(() => dispatch(checkEvents()), config.HTTP_INTERVAL_VALUE);
         setTimer(timeOut);
+    }
+
+    const validateData = () => {
+        if (notificationEmailAdress.length > config.MAX_EMAIL_LENGTH || !document.getElementById("adminEmailInput").validity.valid) {
+            errorNotification(toast, labels.SETTING_INVALID_EMAIL_ERROR);
+            return;
+        }
+        submitForm()
     }
 
     const submitForm = async () => {
@@ -54,8 +62,6 @@ const Admin = () => {
         else errorNotification(toast, labels.DEFAULT_ERR_MSG)
     }
     // ToDo add stats section, interval time,
-    // make CB changes push update immedietly
-    // Make disabled fields stand out!
     return (
         <AdminStyle>
             <ErrorBar error={error} />
@@ -86,6 +92,7 @@ const Admin = () => {
                                             setIsChanged(true);
                                         }}
                                     />
+                                    <FieldInvalidMsg errorMessage={`${notificationEmailAdress?.length}/${config.MAX_EMAIL_LENGTH}`} />
                                 </div>
                             </div>
                             <div className="WIP-div">
@@ -107,7 +114,7 @@ const Admin = () => {
 
                             <div className='admin-btn-grp'>
                                 <div>
-                                    <Button disabled={!isChanged} onClick={submitForm}>Submit</Button>
+                                    <Button disabled={!isChanged} onClick={validateData}>Submit</Button>
                                 </div>
                                 <div className=''>
                                     <Button
