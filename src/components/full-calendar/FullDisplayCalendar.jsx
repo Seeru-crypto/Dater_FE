@@ -17,10 +17,10 @@ const FullDisplayCalendar = ({ eventData }) => {
                     headerToolbar={{
                         left: 'prev,next today',
                         center: 'title',
-                        right: '',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay',
                     }}
-                    editable
-                    selectable
+                    editable={false}
+                    selectable={false}
                     selectMirror
                     dayMaxEvents
                 />

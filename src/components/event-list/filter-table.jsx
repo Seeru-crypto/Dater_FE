@@ -95,6 +95,8 @@ const FilterTable = (props) => {
         <div>
             <Toolbar left={leftToolbar} right={rightToolbar} />
             <DataTable
+                sortField="name"
+                sortOrder={1}
                 responsiveLayout='scroll'
                 selection={selectedEvents}
                 onSelectionChange={(e) => setSelectedEvents(e.value)}
