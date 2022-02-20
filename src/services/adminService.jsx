@@ -5,8 +5,8 @@ class AdminService {
         return http.get('/api/settings');
     }
 
-    updateAdmin(adminDTO) {
-        return http.put(`/api/settings/${adminDTO.id}`, adminDTO);
+    updateAdmin(dto) {
+        return http.put(`/api/settings/${dto.data.id}?pin=${dto.pin}`, dto.data);
     }
 }
 

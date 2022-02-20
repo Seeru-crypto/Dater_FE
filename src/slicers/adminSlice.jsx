@@ -8,12 +8,13 @@ const initialState = {
     enableEmailAdressNotifications: false,
     configID : "",
     isLightMode: true,
-    currentPage: "/"
+    currentPage: "/",
+    pin: ""
 }
 
 export const getAdminData = createAsyncThunk('admin/getAdminData', async () => ( (await (AdminService.getAdmin())).data));
 
-export const updateAdmin = createAsyncThunk('admin/updateAdmin', async (adminDTO) => (await AdminService.updateAdmin(adminDTO)).data)
+export const updateAdmin = createAsyncThunk('admin/updateAdmin', async (dto) => (await AdminService.updateAdmin(dto)).data)
 
 export const adminSlice = createSlice({
     name: 'admin',
@@ -30,6 +31,9 @@ export const adminSlice = createSlice({
         },
         setIsLightMode: (state, action) => {
             state.isLightMode = action.payload;
+        },
+        setPin: (state, action) => {
+            state.pin = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -54,6 +58,6 @@ export const adminSlice = createSlice({
         });
     },
 })
-export const { setEmailAdressNotifications, setEmailAdress, setIsLightMode, setCurrentPage } = adminSlice.actions
+export const { setEmailAdressNotifications, setEmailAdress, setIsLightMode, setCurrentPage, setPin } = adminSlice.actions
 
 export default adminSlice.reducer

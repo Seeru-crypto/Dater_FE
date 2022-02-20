@@ -14,6 +14,7 @@ import AdminEmailRemindersCb from './admin-email-reminders-cb'
 import AdminSmsField from './admin-sms-field'
 import AdminSmsCb from './admin-sms-cb'
 import FieldInvalidMsg from "../form-fields/field-invalid-msg";
+import PinModal from "./pin-modal";
 
 const Admin = () => {
     const [isChanged, setIsChanged] = useState(false);
@@ -24,9 +25,11 @@ const Admin = () => {
     const loading = useAppSelector((state) => state.admin.loading)
     const error = useAppSelector((state) => state.admin.error)
     const notificationEmailAdress = useAppSelector((state) => state.admin.notificationEmailAdress)
+    const pin = useAppSelector((state) => state.admin.pin)
     const enableEmailAdressNotifications = useAppSelector((state) => state.admin.enableEmailAdressNotifications)
     const configID = useAppSelector((state) => state.admin.configID)
     const dispatch = useAppDispatch()
+    const [isPinModalVisible, setPinModal] = useState(!pin);
 
     useEffect(() => {
         if (error !== '') {
@@ -38,7 +41,7 @@ const Admin = () => {
         if (configID === '') dispatch(getAdminData())
     }, [error, dispatch, configID])
 
-    const handleEventCheck = () => {
+    const eventCheckHandler = () => {
         if (timer) clearTimeout(timer);
         const timeOut = setTimeout(() => dispatch(checkEvents()), config.HTTP_INTERVAL_VALUE);
         setTimer(timeOut);
@@ -64,7 +67,9 @@ const Admin = () => {
             sendEmails: enableEmailAdressNotifications,
             id: configID,
         }
-        const res = await dispatch(updateAdmin(data))
+
+        const dto = {data, pin}
+        const res = await dispatch(updateAdmin(dto))
         if (res.meta.requestStatus === 'fulfilled') positiveNotification(toast, labels.CONF_UPDATED_SUCCESS_MSG, '')
         else errorNotification(toast, labels.DEFAULT_ERR_MSG)
     }
@@ -73,6 +78,8 @@ const Admin = () => {
         <AdminStyle>
             <ErrorBar error={error} />
             <LoadingBar loading={loading} />
+
+            <PinModal isVisible={isPinModalVisible} setVisibility={setPinModal} />
             <div className='admin-border'>
                 <Toast ref={toast} />
                     {!loading && !error && (
@@ -128,7 +135,7 @@ const Admin = () => {
                                 </div>
                                 <div className=''>
                                     <Button
-                                        onClick={() => handleEventCheck()}
+                                        onClick={() => eventCheckHandler()}
                                         className='p-button-outlined p-button-secondary custom-butt'
                                     >
                                         <i className='pi pi-envelope p-px-2' />
