@@ -97,4 +97,17 @@ const PageHeaderStyle = styled.div`
     margin-top: -1rem;
     border-radius: .75rem;
   }
+
+  @media (max-width: 790px) {
+    .bx-sun {
+      margin-top: 0;
+      position: absolute;
+    }
+
+    .bx-moon {
+      margin-top: 0;
+    }
+
+
+  }
 `

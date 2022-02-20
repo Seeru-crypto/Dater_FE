@@ -149,13 +149,14 @@ nav .nav-bar .logo{
         cursor: pointer;
     }
 
+    .dark-light i {
+        position: relative;
+        display: block;
+    }
+
     .nav-bar .nav-links{
         flex-direction: column;
         padding-top: 30px;
-    }
-
-    .dark-light {
-        padding-top: 2rem;
     }
 
     .nav-links li a{
