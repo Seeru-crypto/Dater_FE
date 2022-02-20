@@ -7,7 +7,6 @@ import config from "../../config.json";
 import AdminSmsCb from "./admin-sms-cb";
 import AdminSmsField from "./admin-sms-field";
 import React, {useState} from "react";
-import {Button} from "primereact/button";
 import {useAppDispatch, useAppSelector} from "../../store";
 import {errorNotification, positiveNotification} from "../../custom-hooks/notifications";
 
@@ -94,7 +93,7 @@ const AdminSettings = ({pin, toast}) => {
                 </div>
             </div>
             <div className="admin-settings-footer">
-                <Button disabled={!isChanged} onClick={validateData}>Submit</Button>
+                <button disabled={!isChanged} onClick={validateData}>submit</button>
             </div>
         </AdminSettingsStyle>
     );
@@ -113,6 +112,24 @@ const AdminSettingsStyle = styled.div`
     padding: 2rem;
   }
 
+  .admin-settings-footer > button {
+    padding: .5rem;
+    border-radius: .5rem;
+    border: black 1px solid;
+    background-color: transparent;
+    color: var(--git-icon);
+    display: flex;
+    align-items: center;
+    transition: all 0.5s ease;
+  }
+
+  .admin-settings-footer > button:hover {
+    transition: all 0.5s;
+    cursor: pointer;
+    background-color: var(--add-border);
+    color: white;
+  }
+  
   .email-group {
     border-bottom: solid 1px gray;
     display: flex;

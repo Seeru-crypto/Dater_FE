@@ -9,6 +9,7 @@ import LoadingBar from '../functional-components/loading-bar'
 import PinModal from "./pin-modal";
 import AdminSettings from "./admin-settings";
 import AdminDetails from "./admin-details";
+import AdminLogTable from "./admin-log-table";
 
 const Admin = () => {
     const toast = useRef(null)
@@ -46,6 +47,10 @@ const Admin = () => {
                                 <AdminSettings pin={pin} toast={toast} />
                                 <AdminDetails logs={logs} />
                             </div>
+                            <h2>Logs</h2>
+                            <div className="second-row">
+                                <AdminLogTable logs={logs} />
+                            </div>
                         </div>
                     )}
             </div>
@@ -62,6 +67,7 @@ const AdminStyle = styled.div`
   .first-row{
     flex-direction: row;
     display: flex;
+    padding: 1rem 0 2rem 0;
   }
   
   .admin-border{
@@ -76,26 +82,13 @@ const AdminStyle = styled.div`
     width: 100%;
   }
 
-  .admin-email-reminder {
-    padding: 2rem 2rem;
-  }
-
   .general-admin-page {
     min-height: 100vh;
     border-radius: 0.75rem;
     padding: 2rem;
-    margin: 4rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  .custom-butt:hover{
-    border: #3da9fc solid 1px !important;
-  }
-
-  input {
-    width: 100%;
   }
 
   .admin-border {

@@ -74,7 +74,6 @@ const FilterTable = (props) => {
         let year = date.getFullYear()
         return `${day}-${month}-${year}`
     }
-    // ToDo Add delete functionality
     const leftToolbar = () => {
         return (
             <React.Fragment>

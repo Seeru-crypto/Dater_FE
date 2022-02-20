@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React, {useEffect, useState} from "react";
 import {checkEvents} from "../../slicers/eventSlice";
+import {getLogs} from "../../slicers/adminSlice";
 import config from "../../config.json";
 import {useAppDispatch} from "../../store";
 
@@ -13,9 +14,14 @@ const AdminDetails = ({logs}) => {
 
     const eventCheckHandler = () => {
         if (timer) clearTimeout(timer);
-        const timeOut = setTimeout(() => dispatch(checkEvents()), config.HTTP_INTERVAL_VALUE);
+        const timeOut = setTimeout(() => getEvents(), config.HTTP_INTERVAL_VALUE);
         setTimer(timeOut);
     }
+
+    const getEvents = () => {
+        dispatch(checkEvents())
+        setTimeout(() => dispatch(getLogs()), config.HTTP_INTERVAL_VALUE);
+    };
 
     useEffect(() => {
         if (logs.length > 1) {
@@ -79,13 +85,14 @@ const AdminDetailsStyle = styled.div`
     color: white;
     display: flex;
     align-items: center;
-    transition: all 0.8s ease;
+    transition: all 0.5s ease;
   }
 
   .details-footer > button:hover {
-    transition: all 0.8s;
+    transition: all 0.5s;
     color: var(--text);
-    
+    cursor: pointer;
+    background-color: var(--add-border);
   }
 
     .details-footer {

@@ -56,7 +56,6 @@ export const adminSlice = createSlice({
         });
         builder.addCase(getLogs.fulfilled, (state, action) => {
             const dataObject = action.payload;
-            console.log(dataObject);
             state.loading = false
             state.error = ''
             state.logs = dataObject
