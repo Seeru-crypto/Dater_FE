@@ -61,14 +61,14 @@ export const EventDetails = ({
     const dateHandler = (selectedDate) => {
         const newDate = selectedDate
         newDate.setHours(selectedDate.getHours() + 2)
-
         setIsoDate(newDate.toISOString())
-
         let day = selectedDate.getDate()
         let month = selectedDate.getMonth() + 1
         let year = selectedDate.getFullYear()
-        const date2 = `${day}/${month}/${year}`
+        const date2 = `${year}-${month}-${day}`
         setDate(date2)
+        console.log("selectedDate", selectedDate);
+        console.log("date2", date2);
     }
 
     const deleteConfirmationDialog = () => {

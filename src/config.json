@@ -23,7 +23,8 @@
     "EVENT_DELETED_MSG": "Event successfully deleted",
     "CONF_UPDATED_SUCCESS_MSG": "Configurations updated successfully",
     "SETTING_INVALID_EMAIL_ERROR" : "Please enter valid email address",
-    "TOAST_EVENTS_DELETE_SUCCESS" : "Events successfully deleted"
+    "TOAST_EVENTS_DELETE_SUCCESS" : "Events successfully deleted",
+    "TOAST_SETTINGS_EMAIL_LONG_ERROR" : "Max email length is 35 chars"
   },
   "headerItems": [
     {

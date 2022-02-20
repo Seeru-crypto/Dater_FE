@@ -9,12 +9,12 @@ class EventService {
         return http.delete(`/api/events/${eventId}`);
     }
 
-    updateEvent(reminderEvent) {
-        return http.put(`/event/${reminderEvent.id}`, reminderEvent);
+    updateEvent(event) {
+        return http.put(`/api/events/${event.id}`, event);
     }
 
-    saveEvent(reminderEvent) {
-        return http.post('/api/events', reminderEvent);
+    saveEvent(event) {
+        return http.post('/api/events', event);
     }
 
     checkEvents() {

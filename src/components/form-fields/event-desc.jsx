@@ -27,7 +27,7 @@ const EventDescription = ({ desc, descHandler, missing }) => {
                           onChange={(e) => inputValidation(e.target.value)}
                           id='eventDesc' />
                 <label className='floating-label' htmlFor='eventDesc'>event description</label>
-                <FieldInvalidMsg errorMessage={invalidMsg} />
+                <FieldInvalidMsg messageContent={invalidMsg} />
             </div>
         </DescBoxStyle>
     )

@@ -20,6 +20,7 @@ const Admin = () => {
     const [timer, setTimer] = useState(null);
     const labels = config.LABELS
     const toast = useRef(null)
+    const [isCharCounterVisible, setCharCounterVisible] = useState(false);
     const loading = useAppSelector((state) => state.admin.loading)
     const error = useAppSelector((state) => state.admin.error)
     const notificationEmailAdress = useAppSelector((state) => state.admin.notificationEmailAdress)
@@ -29,10 +30,10 @@ const Admin = () => {
 
     useEffect(() => {
         if (error !== '') {
-            const timer = setInterval(() => {
+            const localTimer = setInterval(() => {
                 dispatch(getAdminData())
             }, config.HTTP_INTERVAL_VALUE)
-            return () => clearTimeout(timer)
+            return () => clearTimeout(localTimer)
         }
         if (configID === '') dispatch(getAdminData())
     }, [error, dispatch, configID])
@@ -44,10 +45,16 @@ const Admin = () => {
     }
 
     const validateData = () => {
-        if (notificationEmailAdress.length > config.MAX_EMAIL_LENGTH || !document.getElementById("adminEmailInput").validity.valid) {
+        if (notificationEmailAdress.length > config.MAX_EMAIL_LENGTH) {
+            errorNotification(toast, labels.TOAST_SETTINGS_EMAIL_LONG_ERROR);
+            setCharCounterVisible(true)
+            return;
+        }
+        if (!document.getElementById("adminEmailInput").validity.valid) {
             errorNotification(toast, labels.SETTING_INVALID_EMAIL_ERROR);
             return;
         }
+        setCharCounterVisible(false)
         submitForm()
     }
 
@@ -92,7 +99,10 @@ const Admin = () => {
                                             setIsChanged(true);
                                         }}
                                     />
-                                    <FieldInvalidMsg errorMessage={`${notificationEmailAdress?.length}/${config.MAX_EMAIL_LENGTH}`} />
+                                    {isCharCounterVisible &&
+                                    <FieldInvalidMsg
+                                        messageContent={`${notificationEmailAdress?.length}/${config.MAX_EMAIL_LENGTH}`}/>
+                                    }
                                 </div>
                             </div>
                             <div className="WIP-div">
