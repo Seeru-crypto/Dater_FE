@@ -6,9 +6,12 @@ import {ReactComponent as JavaIcon} from '../static/icons/java-icon.svg'
 import config from '../config.json'
 import CTAButton from "./CTA-button"
 import {useNavigate} from 'react-router-dom'
+import {setCurrentPage} from "../slicers/adminSlice";
+import {useAppDispatch} from "../store";
 
 const Main = () => {
     const navigate = useNavigate()
+    const dispatch = useAppDispatch()
 
     return (
         <MainStyle>
@@ -17,7 +20,10 @@ const Main = () => {
                 <div className='main-content'>
                     <div className='first content-row'>
                         <div className='cta'>
-                            <CTAButton onClickHandler={() => navigate("/add")}/>
+                            <CTAButton onClickHandler={() => {
+                                navigate("/add")
+                                dispatch(setCurrentPage("/add"))
+                            }}/>
                         </div>
                         <article className='main-box about'>
                             <h4>About</h4>

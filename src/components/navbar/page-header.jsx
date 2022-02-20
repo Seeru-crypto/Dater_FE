@@ -5,17 +5,17 @@ import config from '../../config.json'
 import { useNavigate } from 'react-router-dom'
 import NavButton from './nav-button'
 import { useAppDispatch, useAppSelector } from '../../store'
-import { setIsLightMode } from '../../slicers/adminSlice'
+import {setCurrentPage, setIsLightMode} from '../../slicers/adminSlice'
 
 // ToDo replace imported icons with local icons
 
 const PageHeader = () => {
 
     const [sidebarToggle, setSidebarToggle] = useState(false)
-    const [currentPage, setCurrentPage] = useState('home')
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const isLightMode = useAppSelector((state) => state.admin.isLightMode)
+    const currentPage = useAppSelector((state) => state.admin.currentPage)
 
     const navigateToUrl = (e, item) => {
         e.preventDefault()
@@ -24,7 +24,7 @@ const PageHeader = () => {
         }
         const currentUrl = window.location.href
         const urlLastPart = currentUrl.substr(currentUrl.lastIndexOf('/'))
-        setCurrentPage(urlLastPart);
+        dispatch(setCurrentPage(urlLastPart))
         toggleSidebar();
     }
     const [headerItems] = useState(config.headerItems)

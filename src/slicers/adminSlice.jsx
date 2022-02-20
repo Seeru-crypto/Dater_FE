@@ -7,7 +7,8 @@ const initialState = {
     error: '',
     enableEmailAdressNotifications: false,
     configID : "",
-    isLightMode: true
+    isLightMode: true,
+    currentPage: "/"
 }
 
 export const getAdminData = createAsyncThunk('admin/getAdminData', async () => ( (await (AdminService.getAdmin())).data));
@@ -18,11 +19,14 @@ export const adminSlice = createSlice({
     name: 'admin',
     initialState,
     reducers: {
-        setEmailAdressNotifications: (state, action) => {
+        setEmailAdressNotifications: (state) => {
             state.enableEmailAdressNotifications = !state.enableEmailAdressNotifications;
         },
         setEmailAdress: (state, action) => {
             state.notificationEmailAdress = action.payload;
+        },
+        setCurrentPage: (state, action) => {
+            state.currentPage = action.payload;
         },
         setIsLightMode: (state, action) => {
             state.isLightMode = action.payload;
@@ -50,6 +54,6 @@ export const adminSlice = createSlice({
         });
     },
 })
-export const { setEmailAdressNotifications, setEmailAdress, setIsLightMode } = adminSlice.actions
+export const { setEmailAdressNotifications, setEmailAdress, setIsLightMode, setCurrentPage } = adminSlice.actions
 
 export default adminSlice.reducer

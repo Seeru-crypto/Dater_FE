@@ -65,10 +65,8 @@ export const EventDetails = ({
         let day = selectedDate.getDate()
         let month = selectedDate.getMonth() + 1
         let year = selectedDate.getFullYear()
-        const date2 = `${year}-${month}-${day}`
-        setDate(date2)
-        console.log("selectedDate", selectedDate);
-        console.log("date2", date2);
+        const formattedDate = `${year}-${month}-${day}`
+        setDate(formattedDate)
     }
 
     const deleteConfirmationDialog = () => {
