@@ -31,6 +31,9 @@ const NavButtonStyle = styled.div`
   }
   
   .active {
+    border-radius: .5rem;
+    padding: 0.25rem .4rem;
+    background-color: var(--details-bkg);
     color: var(--git-icon);
   }
 `

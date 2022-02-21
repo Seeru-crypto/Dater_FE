@@ -9,7 +9,10 @@ import { Toolbar } from 'primereact/toolbar'
 import './filter-table.css'
 import { confirmDialog } from 'primereact/confirmdialog'
 import { useAppDispatch } from '../../store'
-import { deleteEvents } from '../../slicers/eventSlice'
+import {deleteEvents, getEvents} from '../../slicers/eventSlice'
+import {errorNotification, positiveNotification} from "../../custom-hooks/notifications";
+import config from "../../config.json"
+import {Toast} from "primereact/toast";
 
 const FilterTable = (props) => {
     const dispatch = useAppDispatch()
@@ -19,6 +22,8 @@ const FilterTable = (props) => {
     const [showModal, setShowModal] = useState(false)
     const [globalFilter, setGlobalFilter] = useState('')
     const ref = useRef(null)
+    const labels = config.LABELS;
+    const toast = useRef(null)
 
     useEffect(() => {
         setData(props.data)
@@ -53,11 +58,13 @@ const FilterTable = (props) => {
     }
 
     const deleteSelectedEvents = async () => {
-        const test = selectedEvents.map((e) => e.id);
-        console.log(test)
-        dispatch(deleteEvents(test));
+        const eventIds = selectedEvents.map((e) => e.id);
+        const res = await dispatch(deleteEvents(eventIds));
+        if (res.meta.requestStatus === 'fulfilled') {
+            positiveNotification(toast, labels.TOAST_EVENTS_DELETE_SUCCESS, '')
+            dispatch(getEvents())
+        } else errorNotification(toast, labels.DEFAULT_ERR_MSG)
 
-        // dispatch(deleteEvent(eventId))
     };
 
     const renderDateValues = (rowData) => {
@@ -67,7 +74,6 @@ const FilterTable = (props) => {
         let year = date.getFullYear()
         return `${day}-${month}-${year}`
     }
-    // ToDo Add delete functionality
     const leftToolbar = () => {
         return (
             <React.Fragment>
@@ -93,8 +99,11 @@ const FilterTable = (props) => {
 
     return (
         <div>
+            <Toast ref={toast} />
             <Toolbar left={leftToolbar} right={rightToolbar} />
             <DataTable
+                sortField="name"
+                sortOrder={1}
                 responsiveLayout='scroll'
                 selection={selectedEvents}
                 onSelectionChange={(e) => setSelectedEvents(e.value)}
@@ -111,7 +120,7 @@ const FilterTable = (props) => {
             >
                 <Column className='table-selector' selectionMode='multiple' exportable={false} />
                 <Column
-                    field='eventName'
+                    field='name'
                     sortable
                     header='Event'
                 />
@@ -133,7 +142,7 @@ const FilterTable = (props) => {
                     header='Number of days'
                 />
                 <Column
-                    field='eventDescription'
+                    field='description'
                     sortable
                     header='Description'
                 />

@@ -7,29 +7,43 @@ const initialState = {
     error: '',
     enableEmailAdressNotifications: false,
     configID : "",
-    isLightMode: true
+    isLightMode: true,
+    currentPage: "/",
+    pin: "",
+    logs: []
 }
 
 export const getAdminData = createAsyncThunk('admin/getAdminData', async () => ( (await (AdminService.getAdmin())).data));
 
-export const updateAdmin = createAsyncThunk('admin/updateAdmin', async (adminDTO) => (await AdminService.updateAdmin(adminDTO)).data)
+export const getLogs = createAsyncThunk('admin/getLogs', async () => ( (await (AdminService.getLogs())).data));
+
+export const updateAdmin = createAsyncThunk('admin/updateAdmin', async (dto) => (await AdminService.updateAdmin(dto)).data)
 
 export const adminSlice = createSlice({
     name: 'admin',
     initialState,
     reducers: {
-        setEmailAdressNotifications: (state, action) => {
+        setEmailAdressNotifications: (state) => {
             state.enableEmailAdressNotifications = !state.enableEmailAdressNotifications;
         },
         setEmailAdress: (state, action) => {
             state.notificationEmailAdress = action.payload;
         },
+        setCurrentPage: (state, action) => {
+            state.currentPage = action.payload;
+        },
         setIsLightMode: (state, action) => {
             state.isLightMode = action.payload;
+        },
+        setPin: (state, action) => {
+            state.pin = action.payload;
         },
     },
     extraReducers: (builder) => {
         builder.addCase(getAdminData.pending, (state) => {
+            state.loading = true
+        });
+        builder.addCase(getLogs.pending, (state) => {
             state.loading = true
         });
         builder.addCase(getAdminData.fulfilled, (state, action) => {
@@ -40,7 +54,16 @@ export const adminSlice = createSlice({
             state.enableEmailAdressNotifications = dataObject.sendEmails
             state.configID = dataObject.id
         });
+        builder.addCase(getLogs.fulfilled, (state, action) => {
+            const dataObject = action.payload;
+            state.loading = false
+            state.error = ''
+            state.logs = dataObject
+        });
         builder.addCase(getAdminData.rejected, (state) => {
+            state.error = 'an error has occured'
+        });
+        builder.addCase(getLogs.rejected, (state) => {
             state.error = 'an error has occured'
         });
         builder.addCase(updateAdmin.rejected, (state) => {
@@ -50,6 +73,6 @@ export const adminSlice = createSlice({
         });
     },
 })
-export const { setEmailAdressNotifications, setEmailAdress, setIsLightMode } = adminSlice.actions
+export const { setEmailAdressNotifications, setEmailAdress, setIsLightMode, setCurrentPage, setPin } = adminSlice.actions
 
 export default adminSlice.reducer

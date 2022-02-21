@@ -17,7 +17,11 @@ const EventCalendar = ({ dateHandler, selectedDate, missing }) => {
             return `${isoDate.getFullYear()}-${month}-${day}`;
         }
 
-        if (selectedDate === '') setCurrentDate(modifyDate(new Date()))
+        if (selectedDate === '') {
+            const newDate = modifyDate(new Date())
+            setCurrentDate(newDate);
+            dateHandler(new Date(newDate));
+            }
         else setCurrentDate(modifyDate(selectedDate));
     }, [selectedDate])
 
@@ -30,7 +34,10 @@ const EventCalendar = ({ dateHandler, selectedDate, missing }) => {
                        max={config.CALENDAR_MAX_DATE}
                        className={`date ${missing ? 'missing' : ''}`}
                        value={currentDate}
-                       onChange={(e) => dateHandler(new Date(e.target.value))}
+                       onChange={(e) => {
+                           console.log(new Date(e.target.value))
+                           dateHandler(new Date(e.target.value))
+                       }}
                 />
             </div>
         </EventDateStyle>

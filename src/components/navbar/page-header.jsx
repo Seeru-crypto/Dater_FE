@@ -5,17 +5,15 @@ import config from '../../config.json'
 import { useNavigate } from 'react-router-dom'
 import NavButton from './nav-button'
 import { useAppDispatch, useAppSelector } from '../../store'
-import { setIsLightMode } from '../../slicers/adminSlice'
-
-// ToDo replace imported icons with local icons
+import {setCurrentPage, setIsLightMode} from '../../slicers/adminSlice'
 
 const PageHeader = () => {
 
     const [sidebarToggle, setSidebarToggle] = useState(false)
-    const [currentPage, setCurrentPage] = useState('home')
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const isLightMode = useAppSelector((state) => state.admin.isLightMode)
+    const currentPage = useAppSelector((state) => state.admin.currentPage)
 
     const navigateToUrl = (e, item) => {
         e.preventDefault()
@@ -24,7 +22,7 @@ const PageHeader = () => {
         }
         const currentUrl = window.location.href
         const urlLastPart = currentUrl.substr(currentUrl.lastIndexOf('/'))
-        setCurrentPage(urlLastPart);
+        dispatch(setCurrentPage(urlLastPart))
         toggleSidebar();
     }
     const [headerItems] = useState(config.headerItems)
@@ -32,10 +30,10 @@ const PageHeader = () => {
     useEffect(() => {
         const value = sessionStorage.getItem(config.SESSION_STORAGE_LABEL) === 'true'
         dispatch(setIsLightMode(value))
-    }, [])
+    }, [dispatch]);
 
     const changeTheme = () => {
-        sessionStorage.setItem(config.SESSION_STORAGE_LABEL, isLightMode.toString())
+        sessionStorage.setItem(config.SESSION_STORAGE_LABEL, (!isLightMode).toString())
         dispatch(setIsLightMode(!isLightMode))
     }
 
@@ -47,11 +45,10 @@ const PageHeader = () => {
                 <nav className={`${sidebarToggle ? 'active' : ''}`}>
                     <div className='nav-bar'>
                         <i onClick={toggleSidebar} className='bx bx-menu sidebarOpen' />
-                        <span className='logo navLogo'><a href='/'>Dater</a></span>
-
+                        <span className='logo navLogo'>Dater</span>
                         <div className='menu'>
                             <div className='logo-toggle'>
-                                <span className='logo'><a href='/'>Dater</a></span>
+                                <span className='logo'>Dater</span>
                                 <i onClick={toggleSidebar} className='bx bx-x siderbarClose' />
                             </div>
 
@@ -64,12 +61,14 @@ const PageHeader = () => {
                                         </li>
                                     )
                                 })}
-                                <li key="theme-btn" className='dark-light'>
+                                <li key="theme-btn">
+                                    <div className='dark-light'>
                                     <i onClick={changeTheme}
                                        className={`bx bx-sun sun ${isLightMode ? 'active' : ''} `} />
                                     <i onClick={changeTheme}
                                        className={`bx bx-moon moon ${!isLightMode ? 'active' : ''}`} />
-                                </li>
+                                    </div>
+                                    </li>
                             </ul>
                         </div>
                     </div>
@@ -95,5 +94,16 @@ const PageHeaderStyle = styled.div`
     padding: 0.75rem;
     margin-top: -1rem;
     border-radius: .75rem;
+  }
+
+  @media (max-width: 790px) {
+    .bx-sun {
+      margin-top: 0;
+      position: absolute;
+    }
+
+    .bx-moon {
+      margin-top: 0;
+    }
   }
 `

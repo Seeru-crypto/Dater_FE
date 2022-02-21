@@ -6,9 +6,12 @@ import {ReactComponent as JavaIcon} from '../static/icons/java-icon.svg'
 import config from '../config.json'
 import CTAButton from "./CTA-button"
 import {useNavigate} from 'react-router-dom'
+import {setCurrentPage} from "../slicers/adminSlice";
+import {useAppDispatch} from "../store";
 
 const Main = () => {
     const navigate = useNavigate()
+    const dispatch = useAppDispatch()
 
     return (
         <MainStyle>
@@ -17,7 +20,10 @@ const Main = () => {
                 <div className='main-content'>
                     <div className='first content-row'>
                         <div className='cta'>
-                            <CTAButton onClickHandler={() => navigate("/add")}/>
+                            <CTAButton onClickHandler={() => {
+                                navigate("/add")
+                                dispatch(setCurrentPage("/add"))
+                            }}/>
                         </div>
                         <article className='main-box about'>
                             <h4>About</h4>
@@ -82,7 +88,7 @@ const Main = () => {
                                     <p>Redux- This was the first time using redux nad utilizing its storage capability.
                                         The app was optimized so that HTTP requests are made once, when page loads.
                                         Navigating between pages
-                                        does not create unncecesary HTTP requests</p>
+                                        does not create unnecessary HTTP requests</p>
                                     <p> Reusable components: by making separate react components, the amount of HTML
                                         code was cut down to marginal amounts, making it easier to upkeep this
                                         application.</p>
@@ -91,7 +97,7 @@ const Main = () => {
                                 </article>
                                 <article className='back-end'>
                                     <h5 className='main-detail-header'> Back-end</h5>
-                                    <p>Emailer is realized by Spring javaMail function with thymeleaf template engine.</p>
+                                    <p>Mailer is realized by Spring javaMail function with thymeleaf template engine.</p>
                                     <p>local & dev profiles made it very easy to test locally and later deploy</p>
                                     <p>Creating recurring check was achieved by springframework scheduling function</p>
                                     <p>Manipulating date formats so that effective comparison can be made later on was a bit difficult.</p>
@@ -101,11 +107,11 @@ const Main = () => {
                                     <p>Spring boot has very good integration with MongoDB, which made it
                                         harder to customize functions/ data flow.
                                         Since it was difficult to track down how data moved inside spring.</p>
-                                    <p>Since the dataflow is comparetively simple, the DB schema was simple as well, created 2 indexes: events, settings</p>
+                                    <p>Since the dataflow is comparatively simple, the DB schema was simple as well, created 2 indexes: events, settings</p>
                                 </article>
                                 <article className='hosting'>
                                     <h5 className='main-detail-header'> Hosting, CI/CD</h5>
-                                    <p>First time learning docker and dockerizing project modules (FE, BE, DB).</p>
+                                    <p>First time learning docker and dockerized project modules (FE, BE, DB).</p>
                                     <p>Learning how to use, Hosting platform Heroku, managing env variables.</p>
                                     <p>Setting up automatic deploy pipelines</p>
                                 </article>

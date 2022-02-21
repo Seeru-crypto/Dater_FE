@@ -1,9 +1,9 @@
-import React, { memo, useRef, useState } from 'react'
-import { Toast } from 'primereact/toast'
+import React, {memo, useRef, useState} from 'react'
+import {Toast} from 'primereact/toast'
 
 import styled from 'styled-components'
 import config from '../../config.json'
-import { errorNotification, infoNotification, positiveNotification } from '../../custom-hooks/notifications'
+import {errorNotification, infoNotification, positiveNotification} from '../../custom-hooks/notifications'
 import CalendarComponent from '../form-fields/event-calendar'
 import dataValidation from '../../custom-hooks/dataValidation'
 import EventNameField from '../form-fields/event-name'
@@ -13,8 +13,8 @@ import EventReminder from '../form-fields/event-reminder-cb'
 import EventYearlyCb from '../form-fields/event-yearly-cb'
 import EventNumberOfDays from '../form-fields/event-number-of-days'
 
-import { useAppDispatch } from '../../store'
-import { createEvent, getEvents } from '../../slicers/eventSlice'
+import {useAppDispatch} from '../../store'
+import {createEvent, getEvents} from '../../slicers/eventSlice'
 
 const AddEvent = () => {
     const [eventName, setEventName] = useState('')
@@ -32,7 +32,7 @@ const AddEvent = () => {
     const labels = config.LABELS
     const dateHandler = (data) => {
         const newDate = data
-        newDate.setHours(data.getHours() + 2)
+        newDate.setHours(data.getHours() + 2);
         setDate(newDate)
     }
 
@@ -41,18 +41,18 @@ const AddEvent = () => {
         validationResult.property === 'name' ? setInvalidName(true) : setInvalidName(false)
         validationResult.property === 'date' ? setInvalidDate(true) : setInvalidDate(false)
         validationResult.property === 'desc' ? setInvalidDesc(true) : setInvalidDesc(false)
-        if (validationResult.result) return submitForm()
+        if (validationResult.result) return submitForm();
         infoNotification(toast, labels.INVALID_FORM_ERR_HEADER, '')
     }
 
     const submitForm = async () => {
         const reminderDays = (reminderInDays === '') ? '0' : reminderInDays
         const data = {
-            eventName,
+            name : eventName.trim(),
             date,
             reminder,
             reminderDays: reminderDays,
-            eventDescription,
+            description: eventDescription,
             accountForYear,
         }
         const res = await dispatch(createEvent(data))

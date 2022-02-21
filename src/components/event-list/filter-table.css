@@ -6,7 +6,7 @@ body{
 
 .header-search {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .p-toolbar {
@@ -46,4 +46,7 @@ body{
 
 .table-selector {
     width: 3rem
+}
+.p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
+    background-color: var(--table-hover-bg);
 }

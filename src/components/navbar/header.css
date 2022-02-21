@@ -34,7 +34,7 @@ nav .nav-bar .sidebarOpen{
     display: none;
 }
 
-nav .nav-bar .logo a{
+nav .nav-bar .logo{
     font-size: 25px;
     font-weight: 500;
     color: var(--nav-text-color);
@@ -137,7 +137,6 @@ nav .nav-bar .logo a{
     }
 
     .menu .logo-toggle{
-        /*display: block;*/
         width: 100%;
         display: flex;
         align-items: center;
@@ -150,13 +149,14 @@ nav .nav-bar .logo a{
         cursor: pointer;
     }
 
+    .dark-light i {
+        position: relative;
+        display: block;
+    }
+
     .nav-bar .nav-links{
         flex-direction: column;
         padding-top: 30px;
-    }
-
-    .dark-light {
-        padding-top: 2rem;
     }
 
     .nav-links li a{

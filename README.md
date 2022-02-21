@@ -14,23 +14,9 @@ An application for creating reminders and getting email notifications for impend
 
 **OR**
 
-// ToDo test docker run.
 - Docker container:
     -   `docker build -t dater-react-app .` at root level
-    -   `docker run -it --name dater-react-app --rm -d -v %cd%:/app -v /app/node_modules -p 4000:3000 -e CHOKIDAR_USEPOLLING=true dater-react-app`
-
-
-2. To mock backend data start JSON server via docker:
-
-- Navigate to the docker folder
-    - run:
-    ```
-    docker build -t json-server .
-    docker run -it --name json-server-container -d -p 5432:8080 json-server
-    docker cp .\db.json json-server-container:/tmp/test.json
-    ```
-    - if needed restart docker container
-
+    -   `docker run -p 3000:3000 --name dater -d -t -i dater-react-app`
 
 ## Front-end
 
@@ -57,8 +43,8 @@ An application for creating reminders and getting email notifications for impend
   - [ ] Admin view, change email aadress, port and reminder email template
       - [x] UI is created
       - [x] UI uses GET & POST requests
-      - [ ] field validation
-      - [ ] Sequentsial email option, (if person wants emails every day or every other day!)
+      - [x] field validation
+      - [x] Sequentsial email option, (feature creep, removed from this version)
   - [x] Table to display current event´s
       -   [x] Table UI is created
       -   [x] table gets data from GET request
@@ -79,4 +65,4 @@ An application for creating reminders and getting email notifications for impend
       - [x] Add loading animations
       - [x] Export all inline styling into a App.css file / styled components
       - [x] Add a manual button for switching themes on the navBar far right side
-      - [ ] fix mobile view
+      - [x] fix mobile view

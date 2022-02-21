@@ -14,6 +14,8 @@
   --side-nav-bkg: #90b4ce;
   --git-icon: #18191A;
   --details-bkg: #fffffe;
+  --table-hover-bg:#e9ecef;
+  --disabled-btn-color: rgb(84, 84, 84);
 
 }
 
@@ -26,10 +28,14 @@
   --add-border: #094067;
   --git-icon: #fffffe;
   --details-bkg: #094067;
+  --table-hover-bg: #3da9fc;
+  --disabled-btn-color: rgb(84, 84, 84);
 
 
 }
-
+.disabled{
+  color:var(--disabled-btn-color) !important;
+}
 .dark nav{
   border: 1px solid #393838;
 }

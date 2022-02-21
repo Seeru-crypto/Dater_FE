@@ -2,11 +2,11 @@ import React from 'react'
 import './form-styles.css'
 import styled from 'styled-components'
 
-const FieldInvalidMsg = ({ errorMessage }) => {
+const FieldInvalidMsg = ({ messageContent }) => {
 
     return (
         <ErrorMessageStyle>
-            {errorMessage && <em>{errorMessage}</em>}
+            {messageContent && <em>{messageContent}</em>}
         </ErrorMessageStyle>
     )
 }
