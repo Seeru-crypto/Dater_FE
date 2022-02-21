@@ -1,10 +1,15 @@
 import styled from "styled-components";
 import {DataTable} from "primereact/datatable";
 import {Column} from "primereact/column";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "../event-list/filter-table.css"
 
 const AdminLogTable = ({logs}) => {
+    const [defaultData, setDefaultData] = useState(logs);
+
+    useEffect(() => {
+        setDefaultData(logs);
+    }, [logs])
 
     const renderDateValues = (rowData) => {
         const dateTime = new Date(rowData.date);
@@ -13,20 +18,18 @@ const AdminLogTable = ({logs}) => {
         const formattedDateTime = `${time} : ${date}`;
         return formattedDateTime;
     }
-
     return(
         <AdminLogTableStyle>
             <DataTable
                 responsiveLayout='scroll'
-                selection={logs}
                 paginator
                 // header={rightToolbar()}
-                value={logs}
+                value={defaultData}
                 emptyMessage='No events found'
                 paginatorTemplate='CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown'
                 currentPageReportTemplate='Showing {first} to {last} of {totalRecords}'
-                rows={5}
-                rowsPerPageOptions={[5, 10]}
+                rows={10}
+                rowsPerPageOptions={[10, 20, 50]}
             >
                 <Column className='table-selector' exportable={false} />
                 <Column
@@ -50,7 +53,7 @@ const AdminLogTable = ({logs}) => {
                     sortable
                     header='poller value'
                 />
-                // ToDo fix mailContent saved format
+
                 {/*<Column*/}
                 {/*    field='mailContent'*/}
                 {/*    sortable*/}

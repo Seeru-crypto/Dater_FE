@@ -18,8 +18,6 @@ import EventYearlyCb from '../form-fields/event-yearly-cb'
 import EventNumberOfDays from '../form-fields/event-number-of-days'
 import EventReminder from '../form-fields/event-reminder-cb'
 
-// ToDo replace primeReact modal with custom HTML element
-
 export const EventDetails = ({
                                  selectedEvent,
                                  hideModal,

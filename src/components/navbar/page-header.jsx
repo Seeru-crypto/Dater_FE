@@ -7,8 +7,6 @@ import NavButton from './nav-button'
 import { useAppDispatch, useAppSelector } from '../../store'
 import {setCurrentPage, setIsLightMode} from '../../slicers/adminSlice'
 
-// ToDo replace imported icons with local icons
-
 const PageHeader = () => {
 
     const [sidebarToggle, setSidebarToggle] = useState(false)
@@ -107,7 +105,5 @@ const PageHeaderStyle = styled.div`
     .bx-moon {
       margin-top: 0;
     }
-
-
   }
 `
