@@ -30,7 +30,7 @@ const PageHeader = () => {
     useEffect(() => {
         const value = sessionStorage.getItem(config.SESSION_STORAGE_LABEL) === 'true'
         dispatch(setIsLightMode(value))
-    }, [])
+    }, [dispatch]);
 
     const changeTheme = () => {
         sessionStorage.setItem(config.SESSION_STORAGE_LABEL, (!isLightMode).toString())

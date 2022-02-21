@@ -66,7 +66,7 @@ input:valid + .floating-label {
     color: var(--btn);
 }
 
-[type="submit"] {
+.blue-btn{
     background-color: var(--btn);
     cursor: pointer;
     padding: 1rem 2rem;

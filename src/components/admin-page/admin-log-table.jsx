@@ -53,12 +53,11 @@ const AdminLogTable = ({logs}) => {
                     sortable
                     header='poller value'
                 />
-
-                {/*<Column*/}
-                {/*    field='mailContent'*/}
-                {/*    sortable*/}
-                {/*    header='mail content'*/}
-                {/*/>*/}
+                <Column
+                    field='errorDesc'
+                    sortable
+                    header='Errors'
+                />
             </DataTable>
         </AdminLogTableStyle>
     )
