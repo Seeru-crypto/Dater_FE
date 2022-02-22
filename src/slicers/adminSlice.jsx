@@ -6,7 +6,7 @@ const initialState = {
     loading: false,
     error: '',
     enableEmailAdressNotifications: false,
-    configID : "",
+    configId : "",
     isLightMode: true,
     currentPage: "/",
     pin: "",
@@ -52,7 +52,7 @@ export const adminSlice = createSlice({
             state.error = ''
             state.notificationEmailAdress = dataObject.emailAddress
             state.enableEmailAdressNotifications = dataObject.sendEmails
-            state.configID = dataObject.id
+            state.configId = dataObject.id
         });
         builder.addCase(getLogs.fulfilled, (state, action) => {
             const dataObject = action.payload;

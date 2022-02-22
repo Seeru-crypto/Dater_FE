@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom'
-import Main from './components/main'
-import AddEvent from './components/create-event/add-event'
-import ViewEvents from './components/event-list/view-events'
-import Admin from './components/admin-page/admin'
-import CalendarIndex from './components/full-calendar/CalendarIndex'
-import NotFound from './components/not-found'
+import Main from './views/home/main'
+import AddEvent from './views/add-event/add-event'
+import ViewEvents from './views/event-list/view-events'
+import Admin from './views/Admin/admin'
+import Calendar from './views/calendar/Calendar'
+import NotFound from './views/not-found/not-found'
 
 const ComponentRoutes = () => {
     return (
@@ -21,7 +21,7 @@ const ComponentRoutes = () => {
                 <Route
                     exact
                     path='/fullCalendar'
-                    element={<CalendarIndex />}
+                    element={<Calendar />}
                 />
                 <Route path='*' element={<NotFound />} />
             </Routes>

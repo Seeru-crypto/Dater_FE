@@ -1,4 +1,4 @@
-import './static/App.css'
+import './static/css-files/App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'primereact/calendar/calendar.min.css'
 import 'primereact/dropdown/dropdown.min.css'
@@ -8,7 +8,7 @@ import 'primereact/resources/themes/saga-blue/theme.css'
 import PrimeReact from 'primereact/api'
 import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
-import PageHeader from './components/navbar/page-header'
+import Navbar from './views/navbar/navbar'
 import ComponentRoutes from './ComponentRoutes'
 import { useAppSelector } from './store'
 
@@ -18,7 +18,7 @@ const App = () => {
     const isLightMode = useAppSelector((state) => state.admin.isLightMode);
     return (
         <div>
-            <PageHeader />
+            <Navbar />
             <div className={`${isLightMode ? '' : 'dark'} main-component-div`}>
                 <ComponentRoutes />
             </div>
