@@ -12,7 +12,7 @@ import {
     EventReminder,
     EventSubmitButton,
     EventYearlyCb
-} from "../../components/event/form-index";
+} from "../../components/event/event-index";
 import dataValidation from '../../utils/dataValidation'
 import {motion} from "framer-motion";
 

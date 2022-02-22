@@ -18,7 +18,7 @@ import {
     EventNumberOfDays,
     EventReminder,
     EventYearlyCb
-} from "../../components/event/form-index";
+} from "../../components/event/event-index";
 
 export const EventDetails = ({
                                  selectedEvent,

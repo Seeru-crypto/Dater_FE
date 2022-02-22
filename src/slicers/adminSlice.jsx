@@ -2,10 +2,10 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import AdminService from '../services/adminService'
 
 const initialState = {
-    notificationEmailAddress: "",
+    userMailAddress: "",
     loading: false,
     error: '',
-    enableEmailAdressNotifications: false,
+    isEmailEnabled: false,
     configId : "",
     isLightMode: true,
     currentPage: "/",
@@ -24,10 +24,10 @@ export const adminSlice = createSlice({
     initialState,
     reducers: {
         setEmailAdressNotifications: (state) => {
-            state.enableEmailAdressNotifications = !state.enableEmailAdressNotifications;
+            state.isEmailEnabled = !state.isEmailEnabled;
         },
         setEmailAdress: (state, action) => {
-            state.notificationEmailAdress = action.payload;
+            state.userMailAddress = action.payload;
         },
         setCurrentPage: (state, action) => {
             state.currentPage = action.payload;
@@ -50,8 +50,8 @@ export const adminSlice = createSlice({
             const dataObject = action.payload[0];
             state.loading = false
             state.error = ''
-            state.notificationEmailAdress = dataObject.emailAddress
-            state.enableEmailAdressNotifications = dataObject.sendEmails
+            state.userMailAddress = dataObject.emailAddress
+            state.isEmailEnabled = dataObject.sendEmails
             state.configId = dataObject.id
         });
         builder.addCase(getLogs.fulfilled, (state, action) => {

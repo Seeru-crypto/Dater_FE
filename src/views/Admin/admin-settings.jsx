@@ -17,11 +17,11 @@ import PinModal from "../../components/admin/pin-modal";
 
 const AdminSettings = ({toast}) => {
     const {
-        enableEmailAddressNotifications,
-        notificationEmailAdress,
+        isEmailEnabled,
+        userMailAddress,
         pin,
         configId
-    } = useAppSelector((state) => state.admin.enableEmailAdressNotifications)
+    } = useAppSelector((state) => state.admin)
     const dispatch = useAppDispatch()
     const [isChanged, setIsChanged] = useState(false);
     const labels = config.LABELS
@@ -30,7 +30,7 @@ const AdminSettings = ({toast}) => {
 
     // ToDo export validate function to utils!
     const validateData = () => {
-        if (notificationEmailAdress.length > config.MAX_EMAIL_LENGTH) {
+        if (userMailAddress.length > config.MAX_EMAIL_LENGTH) {
             errorNotification(toast, labels.TOAST_SETTINGS_EMAIL_LONG_ERROR);
             setCharCounterVisible(true)
             return;
@@ -46,8 +46,8 @@ const AdminSettings = ({toast}) => {
     const submitForm = async () => {
         setPinModal(false);
         const data = {
-            emailAddress: notificationEmailAdress,
-            sendEmails: enableEmailAddressNotifications,
+            emailAddress: userMailAddress,
+            sendEmails: isEmailEnabled,
             id: configId,
         }
         const dto = {data, pin}
@@ -64,7 +64,7 @@ const AdminSettings = ({toast}) => {
             <div className='email-group'>
                 <div className='admin-email-reminder'>
                     <AdminEmailRemindersCb
-                        emailReminder={enableEmailAddressNotifications}
+                        emailReminder={isEmailEnabled}
                         emailReminderHandler={(e) => {
                             dispatch(setEmailAdressNotifications(e));
                             setIsChanged(true);
@@ -75,8 +75,8 @@ const AdminSettings = ({toast}) => {
                 </div>
                 <div className="admin-email-field">
                     <AdminEmailField
-                        isDisabled={!enableEmailAddressNotifications}
-                        email={notificationEmailAdress}
+                        isDisabled={!isEmailEnabled}
+                        email={userMailAddress}
                         emailHandler={(e) => {
                             dispatch(setEmailAdress(e))
                             setIsChanged(true);
@@ -84,7 +84,7 @@ const AdminSettings = ({toast}) => {
                     />
                     {isCharCounterVisible &&
                     <FieldInvalidMsg
-                        messageContent={`${notificationEmailAdress?.length}/${config.MAX_EMAIL_LENGTH}`}/>
+                        messageContent={`${userMailAddress?.length}/${config.MAX_EMAIL_LENGTH}`}/>
                     }
                 </div>
             </div>
