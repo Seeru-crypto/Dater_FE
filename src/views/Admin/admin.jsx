@@ -8,7 +8,7 @@ import ErrorBar from '../../components/functional-components/error-bar'
 import LoadingBar from '../../components/functional-components/loading-bar'
 import AdminSettings from "./admin-settings";
 import AdminDetails from "./admin-details";
-import AdminLogTable from "../../components/admin/admin-log-table";
+import {AdminLogTable} from "../../components/admin/admin-index";
 
 const Admin = () => {
 
@@ -52,7 +52,6 @@ const Admin = () => {
 }
 
 const AdminStyle = styled.div`
-  min-height: 100vh;
   transition: all 0.4s ease;
 
   .first-row{
@@ -64,6 +63,8 @@ const AdminStyle = styled.div`
   .admin-border{
     display: flex;
     justify-content: space-around;
+    padding: 2rem 4rem;
+
   }
   .admin-btn-grp {
     display: flex;
@@ -82,9 +83,6 @@ const AdminStyle = styled.div`
     align-items: center;
   }
 
-  .admin-border {
-    padding: 2rem 4rem;
-  }
 `
 
 export default Admin

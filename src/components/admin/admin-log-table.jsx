@@ -71,16 +71,16 @@ const AdminLogTable = ({logs}) => {
 }
 
 const AdminLogTableStyle = styled(motion.div)`
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
   .rounded {
     width: 100%;
     height: 1px;
     border-top: 8px solid #bbb;
     border-radius: 5px;
   }
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
 `
 export default AdminLogTable

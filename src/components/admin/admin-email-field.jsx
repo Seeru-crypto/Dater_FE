@@ -17,6 +17,4 @@ const AdminEmailStyled = styled.div`
     .admin-email-input::placeholder{
       color:var(--text);
     }
-
-
 `

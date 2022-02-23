@@ -1,16 +1,16 @@
-import React, { memo, useEffect, useRef, useState } from 'react'
+import React, {memo, useEffect, useRef, useState} from 'react'
 
-import { Dialog } from 'primereact/dialog'
-import { Button } from 'primereact/button'
-import { confirmDialog } from 'primereact/confirmdialog'
-import { Toast } from 'primereact/toast'
-import { errorNotification, infoNotification, positiveNotification } from '../../utils/notifications'
+import {Dialog} from 'primereact/dialog'
+import {Button} from 'primereact/button'
+import {confirmDialog} from 'primereact/confirmdialog'
+import {Toast} from 'primereact/toast'
+import {errorNotification, infoNotification, positiveNotification} from '../../utils/notifications'
 import config from '../../config.json'
-import dataValidation from '../../utils/dataValidation'
+import {eventDataValidation} from '../../utils/dataValidation'
 import styled from 'styled-components'
 
-import { useAppDispatch } from '../../store'
-import { deleteEvent, getEvents, saveUpdatedEvent } from '../../slicers/eventSlice'
+import {useAppDispatch} from '../../store'
+import {deleteEvent, getEvents, saveUpdatedEvent} from '../../slicers/eventSlice'
 import {
     EventCalendar,
     EventDescription,
@@ -19,54 +19,51 @@ import {
     EventReminder,
     EventYearlyCb
 } from "../../components/event/event-index";
+import {dateFormatter} from "../../utils/helper-functions";
 
-export const EventDetails = ({
-                                 selectedEvent,
-                                 hideModal,
-                                 modalState,
-                             }) => {
-    const toast = useRef(null)
-    const [eventDescription, setDescription] = useState(
-        selectedEvent.description,
-    )
-    const labels = config.LABELS
-    const [eventName, setEventName] = useState(selectedEvent.name)
-    const [date, setDate] = useState(selectedEvent.date)
-    const [reminder, setReminder] = useState(selectedEvent.reminder)
-    const [reminderDays, setReminderDays] = useState(selectedEvent.reminderDays)
-    const [accountForYear, setAccountForYear] = useState(
-        selectedEvent.accountForYear,
-    )
-    const [isoDate, setIsoDate] = useState(
-        selectedEvent.date ? selectedEvent.date : null,
-    )
-    const [invalidName, setInvalidName] = useState(false)
-    const [invalidDate, setInvalidDate] = useState(false)
-    const [invalidDesc, setInvalidDesc] = useState(false)
-
-    const eventId = selectedEvent.id
+export const EventDetails = ({selectedEvent, hideModal, modalState,}) => {
     const dispatch = useAppDispatch()
+    const toast = useRef(null)
+    const labels = config.LABELS
+    const [events, setEvents] = useState({
+        name: "",
+        date: "",
+        reminder: false,
+        description: "",
+        reminderInDays: "",
+        accountForYear: false
+    })
+    const [isoDate, setIsoDate] = useState(selectedEvent.date ? selectedEvent.date : null);
+    const [invalidFields, setInvalidField] = useState({name: false, description: false, date: false});
+
     let showHideModal = !!modalState
 
     useEffect(() => {
-        setDescription(selectedEvent.description)
-        setAccountForYear(selectedEvent.accountForYear)
-        setEventName(selectedEvent.name)
-        setDate(selectedEvent.date)
-        setIsoDate(selectedEvent.date)
-        setReminder(selectedEvent.reminder)
-        setReminderDays(selectedEvent.reminderDays)
+
+        setEvents({
+            name: selectedEvent.name,
+            date: selectedEvent.date,
+            reminder: selectedEvent.reminder,
+            description: selectedEvent.description,
+            reminderInDays: selectedEvent.reminderDays,
+            accountForYear: selectedEvent.accountForYear
+        })
     }, [selectedEvent])
 
     const dateHandler = (selectedDate) => {
-        const newDate = selectedDate
-        newDate.setHours(selectedDate.getHours() + 2)
-        setIsoDate(newDate.toISOString())
-        let day = selectedDate.getDate()
-        let month = selectedDate.getMonth() + 1
-        let year = selectedDate.getFullYear()
-        const formattedDate = `${year}-${month}-${day}`
-        setDate(formattedDate)
+        const dates = dateFormatter(selectedDate);
+        console.log("dates", dates);
+        setIsoDate(dates.date);
+        setEvents({...events, date: dates.shortDate});
+    }
+
+    const checkData = () => {
+        const validationResult = eventDataValidation(events.name, events.date, events.description)
+        if (validationResult.result) return updateEvent()
+        const temp = {...invalidFields}
+        Object.keys(invalidFields).forEach((field) => temp[field] = validationResult.property === field);
+        setInvalidField(temp);
+        infoNotification(toast, labels.INVALID_FORM_ERR_HEADER, labels.INVALID_FORM_ERR_HEADER)
     }
 
     const deleteConfirmationDialog = () => {
@@ -79,29 +76,20 @@ export const EventDetails = ({
         })
     }
 
-    const checkData = () => {
-        const validationResult = dataValidation(eventName, date, eventDescription)
-        validationResult.property === 'name' ? setInvalidName(true) : setInvalidName(false)
-        validationResult.property === 'date' ? setInvalidDate(true) : setInvalidDate(false)
-        validationResult.property === 'desc' ? setInvalidDesc(true) : setInvalidDesc(false)
-        if (validationResult.result) return updateEvent()
-        infoNotification(toast, labels.INVALID_FORM_ERR_HEADER, labels.INVALID_FORM_ERR_HEADER)
-    }
-
     const deleteSelectedEvent = async () => afterRequestActions({
-        requestResponse: await dispatch(deleteEvent(eventId)),
+        requestResponse: await dispatch(deleteEvent(selectedEvent.id)),
         dispatchedAction: 'delete',
     })
 
     const updateEvent = async () => {
         const data = {
-            id: eventId,
-            name: eventName,
+            id: selectedEvent.id,
+            name: events.name,
             date: isoDate,
-            reminder,
-            reminderDays,
-            description: eventDescription,
-            accountForYear,
+            reminder: events.reminder,
+            reminderDays: events.reminderInDays,
+            description: events.description,
+            accountForYear: events.accountForYear,
         }
         afterRequestActions({ requestResponse: await dispatch(saveUpdatedEvent(data)), dispatchedAction: 'update' })
     };
@@ -122,14 +110,12 @@ export const EventDetails = ({
                 className='p-button-text'
                 onClick={() => deleteConfirmationDialog()}
             />
-
             <Button
                 label='Cancel'
                 icon='pi pi-times'
                 className='p-button-text'
                 onClick={hideModal}
             />
-
             <Button
                 label='Save'
                 icon='pi pi-check'
@@ -151,22 +137,27 @@ export const EventDetails = ({
             <Toast ref={toast} />
             <EventDetalStyle>
                 <form className='event-add-form'>
-                    <EventName name={eventName} nameHandler={(e) => setEventName(e)} missing={invalidName} />
+                    <EventName name={events.name} nameHandler={(e) => setEvents({...events, name: e})}
+                               missing={invalidFields.name}/>
                     <EventCalendar
-                        missing={invalidDate}
+                        missing={invalidFields.date}
                         dateHandler={dateHandler}
-                        selectedDate={new Date(date)}
+                        selectedDate={new Date(events.date)}
                     />
-                    <EventDescription desc={eventDescription} descHandler={(e) => setDescription(e)}
-                                    missing={invalidDesc} />
-                    <EventReminder reminder={reminder} reminderHandler={((e) => setReminder(e))} />
+                    <EventDescription desc={events.description}
+                                      descHandler={(e) => setEvents({...events, description: e})}
+                                      missing={invalidFields.description}/>
+                    <EventReminder reminder={events.reminder} reminderHandler={((e) => {
+                        console.log({e}, typeof e)
+                        setEvents({...events, reminder: !events.reminder})
+                    })}/>
 
-                    {reminder && (
+                    {events.reminder && (
                         <div>
-                            <EventYearlyCb eventAccountForYear={accountForYear}
-                                           changeHandler={(e) => setAccountForYear(e)} />
-                            <EventNumberOfDays eventReminderDays={reminderDays}
-                                               changeHandler={(e) => setReminderDays(e)} />
+                            <EventYearlyCb eventAccountForYear={events.accountForYear}
+                                           changeHandler={(e) => setEvents({...events, accountForYear: e})}/>
+                            <EventNumberOfDays eventReminderDays={events.reminderInDays}
+                                               changeHandler={(e) => setEvents({...events, reminderInDays: e})}/>
                         </div>
                     )}
                 </form>

@@ -13,10 +13,12 @@ import {deleteEvents, getEvents} from '../../slicers/eventSlice'
 import {errorNotification, positiveNotification} from "../../utils/notifications";
 import config from "../../config.json"
 import {Toast} from "primereact/toast";
+import {motion} from "framer-motion";
+import {eventList} from "../../static/animations/motion";
 
 const EventTable = (props) => {
     const dispatch = useAppDispatch()
-    const [data, setData] = useState(props.data)
+    const [eventData, setEventData] = useState(props.data)
     const [selectedEvent, setselectedEvent] = useState(null)
     const [selectedEvents, setSelectedEvents] = useState([])
     const [showModal, setShowModal] = useState(false)
@@ -26,7 +28,7 @@ const EventTable = (props) => {
     const toast = useRef(null)
 
     useEffect(() => {
-        setData(props.data)
+        setEventData(props.data)
     }, [props])
 
     const renderBooleanValues = (rowData, item) => rowData[item.field] ? 'True' : 'False'
@@ -62,9 +64,9 @@ const EventTable = (props) => {
         const res = await dispatch(deleteEvents(eventIds));
         if (res.meta.requestStatus === 'fulfilled') {
             positiveNotification(toast, labels.TOAST_EVENTS_DELETE_SUCCESS, '')
-            dispatch(getEvents())
+            dispatch(getEvents());
+            setSelectedEvents([]);
         } else errorNotification(toast, labels.DEFAULT_ERR_MSG)
-
     };
 
     const renderDateValues = (rowData) => {
@@ -86,11 +88,11 @@ const EventTable = (props) => {
     const rightToolbar = () => {
         return (
             <div className='header-search'>
-                <Button disabled={data.length===0} className='p-button-outlined p-button-secondary' type='button' label='export'
+                <Button disabled={eventData.length===0} className='p-button-outlined p-button-secondary' type='button' label='export'
                         onClick={() => ref.current.exportCSV()} />
                 <span className='p-input-icon-left'>
                     <i className='pi pi-search' />
-                    <InputText disabled={data.length===0} value={globalFilter} onChange={(e) => setGlobalFilter(e.target.value)}
+                    <InputText disabled={eventData.length===0} value={globalFilter} onChange={(e) => setGlobalFilter(e.target.value)}
                                placeholder='Keyword Search' />
                 </span>
             </div>
@@ -98,7 +100,11 @@ const EventTable = (props) => {
     }
 
     return (
-        <div>
+        <motion.div
+        initial={eventList.initial}
+        animate={eventList.animate}
+        transition={eventList.transition}
+        >
             <Toast ref={toast} />
             <Toolbar left={leftToolbar} right={rightToolbar} />
             <DataTable
@@ -109,8 +115,7 @@ const EventTable = (props) => {
                 onSelectionChange={(e) => setSelectedEvents(e.value)}
                 paginator
                 ref={ref}
-                // header={rightToolbar()}
-                value={data}
+                value={eventData}
                 globalFilter={globalFilter}
                 emptyMessage='No events found'
                 paginatorTemplate='CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown'
@@ -167,7 +172,7 @@ const EventTable = (props) => {
                     />
                 </div>
             )}
-        </div>
+        </motion.div>
     )
 }
 export default memo(EventTable)

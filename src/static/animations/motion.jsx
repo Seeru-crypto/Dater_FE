@@ -62,7 +62,17 @@ const adminButtonTransition = {
     }
 }
 
-
+const eventList = {
+    initial: {
+        opacity:0
+    },
+    animate: {
+        opacity: 1
+    },
+    transition: {
+        duration: 0.5
+    }
+}
 
 
 
@@ -71,5 +81,5 @@ const adminButtonTransition = {
 
 
 export {
-    leftSideTransition, rightSideTransition, addEventModalTransition, adminButtonTransition, adminTableTransition
+    leftSideTransition, rightSideTransition, addEventModalTransition, adminButtonTransition, adminTableTransition, eventList
 }

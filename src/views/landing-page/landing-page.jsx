@@ -4,19 +4,20 @@ import {ReactComponent as MongoIcon} from '../../static/icons/mongodb-icon.svg'
 import {ReactComponent as ReactIcon} from '../../static/icons/reactjs-icon.svg'
 import {ReactComponent as JavaIcon} from '../../static/icons/java-icon.svg'
 import config from '../../config.json'
-import CTAButton from "../../components/functional-components/CTA-button"
+import CTAButton from "../../components/landing-page/CTA-button"
 import {useNavigate} from 'react-router-dom'
 import {setCurrentPage} from "../../slicers/adminSlice";
 import {useAppDispatch} from "../../store";
 import {motion} from "framer-motion";
 import {leftSideTransition, rightSideTransition} from "../../static/animations/motion";
+import LessonAccordions from "./lesson-accordions";
 
-const Main = () => {
+const LandingPage = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
     return (
-        <MainStyle>
+        <LandingPageStyle>
             <div className='main-div'>
                 <h1>Welcome to Dater!</h1>
                 <div className='main-content'>
@@ -41,7 +42,6 @@ const Main = () => {
                             <div>
                                 Dater is a event manager, which will send out an email if a
                                 date is nearing.
-                                <p>Try it out!</p>
                                 <p className="heroku-warning">The initial load time might be longer than usual due to
                                     Heroku booting application up.</p>
                             </div>
@@ -100,55 +100,18 @@ const Main = () => {
                                 time using mongoDB there were a few difficulties
                                 integrating Spiring with mongoDB Atlas.
                             </p>
-                            <details>
-                                <summary>Read more...</summary>
-                                <motion.article animate={{y:-10}} className='front-end'>
-                                    <h5 className='main-detail-header'> Front-end</h5>
-                                    <p>Redux- This was the first time using redux nad utilizing its storage capability.
-                                        The app was optimized so that HTTP requests are made once, when page loads.
-                                        Navigating between pages
-                                        does not create unnecessary HTTP requests</p>
-                                    <p> Reusable components: by making separate react components, the amount of HTML
-                                        code was cut down to marginal amounts, making it easier to upkeep this
-                                        application.</p>
-                                    <p> Styled components: Using them most CSS is localized to react components and the
-                                        amount of seperate css files is reduced.</p>
-                                </motion.article>
-                                <article className='back-end'>
-                                    <h5 className='main-detail-header'> Back-end</h5>
-                                    <p>Mailer is realized by Spring javaMail function with thymeleaf template engine.</p>
-                                    <p>local & dev profiles made it very easy to test locally and later deploy</p>
-                                    <p>Creating recurring check was achieved by springframework scheduling function</p>
-                                    <p>Manipulating date formats so that effective comparison can be made later on was a bit difficult.</p>
-                                </article>
-                                <article className='database'>
-                                    <h5 className='main-detail-header'> DB</h5>
-                                    <p>Spring boot has very good integration with MongoDB, which made it
-                                        harder to customize functions/ data flow.
-                                        Since it was difficult to track down how data moved inside spring.</p>
-                                    <p>Since the dataflow is comparatively simple, the DB schema was simple as well, created 2 indexes: events, settings</p>
-                                </article>
-                                <article className='hosting'>
-                                    <h5 className='main-detail-header'> Hosting, CI/CD</h5>
-                                    <p>First time learning docker and dockerized project modules (FE, BE, DB).</p>
-                                    <p>Learning how to use, Hosting platform Heroku, managing env variables.</p>
-                                    <p>Setting up automatic deploy pipelines</p>
-                                </article>
-                            </details>
+                            <LessonAccordions />
                         </motion.article>
                     </div>
                 </div>
             </div>
-        </MainStyle>
+        </LandingPageStyle>
     )
 }
 
-export default memo(Main)
+export default memo(LandingPage)
 
-const MainStyle = styled.div`
-  background-color: var(--bkg);
-  color: var(--text);
-  min-height: 100vh;
+const LandingPageStyle = styled.div`
   transition: all 0.4s ease;
   padding: 2rem 2rem 30rem 2rem;
 
@@ -156,6 +119,7 @@ const MainStyle = styled.div`
     background-color: grey;
     color: white;
     border-radius: .75rem;
+    margin-top: .5rem;
     padding: .5rem;
   }
   

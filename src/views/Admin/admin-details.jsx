@@ -17,17 +17,17 @@ const AdminDetails = ({logs}) => {
         setTimer(timeOut);
     }
 
-    const checkEventAction = () => {
-        dispatch(checkEvents())
-        setTimeout(() => dispatch(getLogs()), config.HTTP_INTERVAL_VALUE);
+    const checkEventAction = async () => {
+        const res = await dispatch(checkEvents())
+        if (res.meta.requestStatus === 'fulfilled') dispatch(getLogs());
     };
 
     useEffect(() => {
         if (logs.length > 1) {
             setPollingRate(logs[logs.length - 1].schedulerValue);
-            const dateTime = new Date(logs[logs.length - 1].date);
-            const time = `${dateTime.getHours()}.${dateTime.getMinutes()}.${dateTime.getMilliseconds()}`
-            const date = `${dateTime.getDate()}-${dateTime.getMonth()}-${dateTime.getFullYear()}`
+            const lastElementDateTime = new Date(logs[logs.length - 1].date);
+            const time = `${lastElementDateTime.getHours()}.${lastElementDateTime.getMinutes()}.${lastElementDateTime.getMilliseconds()}`
+            const date = `${lastElementDateTime.getDate()}-${lastElementDateTime.getMonth()}-${lastElementDateTime.getFullYear()}`
             const formattedDateTime = `${time} : ${date}`;
             setLastMailTime(formattedDateTime)
         }
@@ -50,7 +50,6 @@ const AdminDetails = ({logs}) => {
             </div>
 
             <div className="details-footer">
-
                 <button onClick={() => eventCheckHandler()}>
                     <i className='pi pi-envelope p-px-2'/>
                     <span>
@@ -75,30 +74,29 @@ const AdminDetailsStyle = styled.div`
   margin-left: 2rem;
   padding: 1rem;
 
-
-  .details-footer > button {
-    padding: .5rem;
-    border-radius: .5rem;
-    border: black 1px solid;
-    background-color: transparent;
-    color: white;
-    display: flex;
-    align-items: center;
-    transition: all 0.5s ease;
-  }
-
-  .details-footer > button:hover {
-    transition: all 0.5s;
-    color: var(--text);
-    cursor: pointer;
-    background-color: var(--add-border);
-  }
-
-    .details-footer {
+  .details-footer {
     display: flex;
     height: 100%;
     align-items: flex-end;
     justify-content: center;
+
+    button {
+      padding: .5rem;
+      border-radius: .5rem;
+      border: black 1px solid;
+      background-color: transparent;
+      color: white;
+      display: flex;
+      align-items: center;
+      transition: all 0.5s ease;
+    }
+
+    button:hover {
+      transition: all 0.5s;
+      color: var(--text);
+      cursor: pointer;
+      background-color: var(--add-border);
+    }
   }
 `
 export default AdminDetails

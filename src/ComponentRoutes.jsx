@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import Main from './views/home/main'
+import LandingPage from './views/landing-page/landing-page'
 import AddEvent from './views/add-event/add-event'
 import ViewEvents from './views/event-list/view-events'
 import Admin from './views/Admin/admin'
@@ -10,7 +10,7 @@ const ComponentRoutes = () => {
     return (
         <div>
             <Routes>
-                <Route exact path='/' element={<Main />} />
+                <Route exact path='/' element={<LandingPage />} />
                 <Route exact path='/add' element={<AddEvent />} />
                 <Route
                     exact

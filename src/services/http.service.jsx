@@ -1,7 +1,6 @@
 import axios from 'axios';
-import config from "../config.json"
 
-const path = process.env.REACT_APP_TOKEN_API_PATH || config.API_PATH
+const path = process.env.REACT_APP_BACK_END_URL;
 
 const http = axios.create({
     baseURL: path,

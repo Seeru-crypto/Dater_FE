@@ -10,9 +10,7 @@ import LoadingBar from '../../components/functional-components/loading-bar'
 
 const ViewEvents = () => {
     const dispatch = useAppDispatch()
-    const events = useAppSelector((state) => state.event.events)
-    const loading = useAppSelector((state) => state.event.loading)
-    const error = useAppSelector((state) => state.event.error)
+    const {events, loading, error} = useAppSelector((state) => state.event)
 
     useEffect(() => {
         if (events[0] === undefined) dispatch(getEvents())
@@ -34,9 +32,7 @@ const ViewEvents = () => {
 }
 
 const ViewEventsStyle = styled.div`
-  background-color: var(--bkg);
   padding: 0 2rem 2rem 2rem;
-  min-height: 100vh;
 `
 
 export default memo(ViewEvents)

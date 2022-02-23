@@ -1,8 +1,7 @@
 import config from "../config.json"
 
-const dataValidation = (name, date, description) => {
+export const eventDataValidation = (name, date, description) => {
 
-    const checkData = () => {
         if(name.trim() === "" || name.trim().length > config.NAME_MAX_LEN ) {
             return { result:false, property: "name" }
         }
@@ -13,8 +12,16 @@ const dataValidation = (name, date, description) => {
             return { result:false, property: "description" }
         }
         return { result : true };
-    }
-    return checkData();
 }
 
-export default dataValidation
+export const adminDataValidation = (userMailAddress) => {
+
+    if (userMailAddress.length > config.MAX_EMAIL_LENGTH) {
+        return { result:false, property: "userMailAddressLength" }
+    }
+    if (!document.getElementById("adminEmailInput").validity.valid) {
+        return { result:false, property: "userMailAddressInvalid" };
+    }
+    return { result : true };
+
+}

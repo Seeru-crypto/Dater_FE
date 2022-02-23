@@ -10,9 +10,7 @@ import ErrorBar from '../../components/functional-components/error-bar'
 
 const Calendar = () => {
     const [formattedDates, setFormattedDates] = useState([])
-    const events = useAppSelector((state) => state.event.events)
-    const loading = useAppSelector((state) => state.event.loading)
-    const error = useAppSelector((state) => state.event.error)
+    const {error, loading, events} = useAppSelector((state) => state.event)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
@@ -28,7 +26,7 @@ const Calendar = () => {
             const currentYear = new Date().getFullYear()
             const newList = eventDataBody.map((event) => {
                 const newDate = currentYear + event.date.substring(4, 10)
-                return { ...event, title: event.eventName, date: newDate }
+                return { title: event.name, date: newDate }
             })
             setFormattedDates(newList)
         }
@@ -49,10 +47,6 @@ const Calendar = () => {
 }
 
 const CalendarStyle = styled.div`
-  background-color: var(--bkg);
-  color: var(--text);
-  min-height: 100vh;
-  
   .main-calendar {
     padding: 2rem;
   }

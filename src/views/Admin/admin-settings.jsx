@@ -7,13 +7,10 @@ import {adminButtonTransition} from "../../static/animations/motion";
 
 import {setEmailAdress, setEmailAdressNotifications, updateAdmin} from "../../slicers/adminSlice";
 
-import AdminEmailRemindersCb from "../../components/admin/admin-email-reminders-cb";
-import AdminEmailField from "./admin-email-field";
 import FieldInvalidMsg from "../../components/event/field-invalid-msg";
-import AdminSmsCb from "../../components/admin/admin-sms-cb";
-import AdminSmsField from "../../components/admin/admin-sms-field";
 import {errorNotification, positiveNotification} from "../../utils/notifications";
-import PinModal from "../../components/admin/pin-modal";
+import {AdminEmailRemindersCb, AdminSmsCb, AdminSmsField, PinModal, AdminEmailField} from "../../components/admin/admin-index";
+import {adminDataValidation} from "../../utils/dataValidation";
 
 const AdminSettings = ({toast}) => {
     const {
@@ -23,24 +20,29 @@ const AdminSettings = ({toast}) => {
         configId
     } = useAppSelector((state) => state.admin)
     const dispatch = useAppDispatch()
-    const [isChanged, setIsChanged] = useState(false);
     const labels = config.LABELS
+    const [isChanged, setIsChanged] = useState(false);
     const [isCharCounterVisible, setCharCounterVisible] = useState(false);
     const [isPinModalVisible, setPinModal] = useState(false);
 
     // ToDo export validate function to utils!
     const validateData = () => {
-        if (userMailAddress.length > config.MAX_EMAIL_LENGTH) {
+        const validate = adminDataValidation(userMailAddress);
+
+        if (validate.result){
+            setCharCounterVisible(false)
+            setPinModal(true)
+            return;
+        }
+        if (validate.property === 'userMailAddressLength'){
             errorNotification(toast, labels.TOAST_SETTINGS_EMAIL_LONG_ERROR);
             setCharCounterVisible(true)
             return;
         }
-        if (!document.getElementById("adminEmailInput").validity.valid) {
+        if (validate.property === 'userMailAddressInvalid'){
             errorNotification(toast, labels.SETTING_INVALID_EMAIL_ERROR);
             return;
         }
-        setCharCounterVisible(false)
-        setPinModal(true)
     }
 
     const submitForm = async () => {
@@ -107,6 +109,7 @@ const AdminSettings = ({toast}) => {
             <div className="admin-settings-footer">
                 {isChanged &&
                 <motion.button
+                    className="admin-submit-btn"
                     initial={adminButtonTransition.initial}
                     animate={adminButtonTransition.animate}
                     onClick={() => validateData()}>submit</motion.button>
@@ -122,32 +125,32 @@ const AdminSettings = ({toast}) => {
 const AdminSettingsStyle = styled(motion.div)`
   width: 70%;
   height: 100%;
-  color: var(--text);
   border: solid 1px var(--text);
   padding: 1rem;
   border-radius: 2rem 1rem;
   transition: all 0.4s ease;
-
-  .admin-email-field {
-    padding: 2rem;
-  }
-
-  .admin-settings-footer > button {
-    padding: .5rem;
-    border-radius: .5rem;
-    border: black 1px solid;
-    background-color: transparent;
-    color: var(--git-icon);
+  
+  .admin-settings-footer {
     display: flex;
-    align-items: center;
-    transition: all 0.5s ease;
-  }
+    justify-content: center;
 
-  .admin-settings-footer > button:hover {
-    transition: all 0.5s;
-    cursor: pointer;
-    background-color: var(--add-border);
-    color: white;
+    .admin-submit-btn {
+      padding: .5rem;
+      border-radius: .5rem;
+      border: black 1px solid;
+      background-color: transparent;
+      color: var(--git-icon);
+      display: flex;
+      align-items: center;
+      transition: all 0.5s ease;
+    }
+
+    .admin-submit-btn:hover {
+      transition: all 0.5s;
+      cursor: pointer;
+      background-color: var(--add-border);
+      color: white;
+    }
   }
   
   .email-group {
@@ -158,7 +161,7 @@ const AdminSettingsStyle = styled(motion.div)`
   }
 
   .admin-email-reminder {
-    padding: 2rem 2rem;
+    padding: 2rem;
   }
 
   .sms-group {
@@ -188,16 +191,9 @@ const AdminSettingsStyle = styled(motion.div)`
   .WIP {
     margin-bottom: -10px;
   }
-
-  .admin-settings-footer {
-    display: flex;
-    justify-content: center;
-  }
-
+  
   .placeholder {
     height: 42px;
   }
-
-
 `
 export default AdminSettings

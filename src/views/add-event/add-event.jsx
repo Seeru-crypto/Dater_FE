@@ -1,7 +1,7 @@
 import React, {memo, useRef, useState} from 'react'
-import {Toast} from 'primereact/toast'
-
+import {motion} from "framer-motion";
 import styled from 'styled-components'
+import {Toast} from 'primereact/toast'
 import config from '../../config.json'
 import {errorNotification, infoNotification, positiveNotification} from '../../utils/notifications'
 import {
@@ -13,8 +13,7 @@ import {
     EventSubmitButton,
     EventYearlyCb
 } from "../../components/event/event-index";
-import dataValidation from '../../utils/dataValidation'
-import {motion} from "framer-motion";
+import {eventDataValidation} from '../../utils/dataValidation'
 
 import {useAppDispatch} from '../../store'
 import {createEvent, getEvents} from '../../slicers/eventSlice'
@@ -26,7 +25,7 @@ const AddEvent = () => {
         date: "",
         reminder: false,
         description: "",
-        reminderInDays: 0,
+        reminderInDays: "",
         accountForYear: false
     })
     const [invalidFields, setInvalidField] = useState({name: false, description: false, date: false});
@@ -40,20 +39,16 @@ const AddEvent = () => {
         setEvent({...event, date: newDate});
     }
 
-    const checkData = () => {
-        const validationResult = dataValidation(event.name, event.date, event.description)
-        const temp = {...invalidFields}
-        Object.keys(invalidFields).forEach((field) => {
-            const isFieldInvalid = validationResult.property === field
-            temp[field] = isFieldInvalid;
-        })
-        setInvalidField(temp);
+    const validateData = () => {
+        const validationResult = eventDataValidation(event.name, event.date, event.description)
         if (validationResult.result) return submitForm();
+        const temp = {...invalidFields}
+        Object.keys(invalidFields).forEach((field) => temp[field] = validationResult.property === field);
+        setInvalidField(temp);
         infoNotification(toast, labels.INVALID_FORM_ERR_HEADER, '')
     }
 
     const submitForm = async () => {
-        // ToDo fix this if statement
         const reminderDays = (event.reminderInDays === '') ? '0' : event.reminderInDays
         const data = {
             name: event.name.trim(),
@@ -115,7 +110,7 @@ const AddEvent = () => {
                 )}
                 <EventSubmitButton onClickHandler={(e) => {
                     e.preventDefault()
-                    checkData()
+                    validateData()
                 }}/>
             </form>
         </EventStyle>
@@ -127,7 +122,6 @@ const EventStyle = styled(motion.div)`
   place-items: center;
   min-height: 100vh;
   transition: all 0.4s ease;
-  background-color: var(--bkg);
   padding-bottom: 15rem;
 
   .event-loading {
