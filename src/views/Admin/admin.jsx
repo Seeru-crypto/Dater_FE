@@ -55,6 +55,7 @@ const AdminStyle = styled.div`
   transition: all 0.4s ease;
 
   .first-row{
+    width: 80%;
     flex-direction: row;
     display: flex;
     padding: 1rem 0 2rem 0;
@@ -63,8 +64,6 @@ const AdminStyle = styled.div`
   .admin-border{
     display: flex;
     justify-content: space-around;
-    padding: 2rem 4rem;
-
   }
   .admin-btn-grp {
     display: flex;

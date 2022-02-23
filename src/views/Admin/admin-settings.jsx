@@ -11,6 +11,7 @@ import FieldInvalidMsg from "../../components/event/field-invalid-msg";
 import {errorNotification, positiveNotification} from "../../utils/notifications";
 import {AdminEmailRemindersCb, AdminSmsCb, AdminSmsField, PinModal, AdminEmailField} from "../../components/admin/admin-index";
 import {adminDataValidation} from "../../utils/dataValidation";
+import AdminSettingButton from "../../components/admin/admin-setting-button";
 
 const AdminSettings = ({toast}) => {
     const {
@@ -108,11 +109,13 @@ const AdminSettings = ({toast}) => {
             </div>
             <div className="admin-settings-footer">
                 {isChanged &&
-                <motion.button
-                    className="admin-submit-btn"
-                    initial={adminButtonTransition.initial}
-                    animate={adminButtonTransition.animate}
-                    onClick={() => validateData()}>submit</motion.button>
+                    <motion.div
+                            initial={adminButtonTransition.initial}
+                            animate={adminButtonTransition.animate}
+                    >
+                        <AdminSettingButton text="submit" submitHandle={() => validateData()} />
+                    </motion.div>
+
 
                 ||
                 <div className="placeholder"/>
@@ -133,24 +136,6 @@ const AdminSettingsStyle = styled(motion.div)`
   .admin-settings-footer {
     display: flex;
     justify-content: center;
-
-    .admin-submit-btn {
-      padding: .5rem;
-      border-radius: .5rem;
-      border: black 1px solid;
-      background-color: transparent;
-      color: var(--git-icon);
-      display: flex;
-      align-items: center;
-      transition: all 0.5s ease;
-    }
-
-    .admin-submit-btn:hover {
-      transition: all 0.5s;
-      cursor: pointer;
-      background-color: var(--add-border);
-      color: white;
-    }
   }
   
   .email-group {
@@ -158,6 +143,12 @@ const AdminSettingsStyle = styled(motion.div)`
     display: flex;
     align-items: center;
     flex-direction: row;
+    justify-content: space-around;
+    
+    .admin-email-field{
+      width: auto;
+    }
+    
   }
 
   .admin-email-reminder {
@@ -171,6 +162,8 @@ const AdminSettingsStyle = styled(motion.div)`
     display: flex;
     align-items: center;
     flex-direction: row;
+    justify-content: space-around;
+
   }
   
   .admin-sms-field {
