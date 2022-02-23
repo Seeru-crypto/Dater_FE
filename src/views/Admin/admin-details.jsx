@@ -67,6 +67,7 @@ const AdminDetailsStyle = styled.div`
   display: flex;
   flex-direction: column;
   width: 30%;
+  max-width: 300px;
   border-radius: 1rem 2rem;
   background-color: var(--side-nav-bkg);
   color: var(--nav-text-color);
