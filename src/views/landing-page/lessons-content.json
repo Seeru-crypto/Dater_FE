@@ -1,0 +1,36 @@
+{
+  "FRONT": [
+    "Redux- This was the first time using redux and utilizing its storage capability. The app was optimized so that HTTP requests are made once, when page loads. Navigating between pages does not create unnecessary HTTP requests",
+    "Reusable components: by making separate react components, the amount of HTML code was cut down to marginal amounts, making future upkeep easier.",
+    "Styled components: Using them most CSS is localized to react components and the amount of separate css files is reduced. For me it made styling components and reading code much easier.",
+    "Framer Motion: For animations I used Framer Motion which was intuitive and fun to learn.",
+    "Primereact: For the more complex components I used primereact components (calendars, accordion, tables)",
+    "Code kept recurring so I created util classes to handle frequent logic (validation)",
+    "for further optimization I used React profiler to check load times and debug the biggest load time components.",
+    "Component importing became a problem later on. Effective solution was using index files for logical groupings (admin components, event components ...), which created extra layer of abstraction + made view imports cleaner"
+    ],
+  "BACK": [
+    "Mailer is realized by Spring javaMail function with thymeleaf template engine, for html template logic.",
+    "The mail style template was designed with mjml framework",
+    "local & dev profiles made it very easy to test locally and later deploy",
+    "Scheduling functionality was achieved by springframework scheduling function",
+    "Manipulating date formats so that effective comparison can be made later on was a experience.",
+    "Optimizing cors settings and REST endpoints so that only necessary endpoints are available",
+    "Adding data validation to every request + logging was an interesting challenge since, I haven't done it yet.",
+    "Spring uses swagger to track existing REST endpoints"
+  ],
+  "DATABASE": [
+    "Spring boot has very good integration with MongoDB, which initially made it hard to customize functions/ data flow. Since it was difficult to track down how data moved inside spring.",
+    "Since the business data structure is comparatively simple, the DB schema was simple as well. Created 3 collections: events, settings and logs",
+    "Every action is logged in server and every mail sent is also logged in the database as well",
+    "First time using No-SQL bases, good to know they are on the simpler side",
+    "Using MongoDb atlas was very straight forward... reading the manual helped"
+  ],
+  "HOSTING": [
+    "First time using docker (FE, BE, DB), although didnt use it much later on, it was good practice",
+    "Learned how to use Heroku with github repository integration.",
+    "Finally learned how to properly manage env variables, PORTS, URLS etc, when dealing with local vs dev environments",
+    "Using git for personal project management was a bit foreign at first, but I quickly grew to love it, due to the feature flag system.",
+    "Setting up automatic deploy pipelines was very easy."
+  ]
+}

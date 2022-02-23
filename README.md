@@ -16,7 +16,7 @@ An application for creating reminders and getting email notifications for impend
 
 - Docker container:
     -   `docker build -t dater-react-app .` at root level
-    -   `docker run -p 3000:3000 --name dater -d -t -i dater-react-app`
+    -   `docker run -p 3000:5000 --name dater -d -t -i dater-react-app`
 
 ## Front-end
 
