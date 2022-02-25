@@ -1,13 +1,13 @@
 # Dater
 
 An application for creating reminders and getting email notifications for impending dates.
+Back end repo can be found [here](https://github.com/Seeru-crypto/Dater_BE)
 
 ## set up
 
 1. Start React server
 
-1.5 Dev server: 
-    
+1.5 Dev server:
    1. run `npm i` at root level
    2. Navigate to root level
    3. run `npm start`

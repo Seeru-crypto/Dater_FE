@@ -1,5 +1,4 @@
 import './static/css-files/App.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import 'primereact/calendar/calendar.min.css'
 import 'primereact/dropdown/dropdown.min.css'
 import 'primereact/inputtext/inputtext.min.css'

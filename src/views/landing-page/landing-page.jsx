@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import {ReactComponent as MongoIcon} from '../../static/icons/mongodb-icon.svg'
 import {ReactComponent as ReactIcon} from '../../static/icons/reactjs-icon.svg'
 import {ReactComponent as JavaIcon} from '../../static/icons/java-icon.svg'
+import {ReactComponent as LinkedInIcon} from '../../static/icons/linkedin-icon.svg'
 import config from '../../config.json'
 import CTAButton from "../../components/landing-page/CTA-button"
 import {useNavigate} from 'react-router-dom'
@@ -46,7 +47,6 @@ const LandingPage = () => {
                                     Heroku booting application up.</p>
                             </div>
                         </motion.article>
-
                     </div>
                     <div className='second content-row'>
                         <motion.article
@@ -55,29 +55,33 @@ const LandingPage = () => {
                             transition={rightSideTransition.transition}
                             className="main-box">
                             <div className='tech'>
-                                <h4>Tech
-                                    <span>
-                                    <a className='git-link' href={config.GITHUB_LINK}>
-                                        <i className='pi pi-github git-icon'/>
+                                <div className="tech-first-row">
+                                    <h4>Tech</h4>
+                                    <a href={config.GITHUB_LINK}>
+                                        <i className='pi pi-github click-icon'/>
                                     </a>
-                            </span></h4>
+                                    <a href={config.LINKEDIN_LINK}>
+                                        <LinkedInIcon className="click-icon" />
+                                    </a>
+                                </div>
+
                                 <ul className='tech-ul'>
                                     <li>
                                         <b>Front-end:</b> React with PrimeReact UI components.
                                         <span>
-                                        <ReactIcon />
+                                        <ReactIcon className="tech-svg" />
                                         </span>
                                 </li>
                                 <li>
                                     <b>Back-end: </b>
                                     Java spring framework (spring boot), with REST API endpoints.
                                     <span>
-                                    <JavaIcon />
+                                    <JavaIcon className="tech-svg" />
                                 </span>
                                 </li>
                                 <li>
                                     <b>Database: </b> MongoDB
-                                    <span className='icon' title='MongoDB'>
+                                    <span className='icon tech-svg' title='MongoDB'>
                                     <MongoIcon/>
                                 </span>
                                 </li>
@@ -130,7 +134,7 @@ const LandingPageStyle = styled.div`
     justify-content: space-around;
   }
 
-  svg {
+  .tech-svg {
     width: 3rem;
     height: 3rem;
     margin-left: 0.5rem;
@@ -161,7 +165,7 @@ const LandingPageStyle = styled.div`
   .about, .tech, .lessons {
     border: 3px var(--text) solid;
     border-radius: .75rem;
-    padding: 1rem;
+    padding: 1.5rem;
   }
 
   .cta {
@@ -180,14 +184,20 @@ const LandingPageStyle = styled.div`
     padding-top: 0.5rem
   }
 
-  .git-link {
+  .click-icon {
+    width: 3rem;
+    height: 3rem;
+    font-size: 2rem;
+    padding-left: 1rem;
     text-decoration: none;
     color: var(--git-icon);
   }
 
-  .git-icon {
-    font-size: 2rem;
-    padding-left: 1rem;
+  .tech-first-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: -2rem;
   }
 
   .main-content {
