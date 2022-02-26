@@ -32,6 +32,13 @@ const EventTable = (props) => {
     }, [props])
 
     const renderBooleanValues = (rowData, item) => rowData[item.field] ? 'True' : 'False'
+
+    const customStyle = {
+        color: "red",
+        border: "var(--err) 1px solid",
+        backgroundColor: "blue"
+    }
+
     const rowActions = (rowData) => {
         return (
             <React.Fragment>
@@ -101,6 +108,7 @@ const EventTable = (props) => {
 
     return (
         <motion.div
+            style={{backgroundColor: "red"}}
         initial={eventList.initial}
         animate={eventList.animate}
         transition={eventList.transition}
@@ -108,6 +116,7 @@ const EventTable = (props) => {
             <Toast ref={toast} />
             <Toolbar left={leftToolbar} right={rightToolbar} />
             <DataTable
+                style={customStyle}
                 sortField="name"
                 sortOrder={1}
                 responsiveLayout='scroll'
