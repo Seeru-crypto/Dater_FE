@@ -2,9 +2,11 @@ import styled from "styled-components";
 import {DataTable} from "primereact/datatable";
 import {Column} from "primereact/column";
 import React, {useEffect, useState} from "react";
-import "../../static/css-files/event-table.css"
+import "../../static/css-files/table.css"
 import {motion} from "framer-motion";
 import {adminTableTransition} from "../../static/animations/motion";
+import {Button} from "primereact/button";
+import {customStyle} from "../event-list/event-list-style";
 
 const AdminLogTable = ({logs}) => {
     const [defaultData, setDefaultData] = useState(logs);
@@ -19,6 +21,25 @@ const AdminLogTable = ({logs}) => {
         const date = `${dateTime.getDate()}-${dateTime.getMonth()}-${dateTime.getFullYear()}`
         return `${time} : ${date}`;
     }
+
+    const rowId = (rowData) => {
+        // Copy ID to clipboard
+        //  onClick={() => {navigator.clipboard.writeText(this.state.textToCopy)}}
+        return (
+            <React.Fragment>
+                <small>{rowData.id}</small>
+                <p>
+                <Button
+                    icon='pi pi-copy'
+                    className='p-button-rounded p-button-secondary p-mr-2'
+                    onClick={() => console.log(rowData.id)}
+                />
+                </p>
+            </React.Fragment>
+        )
+    }
+
+
     return(
         <AdminLogTableStyle
             initial={adminTableTransition.initial}
@@ -29,6 +50,7 @@ const AdminLogTable = ({logs}) => {
             <hr className="rounded" />
             <DataTable
                 responsiveLayout='scroll'
+                paginatorClassName="ui-paginator"
                 paginator
                 value={defaultData}
                 emptyMessage='No logs found'
@@ -37,32 +59,44 @@ const AdminLogTable = ({logs}) => {
                 rows={5}
                 rowsPerPageOptions={[5, 10, 20]}
             >
-                <Column className='table-selector' exportable={false} />
+                <Column className='table-selector'
+                        style={customStyle}
+                        exportable={false} />
                 <Column
                     field='sentToAddress'
                     sortable
                     header='Recipient'
+                    style={customStyle}
                 />
                 <Column
                     field='date'
                     sortable
                     header='Date'
                     body={renderDateValues}
+                    style={customStyle}
                 />
                 <Column
                     sortable
                     field='initiatedBy'
                     header='initiator'
+                    style={customStyle}
                 />
                 <Column
                     field='schedulerValue'
                     sortable
                     header='poller value'
+                    style={customStyle}
                 />
                 <Column
                     field='errorDesc'
                     sortable
                     header='Errors'
+                    style={customStyle}
+                />
+                <Column
+                    body={rowId}
+                    header='Id'
+                    style={customStyle}
                 />
             </DataTable>
         </AdminLogTableStyle>

@@ -13,7 +13,6 @@ const ViewEvents = () => {
     const {events, loading, error} = useAppSelector((state) => state.event)
 
     useEffect(() => {
-        if (events[0] === undefined) dispatch(getEvents())
         if (error !== '') {
             const timer = setInterval(() => {
                 dispatch(getEvents())
@@ -21,6 +20,10 @@ const ViewEvents = () => {
             return () => clearTimeout(timer)
         }
     }, [error, dispatch, events])
+
+    useEffect(() => {
+        if (events[0] === undefined) dispatch(getEvents())
+    }, [])
 
     return (
         <ViewEventsStyle>
