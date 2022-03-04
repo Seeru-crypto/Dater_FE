@@ -50,7 +50,7 @@ const AdminSettings = ({toast}) => {
         setPinModal(false);
         const data = {
             emailAddress: userMailAddress,
-            sendEmails: isEmailEnabled,
+            isEmailActive: isEmailEnabled,
             id: configId,
         }
         const dto = {data, pin}
