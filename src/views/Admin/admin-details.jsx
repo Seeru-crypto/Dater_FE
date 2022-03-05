@@ -5,10 +5,9 @@ import {getLogs} from "../../slicers/adminSlice";
 import config from "../../config.json";
 import {useAppDispatch} from "../../store";
 
-const AdminDetails = ({logs}) => {
+const AdminDetails = ({logs, pollerValue}) => {
     const dispatch = useAppDispatch()
     const [timer, setTimer] = useState(null);
-    const [pollingRate, setPollingRate] = useState("");
     const [lastMailTime, setLastMailTime] = useState("");
 
     const eventCheckHandler = () => {
@@ -24,7 +23,6 @@ const AdminDetails = ({logs}) => {
 
     useEffect(() => {
         if (logs.length > 1) {
-            setPollingRate(logs[logs.length - 1].schedulerValue);
             const lastElementDateTime = new Date(logs[logs.length - 1].date);
             const time = `${lastElementDateTime.getHours()}.${lastElementDateTime.getMinutes()}.${lastElementDateTime.getMilliseconds()}`
             const date = `${lastElementDateTime.getDate()}-${lastElementDateTime.getMonth()}-${lastElementDateTime.getFullYear()}`
@@ -38,15 +36,9 @@ const AdminDetails = ({logs}) => {
             <div className="details-header">
                 <h5>Details</h5></div>
             <div className="details-body">
-                <p>
-                    Current polling rate: <br/> {pollingRate} min
-                </p>
-                <p>
-                    Emails sent to date: {logs.length}
-                </p>
-                <p>
-                    Last event sent: <br/> {lastMailTime}
-                </p>
+                <p>Current polling rate: <br/> {pollerValue} min</p>
+                <p>Emails sent to date: {logs.length}</p>
+                <p>Last event sent: <br/> {lastMailTime}</p>
             </div>
 
             <div className="details-footer">

@@ -3,7 +3,7 @@ import config from '../../config.json'
 import styled from 'styled-components'
 import {Toast} from 'primereact/toast'
 import {useAppDispatch, useAppSelector} from '../../store'
-import {getAdminData, getLogs} from '../../slicers/adminSlice'
+import {getAdminData, getLogs, getPollerData} from '../../slicers/adminSlice'
 import ErrorBar from '../../components/functional-components/error-bar'
 import LoadingBar from '../../components/functional-components/loading-bar'
 import AdminSettings from "./admin-settings";
@@ -12,7 +12,7 @@ import {AdminLogTable} from "../../components/admin/admin-index";
 
 const Admin = () => {
 
-    const {error, loading, logs, configId} = useAppSelector((state) => state.admin)
+    const {error, loading, logs, configId, pollerValue} = useAppSelector((state) => state.admin)
     const toast = useRef(null)
     const dispatch = useAppDispatch()
 
@@ -26,8 +26,9 @@ const Admin = () => {
     }, [error, dispatch, configId])
 
     useEffect(() => {
-        if (configId === '') dispatch(getAdminData())
-        if  (logs.length === 0) dispatch(getLogs());
+        dispatch(getAdminData())
+        dispatch(getLogs());
+        dispatch(getPollerData());
     }, [])
 
     return (
@@ -41,7 +42,7 @@ const Admin = () => {
                             <h1>Admin Page</h1>
                             <div className="first-row">
                                 <AdminSettings toast={toast} />
-                                <AdminDetails logs={logs} />
+                                <AdminDetails logs={logs} pollerValue={pollerValue} />
                             </div>
                             {/*<h2>Logs</h2>*/}
                             <div className="second-row">

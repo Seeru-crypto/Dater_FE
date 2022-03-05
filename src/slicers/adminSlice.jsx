@@ -19,11 +19,8 @@ export const getAdminData = createAsyncThunk('admin/getAdminData', async () => {
     getPollerData();
     return (await (AdminService.getAdmin())).data;
 });
-export const getServerStatus = createAsyncThunk('admin/getServerStatus', async () =>  ( (await (AdminService.getServerStatus())).data));
 
-const getPollerData  = createAsyncThunk("admin/getPollerData", async () => {
-    AdminService.getPollerValue();
-})
+export const getPollerData  = createAsyncThunk("admin/getPollerData", async () => ( (await (AdminService.getPollerValue())).data));
 
 export const getLogs = createAsyncThunk('admin/getLogs', async () => ( (await (AdminService.getLogs())).data));
 
@@ -68,21 +65,12 @@ export const adminSlice = createSlice({
             const dataObject = action.payload;
             state.loading = false
             state.error = ''
-            console.log({dataObject})
             state.logs = dataObject
         });
         builder.addCase(getPollerData.fulfilled, (state, action) => {
-            console.log("action ", action.payload);
-            // Format incomming value to minutes!
-            // state.pollerValue =
+            state.pollerValue = (action.payload.fixedRate[0].interval / 60000);
         });
-        builder.addCase(getServerStatus.fulfilled, (state, action) => {
-            // console.log("action ", action.payload);
-            const status = action.payload.fixedRate[0].interval;
-            console.log({status});
-            state.isBackEndLive = status;
-            if (!status) state.error = "Back-end down";
-        });
+
         builder.addCase(getAdminData.rejected, (state) => {
             state.error = 'an error has occured'
         });
