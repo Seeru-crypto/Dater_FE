@@ -16,16 +16,16 @@ const LessonAccordions = () => {
                     <Accordion className="child-accordion" multiple>
                         <AccordionTab header="Front-end">
                             {content.FRONT.map((row) => (
-                                    <p key={row}>{row}</p>
+                                    <p className="paragrapf" key={row}>{row}</p>
                                 )
                             )}
                         </AccordionTab>
                         <AccordionTab header="Back-end">
                             {content.BACK.map((row, index) =>(
-                                <p className={`back-paragrapf index${index}`} key={row}>{row}
+                                <p className={`paragrapf index${index}`} key={row}>{row}
                                     {index==7 && (
                                         <span className={'span-swagger-icon'}>
-                                            <a href={process.env.REACT_APP_SWAGGER_LINK}>
+                                            <a href={process.env.REACT_APP_SWAGGER_LINK} target="_blank">
                                                 <SwaggerIcon className="icon"/>
                                                 </a>
                                             </span>
@@ -38,14 +38,14 @@ const LessonAccordions = () => {
                         <AccordionTab header="Database">
                             {content.DATABASE.map((row, index) =>
                                 (
-                                    <p key={row}>{row} with {index}</p>
+                                    <p className="paragrapf" key={row}>{row} with {index}</p>
                                 )
                             )}
                         </AccordionTab>
                         <AccordionTab header="Hosting">
                             {content.HOSTING.map((row) =>
                                 (
-                                    <p key={row}>{row}</p>
+                                    <p className="paragrapf" key={row}>{row}</p>
                                 )
                             )}
                         </AccordionTab>
@@ -62,7 +62,7 @@ export default LessonAccordions
 
 const LessonAccordionsStyle = styled.div`
   
-  .back-paragrapf{
+  .paragrapf{
     padding: .5rem;
 
     &.index7{

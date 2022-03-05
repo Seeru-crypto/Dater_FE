@@ -54,7 +54,6 @@ const Navbar = () => {
                         <span className='logo navLogo'>Dater</span>
                         <div className='menu'>
                             <div className='logo-toggle'>
-                                <span className='logo'>Dater</span>
                                 <i onClick={toggleSidebar} className='bx bx-x siderbarClose' />
                             </div>
 
@@ -92,18 +91,15 @@ export default Navbar
 const PageHeaderStyle = styled.div`
   margin-bottom: 70px;
 
-  .bx-sun {
+  .bx-moon, .bx-sun {
     border: solid var(--text) 0.15rem;
     padding: 0.75rem;
     margin-top: -1rem;
     border-radius: .75rem;
   }
 
-  .bx-moon {
-    border: solid var(--text) 0.15rem;
-    padding: 0.75rem;
-    margin-top: -1rem;
-    border-radius: .75rem;
+  .logo.navLogo {
+    margin-bottom: -1.5rem;
   }
 
   @media (max-width: 790px) {

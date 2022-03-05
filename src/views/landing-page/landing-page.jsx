@@ -20,7 +20,7 @@ const LandingPage = () => {
     return (
         <LandingPageStyle>
             <div className='main-div'>
-                <h1>Welcome to Dater!</h1>
+                    <h1 className="title">Welcome to Dater!</h1>
                 <div className='main-content'>
                     <div className='first content-row'>
                         <motion.div
@@ -57,10 +57,10 @@ const LandingPage = () => {
                             <div className='tech'>
                                 <div className="tech-first-row">
                                     <h4>Tech</h4>
-                                    <a href={config.GITHUB_LINK}>
+                                    <a href={config.GITHUB_LINK} target="_blank">
                                         <i className='pi pi-github click-icon'/>
                                     </a>
-                                    <a href={config.LINKEDIN_LINK}>
+                                    <a href={config.LINKEDIN_LINK} target="_blank">
                                         <LinkedInIcon className="click-icon" />
                                     </a>
                                 </div>
@@ -118,6 +118,11 @@ export default memo(LandingPage)
 const LandingPageStyle = styled.div`
   transition: all 0.4s ease;
   padding: 2rem 2rem 30rem 2rem;
+  
+  .title{
+    display: flex;
+    justify-content: center;
+  }
 
   .heroku-warning{
     background-color: grey;
