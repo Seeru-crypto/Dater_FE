@@ -5,7 +5,9 @@ const initialState = {
     userMailAddress: "",
     loading: false,
     error: '',
+    isBackEndLive: false,
     isEmailEnabled: false,
+    pollerValue : null,
     configId : "",
     isLightMode: true,
     currentPage: "/",
@@ -13,7 +15,15 @@ const initialState = {
     logs: []
 }
 
-export const getAdminData = createAsyncThunk('admin/getAdminData', async () => ( (await (AdminService.getAdmin())).data));
+export const getAdminData = createAsyncThunk('admin/getAdminData', async () => {
+    getPollerData();
+    return (await (AdminService.getAdmin())).data;
+});
+export const getServerStatus = createAsyncThunk('admin/getServerStatus', async () =>  ( (await (AdminService.getServerStatus())).data));
+
+const getPollerData  = createAsyncThunk("admin/getPollerData", async () => {
+    AdminService.getPollerValue();
+})
 
 export const getLogs = createAsyncThunk('admin/getLogs', async () => ( (await (AdminService.getLogs())).data));
 
@@ -32,7 +42,7 @@ export const adminSlice = createSlice({
         setCurrentPage: (state, action) => {
             state.currentPage = action.payload;
         },
-        setIsLightMode: (state, action) => {
+         setIsLightMode: (state, action) => {
             state.isLightMode = action.payload;
         },
         setPin: (state, action) => {
@@ -51,14 +61,27 @@ export const adminSlice = createSlice({
             state.loading = false
             state.error = ''
             state.userMailAddress = dataObject.emailAddress
-            state.isEmailEnabled = dataObject.sendEmails
+            state.isEmailEnabled = dataObject.isEmailActive
             state.configId = dataObject.id
         });
         builder.addCase(getLogs.fulfilled, (state, action) => {
             const dataObject = action.payload;
             state.loading = false
             state.error = ''
+            console.log({dataObject})
             state.logs = dataObject
+        });
+        builder.addCase(getPollerData.fulfilled, (state, action) => {
+            console.log("action ", action.payload);
+            // Format incomming value to minutes!
+            // state.pollerValue =
+        });
+        builder.addCase(getServerStatus.fulfilled, (state, action) => {
+            // console.log("action ", action.payload);
+            const status = action.payload.fixedRate[0].interval;
+            console.log({status});
+            state.isBackEndLive = status;
+            if (!status) state.error = "Back-end down";
         });
         builder.addCase(getAdminData.rejected, (state) => {
             state.error = 'an error has occured'

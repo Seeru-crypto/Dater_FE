@@ -35,7 +35,7 @@ const AddEvent = () => {
     const labels = config.LABELS
     const dateHandler = (data) => {
         const newDate = data
-        newDate.setHours(data.getHours() + 2);
+        newDate.setHours(data.getHours());
         setEvent({...event, date: newDate});
     }
 

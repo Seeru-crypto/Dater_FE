@@ -23,9 +23,12 @@ const Admin = () => {
             }, config.HTTP_INTERVAL_VALUE)
             return () => clearTimeout(localTimer)
         }
+    }, [error, dispatch, configId])
+
+    useEffect(() => {
         if (configId === '') dispatch(getAdminData())
         if  (logs.length === 0) dispatch(getLogs());
-    }, [error, dispatch, configId])
+    }, [])
 
     return (
         <AdminStyle>

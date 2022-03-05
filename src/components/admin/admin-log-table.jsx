@@ -16,24 +16,23 @@ const AdminLogTable = ({logs}) => {
     }, [logs])
 
     const renderDateValues = (rowData) => {
-        const dateTime = new Date(rowData.date);
+        // ToDo refactor date display!
+        const dateTime = new Date(rowData.dateCreated);
         const time = `${dateTime.getHours()}.${dateTime.getMinutes()}.${dateTime.getMilliseconds()}`
         const date = `${dateTime.getDate()}-${dateTime.getMonth()}-${dateTime.getFullYear()}`
         return `${time} : ${date}`;
     }
 
     const rowId = (rowData) => {
-        // Copy ID to clipboard
-        //  onClick={() => {navigator.clipboard.writeText(this.state.textToCopy)}}
         return (
             <React.Fragment>
-                <small>{rowData.id}</small>
-                <p>
+                <p className="tooltip">
                 <Button
                     icon='pi pi-copy'
                     className='p-button-rounded p-button-secondary p-mr-2'
-                    onClick={() => console.log(rowData.id)}
+                    onClick={() => {navigator.clipboard.writeText(rowData.id)}}
                 />
+                    <span className="tooltiptext">copy Id</span>
                 </p>
             </React.Fragment>
         )
@@ -92,11 +91,13 @@ const AdminLogTable = ({logs}) => {
                     sortable
                     header='Errors'
                     style={customStyle}
+                    bodyStyle={{ overflow: 'auto' }}
                 />
                 <Column
                     body={rowId}
                     header='Id'
-                    style={customStyle}
+                    headerStyle={{ textAlign: 'center'}}
+                    bodyStyle={{ textAlign: 'center', overflow: 'visible' }}
                 />
             </DataTable>
         </AdminLogTableStyle>
@@ -115,6 +116,28 @@ const AdminLogTableStyle = styled(motion.div)`
     height: 1px;
     border-top: 8px solid #bbb;
     border-radius: 5px;
+  }
+
+  .tooltip {
+    position: relative;
+    display: inline-block;
+  }
+
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    position: absolute;
+    z-index: 1;
+  }
+
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
   }
 `
 export default AdminLogTable

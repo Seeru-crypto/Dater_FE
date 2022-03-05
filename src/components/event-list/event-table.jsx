@@ -71,13 +71,6 @@ const EventTable = (props) => {
         } else errorNotification(toast, labels.DEFAULT_ERR_MSG)
     };
 
-    const renderDateValues = (rowData) => {
-        const date = new Date(rowData.date)
-        let day = date.getDate()
-        let month = date.getMonth() + 1
-        let year = date.getFullYear()
-        return `${day}-${month}-${year}`
-    }
     const leftToolbar = () => {
         return (
             <React.Fragment>
@@ -130,7 +123,8 @@ const EventTable = (props) => {
             >
                 <Column className='table-selector'
                         style={customStyle}
-                        selectionMode='multiple' exportable={false} />
+                        selectionMode='multiple'
+                        exportable={false} />
                 <Column
                     field='name'
                     sortable
@@ -138,10 +132,9 @@ const EventTable = (props) => {
                     style={customStyle}
                 />
                 <Column
-                    field='date'
+                    field='formattedDate'
                     sortable
                     header='Date'
-                    body={renderDateValues}
                     style={customStyle}
                 />
                 <Column
@@ -165,6 +158,12 @@ const EventTable = (props) => {
                     header='Description'
                     style={customStyle}
 
+                />
+                <Column
+                    field='formattedReminderDate'
+                    sortable
+                    header='date of reminder'
+                    style={customStyle}
                 />
                 <Column
                     body={rowActions}
