@@ -1,7 +1,8 @@
 export const customStyle = {
     color: "var(--text)",
     backgroundColor: "var(--bkg)",
-    overflow: "none"
+    overflow: "none",
+    overflowWrap: "break-word"
 }
 
 export const bodyStyle = {
@@ -25,5 +26,4 @@ export const idBodyStyle = {
     overflow: 'visible',
     color: "var(--text)",
     backgroundColor: "var(--bkg)",
-
 }

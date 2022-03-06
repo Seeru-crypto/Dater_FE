@@ -13,7 +13,7 @@
   "LABELS": {
     "REMINDER_LABEL": "Do you want reminders?",
     "EMAIL_REMINDER_LABEL": "Enable email reminders for the system",
-    "ACCOUNT_FOR_YEAR_LABEL": "Account for year?",
+    "ACCOUNT_FOR_YEAR_LABEL": "Remind Annually?",
     "ACCOUNT_FOR_YEAR_TOOLTIP": "Will the reminder be sent every year or on the selected year?",
     "INVALID_FORM_ERR_HEADER": "Invalid input",
     "INVALID_FORM_ERR_BODY": "",
