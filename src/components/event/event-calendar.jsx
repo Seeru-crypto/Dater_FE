@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import config from '../../config.json'
 import '../../static/css-files/form-styles.css'
 import styled from 'styled-components'
@@ -7,36 +7,35 @@ const EventCalendar = ({ dateHandler, selectedDate, missing }) => {
     const [currentDate, setCurrentDate] = useState('')
 
     useEffect(() => {
-        const modifyDate = (isoDate) => {
-            let day = isoDate.getDate();
-            if (day < 10) day = `0${day}`
-
-            let month = isoDate.getMonth() + 1
-            if (month < 10) month = `0${month}`
-
-            return `${isoDate.getFullYear()}-${month}-${day}`;
+          if (selectedDate === '') {
+            const currentDate = new Date();
+            const formattedDate = currentDate.toLocaleDateString("en-CA", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+            })
+            setCurrentDate(formattedDate);
+            dateHandler(currentDate);
         }
-
-        if (selectedDate === '') {
-            const newDate = modifyDate(new Date())
-            setCurrentDate(newDate);
-            dateHandler(new Date(newDate));
-            }
-        else setCurrentDate(modifyDate(selectedDate));
     }, [selectedDate])
 
     return (
         <EventDateStyle>
             <div className='floating-group'>
                 <label className='date-label' htmlFor='dateInput'>event date</label>
-                <input type='date' id='dateInput'
-                       min={config.CALENDAR_MIN_DATE}
-                       max={config.CALENDAR_MAX_DATE}
-                       className={`date ${missing ? 'missing' : ''}`}
-                       value={currentDate}
-                       onChange={(e) => {
-                           dateHandler(new Date(e.target.value))
-                       }}
+                <input
+                    type='date'
+                    id='dateInput'
+                    pattern="\d{4}-\d{2}-\d{2}"
+                    min={config.CALENDAR_MIN_DATE}
+                    max={config.CALENDAR_MAX_DATE}
+                    className={`date ${missing ? 'missing' : ''}`}
+                    value={currentDate}
+                    onChange={(e) => {
+                        setCurrentDate(e.target.value);
+                        console.log(e.target.value);
+                        dateHandler(new Date(e.target.value))
+                    }}
                 />
             </div>
         </EventDateStyle>
