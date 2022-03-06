@@ -23,9 +23,9 @@ const LessonAccordions = () => {
                         <AccordionTab header="Back-end">
                             {content.BACK.map((row, index) =>(
                                 <p className={`paragrapf index${index}`} key={row}>{row}
-                                    {index==7 && (
+                                    {index === 7 && (
                                         <span className={'span-swagger-icon'}>
-                                            <a href={process.env.REACT_APP_SWAGGER_LINK} target="_blank">
+                                            <a href={process.env.REACT_APP_SWAGGER_LINK} rel="noreferrer" target="_blank">
                                                 <SwaggerIcon className="icon"/>
                                                 </a>
                                             </span>

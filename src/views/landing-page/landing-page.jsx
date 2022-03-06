@@ -57,10 +57,10 @@ const LandingPage = () => {
                             <div className='tech'>
                                 <div className="tech-first-row">
                                     <h4>Tech</h4>
-                                    <a href={config.GITHUB_LINK} target="_blank">
+                                    <a href={config.GITHUB_LINK} rel="noreferrer" target="_blank">
                                         <i className='pi pi-github click-icon'/>
                                     </a>
-                                    <a href={config.LINKEDIN_LINK} target="_blank">
+                                    <a href={config.LINKEDIN_LINK}  rel="noreferrer" target="_blank">
                                         <LinkedInIcon className="click-icon" />
                                     </a>
                                 </div>
