@@ -20,6 +20,7 @@ import {
     EventYearlyCb
 } from "../../components/event/event-index";
 import {dateFormatter} from "../../utils/helper-functions";
+import EventMetaData from "../../components/event/event-metaData";
 
 export const EventDetails = ({selectedEvent, hideModal, modalState,}) => {
     const dispatch = useAppDispatch()
@@ -46,7 +47,9 @@ export const EventDetails = ({selectedEvent, hideModal, modalState,}) => {
             reminder: selectedEvent.reminder,
             description: selectedEvent.description,
             reminderInDays: selectedEvent.reminderDays,
-            accountForYear: selectedEvent.accountForYear
+            accountForYear: selectedEvent.accountForYear,
+            dateCreated: selectedEvent.dateCreated,
+            dateUpdated: selectedEvent.dateUpdated
         })
     }, [selectedEvent])
 
@@ -160,6 +163,7 @@ export const EventDetails = ({selectedEvent, hideModal, modalState,}) => {
                                                changeHandler={(e) => setEvents({...events, reminderInDays: e})}/>
                         </div>
                     )}
+                    <EventMetaData dateCreated={events.dateCreated} dateUpdated={events.dateUpdated} />
                 </form>
             </EventDetalStyle>
         </Dialog>
@@ -176,7 +180,7 @@ const EventDetalStyle = styled.div`
     align-items: center;
     display: flex;
   }
-  
+
   .event-add-form {
     display: grid;
     gap: 3rem;

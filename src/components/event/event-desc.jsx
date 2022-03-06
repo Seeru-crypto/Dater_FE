@@ -1,4 +1,4 @@
-import React, {memo,  useEffect, useState } from 'react'
+import React, {memo, useEffect, useState} from 'react'
 import config from '../../config.json'
 import '../../static/css-files/form-styles.css'
 import styled from 'styled-components'
@@ -22,10 +22,10 @@ const EventDescription = ({ desc, descHandler, missing }) => {
     return (
         <DescBoxStyle>
             <div className='floating-group desc'>
-                <textarea aria-invalid={false} rows={4} value={desc}
+                <textarea aria-invalid={false} rows={2} value={desc}
                           className={`desc ${missing ? 'missing' : ''}`}
                           onChange={(e) => inputValidation(e.target.value)}
-                          id='eventDesc' />
+                          id='eventDesc'/>
                 <label className='floating-label' htmlFor='eventDesc'>event description</label>
                 <FieldInvalidMsg messageContent={invalidMsg} />
             </div>
@@ -36,6 +36,10 @@ const EventDescription = ({ desc, descHandler, missing }) => {
 export default memo(EventDescription)
 
 const DescBoxStyle = styled.div`
+  .desc {
+    border-radius: 1.5rem;
+    max-height: 150px;
+  }
 
   textarea {
     resize: vertical;

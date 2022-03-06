@@ -1,9 +1,9 @@
 import React, {memo, useEffect, useState} from 'react'
-import { getEvents } from '../../slicers/eventSlice'
+import {getEvents} from '../../slicers/eventSlice'
 
 import EventTable from '../../components/event-list/event-table'
 import config from '../../config.json'
-import { useAppDispatch, useAppSelector } from '../../store'
+import {useAppDispatch, useAppSelector} from '../../store'
 import styled from 'styled-components'
 import ErrorBar from '../../components/functional-components/error-bar'
 import LoadingBar from '../../components/functional-components/loading-bar'
@@ -30,7 +30,7 @@ const ViewEvents = () => {
         if (events){
             const newEvents = events.map((event) => {
                 const formattedDate = new Date(event.date).toLocaleDateString(
-                    'en-gb',{
+                    'en-gb', {
                         year: 'numeric',
                         month: 'long',
                         day: 'numeric',
@@ -38,15 +38,18 @@ const ViewEvents = () => {
                         hour12: false
                     }
                 )
-                const formattedReminderDate = new Date(event.dateNextReminder).toLocaleDateString(
-                    'en-gb',{
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        timeZone: 'utc',
-                        hour12: false
-                    }
-                )
+                let formattedReminderDate = "-";
+                if (event.dateNextReminder !== null) {
+                    formattedReminderDate = new Date(event.dateNextReminder).toLocaleDateString(
+                        'en-gb', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                            timeZone: 'utc',
+                            hour12: false
+                        }
+                    )
+                }
                 return {...event, formattedDate, formattedReminderDate}
             });
             setFormattedEvents(newEvents);
