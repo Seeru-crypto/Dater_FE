@@ -23,11 +23,9 @@ const AdminDetails = ({logs, pollerValue}) => {
 
     useEffect(() => {
         if (logs.length > 1) {
-            const lastElementDateTime = new Date(logs[logs.length - 1].date);
-            const time = `${lastElementDateTime.getHours()}.${lastElementDateTime.getMinutes()}.${lastElementDateTime.getMilliseconds()}`
-            const date = `${lastElementDateTime.getDate()}-${lastElementDateTime.getMonth()}-${lastElementDateTime.getFullYear()}`
-            const formattedDateTime = `${time} : ${date}`;
-            setLastMailTime(formattedDateTime)
+            const lastElementDateTime = new Date(logs[logs.length - 1].dateCreated);
+            const formattedDate = new Date(lastElementDateTime).toLocaleString("en-GB")
+            setLastMailTime(formattedDate)
         }
     }, [logs])
 
