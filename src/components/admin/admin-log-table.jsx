@@ -15,14 +15,6 @@ const AdminLogTable = ({logs}) => {
         setDefaultData(logs);
     }, [logs])
 
-    const renderDateValues = (rowData) => {
-        // ToDo refactor date display!
-        const dateTime = new Date(rowData.dateCreated);
-        const time = `${dateTime.getHours()}.${dateTime.getMinutes()}.${dateTime.getMilliseconds()}`
-        const date = `${dateTime.getDate()}-${dateTime.getMonth()}-${dateTime.getFullYear()}`
-        return `${time} : ${date}`;
-    }
-
     const rowId = (rowData) => {
         return (
             <React.Fragment>
@@ -37,7 +29,6 @@ const AdminLogTable = ({logs}) => {
             </React.Fragment>
         )
     }
-
 
     return(
         <AdminLogTableStyle
@@ -68,10 +59,9 @@ const AdminLogTable = ({logs}) => {
                     style={customStyle}
                 />
                 <Column
-                    field='date'
+                    field='formattedDate'
                     sortable
                     header='Date'
-                    body={renderDateValues}
                     style={customStyle}
                 />
                 <Column
@@ -90,7 +80,6 @@ const AdminLogTable = ({logs}) => {
                     field='errorDesc'
                     sortable
                     header='Errors'
-                    style={customStyle}
                     bodyStyle={{ overflow: 'auto' }}
                 />
                 <Column

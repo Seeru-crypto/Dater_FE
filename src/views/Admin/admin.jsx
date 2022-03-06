@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import config from '../../config.json'
 import styled from 'styled-components'
 import {Toast} from 'primereact/toast'
@@ -15,6 +15,7 @@ const Admin = () => {
     const {error, loading, logs, configId, pollerValue} = useAppSelector((state) => state.admin)
     const toast = useRef(null)
     const dispatch = useAppDispatch()
+    const [formattedLogs, setFormattedLogs] = useState([]);
 
     useEffect(() => {
         if (error !== '') {
@@ -31,6 +32,17 @@ const Admin = () => {
         dispatch(getPollerData());
     }, [])
 
+    useEffect(() => {
+        if (logs){
+            const newLogs = logs.map((log) => {
+                const formattedDate = new Date(log.dateCreated).toLocaleString("en-GB")
+                return {...log, formattedDate}
+            });
+            setFormattedLogs(newLogs);
+        }
+
+    }, [logs])
+
     return (
         <AdminStyle>
             <ErrorBar error={error} />
@@ -46,7 +58,7 @@ const Admin = () => {
                             </div>
                             {/*<h2>Logs</h2>*/}
                             <div className="second-row">
-                                <AdminLogTable logs={logs} />
+                                <AdminLogTable logs={formattedLogs} />
                             </div>
                         </div>
                     )}
