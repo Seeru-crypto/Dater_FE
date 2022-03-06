@@ -6,7 +6,7 @@ import "../../static/css-files/table.css"
 import {motion} from "framer-motion";
 import {adminTableTransition} from "../../static/animations/motion";
 import {Button} from "primereact/button";
-import {customStyle} from "../event-list/event-list-style";
+import {customStyle, idBodyStyle, idHeaderStyle, errorDescStyle} from "../event-list/event-list-style";
 
 const AdminLogTable = ({logs}) => {
     const [defaultData, setDefaultData] = useState(logs);
@@ -39,6 +39,8 @@ const AdminLogTable = ({logs}) => {
             <h2 className="logs-header">Logs</h2>
             <hr className="rounded" />
             <DataTable
+                sortField="formattedDate"
+                sortOrder={-1}
                 responsiveLayout='scroll'
                 paginatorClassName="ui-paginator"
                 paginator
@@ -80,13 +82,14 @@ const AdminLogTable = ({logs}) => {
                     field='errorDesc'
                     sortable
                     header='Errors'
-                    bodyStyle={{ overflow: 'auto' }}
+                    style={errorDescStyle}
+
                 />
                 <Column
                     body={rowId}
                     header='Id'
-                    headerStyle={{ textAlign: 'center'}}
-                    bodyStyle={{ textAlign: 'center', overflow: 'visible' }}
+                    headerStyle={idHeaderStyle}
+                    bodyStyle={idBodyStyle}
                 />
             </DataTable>
         </AdminLogTableStyle>

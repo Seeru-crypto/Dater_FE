@@ -12,7 +12,17 @@ import {AdminLogTable} from "../../components/admin/admin-index";
 
 const Admin = () => {
 
-    const {error, loading, logs, configId, pollerValue} = useAppSelector((state) => state.admin)
+    const {
+        error,
+        isEmailEnabled,
+        userMailAddress,
+        pin,
+        loading,
+        logs,
+        configId,
+        pollerValue
+    } = useAppSelector((state) => state.admin)
+
     const toast = useRef(null)
     const dispatch = useAppDispatch()
     const [formattedLogs, setFormattedLogs] = useState([]);
@@ -53,8 +63,9 @@ const Admin = () => {
                         <div className='general-admin-page'>
                             <h1>Admin Page</h1>
                             <div className="first-row">
-                                <AdminSettings toast={toast} />
-                                <AdminDetails logs={logs} pollerValue={pollerValue} />
+                                <AdminSettings toast={toast} configId={configId} isEmailEnabled={isEmailEnabled}
+                                               userMailAddress={userMailAddress} pin={pin}/>
+                                <AdminDetails logs={logs} currentMailValue={userMailAddress} pollerValue={pollerValue}/>
                             </div>
                             {/*<h2>Logs</h2>*/}
                             <div className="second-row">

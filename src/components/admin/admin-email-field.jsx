@@ -14,7 +14,7 @@ const AdminEmailField = ({ email, emailHandler, isDisabled }) => {
 export default AdminEmailField
 
 const AdminEmailStyled = styled.div`
-    .admin-email-input::placeholder{
-      color:var(--text);
-    }
+  .admin-email-input:disabled {
+    background-color: gray;
+  }
 `

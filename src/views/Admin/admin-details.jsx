@@ -5,7 +5,7 @@ import {getLogs} from "../../slicers/adminSlice";
 import config from "../../config.json";
 import {useAppDispatch} from "../../store";
 
-const AdminDetails = ({logs, pollerValue}) => {
+const AdminDetails = ({logs, pollerValue, currentMailValue}) => {
     const dispatch = useAppDispatch()
     const [timer, setTimer] = useState(null);
     const [lastMailTime, setLastMailTime] = useState("");
@@ -34,9 +34,10 @@ const AdminDetails = ({logs, pollerValue}) => {
             <div className="details-header">
                 <h5>Details</h5></div>
             <div className="details-body">
-                <p>Current polling rate: <br/> {pollerValue} min</p>
+                <p>Current polling rate: {pollerValue} min</p>
                 <p>Emails sent to date: {logs.length}</p>
-                <p>Last event sent: <br/> {lastMailTime}</p>
+                <p>Last event sent: {lastMailTime}</p>
+                <p>Currently set email: {currentMailValue}</p>
             </div>
 
             <div className="details-footer">
@@ -57,7 +58,6 @@ const AdminDetailsStyle = styled.div`
   display: flex;
   flex-direction: column;
   width: 30%;
-  max-width: 300px;
   border-radius: 1rem 2rem;
   background-color: var(--side-nav-bkg);
   color: var(--nav-text-color);
@@ -65,6 +65,10 @@ const AdminDetailsStyle = styled.div`
   margin-left: 2rem;
   padding: 1rem;
 
+  .details-body{
+    font-size: 1rem;
+  }
+  
   .details-footer {
     display: flex;
     height: 100%;
