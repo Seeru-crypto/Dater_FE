@@ -81,7 +81,7 @@ const LandingPage = () => {
                                 </li>
                                 <li>
                                     <b>Database: </b> MongoDB
-                                    <span className='icon tech-svg' title='MongoDB'>
+                                    <span className='icon tech-svg mongo' title='MongoDB'>
                                     <MongoIcon/>
                                 </span>
                                 </li>
@@ -140,9 +140,10 @@ const LandingPageStyle = styled.div`
   }
 
   .tech-svg {
-    width: 3rem;
-    height: 3rem;
+    width: 2em;
+    height: 2em;
     margin-left: 0.5rem;
+    margin-bottom: -0.125em;
   }
 
   details article {
