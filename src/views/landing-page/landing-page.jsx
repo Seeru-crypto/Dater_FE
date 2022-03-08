@@ -12,6 +12,7 @@ import {useAppDispatch} from "../../store";
 import {motion} from "framer-motion";
 import {leftSideTransition, rightSideTransition} from "../../static/animations/motion";
 import LessonAccordions from "./lesson-accordions";
+import CustomModal from "../../components/event/custom-modal";
 
 const LandingPage = () => {
     const navigate = useNavigate()
@@ -21,6 +22,7 @@ const LandingPage = () => {
         <LandingPageStyle>
             <div className='main-div'>
                     <h1 className="title">Welcome to Dater!</h1>
+                <CustomModal />
                 <div className='main-content'>
                     <div className='first content-row'>
                         <motion.div

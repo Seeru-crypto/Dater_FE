@@ -1,40 +1,34 @@
 const leftSideTransition = {
     initial: {
-        x: "-100vh"
+        opacity:0
     },
     animate: {
-        x: 0
+        opacity: 1
     },
     transition: {
-        duration: 0.5,
-        type: "tween"
+        duration: 0.3,
     }
 }
 const rightSideTransition = {
     initial: {
-        x: "100vh"
+        opacity:0
     },
     animate: {
-        x: 0
+        opacity: 1
     },
     transition: {
-        duration: 0.5,
-        type: "tween"
+        duration: 0.3
     }
 }
 const addEventModalTransition = {
     initial: {
-        opacity:0,
-        x:"-100vh"
+        opacity:0
     },
     animate: {
-        x:0,
-        opacity: 1,
-        scale:1
+        opacity: 1
     },
     transition: {
-        duration: 0.2,
-        type: "tween"
+        duration: 0.3
     }
 }
 const adminTableTransition = {
@@ -59,6 +53,9 @@ const adminButtonTransition = {
     },
     animate: {
         opacity: 1
+    },
+    transition: {
+        duration: 0.3
     }
 }
 
@@ -70,15 +67,9 @@ const eventList = {
         opacity: 1
     },
     transition: {
-        duration: 0.5
+        duration: 0.3
     }
 }
-
-
-
-
-
-
 
 export {
     leftSideTransition, rightSideTransition, addEventModalTransition, adminButtonTransition, adminTableTransition, eventList
