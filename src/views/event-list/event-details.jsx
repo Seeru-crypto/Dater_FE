@@ -129,16 +129,19 @@ export const EventDetails = ({selectedEvent, hideModal, modalState,}) => {
     )
 
     return (
+        <DialogColorStyles>
         <Dialog
             visible={showHideModal}
             className='main-detail'
             header='Event Details'
+            draggable={false}
+            appendTo="self"
             modal
             footer={eventModalFooter}
             onHide={hideModal}
         >
             <Toast ref={toast} />
-            <EventDetalStyle>
+            <EventDetailStyle>
                 <form className='event-add-form'>
                     <EventName name={events.name} nameHandler={(e) => setEvents({...events, name: e})}
                                missing={invalidFields.name}/>
@@ -165,12 +168,13 @@ export const EventDetails = ({selectedEvent, hideModal, modalState,}) => {
                     )}
                     <EventMetaData dateCreated={events.dateCreated} dateUpdated={events.dateUpdated} />
                 </form>
-            </EventDetalStyle>
+            </EventDetailStyle>
         </Dialog>
+        </DialogColorStyles>
     )
 }
 
-const EventDetalStyle = styled.div`
+const EventDetailStyle = styled.div`
   display: grid;
   .detail-desc {
     margin-top: 2rem;
@@ -186,6 +190,26 @@ const EventDetalStyle = styled.div`
     gap: 3rem;
     text-align: center;
     padding: clamp(1rem, 10vw, 4rem);
+  }
+`
+
+const DialogColorStyles = styled.div`
+  .p-dialog-content, .p-dialog-footer  {
+    background-color: var(--bkg);
+    color: var(--text);
+  }
+  .p-dialog-footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button{
+      color: var(--nav-text-color);
+    }
+    background-color: var(--nav-bkg-color);
+  }
+  .p-dialog-header  {
+    background-color: var(--nav-bkg-color);
+    color: var(--text);
   }
 `
 

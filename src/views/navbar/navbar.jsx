@@ -92,10 +92,8 @@ const PageHeaderStyle = styled.div`
   margin-bottom: 70px;
 
   .bx-moon, .bx-sun {
-    border: solid var(--text) 0.15rem;
     padding: 0.75rem;
     margin-top: -1rem;
-    border-radius: .75rem;
   }
 
   .logo.navLogo {

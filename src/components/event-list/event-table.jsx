@@ -169,7 +169,6 @@ const EventTable = (props) => {
                     body={rowActions}
                     header='Edit'
                     style={customStyle}
-
                 />
             </DataTable>
             {selectedEvent && (
