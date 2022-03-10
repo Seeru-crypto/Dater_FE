@@ -1,15 +1,21 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import {motion} from "framer-motion";
-import {useAppDispatch, useAppSelector} from "../../store";
+import {useAppDispatch} from "../../store";
 import config from "../../config.json";
 import {adminButtonTransition} from "../../static/animations/motion";
 
-import {setEmailAdress, setEmailAdressNotifications, updateAdmin} from "../../slicers/adminSlice";
+import {getAdminData, setEmailAdressNotifications, updateAdmin} from "../../slicers/adminSlice";
 
 import FieldInvalidMsg from "../../components/event/field-invalid-msg";
 import {errorNotification, positiveNotification} from "../../utils/notifications";
-import {AdminEmailRemindersCb, AdminSmsCb, AdminSmsField, PinModal, AdminEmailField} from "../../components/admin/admin-index";
+import {
+    AdminEmailField,
+    AdminEmailRemindersCb,
+    AdminSmsCb,
+    AdminSmsField,
+    PinModal
+} from "../../components/admin/admin-index";
 import {adminDataValidation} from "../../utils/dataValidation";
 import AdminSettingButton from "../../components/admin/admin-setting-button";
 
@@ -52,7 +58,10 @@ const AdminSettings = (props) => {
         }
         const dto = {data, pin}
         const res = await dispatch(updateAdmin(dto))
-        if (res.meta.requestStatus === 'fulfilled') positiveNotification(toast, labels.CONF_UPDATED_SUCCESS_MSG, '')
+        if (res.meta.requestStatus === 'fulfilled') {
+            positiveNotification(toast, labels.CONF_UPDATED_SUCCESS_MSG, '')
+            dispatch(getAdminData())
+        }
         else errorNotification(toast, labels.DEFAULT_ERR_MSG)
     }
 

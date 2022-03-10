@@ -79,7 +79,7 @@ const Admin = () => {
 }
 
 const AdminStyle = styled.div`
-  transition: all 0.4s ease;
+  transition: all 0.2s ease;
 
   .first-row{
     width: 80%;
