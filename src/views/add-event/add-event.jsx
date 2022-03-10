@@ -34,9 +34,7 @@ const AddEvent = () => {
     const dispatch = useAppDispatch()
     const labels = config.LABELS
     const dateHandler = (data) => {
-        const newDate = data
-        newDate.setHours(data.getHours());
-        setEvent({...event, date: newDate});
+        setEvent({...event, date: data});
     }
 
     const validateData = () => {

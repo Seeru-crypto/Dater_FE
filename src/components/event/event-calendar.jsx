@@ -7,16 +7,22 @@ const EventCalendar = ({ dateHandler, selectedDate, missing }) => {
     const [currentDate, setCurrentDate] = useState('')
 
     useEffect(() => {
-          if (selectedDate === '') {
-            const currentDate = new Date();
-            const formattedDate = currentDate.toLocaleDateString("en-CA", {
+        const dateFormatter = (date) => {
+            return date.toLocaleDateString("en-CA", {
                 year: "numeric",
                 month: "2-digit",
                 day: "2-digit",
             })
-            setCurrentDate(formattedDate);
-            dateHandler(currentDate);
         }
+
+          if (selectedDate === '') {
+              const newDate = dateFormatter(new Date());
+            setCurrentDate(newDate);
+            dateHandler(new Date());
+        }
+        else {
+              setCurrentDate(dateFormatter(selectedDate))
+          }
     }, [selectedDate])
 
     return (
@@ -33,7 +39,6 @@ const EventCalendar = ({ dateHandler, selectedDate, missing }) => {
                     value={currentDate}
                     onChange={(e) => {
                         setCurrentDate(e.target.value);
-                        console.log(e.target.value);
                         dateHandler(new Date(e.target.value))
                     }}
                 />
