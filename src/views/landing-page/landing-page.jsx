@@ -12,7 +12,6 @@ import {useAppDispatch} from "../../store";
 import {motion} from "framer-motion";
 import {leftSideTransition, rightSideTransition} from "../../static/animations/motion";
 import LessonAccordions from "./lesson-accordions";
-import CustomModal from "../../components/event/custom-modal";
 
 const LandingPage = () => {
     const navigate = useNavigate()
@@ -21,8 +20,8 @@ const LandingPage = () => {
     return (
         <LandingPageStyle>
             <div className='main-div'>
-                    <h1 className="title">Welcome to Dater!</h1>
-                <CustomModal />
+
+                <h1 className="title">Welcome to Dater!</h1>
                 <div className='main-content'>
                     <div className='first content-row'>
                         <motion.div
@@ -62,36 +61,30 @@ const LandingPage = () => {
                                     <a href={config.GITHUB_LINK} rel="noreferrer" target="_blank">
                                         <i className='pi pi-github click-icon'/>
                                     </a>
-                                    <a href={config.LINKEDIN_LINK}  rel="noreferrer" target="_blank">
-                                        <LinkedInIcon className="click-icon" />
+                                    <a href={config.LINKEDIN_LINK} rel="noreferrer" target="_blank">
+                                        <LinkedInIcon className="click-icon"/>
                                     </a>
                                 </div>
-
-                                <ul className='tech-ul'>
-                                    <li>
-                                        <b>Front-end:</b> React with PrimeReact UI components.
-                                        <span>
-                                        <ReactIcon className="tech-svg" />
-                                        </span>
-                                </li>
-                                <li>
-                                    <b>Back-end: </b>
-                                    Java spring framework (spring boot), with REST API endpoints.
-                                    <span>
-                                    <JavaIcon className="tech-svg" />
-                                </span>
-                                </li>
-                                <li>
-                                    <b>Database: </b> MongoDB
-                                    <span className='icon tech-svg mongo' title='MongoDB'>
-                                    <MongoIcon/>
-                                </span>
-                                </li>
-                                    <li>
-                                        <b>Hosting:</b>
-                                        <p>Front- and back-end are hosted by Heroku. Database by MongoDB Atlas</p>
-                                    </li>
-                                </ul>
+                                <div className='tech-section'>
+                                    <div className="section-row front-group">
+                                        <p><b>Front-end: </b>React with PrimeReact UI components.</p>
+                                        <ReactIcon className="tech-svg"/>
+                                    </div>
+                                    <div className="section-row back-group">
+                                        <p><b>Back-end: </b>Java spring framework (spring boot), with REST API endpoints.</p>
+                                        <JavaIcon className="tech-svg"/>
+                                    </div>
+                                    <div className="section-row">
+                                        <p><b>Database: </b> MongoDB</p>
+                                        <MongoIcon className="tech-svg mongo"/>
+                                    </div>
+                                    <div className="section-row hosting-group">
+                                        <p>
+                                            <b>Hosting:</b>
+                                            <span>Front- and back-end are hosted by Heroku. Database by MongoDB Atlas</span>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </motion.article>
                         <motion.article
@@ -120,20 +113,25 @@ export default memo(LandingPage)
 const LandingPageStyle = styled.div`
   transition: all 0.4s ease;
   padding: 2rem 2rem 30rem 2rem;
-  
-  .title{
+
+  .title {
     display: flex;
     justify-content: center;
   }
 
-  .heroku-warning{
+  .heroku-warning {
     background-color: grey;
     color: white;
     border-radius: .75rem;
     margin-top: .5rem;
     padding: .5rem;
   }
-  
+
+  .section-row {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .content-row {
     padding-top: 2rem;
     display: flex;
@@ -142,10 +140,14 @@ const LandingPageStyle = styled.div`
   }
 
   .tech-svg {
-    width: 2em;
-    height: 2em;
+    max-height: 3rem;
+    max-width: 3rem;
     margin-left: 0.5rem;
     margin-bottom: -0.125em;
+
+    &.mongo {
+      margin-left: 0;
+    }
   }
 
   details article {
@@ -188,8 +190,10 @@ const LandingPageStyle = styled.div`
     margin-top: 2rem;
   }
 
-  .tech-ul > * {
-    padding-top: 0.5rem
+  .tech-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .click-icon {
@@ -205,7 +209,6 @@ const LandingPageStyle = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: -2rem;
   }
 
   .main-content {
