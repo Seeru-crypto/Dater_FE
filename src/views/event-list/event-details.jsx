@@ -198,11 +198,17 @@ const DialogColorStyles = styled.div`
     button{
       color: var(--nav-text-color);
     }
+
     background-color: var(--nav-bkg-color);
   }
   .p-dialog-header  {
     background-color: var(--nav-bkg-color);
     color: var(--text);
+  }
+
+  .p-button.p-button-text:enabled:hover{
+    background-color: var(--nav-text-color);
+    color: var(--add-border);
   }
 `
 

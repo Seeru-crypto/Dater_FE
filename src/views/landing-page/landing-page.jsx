@@ -20,7 +20,6 @@ const LandingPage = () => {
     return (
         <LandingPageStyle>
             <div className='main-div'>
-
                 <h1 className="title">Welcome to Dater!</h1>
                 <div className='main-content'>
                     <div className='first content-row'>
@@ -93,7 +92,7 @@ const LandingPage = () => {
                             transition={leftSideTransition.transition}
                             className='main-box lessons'>
                             <h4>Lessons</h4>
-                            <p>
+                            <p className="lesson-intro">
                                 The main difficulty was creating components as re-usable
                                 as possible without over-engineering. Since it was first
                                 time using mongoDB there were a few difficulties
@@ -114,6 +113,17 @@ const LandingPageStyle = styled.div`
   transition: all 0.4s ease;
   padding: 2rem 2rem 30rem 2rem;
 
+  
+  .main-box.lessons{
+    h4 {
+      padding: 1rem 0;
+    }
+    
+    .lesson-intro{
+      padding-bottom: .5rem;
+    }
+  }
+  
   .title {
     display: flex;
     justify-content: center;
@@ -162,10 +172,6 @@ const LandingPageStyle = styled.div`
     font-weight: bold;
     text-decoration: underline;
     text-decoration-color: var(--text);
-  }
-
-  .lessons h4 {
-    padding: 1rem 0;
   }
 
   .main-box {

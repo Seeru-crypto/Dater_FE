@@ -93,12 +93,15 @@ const LessonAccordionsStyle = styled.div`
     line-height: 1.5;
     margin: 0;
   }
-
-
-  //
+  
   .p-accordion .p-accordion-tab:first-child .p-accordion-header .p-accordion-header-link {
     color: var(--text);
     background-color: var(--bkg);
+
+    :hover {
+      color: var(--details-bkg);
+      background-color: var(--text);
+    }
   }
 
   .p-accordion .p-accordion-tab .p-accordion-content {
