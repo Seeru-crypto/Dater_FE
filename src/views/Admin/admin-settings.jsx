@@ -4,7 +4,6 @@ import {motion} from "framer-motion";
 import {useAppDispatch} from "../../store";
 import config from "../../config.json";
 import {adminButtonTransition} from "../../static/animations/motion";
-
 import {getAdminData, setEmailAdressNotifications, updateAdmin} from "../../slicers/adminSlice";
 
 import FieldInvalidMsg from "../../components/event/field-invalid-msg";
@@ -28,10 +27,9 @@ const AdminSettings = (props) => {
     const [isPinModalVisible, setPinModal] = useState(false);
     const [newMailValue, setMailValue] = useState("");
 
-
     // ToDo export validate function to utils!
     const validateData = () => {
-        const validate = adminDataValidation(userMailAddress);
+        const validate = adminDataValidation(newMailValue);
 
         if (validate.result){
             setCharCounterVisible(false)
@@ -84,12 +82,11 @@ const AdminSettings = (props) => {
                 </div>
                 <div className="admin-email-field">
                     <AdminEmailField
+                        pattern={config.EMAIL_REGEX}
                         isDisabled={!isEmailEnabled}
-                        // email={userMailAddress}
                         email={newMailValue}
                         emailHandler={(e) => {
                             setMailValue(e);
-                            // dispatch(setEmailAdress(e))
                             setIsChanged(true);
                         }}
                     />

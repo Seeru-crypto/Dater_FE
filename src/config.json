@@ -3,6 +3,7 @@
   "LINKEDIN_LINK": "https://www.linkedin.com/in/fred-oja-8749b1182/",
   "SESSION_STORAGE_LABEL": "isLightMode",
   "DESC_MAX_LEN": 120,
+  "EMAIL_REGEX": "^[\\w!#$%&’*+\\/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+\\/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$",
   "NAME_MAX_LEN": 25,
   "DAYS_NOTICE_MIN_VAL": 0,
   "DAYS_NOTICE_MAX_VAL": 90,
