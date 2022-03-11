@@ -37,9 +37,11 @@ const Admin = () => {
     }, [error, dispatch, configId])
 
     useEffect(() => {
-        dispatch(getAdminData())
-        dispatch(getLogs());
-        dispatch(getPollerData());
+        if  (configId === "") {
+            dispatch(getAdminData())
+            dispatch(getLogs());
+            dispatch(getPollerData());
+        }
     }, [])
 
     useEffect(() => {
@@ -67,7 +69,6 @@ const Admin = () => {
                                                userMailAddress={userMailAddress} pin={pin}/>
                                 <AdminDetails logs={logs} currentMailValue={userMailAddress} pollerValue={pollerValue}/>
                             </div>
-                            {/*<h2>Logs</h2>*/}
                             <div className="second-row">
                                 <AdminLogTable logs={formattedLogs} />
                             </div>
