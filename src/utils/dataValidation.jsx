@@ -1,14 +1,15 @@
 import config from "../config.json"
 
 export const eventDataValidation = (name, date, description) => {
-    const maxYear = config.CALENDAR_MAX_DATE.substring(0, 3);
-    const minYear = config.CALENDAR_MIN_DATE.substring(0, 3);
+    const maxYear = config.CALENDAR_MAX_DATE.substring(0, 4);
+    const minYear = config.CALENDAR_MIN_DATE.substring(0, 4);
         if(name.trim() === "" || name.trim().length > config.NAME_MAX_LEN ) {
             return { result:false, property: "name" }
         }
         if (date.toString().trim() === "" || date.toString().trim() === "Invalid Date"  ){
             return { result:false, property: "date" }
         }
+
         if (new Date(date).getFullYear() < parseInt(minYear) || new Date(date).getFullYear() > parseInt(maxYear)){
             return { result:false, property: "date" }
         }
@@ -29,5 +30,4 @@ export const adminDataValidation = (userMailAddress) => {
         return { result:false, property: "userMailAddressInvalid" };
     }
     return { result : true };
-
 }
