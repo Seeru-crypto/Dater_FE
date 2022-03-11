@@ -5,7 +5,9 @@ const initialState = {
     userMailAddress: "",
     loading: false,
     error: '',
+    isBackEndLive: false,
     isEmailEnabled: false,
+    pollerValue : null,
     configId : "",
     isLightMode: true,
     currentPage: "/",
@@ -13,7 +15,12 @@ const initialState = {
     logs: []
 }
 
-export const getAdminData = createAsyncThunk('admin/getAdminData', async () => ( (await (AdminService.getAdmin())).data));
+export const getAdminData = createAsyncThunk('admin/getAdminData', async () => {
+    getPollerData();
+    return (await (AdminService.getAdmin())).data;
+});
+
+export const getPollerData  = createAsyncThunk("admin/getPollerData", async () => ( (await (AdminService.getPollerValue())).data));
 
 export const getLogs = createAsyncThunk('admin/getLogs', async () => ( (await (AdminService.getLogs())).data));
 
@@ -32,7 +39,7 @@ export const adminSlice = createSlice({
         setCurrentPage: (state, action) => {
             state.currentPage = action.payload;
         },
-        setIsLightMode: (state, action) => {
+         setIsLightMode: (state, action) => {
             state.isLightMode = action.payload;
         },
         setPin: (state, action) => {
@@ -51,7 +58,7 @@ export const adminSlice = createSlice({
             state.loading = false
             state.error = ''
             state.userMailAddress = dataObject.emailAddress
-            state.isEmailEnabled = dataObject.sendEmails
+            state.isEmailEnabled = dataObject.isEmailActive
             state.configId = dataObject.id
         });
         builder.addCase(getLogs.fulfilled, (state, action) => {
@@ -60,6 +67,10 @@ export const adminSlice = createSlice({
             state.error = ''
             state.logs = dataObject
         });
+        builder.addCase(getPollerData.fulfilled, (state, action) => {
+            state.pollerValue = (action.payload.fixedRate[0].interval / 60000);
+        });
+
         builder.addCase(getAdminData.rejected, (state) => {
             state.error = 'an error has occured'
         });

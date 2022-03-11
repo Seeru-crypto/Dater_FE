@@ -11,22 +11,36 @@ const PinModal = ({isVisible, setVisibility, clickHandler}) => {
     const pin = useAppSelector((state) => state.admin.pin)
 
     return(
-            <Dialog header="Please enter" style={{width:"50%"}} visible={isVisible} onHide={() => setVisibility(!isVisible)} breakpoints={{'960px': '75vw'}}>
-        <PinModalStyle>
-                <input type="text" value={pin} onChange={(e) => dispatch(setPin(e.target.value))}/>
-                <AdminSettingButton text="submit" submitHandle={() => clickHandler()}/>
-        </PinModalStyle>
+        <ModalColorStyle>
+            <Dialog header="Please enter" draggable={false}
+                    appendTo="self"
+                    style={{width: "50%"}} visible={isVisible} onHide={() => setVisibility(!isVisible)}
+                    breakpoints={{'960px': '75vw'}}>
+                <PinModalStyle>
+                    <input type="text" value={pin} onChange={(e) => dispatch(setPin(e.target.value))}/>
+                    <AdminSettingButton text="submit" submitHandle={() => clickHandler()}/>
+                </PinModalStyle>
             </Dialog>
+        </ModalColorStyle>
     )
 }
 
 export default PinModal;
 
 const PinModalStyle = styled.div`
+  background-color: var(--bkg);
+  color: var(--text);
+
   display: flex;
-  gap: .5rem;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`
 
+const ModalColorStyle = styled.div`
+  .p-dialog-content, .p-dialog-header {
+    background-color: var(--bkg);
+    color: var(--text);
+    padding: 1rem;
+  }
 `

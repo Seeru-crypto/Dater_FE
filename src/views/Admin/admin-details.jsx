@@ -5,10 +5,9 @@ import {getLogs} from "../../slicers/adminSlice";
 import config from "../../config.json";
 import {useAppDispatch} from "../../store";
 
-const AdminDetails = ({logs}) => {
+const AdminDetails = ({logs, pollerValue, currentMailValue}) => {
     const dispatch = useAppDispatch()
     const [timer, setTimer] = useState(null);
-    const [pollingRate, setPollingRate] = useState("");
     const [lastMailTime, setLastMailTime] = useState("");
 
     const eventCheckHandler = () => {
@@ -24,12 +23,9 @@ const AdminDetails = ({logs}) => {
 
     useEffect(() => {
         if (logs.length > 1) {
-            setPollingRate(logs[logs.length - 1].schedulerValue);
-            const lastElementDateTime = new Date(logs[logs.length - 1].date);
-            const time = `${lastElementDateTime.getHours()}.${lastElementDateTime.getMinutes()}.${lastElementDateTime.getMilliseconds()}`
-            const date = `${lastElementDateTime.getDate()}-${lastElementDateTime.getMonth()}-${lastElementDateTime.getFullYear()}`
-            const formattedDateTime = `${time} : ${date}`;
-            setLastMailTime(formattedDateTime)
+            const lastElementDateTime = new Date(logs[logs.length - 1].dateCreated);
+            const formattedDate = new Date(lastElementDateTime).toLocaleString("en-GB")
+            setLastMailTime(formattedDate)
         }
     }, [logs])
 
@@ -38,15 +34,10 @@ const AdminDetails = ({logs}) => {
             <div className="details-header">
                 <h5>Details</h5></div>
             <div className="details-body">
-                <p>
-                    Current polling rate: <br/> {pollingRate} min
-                </p>
-                <p>
-                    Emails sent to date: {logs.length}
-                </p>
-                <p>
-                    Last event sent: <br/> {lastMailTime}
-                </p>
+                <p>Current polling rate: {pollerValue} min</p>
+                <p>Emails sent to date: {logs.length}</p>
+                <p>Last event sent: {lastMailTime}</p>
+                <p>Currently set email: {currentMailValue}</p>
             </div>
 
             <div className="details-footer">
@@ -67,7 +58,6 @@ const AdminDetailsStyle = styled.div`
   display: flex;
   flex-direction: column;
   width: 30%;
-  max-width: 300px;
   border-radius: 1rem 2rem;
   background-color: var(--side-nav-bkg);
   color: var(--nav-text-color);
@@ -75,6 +65,10 @@ const AdminDetailsStyle = styled.div`
   margin-left: 2rem;
   padding: 1rem;
 
+  .details-body{
+    font-size: 1rem;
+  }
+  
   .details-footer {
     display: flex;
     height: 100%;

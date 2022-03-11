@@ -6,7 +6,7 @@ import {Button} from 'primereact/button'
 import {InputText} from 'primereact/inputtext'
 import {EventDetails} from '../../views/event-list/event-details'
 import {Toolbar} from 'primereact/toolbar'
-import '../../static/css-files/event-table.css'
+import '../../static/css-files/table.css'
 import {confirmDialog} from 'primereact/confirmdialog'
 import {useAppDispatch} from '../../store'
 import {deleteEvents, getEvents} from '../../slicers/eventSlice'
@@ -15,6 +15,7 @@ import config from "../../config.json"
 import {Toast} from "primereact/toast";
 import {motion} from "framer-motion";
 import {eventList} from "../../static/animations/motion";
+import {customStyle} from "./event-list-style";
 
 const EventTable = (props) => {
     const dispatch = useAppDispatch()
@@ -32,6 +33,7 @@ const EventTable = (props) => {
     }, [props])
 
     const renderBooleanValues = (rowData, item) => rowData[item.field] ? 'True' : 'False'
+
     const rowActions = (rowData) => {
         return (
             <React.Fragment>
@@ -69,13 +71,6 @@ const EventTable = (props) => {
         } else errorNotification(toast, labels.DEFAULT_ERR_MSG)
     };
 
-    const renderDateValues = (rowData) => {
-        const date = new Date(rowData.date)
-        let day = date.getDate()
-        let month = date.getMonth() + 1
-        let year = date.getFullYear()
-        return `${day}-${month}-${year}`
-    }
     const leftToolbar = () => {
         return (
             <React.Fragment>
@@ -106,7 +101,9 @@ const EventTable = (props) => {
         transition={eventList.transition}
         >
             <Toast ref={toast} />
-            <Toolbar left={leftToolbar} right={rightToolbar} />
+            <Toolbar
+                style={customStyle}
+                left={leftToolbar} right={rightToolbar} />
             <DataTable
                 sortField="name"
                 sortOrder={1}
@@ -118,46 +115,60 @@ const EventTable = (props) => {
                 value={eventData}
                 globalFilter={globalFilter}
                 emptyMessage='No events found'
+                paginatorClassName="ui-paginator"
                 paginatorTemplate='CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown'
                 currentPageReportTemplate='Showing {first} to {last} of {totalRecords}'
                 rows={10}
                 rowsPerPageOptions={[10, 20, 50]}
             >
-                <Column className='table-selector' selectionMode='multiple' exportable={false} />
+                <Column className='table-selector'
+                        style={customStyle}
+                        selectionMode='multiple'
+                        exportable={false} />
                 <Column
                     field='name'
                     sortable
                     header='Event'
+                    style={customStyle}
                 />
                 <Column
-                    field='date'
+                    field='formattedDate'
                     sortable
                     header='Date'
-                    body={renderDateValues}
+                    style={customStyle}
                 />
                 <Column
                     sortable
                     field='reminder'
                     body={renderBooleanValues}
                     header='Reminder'
+                    style={customStyle}
+
                 />
                 <Column
                     field='reminderDays'
                     sortable
                     header='Number of days'
+                    style={customStyle}
+
                 />
                 <Column
                     field='description'
                     sortable
                     header='Description'
+                    style={customStyle}
+
+                />
+                <Column
+                    field='formattedReminderDate'
+                    sortable
+                    header='date of reminder'
+                    style={customStyle}
                 />
                 <Column
                     body={rowActions}
                     header='Edit'
-                    headerStyle={{ textAlign: 'center' }}
-                    bodyStyle={{
-                        textAlign: 'center',
-                    }}
+                    style={customStyle}
                 />
             </DataTable>
             {selectedEvent && (

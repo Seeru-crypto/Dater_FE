@@ -1,0 +1,29 @@
+.header-search {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.export-btn {
+    margin-right: 1rem;
+}
+
+.ui-paginator {
+    background-color: var(--bkg);
+    color: var(--text);
+}
+
+.p-button-outlined.p-button-secondary {
+    margin-right: 1rem;
+}
+
+.table-selector {
+    width: 3rem
+}
+.p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
+    background-color: var(--table-hover-bg);
+}
+
+.center-items{
+    text-align: center;
+    border: 1px solid red;
+}

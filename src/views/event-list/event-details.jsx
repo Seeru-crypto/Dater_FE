@@ -19,13 +19,13 @@ import {
     EventReminder,
     EventYearlyCb
 } from "../../components/event/event-index";
-import {dateFormatter} from "../../utils/helper-functions";
+import EventMetaData from "../../components/event/event-metaData";
 
 export const EventDetails = ({selectedEvent, hideModal, modalState,}) => {
     const dispatch = useAppDispatch()
     const toast = useRef(null)
     const labels = config.LABELS
-    const [events, setEvents] = useState({
+    const [event, setEvent] = useState({
         name: "",
         date: "",
         reminder: false,
@@ -33,32 +33,29 @@ export const EventDetails = ({selectedEvent, hideModal, modalState,}) => {
         reminderInDays: "",
         accountForYear: false
     })
-    const [isoDate, setIsoDate] = useState(selectedEvent.date ? selectedEvent.date : null);
     const [invalidFields, setInvalidField] = useState({name: false, description: false, date: false});
 
     let showHideModal = !!modalState
 
     useEffect(() => {
-
-        setEvents({
+        setEvent({
             name: selectedEvent.name,
-            date: selectedEvent.date,
+            date: new Date(selectedEvent.date),
             reminder: selectedEvent.reminder,
             description: selectedEvent.description,
             reminderInDays: selectedEvent.reminderDays,
-            accountForYear: selectedEvent.accountForYear
+            accountForYear: selectedEvent.accountForYear,
+            dateCreated: selectedEvent.dateCreated,
+            dateUpdated: selectedEvent.dateUpdated
         })
     }, [selectedEvent])
 
-    const dateHandler = (selectedDate) => {
-        const dates = dateFormatter(selectedDate);
-        console.log("dates", dates);
-        setIsoDate(dates.date);
-        setEvents({...events, date: dates.shortDate});
+    const dateHandler = (data) => {
+        setEvent({...event, date: data});
     }
 
     const checkData = () => {
-        const validationResult = eventDataValidation(events.name, events.date, events.description)
+        const validationResult = eventDataValidation(event.name, event.date, event.description)
         if (validationResult.result) return updateEvent()
         const temp = {...invalidFields}
         Object.keys(invalidFields).forEach((field) => temp[field] = validationResult.property === field);
@@ -84,12 +81,12 @@ export const EventDetails = ({selectedEvent, hideModal, modalState,}) => {
     const updateEvent = async () => {
         const data = {
             id: selectedEvent.id,
-            name: events.name,
-            date: isoDate,
-            reminder: events.reminder,
-            reminderDays: events.reminderInDays,
-            description: events.description,
-            accountForYear: events.accountForYear,
+            name: event.name,
+            date: event.date,
+            reminder: event.reminder,
+            reminderDays: event.reminderInDays,
+            description: event.description,
+            accountForYear: event.accountForYear,
         }
         afterRequestActions({ requestResponse: await dispatch(saveUpdatedEvent(data)), dispatchedAction: 'update' })
     };
@@ -126,47 +123,51 @@ export const EventDetails = ({selectedEvent, hideModal, modalState,}) => {
     )
 
     return (
+        <DialogColorStyles>
         <Dialog
             visible={showHideModal}
             className='main-detail'
             header='Event Details'
+            draggable={false}
+            appendTo="self"
             modal
             footer={eventModalFooter}
             onHide={hideModal}
         >
             <Toast ref={toast} />
-            <EventDetalStyle>
+            <EventDetailStyle>
                 <form className='event-add-form'>
-                    <EventName name={events.name} nameHandler={(e) => setEvents({...events, name: e})}
+                    <EventName name={event.name} nameHandler={(e) => setEvent({...event, name: e})}
                                missing={invalidFields.name}/>
                     <EventCalendar
                         missing={invalidFields.date}
                         dateHandler={dateHandler}
-                        selectedDate={new Date(events.date)}
+                        selectedDate={event.date}
                     />
-                    <EventDescription desc={events.description}
-                                      descHandler={(e) => setEvents({...events, description: e})}
+                    <EventDescription desc={event.description}
+                                      descHandler={(e) => setEvent({...event, description: e})}
                                       missing={invalidFields.description}/>
-                    <EventReminder reminder={events.reminder} reminderHandler={((e) => {
-                        console.log({e}, typeof e)
-                        setEvents({...events, reminder: !events.reminder})
+                    <EventReminder reminder={event.reminder} reminderHandler={((e) => {
+                        setEvent({...event, reminder: !event.reminder})
                     })}/>
 
-                    {events.reminder && (
+                    {event.reminder && (
                         <div>
-                            <EventYearlyCb eventAccountForYear={events.accountForYear}
-                                           changeHandler={(e) => setEvents({...events, accountForYear: e})}/>
-                            <EventNumberOfDays eventReminderDays={events.reminderInDays}
-                                               changeHandler={(e) => setEvents({...events, reminderInDays: e})}/>
+                            <EventYearlyCb eventAccountForYear={event.accountForYear}
+                                           changeHandler={(e) => setEvent({...event, accountForYear: e})}/>
+                            <EventNumberOfDays eventReminderDays={event.reminderInDays}
+                                               changeHandler={(e) => setEvent({...event, reminderInDays: e})}/>
                         </div>
                     )}
+                    <EventMetaData dateCreated={event.dateCreated} dateUpdated={event.dateUpdated} />
                 </form>
-            </EventDetalStyle>
+            </EventDetailStyle>
         </Dialog>
+        </DialogColorStyles>
     )
 }
 
-const EventDetalStyle = styled.div`
+const EventDetailStyle = styled.div`
   display: grid;
   .detail-desc {
     margin-top: 2rem;
@@ -176,12 +177,38 @@ const EventDetalStyle = styled.div`
     align-items: center;
     display: flex;
   }
-  
+
   .event-add-form {
     display: grid;
     gap: 3rem;
     text-align: center;
     padding: clamp(1rem, 10vw, 4rem);
+  }
+`
+
+const DialogColorStyles = styled.div`
+  .p-dialog-content, .p-dialog-footer  {
+    background-color: var(--bkg);
+    color: var(--text);
+  }
+  .p-dialog-footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button{
+      color: var(--nav-text-color);
+    }
+
+    background-color: var(--nav-bkg-color);
+  }
+  .p-dialog-header  {
+    background-color: var(--nav-bkg-color);
+    color: var(--text);
+  }
+
+  .p-button.p-button-text:enabled:hover{
+    background-color: var(--nav-text-color);
+    color: var(--add-border);
   }
 `
 

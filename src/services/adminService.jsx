@@ -12,6 +12,10 @@ class AdminService {
     getLogs() {
         return http.get('/api/logs');
     }
+
+    getPollerValue() {
+        return http.get('/actuator/scheduledtasks');
+    }
 }
 
 export default new AdminService();

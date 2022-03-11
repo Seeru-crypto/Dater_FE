@@ -1,34 +1,35 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import {motion} from "framer-motion";
-import {useAppDispatch, useAppSelector} from "../../store";
+import {useAppDispatch} from "../../store";
 import config from "../../config.json";
 import {adminButtonTransition} from "../../static/animations/motion";
-
-import {setEmailAdress, setEmailAdressNotifications, updateAdmin} from "../../slicers/adminSlice";
+import {getAdminData, setEmailAdressNotifications, updateAdmin} from "../../slicers/adminSlice";
 
 import FieldInvalidMsg from "../../components/event/field-invalid-msg";
 import {errorNotification, positiveNotification} from "../../utils/notifications";
-import {AdminEmailRemindersCb, AdminSmsCb, AdminSmsField, PinModal, AdminEmailField} from "../../components/admin/admin-index";
+import {
+    AdminEmailField,
+    AdminEmailRemindersCb,
+    AdminSmsCb,
+    AdminSmsField,
+    PinModal
+} from "../../components/admin/admin-index";
 import {adminDataValidation} from "../../utils/dataValidation";
 import AdminSettingButton from "../../components/admin/admin-setting-button";
 
-const AdminSettings = ({toast}) => {
-    const {
-        isEmailEnabled,
-        userMailAddress,
-        pin,
-        configId
-    } = useAppSelector((state) => state.admin)
+const AdminSettings = (props) => {
+    const {toast, isEmailEnabled, userMailAddress, pin, configId} = props;
     const dispatch = useAppDispatch()
     const labels = config.LABELS
     const [isChanged, setIsChanged] = useState(false);
     const [isCharCounterVisible, setCharCounterVisible] = useState(false);
     const [isPinModalVisible, setPinModal] = useState(false);
+    const [newMailValue, setMailValue] = useState("");
 
     // ToDo export validate function to utils!
     const validateData = () => {
-        const validate = adminDataValidation(userMailAddress);
+        const validate = adminDataValidation(newMailValue);
 
         if (validate.result){
             setCharCounterVisible(false)
@@ -49,13 +50,16 @@ const AdminSettings = ({toast}) => {
     const submitForm = async () => {
         setPinModal(false);
         const data = {
-            emailAddress: userMailAddress,
-            sendEmails: isEmailEnabled,
+            emailAddress: newMailValue,
+            isEmailActive: isEmailEnabled,
             id: configId,
         }
         const dto = {data, pin}
         const res = await dispatch(updateAdmin(dto))
-        if (res.meta.requestStatus === 'fulfilled') positiveNotification(toast, labels.CONF_UPDATED_SUCCESS_MSG, '')
+        if (res.meta.requestStatus === 'fulfilled') {
+            positiveNotification(toast, labels.CONF_UPDATED_SUCCESS_MSG, '')
+            dispatch(getAdminData())
+        }
         else errorNotification(toast, labels.DEFAULT_ERR_MSG)
     }
 
@@ -78,10 +82,11 @@ const AdminSettings = ({toast}) => {
                 </div>
                 <div className="admin-email-field">
                     <AdminEmailField
+                        pattern={config.EMAIL_REGEX}
                         isDisabled={!isEmailEnabled}
-                        email={userMailAddress}
+                        email={newMailValue}
                         emailHandler={(e) => {
-                            dispatch(setEmailAdress(e))
+                            setMailValue(e);
                             setIsChanged(true);
                         }}
                     />
@@ -115,8 +120,6 @@ const AdminSettings = ({toast}) => {
                     >
                         <AdminSettingButton text="submit" submitHandle={() => validateData()} />
                     </motion.div>
-
-
                 ||
                 <div className="placeholder"/>
                 }

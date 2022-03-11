@@ -20,8 +20,7 @@ const Calendar = () => {
             }, config.HTTP_INTERVAL_VALUE)
             return () => clearTimeout(timer)
         }
-        if (events[0] === undefined) dispatch(getEvents())
-        if (events) {
+        if (events && formattedDates !== []) {
             const eventDataBody = events
             const currentYear = new Date().getFullYear()
             const newList = eventDataBody.map((event) => {
@@ -31,6 +30,10 @@ const Calendar = () => {
             setFormattedDates(newList)
         }
     }, [error, dispatch, events])
+
+    useEffect(() => {
+        if (events[0] === undefined) dispatch(getEvents())
+    }, [])
 
     return (
         <CalendarStyle>

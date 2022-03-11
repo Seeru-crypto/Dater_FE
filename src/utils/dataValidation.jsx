@@ -19,7 +19,9 @@ export const adminDataValidation = (userMailAddress) => {
     if (userMailAddress.length > config.MAX_EMAIL_LENGTH) {
         return { result:false, property: "userMailAddressLength" }
     }
-    if (!document.getElementById("adminEmailInput").validity.valid) {
+    const regex = new RegExp(config.EMAIL_REGEX);
+
+    if (!regex.test(userMailAddress)) {
         return { result:false, property: "userMailAddressInvalid" };
     }
     return { result : true };

@@ -24,7 +24,7 @@ const FullDisplayCalendar = ({ eventData }) => {
                     headerToolbar={{
                         left: 'prev,next today',
                         center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay',
+                        right: 'dayGridMonth',
                     }}
                     editable={false}
                     selectable={false}

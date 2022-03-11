@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import {ReactComponent as MongoIcon} from '../../static/icons/mongodb-icon.svg'
 import {ReactComponent as ReactIcon} from '../../static/icons/reactjs-icon.svg'
 import {ReactComponent as JavaIcon} from '../../static/icons/java-icon.svg'
+import {ReactComponent as LinkedInIcon} from '../../static/icons/linkedin-icon.svg'
 import config from '../../config.json'
 import CTAButton from "../../components/landing-page/CTA-button"
 import {useNavigate} from 'react-router-dom'
@@ -19,7 +20,7 @@ const LandingPage = () => {
     return (
         <LandingPageStyle>
             <div className='main-div'>
-                <h1>Welcome to Dater!</h1>
+                <h1 className="title">Welcome to Dater!</h1>
                 <div className='main-content'>
                     <div className='first content-row'>
                         <motion.div
@@ -46,7 +47,6 @@ const LandingPage = () => {
                                     Heroku booting application up.</p>
                             </div>
                         </motion.article>
-
                     </div>
                     <div className='second content-row'>
                         <motion.article
@@ -55,37 +55,35 @@ const LandingPage = () => {
                             transition={rightSideTransition.transition}
                             className="main-box">
                             <div className='tech'>
-                                <h4>Tech
-                                    <span>
-                                    <a className='git-link' href={config.GITHUB_LINK}>
-                                        <i className='pi pi-github git-icon'/>
+                                <div className="tech-first-row">
+                                    <h4>Tech</h4>
+                                    <a href={config.GITHUB_LINK} rel="noreferrer" target="_blank">
+                                        <i className='pi pi-github click-icon'/>
                                     </a>
-                            </span></h4>
-                                <ul className='tech-ul'>
-                                    <li>
-                                        <b>Front-end:</b> React with PrimeReact UI components.
-                                        <span>
-                                        <ReactIcon />
-                                        </span>
-                                </li>
-                                <li>
-                                    <b>Back-end: </b>
-                                    Java spring framework (spring boot), with REST API endpoints.
-                                    <span>
-                                    <JavaIcon />
-                                </span>
-                                </li>
-                                <li>
-                                    <b>Database: </b> MongoDB
-                                    <span className='icon' title='MongoDB'>
-                                    <MongoIcon/>
-                                </span>
-                                </li>
-                                    <li>
-                                        <b>Hosting:</b>
-                                        <p>Front- and back-end are hosted by Heroku. Database by MongoDB Atlas</p>
-                                    </li>
-                                </ul>
+                                    <a href={config.LINKEDIN_LINK} rel="noreferrer" target="_blank">
+                                        <LinkedInIcon className="click-icon"/>
+                                    </a>
+                                </div>
+                                <div className='tech-section'>
+                                    <div className="section-row front-group">
+                                        <p><b>Front-end: </b>React with PrimeReact UI components.</p>
+                                        <ReactIcon className="tech-svg"/>
+                                    </div>
+                                    <div className="section-row back-group">
+                                        <p><b>Back-end: </b>Java spring framework (spring boot), with REST API endpoints.</p>
+                                        <JavaIcon className="tech-svg"/>
+                                    </div>
+                                    <div className="section-row">
+                                        <p><b>Database: </b> MongoDB</p>
+                                        <MongoIcon className="tech-svg mongo"/>
+                                    </div>
+                                    <div className="section-row hosting-group">
+                                        <p>
+                                            <b>Hosting:</b>
+                                            <span>Front- and back-end are hosted by Heroku. Database by MongoDB Atlas</span>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </motion.article>
                         <motion.article
@@ -94,7 +92,7 @@ const LandingPage = () => {
                             transition={leftSideTransition.transition}
                             className='main-box lessons'>
                             <h4>Lessons</h4>
-                            <p>
+                            <p className="lesson-intro">
                                 The main difficulty was creating components as re-usable
                                 as possible without over-engineering. Since it was first
                                 time using mongoDB there were a few difficulties
@@ -115,14 +113,35 @@ const LandingPageStyle = styled.div`
   transition: all 0.4s ease;
   padding: 2rem 2rem 30rem 2rem;
 
-  .heroku-warning{
+  
+  .main-box.lessons{
+    h4 {
+      padding: 1rem 0;
+    }
+    
+    .lesson-intro{
+      padding-bottom: .5rem;
+    }
+  }
+  
+  .title {
+    display: flex;
+    justify-content: center;
+  }
+
+  .heroku-warning {
     background-color: grey;
     color: white;
     border-radius: .75rem;
     margin-top: .5rem;
     padding: .5rem;
   }
-  
+
+  .section-row {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .content-row {
     padding-top: 2rem;
     display: flex;
@@ -130,10 +149,15 @@ const LandingPageStyle = styled.div`
     justify-content: space-around;
   }
 
-  svg {
-    width: 3rem;
-    height: 3rem;
+  .tech-svg {
+    max-height: 3rem;
+    max-width: 3rem;
     margin-left: 0.5rem;
+    margin-bottom: -0.125em;
+
+    &.mongo {
+      margin-left: 0;
+    }
   }
 
   details article {
@@ -150,10 +174,6 @@ const LandingPageStyle = styled.div`
     text-decoration-color: var(--text);
   }
 
-  .lessons h4 {
-    padding: 1rem 0;
-  }
-
   .main-box {
     width: 40%;
   }
@@ -161,7 +181,7 @@ const LandingPageStyle = styled.div`
   .about, .tech, .lessons {
     border: 3px var(--text) solid;
     border-radius: .75rem;
-    padding: 1rem;
+    padding: 1.5rem;
   }
 
   .cta {
@@ -176,18 +196,25 @@ const LandingPageStyle = styled.div`
     margin-top: 2rem;
   }
 
-  .tech-ul > * {
-    padding-top: 0.5rem
+  .tech-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
-  .git-link {
+  .click-icon {
+    width: 3rem;
+    height: 3rem;
+    font-size: 2rem;
+    padding-left: 1rem;
     text-decoration: none;
     color: var(--git-icon);
   }
 
-  .git-icon {
-    font-size: 2rem;
-    padding-left: 1rem;
+  .tech-first-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
 
   .main-content {
