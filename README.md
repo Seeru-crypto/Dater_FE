@@ -1,7 +1,9 @@
 # Dater
 
-An application for creating reminders and getting email notifications for impending dates.
-Back end repo can be found [here](https://github.com/Seeru-crypto/Dater_BE)
+This is Dater front-end. It is built using React, Redux & primereact components. User can add events, change admin settings and receive emails. 
+
+[Back-end github repo](https://github.com/Seeru-crypto/Dater_BE)
+
 
 ## set up
 
@@ -22,9 +24,8 @@ Back end repo can be found [here](https://github.com/Seeru-crypto/Dater_BE)
 
 ### ToDo:
   - [x] Heroku CI/CD
+     - [x] configure env settings
      - [x] Deploy front-end
-     - [x] Setup live DB
-     - [x] Deploy Back-end
   - [x] event form
       -   [x] Form UI is created
       -   [x] uses POST request
@@ -44,7 +45,7 @@ Back end repo can be found [here](https://github.com/Seeru-crypto/Dater_BE)
       - [x] UI is created
       - [x] UI uses GET & POST requests
       - [x] field validation
-      - [x] Sequentsial email option, (feature creep, removed from this version)
+      - [ ] Sequential email option (none, every other day, daily)
   - [x] Table to display current event´s
       -   [x] Table UI is created
       -   [x] table gets data from GET request
@@ -54,15 +55,18 @@ Back end repo can be found [here](https://github.com/Seeru-crypto/Dater_BE)
       -   [x] Create local json-server, to serve API requests, for in-depth FE development.
       -   [x] Dockerize json-server.
   - [x] Dockerize react app
-  - [x] misc tasks
-      -   [x] Define SQL schema datafields
   - [x] create a general calendar view, where ALL dates are displayed (ignore year values).
   - [x] Add proper entry and update confirmations (green thumbs up, or smth like that)
   - [x] add error handling for API requests
+  - [ ] SMS functionality
+    - [ ] add integration tests, for CRUD
+    - [ ] add sms options for creating and updating events
+    - [ ] add sms isEnabled and phone number fields to admin
+    - [ ] update Log table to handle sms specific data
   - [x] convert Bootstrap styling to Prime-react
   - [ ] Styling
       - [x] Add incorrect field specific css, to signal a field is missing or incorrectly filled. 
       - [x] Add loading animations
       - [x] Export all inline styling into a App.css file / styled components
       - [x] Add a manual button for switching themes on the navBar far right side
-      - [x] fix mobile view
+      - [ ] fix mobile view
