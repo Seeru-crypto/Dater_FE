@@ -42,7 +42,7 @@ function AdminDetails({ logs, pollerValue, currentMailValue }) {
       </div>
 
       <div className="details-footer">
-        <button onClick={() => eventCheckHandler()}>
+        <button type="submit" onClick={() => eventCheckHandler()}>
           <i className="pi pi-envelope p-px-2" />
           <span>Check dates!</span>
         </button>

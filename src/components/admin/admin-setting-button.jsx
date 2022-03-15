@@ -4,7 +4,7 @@ import React from 'react';
 function AdminSettingButton({ text, submitHandle }) {
   return (
     <AdminSettingButtonStyle>
-      <button className="admin-submit-btn" onClick={() => submitHandle()}>
+      <button type="submit" className="admin-submit-btn" onClick={() => submitHandle()}>
         {text}
       </button>
     </AdminSettingButtonStyle>

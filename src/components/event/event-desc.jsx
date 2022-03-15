@@ -1,8 +1,8 @@
 import React, { memo, useEffect, useState } from 'react';
-import config from '../../config.json';
 import '../../static/css-files/form-styles.css';
 import styled from 'styled-components';
 import FieldInvalidMsg from './field-invalid-msg';
+import config from '../../config.json';
 
 function EventDescription({ desc, descHandler, missing }) {
   const [invalidMsg, setInvalidMsg] = useState('');

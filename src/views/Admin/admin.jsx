@@ -24,6 +24,7 @@ function Admin() {
       }, config.HTTP_INTERVAL_VALUE);
       return () => clearTimeout(localTimer);
     }
+    return () => {};
   }, [error, dispatch, configId]);
 
   useEffect(() => {

@@ -23,6 +23,16 @@ function LessonAccordions() {
                   {content.BACK.map((row, index) => (
                     <p className={`paragrapf index${index}`} key={row}>
                       {row}
+                      {index === 0 && (
+                        <span>
+                          {' '}
+                          To see an example of the mail, click{' '}
+                          <a className="template-link" href={process.env.REACT_APP_MAIL_EXAMPLE} rel="noreferrer" target="_blank">
+                            here
+                          </a>
+                          .
+                        </span>
+                      )}
                       {index === 7 && (
                         <span className="span-swagger-icon">
                           <a href={process.env.REACT_APP_SWAGGER_LINK} rel="noreferrer" target="_blank">
@@ -69,7 +79,12 @@ const LessonAccordionsStyle = styled.div`
     }
   }
 
-  .span-swagger-icon {
+  .template-link {
+    color: var(--link-color);
+  }
+
+  .span-swagger-icon,
+  .span-mail-icon {
     padding-left: 0.2rem;
 
     .icon {
@@ -124,7 +139,6 @@ const LessonAccordionsStyle = styled.div`
       }
     }
   }
-  //
   .child-accordion {
     &.p-accordion .p-accordion-tab .p-accordion-content {
       margin: 1rem 0;

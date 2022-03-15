@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import config from '../../config.json';
 import '../../static/css-files/form-styles.css';
 import styled from 'styled-components';
+import config from '../../config.json';
 
 function EventCalendar({ dateHandler, selectedDate, missing }) {
   const [currentDate, setCurrentDate] = useState('');

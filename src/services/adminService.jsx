@@ -1,19 +1,19 @@
 import http from './http.service';
 
 class AdminService {
-  static getAdmin() {
+  getAdmin() {
     return http.get('/api/settings');
   }
 
-  static updateAdmin(dto) {
+  updateAdmin(dto) {
     return http.put(`/api/settings/${dto.data.id}?pin=${dto.pin}`, dto.data);
   }
 
-  static getLogs() {
+  getLogs() {
     return http.get('/api/logs');
   }
 
-  static getPollerValue() {
+  getPollerValue() {
     return http.get('/actuator/scheduledtasks');
   }
 }

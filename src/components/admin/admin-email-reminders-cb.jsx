@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { Checkbox } from 'primereact/checkbox';
 import { Tooltip } from 'primereact/tooltip';
@@ -9,6 +10,7 @@ function AdminEmailRemindersCb({ emailReminder, emailReminderHandler, toolTipMes
         <Checkbox
           className="p-d-block"
           inputId="accountForYear"
+          id="accountForYear"
           value={emailReminder}
           onChange={() => emailReminderHandler(!emailReminder)}
           checked={emailReminder}

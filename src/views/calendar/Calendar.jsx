@@ -29,6 +29,7 @@ function Calendar() {
       });
       setFormattedDates(newList);
     }
+    return () => {};
   }, [error, dispatch, events]);
 
   useEffect(() => {

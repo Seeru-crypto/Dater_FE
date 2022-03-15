@@ -5,6 +5,7 @@ function NavButton({ text, url, active }) {
   return (
     <NavButtonStyle>
       <button
+        type="submit"
         className={`${active ? 'active' : ''} nav-button`}
         id={text}
         title={text}

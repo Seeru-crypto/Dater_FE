@@ -1,9 +1,9 @@
 import React, { memo } from 'react';
 import { Checkbox } from 'primereact/checkbox';
 import styled from 'styled-components';
-import config from '../../config.json';
 import '../../static/css-files/form-styles.css';
 import { Tooltip } from 'primereact/tooltip';
+import config from '../../config.json';
 
 function EventYearlyCb({ eventAccountForYear, changeHandler }) {
   const labels = config.LABELS;

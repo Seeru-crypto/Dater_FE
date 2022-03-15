@@ -54,6 +54,7 @@ export function EventDetails({ selectedEvent, hideModal, modalState }) {
     Object.keys(invalidFields).forEach((field) => (temp[field] = validationResult.property === field));
     setInvalidField(temp);
     infoNotification(toast, labels.INVALID_FORM_ERR_HEADER, labels.INVALID_FORM_ERR_HEADER);
+    return () => {};
   };
 
   const deleteConfirmationDialog = () => {

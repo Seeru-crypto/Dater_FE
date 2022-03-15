@@ -10,7 +10,7 @@ export const eventDataValidation = (name, date, description) => {
     return { result: false, property: 'date' };
   }
 
-  if (new Date(date).getFullYear() < parseInt(minYear) || new Date(date).getFullYear() > parseInt(maxYear)) {
+  if (new Date(date).getFullYear() < parseInt(minYear, 10) || new Date(date).getFullYear() > parseInt(maxYear, 10)) {
     return { result: false, property: 'date' };
   }
   if (description.trim().length > config.DESC_MAX_LEN) {

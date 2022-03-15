@@ -19,9 +19,6 @@ function LandingPage() {
   return (
     <LandingPageStyle>
       <div className="main-div">
-        <a target="_blank" href="template.html">
-          test
-        </a>
         <h1 className="title">Welcome to Dater!</h1>
         <div className="main-content">
           <div className="first content-row">

@@ -16,6 +16,7 @@
   --details-bkg: #fffffe;
   --table-hover-bg:#e9ecef;
   --disabled-btn-color: rgb(84, 84, 84);
+  --link-color: rgb(85, 26, 139);
 
 }
 
@@ -30,6 +31,7 @@
   --details-bkg: #094067;
   --table-hover-bg: #3da9fc;
   --disabled-btn-color: rgb(84, 84, 84);
+  --link-color: #CCC
 
 
 }

@@ -23,6 +23,11 @@
     ],
     "rules":{
         "max-len": "off",
-        "no-unused-vars": "warn"
+        "no-unused-vars": "warn",
+        "react/prop-types": "off",
+        "class-methods-use-this": "off",
+        "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["state"] }],
+        "jsx-a11y/label-has-associated-control": "off",
+        "no-return-assign": "off"
     }
 }
