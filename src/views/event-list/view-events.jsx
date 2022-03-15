@@ -28,6 +28,7 @@ function ViewEvents() {
 
   useEffect(() => {
     if (events) {
+      // ToDo implement Helper functions date formatter!
       const newEvents = events.map((event) => {
         const formattedDate = new Date(event.date).toLocaleDateString('en-gb', {
           year: 'numeric',

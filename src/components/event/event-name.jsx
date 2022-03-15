@@ -7,7 +7,7 @@ function EventName({ name, nameHandler, missing }) {
   const [invalidMsg, setInvalidMsg] = useState('');
 
   const inputValidation = (userInput) => {
-    if (userInput.length > config.NAME_MAX_LEN - 10) setInvalidMsg(`${userInput.length}\/${config.NAME_MAX_LEN}`);
+    if (userInput.length > config.NAME_MAX_LEN - 10) setInvalidMsg(`${userInput.length}/${config.NAME_MAX_LEN}`);
     else setInvalidMsg('');
     nameHandler(userInput);
   };

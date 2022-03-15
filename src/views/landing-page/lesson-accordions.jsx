@@ -27,7 +27,7 @@ function LessonAccordions() {
                         <span>
                           {' '}
                           To see an example of the mail, click{' '}
-                          <a className="template-link" href={process.env.REACT_APP_MAIL_EXAMPLE} rel="noreferrer" target="_blank">
+                          <a className="anchor-link" href={process.env.REACT_APP_MAIL_EXAMPLE} rel="noreferrer" target="_blank">
                             here
                           </a>
                           .
@@ -77,10 +77,6 @@ const LessonAccordionsStyle = styled.div`
       align-items: center;
       justify-content: flex-start;
     }
-  }
-
-  .template-link {
-    color: var(--link-color);
   }
 
   .span-swagger-icon,

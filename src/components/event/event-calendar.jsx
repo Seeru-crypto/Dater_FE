@@ -22,7 +22,7 @@ function EventCalendar({ dateHandler, selectedDate, missing }) {
     } else {
       setCurrentDate(dateFormatter(selectedDate));
     }
-  }, [selectedDate]);
+  }, [selectedDate, dateHandler]);
 
   return (
     <EventDateStyle>

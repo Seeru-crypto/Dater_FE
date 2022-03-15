@@ -86,10 +86,10 @@ function AdminSettings(props) {
         <p className="WIP">The sms functionality is WIP</p>
         <div className="sms-group">
           <div className="admin-sms-cb">
-            <AdminSmsCb isSmsActive={false} handleSmsActive={() => console.log('toggle sms')} />
+            <AdminSmsCb isSmsActive={false} handleSmsActive={() => {}} />
           </div>
           <div className="admin-sms-field">
-            <AdminSmsField value="" handleValue={() => console.log('toggle sms')} />
+            <AdminSmsField value="" handleValue={() => {}} />
           </div>
         </div>
       </div>

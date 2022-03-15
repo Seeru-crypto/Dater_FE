@@ -18,7 +18,7 @@ import { eventList } from '../../static/animations/motion';
 import { customStyle } from './event-list-style';
 
 function EventTable(props) {
-  const { dataTest, data } = props;
+  const { data } = props;
   const dispatch = useAppDispatch();
   const [eventData, setEventData] = useState(data);
   const [selectedEvent, setselectedEvent] = useState(null);
@@ -31,7 +31,7 @@ function EventTable(props) {
 
   useEffect(() => {
     setEventData(data);
-  }, [props]);
+  }, [props, data]);
 
   const renderBooleanValues = (rowData, item) => (rowData[item.field] ? 'True' : 'False');
 
