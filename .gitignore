@@ -26,5 +26,6 @@ package-lock.json
 
 /.vscode
 /.idea
+build
 
 Dater_FE2.iml

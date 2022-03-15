@@ -1,95 +1,83 @@
-import React, {useEffect, useRef, useState} from 'react'
-import config from '../../config.json'
-import styled from 'styled-components'
-import {Toast} from 'primereact/toast'
-import {useAppDispatch, useAppSelector} from '../../store'
-import {getAdminData, getLogs, getPollerData} from '../../slicers/adminSlice'
-import ErrorBar from '../../components/functional-components/error-bar'
-import LoadingBar from '../../components/functional-components/loading-bar'
-import AdminSettings from "./admin-settings";
-import AdminDetails from "./admin-details";
-import {AdminLogTable} from "../../components/admin/admin-index";
+import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
+import { Toast } from 'primereact/toast';
+import config from '../../config.json';
+import { useAppDispatch, useAppSelector } from '../../store';
+import { getAdminData, getLogs, getPollerData } from '../../slicers/adminSlice';
+import ErrorBar from '../../components/functional-components/error-bar';
+import LoadingBar from '../../components/functional-components/loading-bar';
+import AdminSettings from './admin-settings';
+import AdminDetails from './admin-details';
+import { AdminLogTable } from '../../components/admin/admin-index';
 
-const Admin = () => {
+function Admin() {
+  const { error, isEmailEnabled, userMailAddress, pin, loading, logs, configId, pollerValue } = useAppSelector((state) => state.admin);
 
-    const {
-        error,
-        isEmailEnabled,
-        userMailAddress,
-        pin,
-        loading,
-        logs,
-        configId,
-        pollerValue
-    } = useAppSelector((state) => state.admin)
+  const toast = useRef(null);
+  const dispatch = useAppDispatch();
+  const [formattedLogs, setFormattedLogs] = useState([]);
 
-    const toast = useRef(null)
-    const dispatch = useAppDispatch()
-    const [formattedLogs, setFormattedLogs] = useState([]);
+  useEffect(() => {
+    if (error !== '') {
+      const localTimer = setInterval(() => {
+        dispatch(getAdminData());
+      }, config.HTTP_INTERVAL_VALUE);
+      return () => clearTimeout(localTimer);
+    }
+  }, [error, dispatch, configId]);
 
-    useEffect(() => {
-        if (error !== '') {
-            const localTimer = setInterval(() => {
-                dispatch(getAdminData());
-            }, config.HTTP_INTERVAL_VALUE)
-            return () => clearTimeout(localTimer)
-        }
-    }, [error, dispatch, configId])
+  useEffect(() => {
+    if (configId === '') {
+      dispatch(getAdminData());
+      dispatch(getLogs());
+      dispatch(getPollerData());
+    }
+  }, []);
 
-    useEffect(() => {
-        if  (configId === "") {
-            dispatch(getAdminData())
-            dispatch(getLogs());
-            dispatch(getPollerData());
-        }
-    }, [])
+  useEffect(() => {
+    if (logs) {
+      const newLogs = logs.map((log) => {
+        const formattedDate = new Date(log.dateCreated).toLocaleString('en-GB');
+        return { ...log, formattedDate };
+      });
+      setFormattedLogs(newLogs);
+    }
+  }, [logs]);
 
-    useEffect(() => {
-        if (logs){
-            const newLogs = logs.map((log) => {
-                const formattedDate = new Date(log.dateCreated).toLocaleString("en-GB")
-                return {...log, formattedDate}
-            });
-            setFormattedLogs(newLogs);
-        }
-
-    }, [logs])
-
-    return (
-        <AdminStyle>
-            <ErrorBar error={error} />
-            <LoadingBar loading={loading} />
-            <div className='admin-border'>
-                <Toast ref={toast} />
-                    {!loading && !error && (
-                        <div className='general-admin-page'>
-                            <h1>Admin Page</h1>
-                            <div className="first-row">
-                                <AdminSettings toast={toast} configId={configId} isEmailEnabled={isEmailEnabled}
-                                               userMailAddress={userMailAddress} pin={pin}/>
-                                <AdminDetails logs={logs} currentMailValue={userMailAddress} pollerValue={pollerValue}/>
-                            </div>
-                            <div className="second-row">
-                                <AdminLogTable logs={formattedLogs} />
-                            </div>
-                        </div>
-                    )}
+  return (
+    <AdminStyle>
+      <ErrorBar error={error} />
+      <LoadingBar loading={loading} />
+      <div className="admin-border">
+        <Toast ref={toast} />
+        {!loading && !error && (
+          <div className="general-admin-page">
+            <h1>Admin Page</h1>
+            <div className="first-row">
+              <AdminSettings toast={toast} configId={configId} isEmailEnabled={isEmailEnabled} userMailAddress={userMailAddress} pin={pin} />
+              <AdminDetails logs={logs} currentMailValue={userMailAddress} pollerValue={pollerValue} />
             </div>
-        </AdminStyle>
-    )
+            <div className="second-row">
+              <AdminLogTable logs={formattedLogs} />
+            </div>
+          </div>
+        )}
+      </div>
+    </AdminStyle>
+  );
 }
 
 const AdminStyle = styled.div`
   transition: all 0.2s ease;
 
-  .first-row{
+  .first-row {
     width: 80%;
     flex-direction: row;
     display: flex;
     padding: 1rem 0 2rem 0;
   }
-  
-  .admin-border{
+
+  .admin-border {
     display: flex;
     justify-content: space-around;
   }
@@ -109,7 +97,6 @@ const AdminStyle = styled.div`
     flex-direction: column;
     align-items: center;
   }
+`;
 
-`
-
-export default Admin
+export default Admin;

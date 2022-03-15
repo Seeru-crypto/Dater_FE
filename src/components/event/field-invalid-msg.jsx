@@ -1,17 +1,12 @@
-import React from 'react'
-import '../../static/css-files/form-styles.css'
-import styled from 'styled-components'
+import React from 'react';
+import '../../static/css-files/form-styles.css';
+import styled from 'styled-components';
 
-const FieldInvalidMsg = ({ messageContent }) => {
-
-    return (
-        <ErrorMessageStyle>
-            {messageContent && <em>{messageContent}</em>}
-        </ErrorMessageStyle>
-    )
+function FieldInvalidMsg({ messageContent }) {
+  return <ErrorMessageStyle>{messageContent && <em>{messageContent}</em>}</ErrorMessageStyle>;
 }
 
-export default FieldInvalidMsg
+export default FieldInvalidMsg;
 
 const ErrorMessageStyle = styled.div`
   font-size: 0.7rem;
@@ -21,4 +16,4 @@ const ErrorMessageStyle = styled.div`
   color: var(--paragraph);
   display: flex;
   justify-content: flex-end;
-`
+`;
