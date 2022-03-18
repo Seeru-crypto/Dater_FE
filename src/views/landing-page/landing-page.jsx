@@ -43,12 +43,15 @@ function LandingPage() {
             >
               <h4>About</h4>
               <div>
-                Dater is a event manager, which will send out an email if a date is nearing.
+                Dater is a event manager, which will send out an email if a date is nearing, it is the first microservice of{' '}
+                <a className="anchor-link" rel="noreferrer" target="_blank" href={config.PROJECT_COMPOUND_LINK}>
+                  project Compound.
+                </a>
                 <p>
-                  Dater is the first microservice of{' '}
-                  <a className="anchor-link" rel="noreferrer" target="_blank" href={config.PROJECT_COMPOUND_LINK}>
-                    project Compound
-                  </a>
+                  Click here to see{' '}
+                  <a className="anchor-link" rel="noreferrer" target="_blank" href={config.DATER_ARCHITECTURE_DIAGRAM}>
+                    dater architecture
+                  </a>{' '}
                 </p>
                 <p className="heroku-warning">The initial load time might be longer than usual due to Heroku booting application up.</p>
               </div>

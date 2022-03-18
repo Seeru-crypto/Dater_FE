@@ -49,11 +49,11 @@ function Navbar() {
       <div className={`${isLightMode ? '' : 'dark'}`}>
         <nav className={`${sidebarToggle ? 'active' : ''}`}>
           <div className="nav-bar">
-            <i onClick={toggleSidebar} className="bx bx-menu sidebarOpen" />
+            <i onClick={toggleSidebar} tabIndex={0} onKeyDown={toggleSidebar} aria-label="text" role="button" className="bx bx-menu sidebarOpen" />
             <span className="logo navLogo">Dater</span>
             <div className="menu">
               <div className="logo-toggle">
-                <i onClick={toggleSidebar} className="bx bx-x siderbarClose" />
+                <i tabIndex={0} onKeyDown={toggleSidebar} aria-label="text" role="button" onClick={toggleSidebar} className="bx bx-x siderbarClose" />
               </div>
 
               <ul className="nav-links">
@@ -66,8 +66,22 @@ function Navbar() {
                 })}
                 <li key="theme-btn">
                   <div className="dark-light">
-                    <i onClick={changeTheme} className={`bx bx-sun sun ${isLightMode ? 'active' : ''} `} />
-                    <i onClick={changeTheme} className={`bx bx-moon moon ${!isLightMode ? 'active' : ''}`} />
+                    <i
+                      tabIndex={0}
+                      aria-label="text"
+                      onKeyDown={changeTheme}
+                      role="button"
+                      onClick={changeTheme}
+                      className={`bx bx-sun sun ${isLightMode ? 'active' : ''} `}
+                    />
+                    <i
+                      tabIndex={0}
+                      aria-label="text"
+                      onKeyDown={changeTheme}
+                      role="button"
+                      onClick={changeTheme}
+                      className={`bx bx-moon moon ${!isLightMode ? 'active' : ''}`}
+                    />
                   </div>
                 </li>
               </ul>

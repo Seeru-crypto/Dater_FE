@@ -7,7 +7,7 @@
     margin-right: 1rem;
 }
 
-.ui-paginator {
+.ui-paginator, .p-datatable .p-datatable-tbody > tr {
     background-color: var(--bkg);
     color: var(--text);
 }

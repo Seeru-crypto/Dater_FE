@@ -1,6 +1,7 @@
 {
   "GITHUB_LINK" : "https://github.com/Seeru-crypto/bDay_front-end",
-  "PROJECT_COMPOUND_LINK" : "https://lucid.app/lucidchart/479ee7b5-6bb0-473d-8f9a-88af65fd0954/view?page=0_0&invitationId=inv_7107b74f-271d-4156-a3de-5bfa9c8523f1#",
+  "PROJECT_COMPOUND_LINK" : "https://lucid.app/documents/view/479ee7b5-6bb0-473d-8f9a-88af65fd0954",
+  "DATER_ARCHITECTURE_DIAGRAM" : "https://lucid.app/lucidchart/19a5194e-e034-475d-ab91-c0d2da1c20f0/edit?invitationId=inv_4456f0a3-a778-4d04-9527-c0dc326dfdf1&page=0_0#",
   "LINKEDIN_LINK": "https://www.linkedin.com/in/fred-oja-8749b1182/",
   "SESSION_STORAGE_LABEL": "isLightMode",
   "DESC_MAX_LEN": 120,
@@ -28,6 +29,7 @@
     "TOAST_EVENTS_DELETE_SUCCESS" : "Events successfully deleted",
     "TOAST_SETTINGS_EMAIL_LONG_ERROR" : "Max email length is 35 chars"
   },
+
   "headerItems": [
     {
       "label": "Home",
