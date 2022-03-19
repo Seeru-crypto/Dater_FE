@@ -104,6 +104,12 @@ function EventTable(props) {
     return shortDateFormat(rowData.dateNextReminder);
   };
 
+  const rowClass = () => {
+    return {
+      'event-row-ui': true,
+    };
+  };
+
   return (
     <motion.div initial={eventList.initial} animate={eventList.animate} transition={eventList.transition}>
       <Toast ref={toast} />
@@ -120,6 +126,7 @@ function EventTable(props) {
         globalFilter={globalFilter}
         emptyMessage="No events found"
         paginatorClassName="ui-paginator"
+        rowClassName={rowClass}
         paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
         rows={10}

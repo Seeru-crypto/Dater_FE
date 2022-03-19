@@ -9,6 +9,7 @@
 
 .ui-paginator, .p-datatable .p-datatable-tbody > tr {
     background-color: var(--bkg);
+    /*border: 10px solid var(--bkg);*/
     color: var(--text);
 }
 
@@ -23,7 +24,6 @@
     background-color: var(--table-hover-bg);
 }
 
-.center-items{
-    text-align: center;
-    border: 1px solid red;
+.event-row-ui:hover{
+    border-left: var(--text) 10px solid;
 }
