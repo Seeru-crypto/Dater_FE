@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { memo, useRef, useState } from 'react';
 
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -16,11 +16,11 @@ import { errorNotification, positiveNotification } from '../../utils/notificatio
 import config from '../../config.json';
 import { eventList } from '../../static/animations/motion';
 import { customStyle } from './event-list-style';
+import { shortDateFormat } from '../../utils/helper-functions';
 
 function EventTable(props) {
-  const { data } = props;
+  const { data: events } = props;
   const dispatch = useAppDispatch();
-  const [eventData, setEventData] = useState(data);
   const [selectedEvent, setselectedEvent] = useState(null);
   const [selectedEvents, setSelectedEvents] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -28,10 +28,6 @@ function EventTable(props) {
   const ref = useRef(null);
   const labels = config.LABELS;
   const toast = useRef(null);
-
-  useEffect(() => {
-    setEventData(data);
-  }, [props, data]);
 
   const renderBooleanValues = (rowData, item) => (rowData[item.field] ? 'True' : 'False');
 
@@ -80,7 +76,7 @@ function EventTable(props) {
     return (
       <div className="header-search">
         <Button
-          disabled={eventData.length === 0}
+          disabled={events.length === 0}
           className="p-button-outlined p-button-secondary"
           type="button"
           label="export"
@@ -89,7 +85,7 @@ function EventTable(props) {
         <span className="p-input-icon-left">
           <i className="pi pi-search" />
           <InputText
-            disabled={eventData.length === 0}
+            disabled={events.length === 0}
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
             placeholder="Keyword Search"
@@ -97,6 +93,15 @@ function EventTable(props) {
         </span>
       </div>
     );
+  };
+
+  const dateBodyTemplate = (rowData) => {
+    return shortDateFormat(rowData.date);
+  };
+
+  const dateOfReminderBodyTemplate = (rowData) => {
+    if (!rowData.dateNextReminder) return '-';
+    return shortDateFormat(rowData.dateNextReminder);
   };
 
   return (
@@ -111,7 +116,7 @@ function EventTable(props) {
         onSelectionChange={(e) => setSelectedEvents(e.value)}
         paginator
         ref={ref}
-        value={eventData}
+        value={events}
         globalFilter={globalFilter}
         emptyMessage="No events found"
         paginatorClassName="ui-paginator"
@@ -122,11 +127,11 @@ function EventTable(props) {
       >
         <Column className="table-selector" style={customStyle} selectionMode="multiple" exportable={false} />
         <Column field="name" sortable header="Event" style={customStyle} />
-        <Column field="formattedDate" sortable header="Date" style={customStyle} />
+        <Column dataType="date" body={dateBodyTemplate} field="date" sortable header="Date" style={customStyle} />
         <Column sortable field="reminder" body={renderBooleanValues} header="Reminder" style={customStyle} />
         <Column field="reminderDays" sortable header="Number of days" style={customStyle} />
         <Column field="description" sortable header="Description" style={customStyle} />
-        <Column field="formattedReminderDate" sortable header="date of reminder" style={customStyle} />
+        <Column dataType="date" body={dateOfReminderBodyTemplate} field="dateNextReminder" sortable header="date of reminder" style={customStyle} />
         <Column body={rowActions} header="Edit" style={customStyle} />
       </DataTable>
       {selectedEvent && (

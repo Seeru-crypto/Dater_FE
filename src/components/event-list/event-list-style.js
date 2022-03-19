@@ -3,6 +3,7 @@ export const customStyle = {
   backgroundColor: 'var(--bkg)',
   overflow: 'none',
   overflowWrap: 'break-word',
+  minWidth: '8rem',
 };
 
 export const bodyStyle = {

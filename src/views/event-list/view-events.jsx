@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect } from 'react';
 import styled from 'styled-components';
 import { getEvents } from '../../slicers/eventSlice';
 
@@ -11,7 +11,7 @@ import LoadingBar from '../../components/functional-components/loading-bar';
 function ViewEvents() {
   const dispatch = useAppDispatch();
   const { events, loading, error } = useAppSelector((state) => state.event);
-  const [formattedEvents, setFormattedEvents] = useState([]);
+
   useEffect(() => {
     if (error !== '') {
       const timer = setInterval(() => {
@@ -26,38 +26,11 @@ function ViewEvents() {
     if (events[0] === undefined) dispatch(getEvents());
   }, []);
 
-  useEffect(() => {
-    if (events) {
-      // ToDo implement Helper functions date formatter!
-      const newEvents = events.map((event) => {
-        const formattedDate = new Date(event.date).toLocaleDateString('en-gb', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-          timeZone: 'utc',
-          hour12: false,
-        });
-        let formattedReminderDate = '-';
-        if (event.dateNextReminder !== null) {
-          formattedReminderDate = new Date(event.dateNextReminder).toLocaleDateString('en-gb', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            timeZone: 'utc',
-            hour12: false,
-          });
-        }
-        return { ...event, formattedDate, formattedReminderDate };
-      });
-      setFormattedEvents(newEvents);
-    }
-  }, [events]);
-
   return (
     <ViewEventsStyle>
       <ErrorBar error={error} />
       <LoadingBar loading={loading} />
-      <EventTable data={formattedEvents} />
+      <EventTable data={events} />
     </ViewEventsStyle>
   );
 }
