@@ -24,7 +24,6 @@ function AdminSettings(props) {
 
   const validateData = () => {
     const validate = adminDataValidation(newMailValue, newSmsValue);
-    console.log({ validate });
 
     if (validate.result) {
       setCharCounterVisible(false);
@@ -40,7 +39,6 @@ function AdminSettings(props) {
       errorNotification(toast, labels.TOAST_SETTINGS_SMS_INCORRECT_FORMAT, labels.TOAST_SETTINGS_SMS_INCORRECT_FORMAT_BODY);
       return;
     }
-
     if (validate.property === 'userMailAddressInvalid') {
       errorNotification(toast, labels.SETTING_INVALID_EMAIL_ERROR);
     }
@@ -74,7 +72,7 @@ function AdminSettings(props) {
               dispatch(setEmailAdressNotifications(e));
               setIsChanged(true);
             }}
-            toolTipMessage={labels.EMAIL_REMINDER_LABEL}
+            toolTipMessage={labels.EMAIL_REMINDER_TOOLTIP}
           />
         </div>
         <div className="admin-email-field">
@@ -92,6 +90,7 @@ function AdminSettings(props) {
       <div className="sms-group">
         <div className="admin-sms-cb">
           <AdminSmsCb
+            toolTipMessage={labels.SMS_REMINDER_TOOLTIP}
             isSmsActive={isSmsActive}
             handleSmsActive={(e) => {
               dispatch(setIsSmsActive(e));
