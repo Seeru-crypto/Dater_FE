@@ -72,7 +72,7 @@ const AdminDetailsStyle = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    font-size: 1rem;
+    font-size: 1vw;
   }
 
   .details-footer {

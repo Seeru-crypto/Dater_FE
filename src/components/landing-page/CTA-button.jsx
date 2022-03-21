@@ -38,11 +38,6 @@ const CtaStyle = styled.div`
     transition: 0.5s;
   }
 
-  .main-cta-button:hover {
-    padding-right: 24px;
-    padding-left: 8px;
-  }
-
   .main-cta-button:hover:after {
     opacity: 1;
     right: 10px;
