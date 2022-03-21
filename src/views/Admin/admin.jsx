@@ -11,7 +11,9 @@ import AdminDetails from './admin-details';
 import { AdminLogTable } from '../../components/admin/admin-index';
 
 function Admin() {
-  const { error, isEmailEnabled, userMailAddress, pin, loading, logs, configId, pollerValue } = useAppSelector((state) => state.admin);
+  const { error, isEmailEnabled, isSmsActive, smsTo, userMailAddress, pin, loading, logs, configId, pollerValue } = useAppSelector(
+    (state) => state.admin
+  );
 
   const toast = useRef(null);
   const dispatch = useAppDispatch();
@@ -55,8 +57,16 @@ function Admin() {
           <div className="general-admin-page">
             <h1>Admin Page</h1>
             <div className="first-row">
-              <AdminSettings toast={toast} configId={configId} isEmailEnabled={isEmailEnabled} userMailAddress={userMailAddress} pin={pin} />
-              <AdminDetails logs={logs} currentMailValue={userMailAddress} pollerValue={pollerValue} />
+              <AdminSettings
+                toast={toast}
+                configId={configId}
+                smsTo={smsTo}
+                isSmsActive={isSmsActive}
+                isEmailEnabled={isEmailEnabled}
+                userMailAddress={userMailAddress}
+                pin={pin}
+              />
+              <AdminDetails logs={logs} smsTo={userMailAddress} pollerValue={pollerValue} currentPhoneNumber={smsTo} />
             </div>
             <div className="second-row">
               <AdminLogTable logs={formattedLogs} />

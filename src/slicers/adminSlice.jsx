@@ -6,6 +6,8 @@ const initialState = {
   loading: false,
   error: '',
   isBackEndLive: false,
+  smsTo: '',
+  isSmsActive: false,
   isEmailEnabled: false,
   pollerValue: null,
   configId: '',
@@ -45,6 +47,12 @@ export const adminSlice = createSlice({
     setPin: (state, action) => {
       state.pin = action.payload;
     },
+    setSmsTo: (state, action) => {
+      state.smsTo = action.payload;
+    },
+    setIsSmsActive: (state, action) => {
+      state.isSmsActive = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getAdminData.pending, (state) => {
@@ -58,6 +66,8 @@ export const adminSlice = createSlice({
       state.loading = false;
       state.error = '';
       state.userMailAddress = dataObject.emailAddress;
+      state.smsTo = dataObject.smsTo;
+      state.isSmsActive = dataObject.isSmsActive;
       state.isEmailEnabled = dataObject.isEmailActive;
       state.configId = dataObject.id;
     });
@@ -83,6 +93,6 @@ export const adminSlice = createSlice({
     });
   },
 });
-export const { setEmailAdressNotifications, setEmailAdress, setIsLightMode, setCurrentPage, setPin } = adminSlice.actions;
+export const { setEmailAdressNotifications, setEmailAdress, setIsLightMode, setCurrentPage, setPin, setIsSmsActive, setSmsTo } = adminSlice.actions;
 
 export default adminSlice.reducer;

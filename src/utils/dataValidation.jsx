@@ -19,14 +19,35 @@ export const eventDataValidation = (name, date, description) => {
   return { result: true };
 };
 
-export const adminDataValidation = (userMailAddress) => {
-  if (userMailAddress.length > config.MAX_EMAIL_LENGTH) {
+export const adminDataValidation = (mailAdress, smsTo) => {
+  const emailRes = adminEmailValidation(mailAdress);
+  if (!emailRes.result) return emailRes;
+
+  const smsRes = adminSmsValidation(smsTo);
+  if (!smsRes.result) return smsRes;
+
+  return { result: true };
+};
+
+export const adminEmailValidation = (mailAddress) => {
+  const mailRegex = new RegExp(config.EMAIL_REGEX);
+
+  if (mailAddress.length > config.MAX_EMAIL_LENGTH) {
     return { result: false, property: 'userMailAddressLength' };
   }
-  const regex = new RegExp(config.EMAIL_REGEX);
 
-  if (userMailAddress.length !== 0 && !regex.test(userMailAddress)) {
+  if (mailAddress.length !== 0 && !mailRegex.test(mailAddress)) {
     return { result: false, property: 'userMailAddressInvalid' };
   }
+  return { result: true };
+};
+
+export const adminSmsValidation = (smsTo) => {
+  const smsRegex = new RegExp(config.PHONE_NR_REGEX);
+
+  if (smsTo.length !== 0 && !smsRegex.test(smsTo)) {
+    return { result: false, property: 'userSmsToInvalid' };
+  }
+
   return { result: true };
 };

@@ -5,7 +5,7 @@ import { getLogs } from '../../slicers/adminSlice';
 import config from '../../config.json';
 import { useAppDispatch } from '../../store';
 
-function AdminDetails({ logs, pollerValue, currentMailValue }) {
+function AdminDetails({ logs, pollerValue, smsTo, currentPhoneNumber }) {
   const dispatch = useAppDispatch();
   const [timer, setTimer] = useState(null);
   const [lastMailTime, setLastMailTime] = useState('');
@@ -29,16 +29,22 @@ function AdminDetails({ logs, pollerValue, currentMailValue }) {
     }
   }, [logs]);
 
+  const getSentMessageCounter = (keyword) => {
+    return logs.filter((log) => log.messageType === keyword).length;
+  };
+
   return (
     <AdminDetailsStyle>
       <div className="details-header">
-        <h5>Details</h5>
+        <h3>Details</h3>
       </div>
       <div className="details-body">
         <p>Current polling rate: {pollerValue} min</p>
-        <p>Emails sent to date: {logs.length}</p>
+        <p>Emails sent to date: {getSentMessageCounter('mail')}</p>
+        <p>sms notifications sent to date: {getSentMessageCounter('sms')}</p>
         <p>Last event sent: {lastMailTime}</p>
-        <p>Currently set email: {currentMailValue}</p>
+        <p>Currently set email: {smsTo}</p>
+        <p>Currently set phone number: {currentPhoneNumber}</p>
       </div>
 
       <div className="details-footer">
@@ -63,6 +69,9 @@ const AdminDetailsStyle = styled.div`
   padding: 1rem;
 
   .details-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
     font-size: 1rem;
   }
 

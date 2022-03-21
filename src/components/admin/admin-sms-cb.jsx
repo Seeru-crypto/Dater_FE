@@ -7,16 +7,9 @@ function AdminSmsCb({ isSmsActive, handleSmsActive, toolTipMessage }) {
   return (
     <AdminSmsCbStyle>
       <div className="p-field-checkbox">
-        <Checkbox
-          className="p-d-block"
-          disabled
-          inputId="sendSms"
-          value={isSmsActive}
-          onChange={() => handleSmsActive(!isSmsActive)}
-          checked={isSmsActive}
-        />
+        <Checkbox className="p-d-block" inputId="sendSms" value={isSmsActive} onChange={() => handleSmsActive(!isSmsActive)} checked={isSmsActive} />
         <label className="p-d-block" htmlFor="sendSms">
-          Enable email reminders?
+          Enable SMS reminders?
           <span>
             <Tooltip target=".pi-info-circle" />
             <i className="pi pi-info-circle admin-reminder-icon" data-pr-tooltip={toolTipMessage} />

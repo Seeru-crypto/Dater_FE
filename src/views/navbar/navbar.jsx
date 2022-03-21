@@ -30,6 +30,9 @@ function Navbar() {
   useEffect(() => {
     const value = sessionStorage.getItem(config.SESSION_STORAGE_LABEL) === 'true';
     dispatch(setIsLightMode(value));
+    const currentUrl = window.location.href;
+    const urlLastPart = currentUrl.substr(currentUrl.lastIndexOf('/'));
+    dispatch(setCurrentPage(urlLastPart));
   }, [dispatch]);
 
   const changeTheme = () => {

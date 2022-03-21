@@ -16,8 +16,8 @@
   --details-bkg: #fffffe;
   --table-hover-bg:#e9ecef;
   --disabled-btn-color: rgb(84, 84, 84);
+  --disabled-btn-bkg: #dddddd;
   --link-color: rgb(85, 26, 139);
-
 }
 
 .dark{

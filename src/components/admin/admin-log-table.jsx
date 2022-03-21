@@ -30,6 +30,12 @@ function AdminLogTable({ logs }) {
     );
   };
 
+  const rowClass = () => {
+    return {
+      'event-row-ui': true,
+    };
+  };
+
   return (
     <AdminLogTableStyle initial={adminTableTransition.initial} animate={adminTableTransition.animate} transition={adminTableTransition.transition}>
       <h2 className="logs-header">Logs</h2>
@@ -39,6 +45,7 @@ function AdminLogTable({ logs }) {
         sortOrder={-1}
         responsiveLayout="scroll"
         paginatorClassName="ui-paginator"
+        rowClassName={rowClass}
         paginator
         value={defaultData}
         emptyMessage="No logs found"
@@ -51,6 +58,7 @@ function AdminLogTable({ logs }) {
         <Column field="sentToAddress" sortable header="Recipient" style={customStyle} />
         <Column field="formattedDate" sortable header="Date" style={customStyle} />
         <Column sortable field="initiatedBy" header="initiator" style={customStyle} />
+        <Column sortable field="messageType" header="type" style={customStyle} />
         <Column field="schedulerValue" sortable header="poller value" style={customStyle} />
         <Column field="errorDesc" sortable header="Errors" style={errorDescStyle} />
         <Column body={rowId} header="Id" headerStyle={idHeaderStyle} bodyStyle={idBodyStyle} />

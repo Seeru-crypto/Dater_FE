@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useAppDispatch } from '../../store';
 import config from '../../config.json';
 import { adminButtonTransition } from '../../static/animations/motion';
-import { getAdminData, setEmailAdressNotifications, updateAdmin } from '../../slicers/adminSlice';
+import { getAdminData, setEmailAdressNotifications, setSmsTo, setIsSmsActive, updateAdmin } from '../../slicers/adminSlice';
 
 import FieldInvalidMsg from '../../components/event/field-invalid-msg';
 import { errorNotification, positiveNotification } from '../../utils/notifications';
@@ -13,17 +13,18 @@ import { adminDataValidation } from '../../utils/dataValidation';
 import AdminSettingButton from '../../components/admin/admin-setting-button';
 
 function AdminSettings(props) {
-  const { toast, isEmailEnabled, userMailAddress, pin, configId } = props;
+  const { toast, isEmailEnabled, isSmsActive, userMailAddress, pin, configId } = props;
   const dispatch = useAppDispatch();
   const labels = config.LABELS;
   const [isChanged, setIsChanged] = useState(false);
   const [isCharCounterVisible, setCharCounterVisible] = useState(false);
   const [isPinModalVisible, setPinModal] = useState(false);
   const [newMailValue, setMailValue] = useState('');
+  const [newSmsValue, setNewSmsValue] = useState('');
 
-  // ToDo export validate function to utils!
   const validateData = () => {
-    const validate = adminDataValidation(newMailValue);
+    const validate = adminDataValidation(newMailValue, newSmsValue);
+    console.log({ validate });
 
     if (validate.result) {
       setCharCounterVisible(false);
@@ -35,6 +36,11 @@ function AdminSettings(props) {
       setCharCounterVisible(true);
       return;
     }
+    if (validate.property === 'userSmsToInvalid') {
+      errorNotification(toast, labels.TOAST_SETTINGS_SMS_INCORRECT_FORMAT, labels.TOAST_SETTINGS_SMS_INCORRECT_FORMAT_BODY);
+      return;
+    }
+
     if (validate.property === 'userMailAddressInvalid') {
       errorNotification(toast, labels.SETTING_INVALID_EMAIL_ERROR);
     }
@@ -46,6 +52,8 @@ function AdminSettings(props) {
       emailAddress: newMailValue,
       isEmailActive: isEmailEnabled,
       id: configId,
+      isSmsActive,
+      smsTo: newSmsValue,
     };
     const dto = { data, pin };
     const res = await dispatch(updateAdmin(dto));
@@ -71,7 +79,6 @@ function AdminSettings(props) {
         </div>
         <div className="admin-email-field">
           <AdminEmailField
-            pattern={config.EMAIL_REGEX}
             isDisabled={!isEmailEnabled}
             email={newMailValue}
             emailHandler={(e) => {
@@ -82,15 +89,25 @@ function AdminSettings(props) {
           {isCharCounterVisible && <FieldInvalidMsg messageContent={`${userMailAddress?.length}/${config.MAX_EMAIL_LENGTH}`} />}
         </div>
       </div>
-      <div className="WIP-div">
-        <p className="WIP">The sms functionality is WIP</p>
-        <div className="sms-group">
-          <div className="admin-sms-cb">
-            <AdminSmsCb isSmsActive={false} handleSmsActive={() => {}} />
-          </div>
-          <div className="admin-sms-field">
-            <AdminSmsField value="" handleValue={() => {}} />
-          </div>
+      <div className="sms-group">
+        <div className="admin-sms-cb">
+          <AdminSmsCb
+            isSmsActive={isSmsActive}
+            handleSmsActive={(e) => {
+              dispatch(setIsSmsActive(e));
+              setIsChanged(true);
+            }}
+          />
+        </div>
+        <div className="admin-sms-field">
+          <AdminSmsField
+            isDisabled={!isSmsActive}
+            value={newSmsValue}
+            smsHandler={(e) => {
+              setNewSmsValue(e);
+              setIsChanged(true);
+            }}
+          />
         </div>
       </div>
       <div className="admin-settings-footer">
@@ -113,56 +130,53 @@ const AdminSettingsStyle = styled(motion.div)`
   transition: all 0.4s ease;
 
   .admin-settings-footer {
+    margin-top: 1rem;
     display: flex;
     justify-content: center;
   }
 
-  .email-group {
-    border-bottom: solid 1px gray;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-around;
-
-    .admin-email-field {
-      width: auto;
-    }
-  }
-
-  .admin-email-reminder {
+  .admin-email-reminder,
+  .admin-email-field {
     padding: 2rem;
+    width: auto;
   }
 
-  .sms-group {
+  .admin-sms-field,
+  .admin-sms-cb {
+    padding: 2rem;
+    width: auto;
+  }
+
+  .sms-group,
+  .email-group {
     width: 100%;
     border-bottom: solid 1px gray;
-    margin-bottom: 2rem;
     display: flex;
     align-items: center;
     flex-direction: row;
-    justify-content: space-around;
-  }
-
-  .admin-sms-field {
-    padding: 2rem;
-  }
-
-  .admin-sms-cb {
-    padding: 2rem 2rem;
-  }
-
-  .WIP-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .WIP {
-    margin-bottom: -10px;
+    justify-content: space-between;
   }
 
   .placeholder {
     height: 42px;
+  }
+
+  .p-inputtext,
+  .p-float-label label {
+    color: var(--text);
+  }
+
+  .p-float-label input {
+    background-color: var(--bkg);
+    border: var(--text) 1px solid;
+  }
+
+  .disabled {
+    background: var(--disabled-btn-bkg) !important;
+  }
+
+  .invalid {
+    border: var(--err) 1px solid;
   }
 `;
 export default AdminSettings;
