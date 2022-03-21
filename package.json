@@ -67,5 +67,20 @@
         "eslint-plugin-react-hooks": "^4.3.0",
         "prettier": "^2.5.1",
         "webpack-cli": "^4.9.2"
+    },
+    "jest": {
+        "collectCoverageFrom": [
+            "src/**/*.{js,jsx,ts,tsx}",
+            "!<rootDir>/node_modules/",
+            "!<rootDir>/src/store/index.ts"
+        ],
+        "coveragePathIgnorePatterns": [
+            "<rootDir>/src/index.tsx",
+            "<rootDir>/src/i18n.ts"
+        ],
+        "coverageReporters": [
+            "text",
+            "lcov"
+        ]
     }
 }

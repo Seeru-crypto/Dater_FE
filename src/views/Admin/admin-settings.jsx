@@ -171,11 +171,11 @@ const AdminSettingsStyle = styled(motion.div)`
     border: var(--text) 1px solid;
   }
 
-  .disabled {
-    background: var(--disabled-btn-bkg) !important;
+  span .disabled {
+    background: var(--disabled-btn-bkg);
   }
 
-  .invalid {
+  span .invalid {
     border: var(--err) 1px solid;
   }
 `;
