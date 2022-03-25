@@ -44,7 +44,7 @@ function LandingPage() {
             >
               <h4>About</h4>
               <div>
-                Dater is a event manager, which will send out an email if a date is nearing, it is the first microservice of{' '}
+                Dater is a event manager, which will send out an email or sms if a date is nearing, it is the first microservice of{' '}
                 <a className="anchor-link" rel="noreferrer" target="_blank" href={config.PROJECT_COMPOUND_LINK}>
                   project Compound.
                 </a>
@@ -97,7 +97,7 @@ function LandingPage() {
                   <div className="section-row hosting-group">
                     <p>
                       <b>Hosting:</b>
-                      <span>Front- and back-end are hosted by Heroku. Database by MongoDB Atlas</span>
+                      <span> Front- and back-end are hosted by Heroku. Database by MongoDB Atlas</span>
                     </p>
                   </div>
                 </div>
@@ -112,7 +112,7 @@ function LandingPage() {
               <h4>Lessons</h4>
               <p className="lesson-intro">
                 The main difficulty was creating components as re-usable as possible without over-engineering. Since it was first time using mongoDB
-                there were a few difficulties integrating Spiring with mongoDB Atlas.
+                there was a bit of a learning curve.
               </p>
               <LessonAccordions />
             </motion.article>

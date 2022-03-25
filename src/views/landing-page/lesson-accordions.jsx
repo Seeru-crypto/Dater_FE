@@ -44,9 +44,9 @@ function LessonAccordions() {
                   ))}
                 </AccordionTab>
                 <AccordionTab header="Database">
-                  {content.DATABASE.map((row, index) => (
+                  {content.DATABASE.map((row) => (
                     <p className="paragrapf" key={row}>
-                      {row} with {index}
+                      {row}
                     </p>
                   ))}
                 </AccordionTab>
