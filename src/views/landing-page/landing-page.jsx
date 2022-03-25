@@ -12,6 +12,7 @@ import { setCurrentPage } from '../../slicers/adminSlice';
 import { useAppDispatch } from '../../store';
 import { leftSideTransition, rightSideTransition } from '../../static/animations/motion';
 import LessonAccordions from './lesson-accordions';
+import Pdf from '../../static/DaterArhitecture.pdf';
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ function LandingPage() {
                 </a>
                 <p>
                   Click here to see{' '}
-                  <a className="anchor-link" rel="noreferrer" target="_blank" href={config.DATER_ARCHITECTURE_DIAGRAM}>
+                  <a className="anchor-link" rel="noreferrer" target="_blank" href={Pdf}>
                     dater architecture
                   </a>{' '}
                 </p>

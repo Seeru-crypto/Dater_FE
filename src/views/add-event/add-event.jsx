@@ -58,6 +58,7 @@ function AddEvent() {
       description: event.description,
       accountForYear: event.accountForYear,
     };
+
     const res = await dispatch(createEvent(data));
     if (res.meta.requestStatus === 'fulfilled') {
       positiveNotification(toast, labels.EVENT_CREATED_MSG, '');

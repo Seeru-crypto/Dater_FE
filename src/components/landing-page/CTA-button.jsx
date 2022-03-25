@@ -5,7 +5,13 @@ import { motion } from 'framer-motion';
 function CTAButton({ onClickHandler }) {
   return (
     <CtaStyle>
-      <motion.button whileHover={{ scale: 1.1 }} className="main-cta-button" type="submit" onClick={(e) => onClickHandler(e)}>
+      <motion.button
+        placeholder="cta-button"
+        whileHover={{ scale: 1.1 }}
+        className="main-cta-button"
+        type="submit"
+        onClick={(e) => onClickHandler(e)}
+      >
         Add Event
       </motion.button>
     </CtaStyle>
