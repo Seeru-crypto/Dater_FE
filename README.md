@@ -58,11 +58,9 @@ This is Dater front-end. It is built using React, Redux & primereact components.
   - [x] create a general calendar view, where ALL dates are displayed (ignore year values).
   - [x] Add proper entry and update confirmations (green thumbs up, or smth like that)
   - [x] add error handling for API requests
-  - [ ] SMS functionality
-    - [ ] add integration tests, for CRUD
-    - [ ] add sms options for creating and updating events
-    - [ ] add sms isEnabled and phone number fields to admin
-    - [ ] update Log table to handle sms specific data
+  - [x] SMS functionality
+    - [x] add sms isEnabled and phone number fields to admin
+    - [x] update Log table to handle sms specific data
   - [x] convert Bootstrap styling to Prime-react
   - [ ] Styling
       - [x] Add incorrect field specific css, to signal a field is missing or incorrectly filled. 

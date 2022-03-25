@@ -33,6 +33,7 @@
     "First time using docker (FE, BE, DB), although didnt use it much later on, it was good practice",
     "I used Heroku hosting with github repository integration.",
     "Finally learned how to properly manage env variables, PORTS, URLS etc, when dealing with local vs dev environments",
-    "Setting up automatic deploy pipelines was very easy."
+    "Setting up automatic deploy pipelines was very easy.",
+    "For ticket/ issue managment I used the github kanban board."
   ]
 }
