@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import { Toolbar } from 'primereact/toolbar';
 import { Toast } from 'primereact/toast';
 import { confirmDialog } from 'primereact/confirmdialog';
+import { MultiSelect } from 'primereact/multiselect';
 import { EventDetails } from '../../views/event-list/event-details';
 import '../../static/css-files/table.css';
 import { useAppDispatch } from '../../store';
@@ -16,7 +17,7 @@ import { errorNotification, positiveNotification } from '../../utils/notificatio
 import config from '../../config.json';
 import { eventList } from '../../static/animations/motion';
 import { customStyle } from './event-list-style';
-import { shortDateFormat } from '../../utils/helper-functions';
+import { renderBooleanValues, shortDateFormat, shortReminderDateFormat } from '../../utils/helper-functions';
 
 function EventTable(props) {
   const { data: events } = props;
@@ -29,7 +30,15 @@ function EventTable(props) {
   const labels = config.LABELS;
   const toast = useRef(null);
 
-  const renderBooleanValues = (rowData, item) => (rowData[item.field] ? 'True' : 'False');
+  const columns = [
+    { field: 'name', header: 'Event', style: customStyle, sortable: true },
+    { field: 'date', header: 'Date', sortable: true, dataType: 'date', body: shortDateFormat, style: customStyle },
+    { field: 'description', header: 'Description', sortable: true, dataType: 'date', style: customStyle },
+    { field: 'reminder', header: 'Reminder', sortable: true, style: customStyle, body: renderBooleanValues },
+    { field: 'reminderDays', header: 'Number of days', sortable: true, style: customStyle },
+    { field: 'dateNextReminder', header: 'date of reminder', sortable: true, dataType: 'date', body: shortReminderDateFormat, style: customStyle },
+  ];
+  const [selectedColumns, setSelectedColumns] = useState(columns);
 
   const rowActions = (rowData) => {
     return <Button icon="pi pi-pencil" className="p-button-rounded p-button-secondary p-mr-2" onClick={() => editProduct(rowData)} />;
@@ -60,15 +69,45 @@ function EventTable(props) {
     } else errorNotification(toast, labels.DEFAULT_ERR_MSG);
   };
 
+  const onColumnsToggle = (event) => {
+    const selectedColumn = event.value;
+    const orderedSelectedColumns = columns.filter((col) => selectedColumn.some((sCol) => sCol.field === col.field));
+    setSelectedColumns(orderedSelectedColumns);
+  };
+
+  const renderedColumns = selectedColumns.map((col) => {
+    return (
+      <Column
+        key={col.field}
+        style={col.style}
+        dataType={col.dataType}
+        field={col.field}
+        header={col.header}
+        sortable={col.sortable}
+        body={col.body}
+      />
+    );
+  });
+
   const leftToolbar = () => {
     return (
-      <Button
-        label="Delete"
-        icon="pi pi-trash"
-        onClick={() => deleteConfirmationDialog()}
-        className="p-button-danger"
-        disabled={selectedEvents.length === 0}
-      />
+      <>
+        <Button
+          label="Delete"
+          icon="pi pi-trash"
+          onClick={() => deleteConfirmationDialog()}
+          className="p-button-danger"
+          disabled={selectedEvents.length === 0}
+        />
+        <MultiSelect
+          className="column-selector"
+          selectedItemsLabel={columns.label}
+          value={selectedColumns}
+          options={columns}
+          optionLabel="header"
+          onChange={onColumnsToggle}
+        />
+      </>
     );
   };
 
@@ -93,15 +132,6 @@ function EventTable(props) {
         </span>
       </div>
     );
-  };
-
-  const dateBodyTemplate = (rowData) => {
-    return shortDateFormat(rowData.date);
-  };
-
-  const dateOfReminderBodyTemplate = (rowData) => {
-    if (!rowData.dateNextReminder) return '-';
-    return shortDateFormat(rowData.dateNextReminder);
   };
 
   const rowClass = () => {
@@ -133,12 +163,7 @@ function EventTable(props) {
         rowsPerPageOptions={[10, 20, 50]}
       >
         <Column className="table-selector" style={customStyle} selectionMode="multiple" exportable={false} />
-        <Column field="name" sortable header="Event" style={customStyle} />
-        <Column dataType="date" body={dateBodyTemplate} field="date" sortable header="Date" style={customStyle} />
-        <Column sortable field="reminder" body={renderBooleanValues} header="Reminder" style={customStyle} />
-        <Column field="reminderDays" sortable header="Number of days" style={customStyle} />
-        <Column field="description" sortable header="Description" style={customStyle} />
-        <Column dataType="date" body={dateOfReminderBodyTemplate} field="dateNextReminder" sortable header="date of reminder" style={customStyle} />
+        {renderedColumns}
         <Column body={rowActions} header="Edit" style={customStyle} />
       </DataTable>
       {selectedEvent && (

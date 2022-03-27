@@ -13,6 +13,7 @@ import { useAppDispatch } from '../../store';
 import { leftSideTransition, rightSideTransition } from '../../static/animations/motion';
 import LessonAccordions from './lesson-accordions';
 import Pdf from '../../static/DaterArhitecture.pdf';
+import ProjectCompoundArhitecture from '../../static/ProjectCompoundArhitecture.pdf';
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ function LandingPage() {
               <h4>About</h4>
               <div>
                 Dater is a event manager, which will send out an email or sms if a date is nearing, it is the first microservice of{' '}
-                <a className="anchor-link" rel="noreferrer" target="_blank" href={config.PROJECT_COMPOUND_LINK}>
+                <a className="anchor-link" rel="noreferrer" target="_blank" href={ProjectCompoundArhitecture}>
                   project Compound.
                 </a>
                 <p>

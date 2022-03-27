@@ -27,3 +27,8 @@
 .event-row-ui:hover{
     border-left: var(--text) 10px solid;
 }
+
+.column-selector{
+    width: 20em;
+    margin-left: .5em;
+}
