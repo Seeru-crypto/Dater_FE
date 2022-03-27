@@ -30,8 +30,8 @@
     "All sensitive data is obfuscated, if it is sent outside back-end (emails and phone numbers)"
   ],
   "HOSTING": [
-    "First time using docker (FE, BE, DB), although didnt use it much later on, it was good practice",
     "I used Heroku hosting with github repository integration.",
+    "for front-end production: I used Docker with a NGINX server, to build and serve the app via Heroku",
     "Finally learned how to properly manage env variables, PORTS, URLS etc, when dealing with local vs dev environments",
     "Setting up automatic deploy pipelines was very easy.",
     "For ticket/ issue managment I used the github kanban board."
