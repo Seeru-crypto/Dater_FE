@@ -103,6 +103,7 @@ function EventTable(props) {
           className="column-selector"
           selectedItemsLabel={columns.label}
           value={selectedColumns}
+          appendTo="self"
           options={columns}
           optionLabel="header"
           onChange={onColumnsToggle}

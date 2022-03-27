@@ -13,8 +13,6 @@
         "@testing-library/react": "^11.2.7",
         "@testing-library/user-event": "^12.8.3",
         "axios": "^0.21.4",
-        "express": "^4.17.3",
-        "express-favicon": "^2.0.1",
         "framer-motion": "^6.2.7",
         "json-server": "^0.16.3",
         "path": "^0.12.7",
