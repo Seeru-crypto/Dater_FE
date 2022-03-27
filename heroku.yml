@@ -1,9 +1,6 @@
 build:
-#  config:
-#    PORT: development
-#    REACT_APP_BACK_END_URL: ${REACT_APP_BACK_END_URL}
-#    REACT_APP_SWAGGER_LINK: bar
-#    REACT_APP_MAIL_EXAMPLE: bar
-#    REACT_APP_TOKEN_API_PATH: bar
+  config:
+    REACT_APP_BACK_END_URL: https://date-manager-back.herokuapp.com
+    REACT_APP_SWAGGER_LINK: https://date-manager-back.herokuapp.com/swagger-ui.html
   docker:
     web: Dockerfile
