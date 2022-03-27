@@ -7,6 +7,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import adminReducer from '../../slicers/adminSlice';
 import eventReducer from '../../slicers/eventSlice';
 import AddEvent from './add-event';
+import EventService from '../../services/eventService';
 
 let store;
 
@@ -30,6 +31,7 @@ describe('add event', () => {
   });
 
   it('should call post service when all fields are filled', () => {
+    EventService.saveEvent = jest.fn(() => Promise.resolve());
     render(
       <Provider store={store}>
         <AddEvent />
@@ -43,12 +45,13 @@ describe('add event', () => {
       { target: { value: 'event name' } }
     );
     fireEvent.click(screen.getByText(/do you want reminders\?/i));
-
     screen.getByText('event name');
-    //toDo finish test
-  });
 
-  it('should give error when submitting too long name', () => {
-    //toDo finish test
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: /save/i,
+      })
+    );
+    expect(EventService.saveEvent).toHaveBeenCalled();
   });
 });

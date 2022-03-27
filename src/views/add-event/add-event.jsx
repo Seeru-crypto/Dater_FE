@@ -41,7 +41,6 @@ function AddEvent() {
     const validationResult = eventDataValidation(event.name, event.date, event.description);
     if (validationResult.result) return submitForm();
     const temp = { ...invalidFields };
-    // ToDo fix no return assing
     Object.keys(invalidFields).forEach((field) => (temp[field] = validationResult.property === field));
     setInvalidField(temp);
     infoNotification(toast, labels.INVALID_FORM_ERR_HEADER, '');
