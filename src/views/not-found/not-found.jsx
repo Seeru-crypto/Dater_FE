@@ -1,9 +1,9 @@
 import React from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-const NotFound = () => {
-    return <NotFoundStyle>Page not found!</NotFoundStyle>;
-};
+function NotFound() {
+  return <NotFoundStyle>Page not found!</NotFoundStyle>;
+}
 export default NotFound;
 
 const NotFoundStyle = styled.div`
@@ -13,4 +13,4 @@ const NotFoundStyle = styled.div`
   justify-content: center;
   font-size: xxx-large;
   padding-bottom: 30rem;
-`
+`;

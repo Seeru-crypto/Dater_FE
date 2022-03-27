@@ -5,32 +5,35 @@
     "Styled components: Using them most CSS is localized to react components and the amount of separate css files is reduced. For me it made styling components and reading code much easier.",
     "Framer Motion: For animations I used Framer Motion which was intuitive and fun to learn.",
     "Primereact: For the more complex components I used primereact components (calendars, accordion, tables)",
-    "Code kept recurring so I created util classes to handle frequent logic (validation)",
-    "for further optimization I used React profiler to check load times and debug the biggest load time components.",
-    "Component importing became a problem later on. Effective solution was using index files for logical groupings (admin components, event components ...), which created extra layer of abstraction + made view imports cleaner"
+    "global functions: Code kept recurring so I created util classes to handle frequent logic (validation)",
+    "optimized browsing: for further optimization I used React profiler to check load times and debug the biggest load time components. Making navigation between pages faster",
+    "Component importing became annoying later on, because each component took one row. Effective solution was using index files for logical groupings (admin components, event components ...), which made view imports cleaner and created extra layer of abstraction"
     ],
   "BACK": [
     "Mailer is realized by Spring javaMail function with thymeleaf template engine, for html template logic.",
     "The mail style template was designed with mjml framework",
-    "local & dev profiles made it very easy to test locally and later deploy",
+    "The sms logic was realized with Twillio",
     "Scheduling functionality was achieved by springframework scheduling function",
-    "Manipulating date formats so that effective comparison can be made later on was a experience.",
-    "Optimizing cors settings and REST endpoints so that only necessary endpoints are available",
-    "Adding data validation to every request + logging was an interesting challenge since, I haven't done it yet.",
-    "Spring uses swagger to track existing REST endpoints"
+    "Manipulating date formats so that effective comparison can be made later on was quite an experience.",
+    "CORS and REST were all optimized so that only necessary endpoints are available",
+    "Adding component specific data validation to every component and separate logging was an interesting challenge since, since I haven't done it yet.",
+    "Spring uses swagger to track existing REST endpoints",
+    "logic is covered with integration tests, making future upkeep easier.",
+    "Used actuator endpoints for tracking current scheduler value."
   ],
   "DATABASE": [
-    "Spring boot has very good integration with MongoDB, which initially made it hard to customize functions/ data flow. Since it was difficult to track down how data moved inside spring.",
+    "Spring boot has very good integration with MongoDB, which initially made it hard to understand how data moved inside spring.",
     "Since the business data structure is comparatively simple, the DB schema was simple as well. Created 3 collections: events, settings and logs",
-    "Every action is logged in server and every mail sent is also logged in the database as well",
+    "Every action is logged in server and all sent out mails and sms messages are also logged in the database",
     "First time using No-SQL bases, good to know they are on the simpler side",
-    "Using MongoDb atlas was very straight forward... reading the manual helped"
+    "Using MongoDb atlas was very straight forward... reading the manual helped",
+    "All sensitive data is obfuscated, if it is sent outside back-end (emails and phone numbers)"
   ],
   "HOSTING": [
-    "First time using docker (FE, BE, DB), although didnt use it much later on, it was good practice",
-    "Learned how to use Heroku with github repository integration.",
+    "I used Heroku hosting with github repository integration.",
+    "for front-end production: I used Docker with a NGINX server, to build and serve the app via Heroku",
     "Finally learned how to properly manage env variables, PORTS, URLS etc, when dealing with local vs dev environments",
-    "Using git for personal project management was a bit foreign at first, but I quickly grew to love it, due to the feature flag system.",
-    "Setting up automatic deploy pipelines was very easy."
+    "Setting up automatic deploy pipelines was very easy.",
+    "For ticket/ issue managment I used the github kanban board."
   ]
 }

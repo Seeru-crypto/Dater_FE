@@ -1,129 +1,145 @@
-import React, {memo} from 'react'
-import styled from 'styled-components'
-import {ReactComponent as MongoIcon} from '../../static/icons/mongodb-icon.svg'
-import {ReactComponent as ReactIcon} from '../../static/icons/reactjs-icon.svg'
-import {ReactComponent as JavaIcon} from '../../static/icons/java-icon.svg'
-import {ReactComponent as LinkedInIcon} from '../../static/icons/linkedin-icon.svg'
-import config from '../../config.json'
-import CTAButton from "../../components/landing-page/CTA-button"
-import {useNavigate} from 'react-router-dom'
-import {setCurrentPage} from "../../slicers/adminSlice";
-import {useAppDispatch} from "../../store";
-import {motion} from "framer-motion";
-import {leftSideTransition, rightSideTransition} from "../../static/animations/motion";
-import LessonAccordions from "./lesson-accordions";
+import React, { memo } from 'react';
+import styled from 'styled-components';
+import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { ReactComponent as MongoIcon } from '../../static/icons/mongodb-icon.svg';
+import { ReactComponent as ReactIcon } from '../../static/icons/reactjs-icon.svg';
+import { ReactComponent as JavaIcon } from '../../static/icons/java-icon.svg';
+import { ReactComponent as LinkedInIcon } from '../../static/icons/linkedin-icon.svg';
+import config from '../../config.json';
+import CTAButton from '../../components/landing-page/CTA-button';
+import { setCurrentPage } from '../../slicers/adminSlice';
+import { useAppDispatch } from '../../store';
+import { leftSideTransition, rightSideTransition } from '../../static/animations/motion';
+import LessonAccordions from './lesson-accordions';
+import Pdf from '../../static/DaterArhitecture.pdf';
+import ProjectCompoundArhitecture from '../../static/ProjectCompoundArhitecture.pdf';
 
-const LandingPage = () => {
-    const navigate = useNavigate()
-    const dispatch = useAppDispatch()
-
-    return (
-        <LandingPageStyle>
-            <div className='main-div'>
-                <h1 className="title">Welcome to Dater!</h1>
-                <div className='main-content'>
-                    <div className='first content-row'>
-                        <motion.div
-                            animate={rightSideTransition.animate}
-                            initial={rightSideTransition.initial}
-                            transition={rightSideTransition.transition}
-                            className='cta'>
-                            <CTAButton onClickHandler={() => {
-                                navigate("/add")
-                                dispatch(setCurrentPage("/add"))
-                            }}/>
-                        </motion.div>
-                        <motion.article
-                            animate={leftSideTransition.animate}
-                            initial={leftSideTransition.initial}
-                            transition={leftSideTransition.transition}
-                            className='main-box about'
-                        >
-                            <h4>About</h4>
-                            <div>
-                                Dater is a event manager, which will send out an email if a
-                                date is nearing.
-                                <p className="heroku-warning">The initial load time might be longer than usual due to
-                                    Heroku booting application up.</p>
-                            </div>
-                        </motion.article>
-                    </div>
-                    <div className='second content-row'>
-                        <motion.article
-                            animate={rightSideTransition.animate}
-                            initial={rightSideTransition.initial}
-                            transition={rightSideTransition.transition}
-                            className="main-box">
-                            <div className='tech'>
-                                <div className="tech-first-row">
-                                    <h4>Tech</h4>
-                                    <a href={config.GITHUB_LINK} rel="noreferrer" target="_blank">
-                                        <i className='pi pi-github click-icon'/>
-                                    </a>
-                                    <a href={config.LINKEDIN_LINK} rel="noreferrer" target="_blank">
-                                        <LinkedInIcon className="click-icon"/>
-                                    </a>
-                                </div>
-                                <div className='tech-section'>
-                                    <div className="section-row front-group">
-                                        <p><b>Front-end: </b>React with PrimeReact UI components.</p>
-                                        <ReactIcon className="tech-svg"/>
-                                    </div>
-                                    <div className="section-row back-group">
-                                        <p><b>Back-end: </b>Java spring framework (spring boot), with REST API endpoints.</p>
-                                        <JavaIcon className="tech-svg"/>
-                                    </div>
-                                    <div className="section-row">
-                                        <p><b>Database: </b> MongoDB</p>
-                                        <MongoIcon className="tech-svg mongo"/>
-                                    </div>
-                                    <div className="section-row hosting-group">
-                                        <p>
-                                            <b>Hosting:</b>
-                                            <span>Front- and back-end are hosted by Heroku. Database by MongoDB Atlas</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.article>
-                        <motion.article
-                            initial={leftSideTransition.initial}
-                            animate={leftSideTransition.animate}
-                            transition={leftSideTransition.transition}
-                            className='main-box lessons'>
-                            <h4>Lessons</h4>
-                            <p className="lesson-intro">
-                                The main difficulty was creating components as re-usable
-                                as possible without over-engineering. Since it was first
-                                time using mongoDB there were a few difficulties
-                                integrating Spiring with mongoDB Atlas.
-                            </p>
-                            <LessonAccordions />
-                        </motion.article>
-                    </div>
+function LandingPage() {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  return (
+    <LandingPageStyle>
+      <div className="main-div">
+        <h1 className="title">Welcome to Dater!</h1>
+        <div className="main-content">
+          <div className="first content-row">
+            <motion.div
+              animate={rightSideTransition.animate}
+              initial={rightSideTransition.initial}
+              transition={rightSideTransition.transition}
+              className="cta"
+            >
+              <CTAButton
+                onClickHandler={() => {
+                  navigate('/add');
+                  dispatch(setCurrentPage('/add'));
+                }}
+              />
+            </motion.div>
+            <motion.article
+              animate={leftSideTransition.animate}
+              initial={leftSideTransition.initial}
+              transition={leftSideTransition.transition}
+              className="main-box about"
+            >
+              <h4>About</h4>
+              <div>
+                Dater is a event manager, which will send out an email or sms if a date is nearing, it is the first microservice of{' '}
+                <a className="anchor-link" rel="noreferrer" target="_blank" href={ProjectCompoundArhitecture}>
+                  project Compound.
+                </a>
+                <p>
+                  Click here to see{' '}
+                  <a className="anchor-link" rel="noreferrer" target="_blank" href={Pdf}>
+                    dater architecture
+                  </a>{' '}
+                </p>
+                <p className="heroku-warning">The initial load time might be longer than usual due to Heroku booting application up.</p>
+              </div>
+            </motion.article>
+          </div>
+          <div className="second content-row">
+            <motion.article
+              animate={rightSideTransition.animate}
+              initial={rightSideTransition.initial}
+              transition={rightSideTransition.transition}
+              className="main-box"
+            >
+              <div className="tech">
+                <div className="tech-first-row">
+                  <h4>Tech</h4>
+                  <a href={config.GITHUB_LINK} rel="noreferrer" target="_blank">
+                    <i className="pi pi-github click-icon" />
+                  </a>
+                  <a href={config.LINKEDIN_LINK} rel="noreferrer" target="_blank">
+                    <LinkedInIcon className="click-icon" />
+                  </a>
                 </div>
-            </div>
-        </LandingPageStyle>
-    )
+                <div className="tech-section">
+                  <div className="section-row front-group">
+                    <p>
+                      <b>Front-end: </b>React with PrimeReact UI components.
+                    </p>
+                    <ReactIcon className="tech-svg" />
+                  </div>
+                  <div className="section-row back-group">
+                    <p>
+                      <b>Back-end: </b>Java spring framework (spring boot), with REST API endpoints.
+                    </p>
+                    <JavaIcon className="tech-svg" />
+                  </div>
+                  <div className="section-row">
+                    <p>
+                      <b>Database: </b> MongoDB
+                    </p>
+                    <MongoIcon className="tech-svg mongo" />
+                  </div>
+                  <div className="section-row hosting-group">
+                    <p>
+                      <b>Hosting:</b>
+                      <span> Front- and back-end are hosted by Heroku. Database by MongoDB Atlas</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.article>
+            <motion.article
+              initial={leftSideTransition.initial}
+              animate={leftSideTransition.animate}
+              transition={leftSideTransition.transition}
+              className="main-box lessons"
+            >
+              <h4>Lessons</h4>
+              <p className="lesson-intro">
+                The main difficulty was creating components as re-usable as possible without over-engineering. Since it was first time using mongoDB
+                there was a bit of a learning curve.
+              </p>
+              <LessonAccordions />
+            </motion.article>
+          </div>
+        </div>
+      </div>
+    </LandingPageStyle>
+  );
 }
 
-export default memo(LandingPage)
+export default memo(LandingPage);
 
 const LandingPageStyle = styled.div`
   transition: all 0.4s ease;
   padding: 2rem 2rem 30rem 2rem;
 
-  
-  .main-box.lessons{
+  .main-box.lessons {
     h4 {
       padding: 1rem 0;
     }
-    
-    .lesson-intro{
-      padding-bottom: .5rem;
+
+    .lesson-intro {
+      padding-bottom: 0.5rem;
     }
   }
-  
+
   .title {
     display: flex;
     justify-content: center;
@@ -132,9 +148,9 @@ const LandingPageStyle = styled.div`
   .heroku-warning {
     background-color: grey;
     color: white;
-    border-radius: .75rem;
-    margin-top: .5rem;
-    padding: .5rem;
+    border-radius: 0.75rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
   }
 
   .section-row {
@@ -178,9 +194,11 @@ const LandingPageStyle = styled.div`
     width: 40%;
   }
 
-  .about, .tech, .lessons {
+  .about,
+  .tech,
+  .lessons {
     border: 3px var(--text) solid;
-    border-radius: .75rem;
+    border-radius: 0.75rem;
     padding: 1.5rem;
   }
 
@@ -211,7 +229,7 @@ const LandingPageStyle = styled.div`
     color: var(--git-icon);
   }
 
-  .tech-first-row{
+  .tech-first-row {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -222,5 +240,4 @@ const LandingPageStyle = styled.div`
     flex-direction: column;
     margin-left: 3rem;
   }
-
-`
+`;

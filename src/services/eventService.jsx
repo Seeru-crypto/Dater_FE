@@ -1,29 +1,29 @@
 import http from './http.service';
 
 class EventService {
-    getEvents() {
-        return http.get('/api/events');
-    }
+  getEvents() {
+    return http.get('/api/events');
+  }
 
-    deleteEvent(eventId) {
-        return http.delete(`/api/events/${eventId}`);
-    }
+  deleteEvent(eventId) {
+    return http.delete(`/api/events/${eventId}`);
+  }
 
-    updateEvent(event) {
-        return http.put(`/api/events/${event.id}`, event);
-    }
+  updateEvent(event) {
+    return http.put(`/api/events/${event.id}`, event);
+  }
 
-    saveEvent(event) {
-        return http.post('/api/events', event);
-    }
+  saveEvent(event) {
+    return http.post('/api/events', event);
+  }
 
-    checkEvents() {
-        return http.get('/api/events/checkEvents');
-    }
+  checkEvents() {
+    return http.get('/api/events/checkEvents');
+  }
 
-    deleteEvents(events) {
-        return http.post(`/api/events/delete`, events);
-    }
+  deleteEvents(events) {
+    return http.post(`/api/events/delete`, events);
+  }
 }
 
 export default new EventService();

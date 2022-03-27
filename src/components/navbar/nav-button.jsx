@@ -1,20 +1,23 @@
-import styled from 'styled-components'
-import React from 'react'
+import styled from 'styled-components';
+import React from 'react';
 
-const NavButton = ({ text, url, active }) => {
-    return (
-        <NavButtonStyle>
-            <button className={`${ active ? 'active' : '' } nav-button`} id={text} title={text}
-                    onClick={(e) => {
-                        url(e)
-                        return false
-                    }
-                    }>
-                {text}
-            </button>
-
-        </NavButtonStyle>
-    )
+function NavButton({ text, url, active }) {
+  return (
+    <NavButtonStyle>
+      <button
+        type="submit"
+        className={`${active ? 'active' : ''} nav-button`}
+        id={text}
+        title={text}
+        onClick={(e) => {
+          url(e);
+          return false;
+        }}
+      >
+        {text}
+      </button>
+    </NavButtonStyle>
+  );
 }
 
 const NavButtonStyle = styled.div`
@@ -29,13 +32,13 @@ const NavButtonStyle = styled.div`
     margin: 10px 30px;
     cursor: pointer;
   }
-  
+
   .active {
-    border-radius: .5rem;
-    padding: 0.25rem .4rem;
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.4rem;
     background-color: var(--details-bkg);
     color: var(--git-icon);
   }
-`
+`;
 
-export default NavButton
+export default NavButton;

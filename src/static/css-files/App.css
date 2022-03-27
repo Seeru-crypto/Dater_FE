@@ -16,7 +16,8 @@
   --details-bkg: #fffffe;
   --table-hover-bg:#e9ecef;
   --disabled-btn-color: rgb(84, 84, 84);
-
+  --disabled-btn-bkg: #dddddd;
+  --link-color: rgb(85, 26, 139);
 }
 
 .dark{
@@ -30,6 +31,7 @@
   --details-bkg: #094067;
   --table-hover-bg: #3da9fc;
   --disabled-btn-color: rgb(84, 84, 84);
+  --link-color: #CCC
 
 
 }
@@ -48,4 +50,8 @@
   background-color: var(--bkg);
   color: var(--text);
   min-height: 100vh;
+}
+
+.anchor-link {
+  color: var(--link-color);
 }

@@ -1,23 +1,22 @@
-import styled from "styled-components";
-import React from "react";
+import styled from 'styled-components';
+import React from 'react';
 
-const AdminSettingButton = ({text, submitHandle}) => {
-
-    return (
-        <AdminSettingButtonStyle>
-            <button
-                className="admin-submit-btn"
-                onClick={() => submitHandle()}>{text}</button>
-        </AdminSettingButtonStyle>
-    )
+function AdminSettingButton({ text, submitHandle }) {
+  return (
+    <AdminSettingButtonStyle>
+      <button type="submit" className="admin-submit-btn" onClick={() => submitHandle()}>
+        {text}
+      </button>
+    </AdminSettingButtonStyle>
+  );
 }
 
 export default AdminSettingButton;
 
 const AdminSettingButtonStyle = styled.div`
   .admin-submit-btn {
-    padding: .5rem;
-    border-radius: .5rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
     border: black 1px solid;
     background-color: transparent;
     color: var(--git-icon);
@@ -32,5 +31,4 @@ const AdminSettingButtonStyle = styled.div`
     background-color: var(--add-border);
     color: white;
   }
-
-`
+`;

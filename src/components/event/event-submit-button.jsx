@@ -1,16 +1,17 @@
-import React, {memo} from 'react'
-import '../../static/css-files/form-styles.css'
-import styled from "styled-components";
+import React, { memo } from 'react';
+import '../../static/css-files/form-styles.css';
+import styled from 'styled-components';
 
-const EventSubmitButton = ({onClickHandler}) => {
-    return (
-        <EventSubmitButtonStyle>
-            <button className="add-button" formNoValidate={true} type='submit' onClick={(e) => onClickHandler(e)}>save
-            </button>
-        </EventSubmitButtonStyle>
-    )
+function EventSubmitButton({ onClickHandler }) {
+  return (
+    <EventSubmitButtonStyle>
+      <button className="add-button" formNoValidate type="submit" onClick={(e) => onClickHandler(e)}>
+        save
+      </button>
+    </EventSubmitButtonStyle>
+  );
 }
-export default memo(EventSubmitButton)
+export default memo(EventSubmitButton);
 
 const EventSubmitButtonStyle = styled.div`
   display: flex;
@@ -21,8 +22,8 @@ const EventSubmitButtonStyle = styled.div`
 
   .add-button {
     width: 6rem;
-    padding: .5rem;
-    border-radius: .5rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
     border: var(--git-icon) 1px solid;
     background-color: transparent;
     color: var(--git-icon);
@@ -35,4 +36,4 @@ const EventSubmitButtonStyle = styled.div`
     cursor: pointer;
     background-color: var(--add-border);
   }
-`
+`;

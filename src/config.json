@@ -1,9 +1,12 @@
 {
   "GITHUB_LINK" : "https://github.com/Seeru-crypto/bDay_front-end",
+  "PROJECT_COMPOUND_LINK" : "https://lucid.app/documents/view/479ee7b5-6bb0-473d-8f9a-88af65fd0954",
+  "DATER_ARCHITECTURE_DIAGRAM" : "https://lucid.app/lucidchart/19a5194e-e034-475d-ab91-c0d2da1c20f0/edit?invitationId=inv_4456f0a3-a778-4d04-9527-c0dc326dfdf1&page=0_0#",
   "LINKEDIN_LINK": "https://www.linkedin.com/in/fred-oja-8749b1182/",
   "SESSION_STORAGE_LABEL": "isLightMode",
   "DESC_MAX_LEN": 120,
   "EMAIL_REGEX": "^[\\w!#$%&’*+\\/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+\\/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$",
+  "PHONE_NR_REGEX": "\\+[0-9]{1,3} [0-9]{7,8}",
   "NAME_MAX_LEN": 25,
   "DAYS_NOTICE_MIN_VAL": 0,
   "DAYS_NOTICE_MAX_VAL": 90,
@@ -13,7 +16,8 @@
   "MAX_EMAIL_LENGTH": 35,
   "LABELS": {
     "REMINDER_LABEL": "Do you want reminders?",
-    "EMAIL_REMINDER_LABEL": "Enable email reminders for the system",
+    "EMAIL_REMINDER_TOOLTIP": "Enable email reminders for the system",
+    "SMS_REMINDER_TOOLTIP": "Enable SMS reminders for the system",
     "ACCOUNT_FOR_YEAR_LABEL": "Remind Annually?",
     "ACCOUNT_FOR_YEAR_TOOLTIP": "Will the reminder be sent every year or on the selected year?",
     "INVALID_FORM_ERR_HEADER": "Invalid input",
@@ -25,8 +29,11 @@
     "CONF_UPDATED_SUCCESS_MSG": "Configurations updated successfully",
     "SETTING_INVALID_EMAIL_ERROR" : "Please enter valid email address",
     "TOAST_EVENTS_DELETE_SUCCESS" : "Events successfully deleted",
-    "TOAST_SETTINGS_EMAIL_LONG_ERROR" : "Max email length is 35 chars"
+    "TOAST_SETTINGS_EMAIL_LONG_ERROR" : "Max email length is 35 chars",
+    "TOAST_SETTINGS_SMS_INCORRECT_FORMAT" : "Entered phone number is incorrect",
+    "TOAST_SETTINGS_SMS_INCORRECT_FORMAT_BODY" : "Number should follow the format +XXX 1234567"
   },
+
   "headerItems": [
     {
       "label": "Home",

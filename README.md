@@ -16,9 +16,10 @@ This is Dater front-end. It is built using React, Redux & primereact components.
 
 **OR**
 
-- Docker container:
-    -   `docker build -t dater-react-app .` at root level
-    -   `docker run -p 3000:5000 --name dater -d -t -i dater-react-app`
+For production docker run 
+    - `docker build -f Dockerfile -t dater-react-app .`
+    - `docker run -it --rm --name dater-front -p 5000:80 dater-react-app`
+
 
 ## Front-end
 
@@ -26,6 +27,7 @@ This is Dater front-end. It is built using React, Redux & primereact components.
   - [x] Heroku CI/CD
      - [x] configure env settings
      - [x] Deploy front-end
+     - [x] Deploy production ready build
   - [x] event form
       -   [x] Form UI is created
       -   [x] uses POST request
@@ -58,11 +60,9 @@ This is Dater front-end. It is built using React, Redux & primereact components.
   - [x] create a general calendar view, where ALL dates are displayed (ignore year values).
   - [x] Add proper entry and update confirmations (green thumbs up, or smth like that)
   - [x] add error handling for API requests
-  - [ ] SMS functionality
-    - [ ] add integration tests, for CRUD
-    - [ ] add sms options for creating and updating events
-    - [ ] add sms isEnabled and phone number fields to admin
-    - [ ] update Log table to handle sms specific data
+  - [x] SMS functionality
+    - [x] add sms isEnabled and phone number fields to admin
+    - [x] update Log table to handle sms specific data
   - [x] convert Bootstrap styling to Prime-react
   - [ ] Styling
       - [x] Add incorrect field specific css, to signal a field is missing or incorrectly filled. 

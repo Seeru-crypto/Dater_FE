@@ -1,108 +1,77 @@
-import styled from "styled-components";
-import {DataTable} from "primereact/datatable";
-import {Column} from "primereact/column";
-import React, {useEffect, useState} from "react";
-import "../../static/css-files/table.css"
-import {motion} from "framer-motion";
-import {adminTableTransition} from "../../static/animations/motion";
-import {Button} from "primereact/button";
-import {customStyle, idBodyStyle, idHeaderStyle, errorDescStyle} from "../event-list/event-list-style";
+import styled from 'styled-components';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import React, { useEffect, useState } from 'react';
+import '../../static/css-files/table.css';
+import { motion } from 'framer-motion';
+import { Button } from 'primereact/button';
+import { adminTableTransition } from '../../static/animations/motion';
+import { customStyle, idBodyStyle, idHeaderStyle, errorDescStyle } from '../event-list/event-list-style';
 
-const AdminLogTable = ({logs}) => {
-    const [defaultData, setDefaultData] = useState(logs);
+function AdminLogTable({ logs }) {
+  const [defaultData, setDefaultData] = useState(logs);
 
-    useEffect(() => {
-        setDefaultData(logs);
-    }, [logs])
+  useEffect(() => {
+    setDefaultData(logs);
+  }, [logs]);
 
-    const rowId = (rowData) => {
-        return (
-            <React.Fragment>
-                <p className="tooltip">
-                <Button
-                    icon='pi pi-copy'
-                    className='p-button-rounded p-button-secondary p-mr-2'
-                    onClick={() => {navigator.clipboard.writeText(rowData.id)}}
-                />
-                    <span className="tooltiptext">copy Id</span>
-                </p>
-            </React.Fragment>
-        )
-    }
+  const rowId = (rowData) => {
+    return (
+      <p className="tooltip">
+        <Button
+          icon="pi pi-copy"
+          className="p-button-rounded p-button-secondary p-mr-2"
+          onClick={() => {
+            navigator.clipboard.writeText(rowData.id);
+          }}
+        />
+        <span className="tooltiptext">copy Id</span>
+      </p>
+    );
+  };
 
-    return(
-        <AdminLogTableStyle
-            initial={adminTableTransition.initial}
-            animate={adminTableTransition.animate}
-            transition={adminTableTransition.transition}
-        >
-            <h2 className="logs-header">Logs</h2>
-            <hr className="rounded" />
-            <DataTable
-                sortField="formattedDate"
-                sortOrder={-1}
-                responsiveLayout='scroll'
-                paginatorClassName="ui-paginator"
-                paginator
-                value={defaultData}
-                emptyMessage='No logs found'
-                paginatorTemplate='CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown'
-                currentPageReportTemplate='Showing {first} to {last} of {totalRecords}'
-                rows={5}
-                rowsPerPageOptions={[5, 10, 20]}
-            >
-                <Column className='table-selector'
-                        style={customStyle}
-                        exportable={false} />
-                <Column
-                    field='sentToAddress'
-                    sortable
-                    header='Recipient'
-                    style={customStyle}
-                />
-                <Column
-                    field='formattedDate'
-                    sortable
-                    header='Date'
-                    style={customStyle}
-                />
-                <Column
-                    sortable
-                    field='initiatedBy'
-                    header='initiator'
-                    style={customStyle}
-                />
-                <Column
-                    field='schedulerValue'
-                    sortable
-                    header='poller value'
-                    style={customStyle}
-                />
-                <Column
-                    field='errorDesc'
-                    sortable
-                    header='Errors'
-                    style={errorDescStyle}
+  const rowClass = () => {
+    return {
+      'event-row-ui': true,
+    };
+  };
 
-                />
-                <Column
-                    body={rowId}
-                    header='Id'
-                    headerStyle={idHeaderStyle}
-                    bodyStyle={idBodyStyle}
-                />
-            </DataTable>
-        </AdminLogTableStyle>
-    )
-
+  return (
+    <AdminLogTableStyle initial={adminTableTransition.initial} animate={adminTableTransition.animate} transition={adminTableTransition.transition}>
+      <h2 className="logs-header">Logs</h2>
+      <hr className="rounded" />
+      <DataTable
+        sortField="formattedDate"
+        sortOrder={-1}
+        responsiveLayout="scroll"
+        paginatorClassName="ui-paginator"
+        rowClassName={rowClass}
+        paginator
+        value={defaultData}
+        emptyMessage="No logs found"
+        paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
+        rows={5}
+        rowsPerPageOptions={[5, 10, 20]}
+      >
+        <Column className="table-selector" style={customStyle} exportable={false} />
+        <Column field="sentToAddress" sortable header="Recipient" style={customStyle} />
+        <Column field="formattedDate" sortable header="Date" style={customStyle} />
+        <Column sortable field="initiatedBy" header="initiator" style={customStyle} />
+        <Column sortable field="messageType" header="type" style={customStyle} />
+        <Column field="schedulerValue" sortable header="poller value" style={customStyle} />
+        <Column field="errorDesc" sortable header="Errors" style={errorDescStyle} />
+        <Column body={rowId} header="Id" headerStyle={idHeaderStyle} bodyStyle={idBodyStyle} />
+      </DataTable>
+    </AdminLogTableStyle>
+  );
 }
 
 const AdminLogTableStyle = styled(motion.div)`
-
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+
   .rounded {
     width: 100%;
     height: 1px;
@@ -131,5 +100,5 @@ const AdminLogTableStyle = styled(motion.div)`
   .tooltip:hover .tooltiptext {
     visibility: visible;
   }
-`
-export default AdminLogTable
+`;
+export default AdminLogTable;

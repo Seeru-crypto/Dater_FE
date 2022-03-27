@@ -1,22 +1,39 @@
-import React from 'react'
-import styled from 'styled-components'
-import "../../static/css-files/form-styles.css"
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import '../../static/css-files/form-styles.css';
+import { InputText } from 'primereact/inputtext';
+import { adminSmsValidation } from '../../utils/dataValidation';
 
-const AdminSmsField = ({value, handleValue, disable}) => {
+function AdminSmsField({ value, smsHandler, isDisabled }) {
+  const [isInvalid, setIsInvalid] = useState(false);
 
-    return (
-        <AdminSmsFieldStyle>
-            <label htmlFor="phone">Enter phone nr:</label>
-            <input placeholder="123456789" disabled={true} type="tel" id="sms-number" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" />
-        </AdminSmsFieldStyle>
-    )
+  const inputvalidation = (newValue) => {
+    const res = adminSmsValidation(newValue);
+    res.result ? setIsInvalid(false) : setIsInvalid(true);
+    smsHandler(newValue);
+  };
+
+  return (
+    <AdminSmsFieldStyle>
+      <span className="p-float-label">
+        <InputText
+          id="phoneNr"
+          disabled={isDisabled}
+          className={`admin-sms-input ${isDisabled ? 'disabled' : ''} ${isInvalid ? 'invalid' : ''} `}
+          autoComplete="off"
+          value={value}
+          onChange={(e) => {
+            inputvalidation(e.target.value);
+          }}
+        />
+        <label htmlFor="phoneNr">Phone number</label>
+      </span>
+    </AdminSmsFieldStyle>
+  );
 }
 
 export default AdminSmsField;
 
 const AdminSmsFieldStyle = styled.div`
   width: 10rem;
-  .sms-number::placeholder{
-    color:gray;
-  }
-`
+`;

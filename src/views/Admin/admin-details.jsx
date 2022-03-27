@@ -1,57 +1,60 @@
-import styled from "styled-components";
-import React, {useEffect, useState} from "react";
-import {checkEvents} from "../../slicers/eventSlice";
-import {getLogs} from "../../slicers/adminSlice";
-import config from "../../config.json";
-import {useAppDispatch} from "../../store";
+import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import { checkEvents } from '../../slicers/eventSlice';
+import { getLogs } from '../../slicers/adminSlice';
+import config from '../../config.json';
+import { useAppDispatch } from '../../store';
 
-const AdminDetails = ({logs, pollerValue, currentMailValue}) => {
-    const dispatch = useAppDispatch()
-    const [timer, setTimer] = useState(null);
-    const [lastMailTime, setLastMailTime] = useState("");
+function AdminDetails({ logs, pollerValue, smsTo, currentPhoneNumber }) {
+  const dispatch = useAppDispatch();
+  const [timer, setTimer] = useState(null);
+  const [lastMailTime, setLastMailTime] = useState('');
 
-    const eventCheckHandler = () => {
-        if (timer) clearTimeout(timer);
-        const timeOut = setTimeout(() => checkEventAction(), config.HTTP_INTERVAL_VALUE);
-        setTimer(timeOut);
+  const eventCheckHandler = () => {
+    if (timer) clearTimeout(timer);
+    const timeOut = setTimeout(() => checkEventAction(), config.HTTP_INTERVAL_VALUE);
+    setTimer(timeOut);
+  };
+
+  const checkEventAction = async () => {
+    const res = await dispatch(checkEvents());
+    if (res.meta.requestStatus === 'fulfilled') dispatch(getLogs());
+  };
+
+  useEffect(() => {
+    if (logs.length > 1) {
+      const lastElementDateTime = new Date(logs[logs.length - 1].dateCreated);
+      const formattedDate = new Date(lastElementDateTime).toLocaleString('en-GB');
+      setLastMailTime(formattedDate);
     }
+  }, [logs]);
 
-    const checkEventAction = async () => {
-        const res = await dispatch(checkEvents())
-        if (res.meta.requestStatus === 'fulfilled') dispatch(getLogs());
-    };
+  const getSentMessageCounter = (keyword) => {
+    return logs.filter((log) => log.messageType === keyword).length;
+  };
 
-    useEffect(() => {
-        if (logs.length > 1) {
-            const lastElementDateTime = new Date(logs[logs.length - 1].dateCreated);
-            const formattedDate = new Date(lastElementDateTime).toLocaleString("en-GB")
-            setLastMailTime(formattedDate)
-        }
-    }, [logs])
+  return (
+    <AdminDetailsStyle>
+      <div className="details-header">
+        <h3>Details</h3>
+      </div>
+      <div className="details-body">
+        <p>Current polling rate: {pollerValue} min</p>
+        <p>Emails sent to date: {getSentMessageCounter('mail')}</p>
+        <p>sms notifications sent to date: {getSentMessageCounter('sms')}</p>
+        <p>Last event sent: {lastMailTime}</p>
+        <p>Currently set email: {smsTo}</p>
+        <p>Currently set phone number: {currentPhoneNumber}</p>
+      </div>
 
-    return (
-        <AdminDetailsStyle>
-            <div className="details-header">
-                <h5>Details</h5></div>
-            <div className="details-body">
-                <p>Current polling rate: {pollerValue} min</p>
-                <p>Emails sent to date: {logs.length}</p>
-                <p>Last event sent: {lastMailTime}</p>
-                <p>Currently set email: {currentMailValue}</p>
-            </div>
-
-            <div className="details-footer">
-                <button onClick={() => eventCheckHandler()}>
-                    <i className='pi pi-envelope p-px-2'/>
-                    <span>
-                    Check dates!
-                    </span>
-                </button>
-            </div>
-
-        </AdminDetailsStyle>
-    );
-
+      <div className="details-footer">
+        <button type="submit" onClick={() => eventCheckHandler()}>
+          <i className="pi pi-envelope p-px-2" />
+          <span>Check dates!</span>
+        </button>
+      </div>
+    </AdminDetailsStyle>
+  );
 }
 
 const AdminDetailsStyle = styled.div`
@@ -65,10 +68,13 @@ const AdminDetailsStyle = styled.div`
   margin-left: 2rem;
   padding: 1rem;
 
-  .details-body{
-    font-size: 1rem;
+  .details-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 1vw;
   }
-  
+
   .details-footer {
     display: flex;
     height: 100%;
@@ -76,8 +82,8 @@ const AdminDetailsStyle = styled.div`
     justify-content: center;
 
     button {
-      padding: .5rem;
-      border-radius: .5rem;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
       border: black 1px solid;
       background-color: transparent;
       color: white;
@@ -93,5 +99,5 @@ const AdminDetailsStyle = styled.div`
       background-color: var(--add-border);
     }
   }
-`
-export default AdminDetails
+`;
+export default AdminDetails;
