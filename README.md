@@ -16,13 +16,9 @@ This is Dater front-end. It is built using React, Redux & primereact components.
 
 **OR**
 
-- Docker container:
-    - `docker build -t dater-react-app .` at root level
-    - `docker run -p 3000:5000 --name dater -d -t -i dater-react-app`
-
 For production docker run 
-    - `docker build -f Dockerfile.prod -t sample:prod .`
-    - `docker run -it --rm -p 1337:80 sample:prod`
+    - `docker build -f Dockerfile -t dater-react-app .`
+    - `docker run -it --rm --name dater-front -p 5000:80 dater-react-app`
 
 
 ## Front-end
@@ -31,6 +27,7 @@ For production docker run
   - [x] Heroku CI/CD
      - [x] configure env settings
      - [x] Deploy front-end
+     - [x] Deploy production ready build
   - [x] event form
       -   [x] Form UI is created
       -   [x] uses POST request
