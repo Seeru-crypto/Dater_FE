@@ -27,6 +27,7 @@ For production docker run
   - [x] Heroku CI/CD
      - [x] configure env settings
      - [x] Deploy front-end
+     - [x] Deploy production ready build
   - [x] event form
       -   [x] Form UI is created
       -   [x] uses POST request
