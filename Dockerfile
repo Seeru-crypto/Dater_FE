@@ -1,4 +1,8 @@
 FROM node:14.1-alpine AS builder
+ARG PORT
+ARG REACT_APP_BACK_END_URL
+ARG REACT_APP_SWAGGER_LINK
+ARG REACT_APP_MAIL_EXAMPLE
 
 WORKDIR /opt/web
 COPY package.json package-lock.json ./
@@ -7,7 +11,13 @@ RUN npm install
 ENV PATH="./node_modules/.bin:$PATH"
 
 COPY . ./
-RUN npm run build
+RUN REACT_APP_BACK_END_URL=${REACT_APP_BACK_END_URL} \
+  PORT=${PORT} \
+  REACT_APP_SWAGGER_LINK=${REACT_APP_SWAGGER_LINK} \
+  REACT_APP_MAIL_EXAMPLE=${REACT_APP_MAIL_EXAMPLE} \
+  npm run build
+
+#RUN npm run build
 
 FROM nginx:1.17-alpine
 RUN apk --no-cache add curl
