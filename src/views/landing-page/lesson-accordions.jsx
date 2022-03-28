@@ -51,9 +51,14 @@ function LessonAccordions() {
                   ))}
                 </AccordionTab>
                 <AccordionTab header="Hosting">
-                  {content.HOSTING.map((row) => (
+                  {content.HOSTING.map((row, index) => (
                     <p className="paragrapf" key={row}>
                       {row}
+                      {index === 4 && (
+                        <a className="anchor-link" href={process.env.REACT_APP_KANBAN_LINK} rel="noreferrer" target="_blank">
+                          kanban board.
+                        </a>
+                      )}
                     </p>
                   ))}
                 </AccordionTab>

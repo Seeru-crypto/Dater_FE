@@ -34,6 +34,6 @@
     "for front-end production: I used Docker with a NGINX server, to build and serve the app via Heroku",
     "Finally learned how to properly manage env variables, PORTS, URLS etc, when dealing with local vs dev environments",
     "Setting up automatic deploy pipelines was very easy.",
-    "For ticket/ issue managment I used the github kanban board."
+    "For ticket/ issue managment I used the github "
   ]
 }
