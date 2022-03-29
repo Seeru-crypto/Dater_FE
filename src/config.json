@@ -1,7 +1,5 @@
 {
   "GITHUB_LINK" : "https://github.com/Seeru-crypto/bDay_front-end",
-  "PROJECT_COMPOUND_LINK" : "https://lucid.app/documents/view/479ee7b5-6bb0-473d-8f9a-88af65fd0954",
-  "DATER_ARCHITECTURE_DIAGRAM" : "https://lucid.app/lucidchart/19a5194e-e034-475d-ab91-c0d2da1c20f0/edit?invitationId=inv_4456f0a3-a778-4d04-9527-c0dc326dfdf1&page=0_0#",
   "LINKEDIN_LINK": "https://www.linkedin.com/in/fred-oja-8749b1182/",
   "SESSION_STORAGE_LABEL": "isLightMode",
   "DESC_MAX_LEN": 120,
@@ -13,6 +11,7 @@
   "CALENDAR_MIN_DATE": "1960-01-01",
   "CALENDAR_MAX_DATE": "2040-12-30",
   "HTTP_INTERVAL_VALUE": 5000,
+  "TOAST_NOTIFICATION_LENGTH": 2500,
   "MAX_EMAIL_LENGTH": 35,
   "LABELS": {
     "REMINDER_LABEL": "Do you want reminders?",
@@ -33,7 +32,6 @@
     "TOAST_SETTINGS_SMS_INCORRECT_FORMAT" : "Entered phone number is incorrect",
     "TOAST_SETTINGS_SMS_INCORRECT_FORMAT_BODY" : "Number should follow the format +XXX 1234567"
   },
-
   "headerItems": [
     {
       "label": "Home",

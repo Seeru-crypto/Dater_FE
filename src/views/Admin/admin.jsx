@@ -23,6 +23,8 @@ function Admin() {
     if (error !== '') {
       const localTimer = setInterval(() => {
         dispatch(getAdminData());
+        dispatch(getLogs());
+        dispatch(getPollerData());
       }, config.HTTP_INTERVAL_VALUE);
       return () => clearTimeout(localTimer);
     }

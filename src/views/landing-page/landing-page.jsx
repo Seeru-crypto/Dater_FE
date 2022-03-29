@@ -20,8 +20,8 @@ function LandingPage() {
   const dispatch = useAppDispatch();
   return (
     <LandingPageStyle>
+      <h1 className="title">Welcome to Dater!</h1>
       <div className="main-div">
-        <h1 className="title">Welcome to Dater!</h1>
         <div className="main-content">
           <div className="first content-row">
             <motion.div
@@ -238,6 +238,35 @@ const LandingPageStyle = styled.div`
   .main-content {
     display: flex;
     flex-direction: column;
-    margin-left: 3rem;
+  }
+
+  @media (max-width: 960px) {
+    .content-row {
+      flex-direction: column-reverse;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .second.content-row {
+      align-items: center;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    article.main-box .tech {
+      width: 90%;
+    }
+
+    .main-box {
+      width: 100%;
+      flex-direction: column;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &.about,
+      &.tech,
+      &.lessons {
+        width: 90%;
+      }
+    }
   }
 `;
