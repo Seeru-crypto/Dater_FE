@@ -30,4 +30,12 @@ const AdminSmsCbStyle = styled.div`
   .admin-reminder-icon {
     padding-left: 0.5rem;
   }
+
+  @media (max-width: 960px) {
+    .p-field-checkbox {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
 `;

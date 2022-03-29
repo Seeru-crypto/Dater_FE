@@ -177,5 +177,29 @@ const AdminSettingsStyle = styled(motion.div)`
   span .invalid {
     border: var(--err) 1px solid;
   }
+
+  @media (max-width: 960px) {
+    width: 100%;
+
+    .admin-email-reminder,
+    .admin-email-field,
+    .admin-sms-field,
+    .admin-sms-cb {
+      padding: 0.5rem;
+    }
+
+    .email-group {
+      padding-bottom: 1rem;
+    }
+    .sms-group,
+    .email-group {
+      width: 100%;
+      border-bottom: solid 1px gray;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
 `;
 export default AdminSettings;

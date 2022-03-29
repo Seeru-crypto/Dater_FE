@@ -149,6 +149,7 @@ function EventTable(props) {
         sortField="name"
         sortOrder={1}
         responsiveLayout="scroll"
+        size="small"
         selection={selectedEvents}
         onSelectionChange={(e) => setSelectedEvents(e.value)}
         paginator

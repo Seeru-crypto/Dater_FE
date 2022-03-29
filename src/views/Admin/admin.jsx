@@ -110,6 +110,18 @@ const AdminStyle = styled.div`
     flex-direction: column;
     align-items: center;
   }
+
+  @media (max-width: 960px) {
+    .first-row {
+      width: 100%;
+      gap: 1rem;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      padding: 1rem 0 2rem 0;
+    }
+  }
 `;
 
 export default Admin;

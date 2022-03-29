@@ -30,6 +30,7 @@
 }
 
 .event-row-ui:hover{
+    min-width: 1000px;
     border-left: var(--text) 10px solid;
 }
 
