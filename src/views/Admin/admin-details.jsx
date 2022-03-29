@@ -107,9 +107,6 @@ const AdminDetailsStyle = styled.div`
     align-items: center;
     gap: 1rem;
     width: 100%;
-    .details-body {
-      font-size: 12px;
-    }
   }
 `;
 export default AdminDetails;

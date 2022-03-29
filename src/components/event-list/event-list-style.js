@@ -1,9 +1,17 @@
 export const customStyle = {
   color: 'var(--text)',
   backgroundColor: 'var(--bkg)',
-  overflow: 'none',
-  overflowWrap: 'break-word',
-  minWidth: '8rem',
+  textAlign: 'center',
+  overflow: 'visible',
+  minWidth: '10rem',
+};
+
+export const adminCustomStyle = {
+  color: 'var(--text)',
+  backgroundColor: 'var(--bkg)',
+  textAlign: 'center',
+  overflow: 'visible',
+  minWidth: '10rem',
 };
 
 export const bodyStyle = {

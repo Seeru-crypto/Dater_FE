@@ -6,7 +6,7 @@ import '../../static/css-files/table.css';
 import { motion } from 'framer-motion';
 import { Button } from 'primereact/button';
 import { adminTableTransition } from '../../static/animations/motion';
-import { customStyle, idBodyStyle, idHeaderStyle, errorDescStyle } from '../event-list/event-list-style';
+import { idBodyStyle, idHeaderStyle, errorDescStyle, adminCustomStyle } from '../event-list/event-list-style';
 
 function AdminLogTable({ logs }) {
   const [defaultData, setDefaultData] = useState(logs);
@@ -54,12 +54,12 @@ function AdminLogTable({ logs }) {
         rows={5}
         rowsPerPageOptions={[5, 10, 20]}
       >
-        <Column className="table-selector" style={customStyle} exportable={false} />
-        <Column field="sentToAddress" sortable header="Recipient" style={customStyle} />
-        <Column field="formattedDate" sortable header="Date" style={customStyle} />
-        <Column sortable field="initiatedBy" header="initiator" style={customStyle} />
-        <Column sortable field="messageType" header="type" style={customStyle} />
-        <Column field="schedulerValue" sortable header="poller value" style={customStyle} />
+        <Column className="table-selector" style={adminCustomStyle} exportable={false} />
+        <Column field="sentToAddress" sortable header="Recipient" style={adminCustomStyle} />
+        <Column field="formattedDate" sortable header="Date" style={adminCustomStyle} />
+        <Column sortable field="initiatedBy" header="initiator" style={adminCustomStyle} />
+        <Column sortable field="messageType" header="type" style={adminCustomStyle} />
+        <Column field="schedulerValue" sortable header="poller value" style={adminCustomStyle} />
         <Column field="errorDesc" sortable header="Errors" style={errorDescStyle} />
         <Column body={rowId} header="Id" headerStyle={idHeaderStyle} bodyStyle={idBodyStyle} />
       </DataTable>

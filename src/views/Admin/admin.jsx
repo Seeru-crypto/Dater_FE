@@ -121,6 +121,14 @@ const AdminStyle = styled.div`
       display: flex;
       padding: 1rem 0 2rem 0;
     }
+
+    .second-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 800px;
+      font-size: 10px;
+    }
   }
 `;
 

@@ -150,4 +150,8 @@ const LessonAccordionsStyle = styled.div`
       background-color: var(--details-bkg);
     }
   }
+
+  @media (max-width: 960px) {
+    width: 100%;
+  }
 `;
