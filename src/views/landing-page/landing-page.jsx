@@ -56,6 +56,7 @@ function LandingPage() {
                   </a>{' '}
                 </p>
                 <p className="heroku-warning">The initial load time might be longer than usual due to Heroku booting application up.</p>
+                <p className="heroku-warning">Notice: Due to google changing their email security policy, the email functionality is disabled.</p>
               </div>
             </motion.article>
           </div>
