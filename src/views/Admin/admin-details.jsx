@@ -106,7 +106,7 @@ const AdminDetailsStyle = styled.div`
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    width: 100%;
+    width: 50%;
   }
 `;
 export default AdminDetails;

@@ -179,7 +179,7 @@ const AdminSettingsStyle = styled(motion.div)`
   }
 
   @media (max-width: 960px) {
-    width: 100%;
+    width: 90%;
 
     .admin-email-reminder,
     .admin-email-field,

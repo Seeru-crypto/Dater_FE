@@ -40,10 +40,12 @@ function AdminLogTable({ logs }) {
     <AdminLogTableStyle initial={adminTableTransition.initial} animate={adminTableTransition.animate} transition={adminTableTransition.transition}>
       <h2 className="logs-header">Logs</h2>
       <hr className="rounded" />
-      <DataTable
+      <DataTableStyle
         sortField="formattedDate"
         sortOrder={-1}
-        responsiveLayout="scroll"
+        responsiveLayout="stack"
+        breakpoint="750px"
+        size="normal"
         paginatorClassName="ui-paginator"
         rowClassName={rowClass}
         paginator
@@ -62,10 +64,14 @@ function AdminLogTable({ logs }) {
         <Column field="schedulerValue" sortable header="poller value" style={adminCustomStyle} />
         <Column field="errorDesc" sortable header="Errors" style={errorDescStyle} />
         <Column body={rowId} header="Id" headerStyle={idHeaderStyle} bodyStyle={idBodyStyle} />
-      </DataTable>
+      </DataTableStyle>
     </AdminLogTableStyle>
   );
 }
+
+const DataTableStyle = styled(DataTable)`
+  max-width: 100%;
+`;
 
 const AdminLogTableStyle = styled(motion.div)`
   display: flex;

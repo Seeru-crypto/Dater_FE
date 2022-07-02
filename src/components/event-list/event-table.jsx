@@ -190,8 +190,8 @@ export default memo(EventTable);
 const ToolbarStyles = styled(Toolbar)`
   // class ToolbarStyles extends Toolbar
   @media (max-width: 425px) {
-    .someDropDown {
-      max-widht: 80%;
+    .column-selector {
+      max-width: 80%;
     }
 
     .p-toolbar-group-left,
@@ -201,6 +201,7 @@ const ToolbarStyles = styled(Toolbar)`
 
     .p-toolbar-group-left {
       margin-bottom: 1.5rem;
+      flex-flow: column wrap;
     }
   }
 `;

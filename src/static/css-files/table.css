@@ -36,12 +36,11 @@
 
 .column-selector{
     width: 20em;
-    margin-left: .5em;
 }
 
 @media (max-width: 960px) {
     .p-multiselect{
-        /*width: 10rem;*/
+        width: 10rem;
     }
 
     .p-datatable-wrapper {

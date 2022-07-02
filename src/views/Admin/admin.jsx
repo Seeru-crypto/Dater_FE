@@ -37,7 +37,7 @@ function Admin() {
       dispatch(getLogs());
       dispatch(getPollerData());
     }
-  }, []);
+  }, [configId, dispatch]);
 
   useEffect(() => {
     if (logs) {
@@ -126,7 +126,6 @@ const AdminStyle = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      min-width: 800px;
       font-size: 10px;
     }
   }
