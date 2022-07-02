@@ -3,7 +3,6 @@ export const customStyle = {
   backgroundColor: 'var(--bkg)',
   textAlign: 'center',
   overflow: 'visible',
-  minWidth: '10rem',
 };
 
 export const adminCustomStyle = {

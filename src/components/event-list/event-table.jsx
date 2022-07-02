@@ -9,6 +9,7 @@ import { Toolbar } from 'primereact/toolbar';
 import { Toast } from 'primereact/toast';
 import { confirmDialog } from 'primereact/confirmdialog';
 import { MultiSelect } from 'primereact/multiselect';
+import styled from 'styled-components';
 import { EventDetails } from '../../views/event-list/event-details';
 import '../../static/css-files/table.css';
 import { useAppDispatch } from '../../store';
@@ -144,7 +145,7 @@ function EventTable(props) {
   return (
     <motion.div initial={eventList.initial} animate={eventList.animate} transition={eventList.transition}>
       <Toast ref={toast} />
-      <Toolbar style={customStyle} left={leftToolbar} right={rightToolbar} />
+      <ToolbarStyles style={customStyle} left={leftToolbar} right={rightToolbar} />
       <DataTable
         sortField="name"
         sortOrder={1}
@@ -183,4 +184,23 @@ function EventTable(props) {
     </motion.div>
   );
 }
+
 export default memo(EventTable);
+
+const ToolbarStyles = styled(Toolbar)`
+  // class ToolbarStyles extends Toolbar
+  @media (max-width: 425px) {
+    .someDropDown {
+      max-widht: 80%;
+    }
+
+    .p-toolbar-group-left,
+    .p-toolbar-group-right {
+      flex-flow: column wrap;
+    }
+
+    .p-toolbar-group-left {
+      margin-bottom: 1.5rem;
+    }
+  }
+`;

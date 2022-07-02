@@ -2,15 +2,15 @@ import http from './http.service';
 
 class AdminService {
   getAdmin() {
-    return http.get('/api/settings');
+    return http.get('/api/setting');
   }
 
   updateAdmin(dto) {
-    return http.put(`/api/settings/${dto.data.id}?pin=${dto.pin}`, dto.data);
+    return http.put(`/api/setting/${dto.data.id}?pin=${dto.pin}`, dto.data);
   }
 
   getLogs() {
-    return http.get('/api/logs');
+    return http.get('/api/log');
   }
 
   getPollerValue() {

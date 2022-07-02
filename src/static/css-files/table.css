@@ -41,10 +41,10 @@
 
 @media (max-width: 960px) {
     .p-multiselect{
-        width: 10rem;
+        /*width: 10rem;*/
     }
 
     .p-datatable-wrapper {
-        min-width: 800px;
+        /*min-width: 800px;*/
     }
 }

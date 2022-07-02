@@ -32,9 +32,8 @@
   --table-hover-bg: #3da9fc;
   --disabled-btn-color: rgb(84, 84, 84);
   --link-color: #CCC
-
-
 }
+
 .disabled{
   color:var(--disabled-btn-color) !important;
 }
