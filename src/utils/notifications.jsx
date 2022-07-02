@@ -1,26 +1,28 @@
-export const positiveNotification = (toast, summary, messageBody) => {
+import config from '../config.json';
+
+export const positiveNotification = (toast, messageHeader, messageBody) => {
   return toast.current.show({
     severity: 'success',
-    summary,
+    summary: messageHeader,
     detail: messageBody,
-    life: 5000,
+    life: config.TOAST_NOTIFICATION_LENGTH,
   });
 };
 
-export const infoNotification = (toast, summary, messageBody) => {
+export const infoNotification = (toast, messageHeader, messageBody) => {
   return toast.current.show({
     severity: 'info',
-    summary,
+    summary: messageHeader,
     detail: messageBody,
-    life: 5000,
+    life: config.TOAST_NOTIFICATION_LENGTH,
   });
 };
 
-export const errorNotification = (toast, summary, messageBody) => {
+export const errorNotification = (toast, messageHeader, messageBody) => {
   return toast.current.show({
     severity: 'error',
-    summary,
+    summary: messageHeader,
     detail: messageBody,
-    life: 5000,
+    life: config.TOAST_NOTIFICATION_LENGTH,
   });
 };

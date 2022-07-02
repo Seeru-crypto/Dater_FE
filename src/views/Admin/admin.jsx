@@ -23,6 +23,8 @@ function Admin() {
     if (error !== '') {
       const localTimer = setInterval(() => {
         dispatch(getAdminData());
+        dispatch(getLogs());
+        dispatch(getPollerData());
       }, config.HTTP_INTERVAL_VALUE);
       return () => clearTimeout(localTimer);
     }
@@ -35,7 +37,7 @@ function Admin() {
       dispatch(getLogs());
       dispatch(getPollerData());
     }
-  }, []);
+  }, [configId, dispatch]);
 
   useEffect(() => {
     if (logs) {
@@ -107,6 +109,25 @@ const AdminStyle = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  @media (max-width: 960px) {
+    .first-row {
+      width: 100%;
+      gap: 1rem;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      padding: 1rem 0 2rem 0;
+    }
+
+    .second-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 10px;
+    }
   }
 `;
 

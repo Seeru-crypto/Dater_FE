@@ -72,7 +72,7 @@ const AdminDetailsStyle = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    font-size: 1vw;
+    font-size: 14px;
   }
 
   .details-footer {
@@ -98,6 +98,15 @@ const AdminDetailsStyle = styled.div`
       cursor: pointer;
       background-color: var(--add-border);
     }
+  }
+
+  @media (max-width: 960px) {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 50%;
   }
 `;
 export default AdminDetails;

@@ -25,7 +25,7 @@
     "Spring boot has very good integration with MongoDB, which initially made it hard to understand how data moved inside spring.",
     "Since the business data structure is comparatively simple, the DB schema was simple as well. Created 3 collections: events, settings and logs",
     "Every action is logged in server and all sent out mails and sms messages are also logged in the database",
-    "First time using No-SQL bases, good to know they are on the simpler side",
+    "First time using NoSQL databases, good to know they are on the simpler side",
     "Using MongoDb atlas was very straight forward... reading the manual helped",
     "All sensitive data is obfuscated, if it is sent outside back-end (emails and phone numbers)"
   ],

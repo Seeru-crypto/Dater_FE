@@ -22,4 +22,11 @@ const CheckBoxStyle = styled.div`
     padding-left: 0.5rem;
     color: var(--text);
   }
+
+  @media (max-width: 960px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
 `;
