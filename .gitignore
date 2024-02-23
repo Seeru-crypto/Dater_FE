@@ -25,6 +25,6 @@ yarn-error.log*
 
 /.vscode
 /.idea
-build
+./build
 
 Dater_FE2.iml
